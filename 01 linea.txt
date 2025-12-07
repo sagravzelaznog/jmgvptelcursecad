@@ -1,0 +1,137 @@
+==================================================
+EJERCICIOS: TRAZADO DE LÍNEAS EN AUTOCAD
+==================================================
+
+El comando LINEA (o L en la línea de comandos) es el punto de partida de todo dibujo en AutoCAD. 
+Aprenderás a especificar puntos mediante Coordenadas Absolutas, Relativas y Polares.
+
+--------------------------------------------------
+I. MÉTODOS DE TRAZADO (2 EJEMPLOS POR MÉTODO)
+--------------------------------------------------
+
+Método 1: Coordenadas Absolutas (X, Y)
+
+Define cada punto con relación al origen fijo (0,0) del sistema de coordenadas.
+
+Ejemplo 1.1: Cuadrado Básico en Origen
+Instrucciones: Dibuja un cuadrado de 20x20 unidades comenzando en (0,0).
+1. Activa el comando LINEA (L).
+2. Punto 1 (Origen): 0,0
+3. Punto 2 (Derecha): 20,0
+4. Punto 3 (Arriba): 20,20
+5. Punto 4 (Izquierda): 0,20
+6. Punto 5 (Cerrar): 0,0 (o usa la opción CERRAR / CLOSE)
+
+Ejemplo 1.2: Triángulo Flotante
+Instrucciones: Dibuja un triángulo en el cuadrante positivo (lejos del origen).
+1. Activa el comando LINEA (L).
+2. Punto 1: 50,30
+3. Punto 2: 75,30
+4. Punto 3: 60,55
+5. Cierra la figura (C o 50,30).
+
+---
+
+Método 2: Coordenadas Relativas (@DX, DY)
+
+Define el siguiente punto con respecto al ÚLTIMO punto introducido (Delta X, Delta Y). Formato: @DX,DY
+
+Ejemplo 2.1: Marco Rectangular
+Instrucciones: Dibuja un rectángulo de 15x8 unidades.
+1. Activa el comando LINEA (L).
+2. Primer Punto (Ejemplo, un punto cualquiera): 10,10
+3. Derecha (DX=15, DY=0): @15,0
+4. Arriba (DX=0, DY=8): @0,8
+5. Izquierda (DX=-15, DY=0): @-15,0
+6. Abajo (DX=0, DY=-8): @0,-8
+
+Ejemplo 2.2: Forma de "Z"
+Instrucciones: Dibuja una línea de 5 unidades a la derecha, 5 hacia abajo y 5 a la izquierda.
+1. Activa el comando LINEA (L).
+2. Primer Punto: 40,40
+3. Segmento 1: @5,0
+4. Segmento 2: @0,-5
+5. Segmento 3: @-5,0
+
+---
+
+Método 3: Coordenadas Polares (@Distancia<Ángulo)
+
+Define el siguiente punto con la distancia y el ángulo con respecto al punto anterior. Formato: @Distancia<Ángulo
+
+Ejemplo 3.1: Línea Inclinada Simple
+Instrucciones: Dibuja una línea de 12 unidades a 30 grados.
+1. Activa el comando LINEA (L).
+2. Primer Punto: 10,10
+3. Segmento 1: @12<30
+
+Ejemplo 3.2: Flecha Invertida (uso de ángulos)
+Instrucciones: Dibuja una línea de 10 unidades a 90 grados (vertical) y luego una línea de 5 unidades a 225 grados (diagonal inferior izquierda).
+1. Activa el comando LINEA (L).
+2. Primer Punto: 50,50
+3. Segmento 1 (Vertical): @10<90
+4. Segmento 2 (Diagonal): @5<225
+
+--------------------------------------------------
+II. ACTIVIDADES SUGERIDAS (SOLUCIÓN OCULTA)
+--------------------------------------------------
+
+ACTIVIDAD 1: El Lote de Terreno Irregular (Combinación Absoluta y Polar)
+
+Objetivo: Dibujar un contorno que combina la precisión de un punto conocido con una medida angular.
+Instrucciones:
+1. Activa el comando LINEA (L).
+2. Punto A (Absoluto): Inicia en el origen 0,0.
+3. Lado B (Absoluto): Termina en 40,0.
+4. Lado C (Polar): Desde B, traza una línea de 15 unidades a un ángulo de 120 grados.
+5. Lado D (Cerrar): Cierra la figura volviendo al origen (0,0) usando la opción C.
+
+<details>
+<summary>Ver Solución (Coordenada final del Lado C)</summary>
+
+El Lado C debe terminar en el punto (32.5, 12.99).
+(Calculado a partir de B(40,0): X = 40 + 15*cos(120°) = 40 - 7.5 = 32.5. Y = 0 + 15*sin(120°) ≈ 12.99).
+</details>
+
+---
+
+ACTIVIDAD 2: El Soporte en "L" con Bisel (Combinación Relativa y Polar)
+
+Objetivo: Dibujar un soporte con una sección recta y un bisel (chaflán) definido por un ángulo.
+Instrucciones:
+1. Activa el comando LINEA (L).
+2. Primer Punto: 10,50
+3. Segmento 1 (Recto): 5 unidades a la derecha (Relativa).
+4. Segmento 2 (Bisel): 7 unidades a 315 grados (Polar, diagonal inferior derecha).
+5. Segmento 3 (Recto): 2 unidades a la izquierda (Relativa).
+6. Segmento 4 (Cerrar): Cierra la forma con la opción C.
+
+<details>
+<summary>Ver Solución (Longitud y Ángulo del Segmento de Cierre)</summary>
+
+El comando C (Cerrar) trazará la línea desde el final del Segmento 3 (10.95, 45.05) hasta el punto inicial (10,50). La longitud es de 5.06 unidades a un ángulo de 99.8 grados.
+</details>
+
+--------------------------------------------------
+III. RETOS DE COMPRENSIÓN (3 RETOS)
+--------------------------------------------------
+
+RETO 1: El Círculo de Coordenadas
+Dibuja un cuadrado de 10x10 usando **solo** Coordenadas Absolutas. A continuación, dibuja un segundo cuadrado idéntico usando **solo** Coordenadas Relativas, de modo que el segundo cuadrado esté pegado al lado derecho del primero.
+Pista: Necesitarás calcular la posición absoluta del inicio del segundo cuadrado.
+
+---
+
+RETO 2: El Perfil a 45 Grados
+Dibuja un perfil cerrado de 4 segmentos, comenzando en (0,0), con las siguientes especificaciones:
+1. Segmento 1: 8 unidades a 0 grados.
+2. Segmento 2: 5 unidades a 135 grados.
+3. Segmento 3: 5 unidades a 225 grados.
+4. Segmento 4: Cerrar (C).
+Verifica: ¿La figura resultante es un trapezoide?
+
+---
+
+RETO 3: La Línea en el Extremo
+Dibuja una línea de 5 unidades de largo en cualquier lugar del espacio modelo. A continuación, inicia una **nueva línea** que empiece **exactamente** en el punto final de la primera línea y mida 10 unidades de largo en una dirección **opuesta y 180 grados**.
+Pista: Este reto requiere usar la ayuda de la **Referencia a Objeto (SNAP)** y el **Comando Polar** de manera combinada, sin ingresar ninguna coordenada manual.

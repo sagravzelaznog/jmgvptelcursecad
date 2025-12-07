@@ -1,0 +1,145 @@
+==================================================
+EJERCICIOS: TRAZADO DE RECTÁNGULOS EN AUTOCAD
+==================================================
+
+El comando RECTANG (o REC) permite dibujar rectángulos de forma rápida y eficiente. A diferencia de trazar cuatro líneas, este comando crea una sola polilínea cerrada.
+
+--------------------------------------------------
+I. MÉTODOS DE TRAZADO (2 EJEMPLOS POR MÉTODO)
+--------------------------------------------------
+
+Método 1: Dimensiones (Dimensión, D)
+
+Este es el método más común. Se especifica la esquina inicial y luego la longitud (eje X) y la anchura (eje Y).
+
+Ejemplo 1.1: Rectángulo Básico en el Origen
+Instrucciones: Dibuja un rectángulo de 15 unidades de largo (X) y 8 unidades de ancho (Y), comenzando en (0,0).
+1. Activa el comando RECTANG (REC).
+2. Especifica la primera esquina: 0,0
+3. Escribe D para seleccionar la opción Dimensiones.
+4. Especifica la longitud (X): 15
+5. Especifica la anchura (Y): 8
+6. Haz clic para indicar la dirección (Ej: cuadrante superior derecho).
+
+Ejemplo 1.2: Rectángulo Flotante con Diámetro
+Instrucciones: Dibuja un rectángulo de 10x20 unidades comenzando en (30,5).
+1. Activa el comando RECTANG (REC).
+2. Especifica la primera esquina: 30,5
+3. Escribe D (Dimensiones).
+4. Especifica la longitud (X): 10
+5. Especifica la anchura (Y): 20
+6. Haz clic para indicar la dirección (Ej: cuadrante superior derecho).
+
+---
+
+Método 2: Área (A)
+
+Se especifica el área total del rectángulo y luego se proporciona la longitud o la anchura para que AutoCAD calcule automáticamente la dimensión restante.
+
+Ejemplo 2.1: Rectángulo por Área y Longitud
+Instrucciones: Dibuja un rectángulo con un área de 50 unidades, donde el lado X (longitud) mide 10 unidades.
+1. Activa el comando RECTANG (REC).
+2. Especifica la primera esquina: 0,0
+3. Escribe A para seleccionar la opción Área.
+4. Especifica el área: 50
+5. Escribe L para seleccionar la opción Longitud (para especificar el lado X).
+6. Especifica la longitud (X): 10
+7. Haz clic para indicar la dirección. (AutoCAD calcula que Y debe ser 5).
+
+Ejemplo 2.2: Rectángulo por Área y Anchura
+Instrucciones: Dibuja un rectángulo con un área de 144 unidades, donde el lado Y (anchura) mide 9 unidades.
+1. Activa el comando RECTANG (REC).
+2. Especifica la primera esquina: 50,50
+3. Escribe A (Área).
+4. Especifica el área: 144
+5. Escribe W para seleccionar la opción Anchura (Width, para especificar el lado Y).
+6. Especifica la anchura (Y): 9
+7. Haz clic para indicar la dirección. (AutoCAD calcula que X debe ser 16).
+
+---
+
+Método 3: Rotación (R)
+
+Permite dibujar el rectángulo en un ángulo específico, en lugar de estar alineado con los ejes X e Y.
+
+Ejemplo 3.1: Rectángulo Girado Básico
+Instrucciones: Dibuja un rectángulo de 10x5 unidades con una rotación de 45 grados.
+1. Activa el comando RECTANG (REC).
+2. Especifica la primera esquina: 0,0
+3. Escribe R para seleccionar la opción Rotación.
+4. Especifica el ángulo de rotación: 45
+5. Escribe D (Dimensiones).
+6. Especifica la longitud (X): 10
+7. Especifica la anchura (Y): 5
+8. Haz clic para indicar la dirección.
+
+Ejemplo 3.2: Rotación a 90 Grados
+Instrucciones: Dibuja un rectángulo de 5x15 unidades rotado 90 grados (queda vertical).
+1. Activa el comando RECTANG (REC).
+2. Especifica la primera esquina: 40,40
+3. Escribe R (Rotación).
+4. Especifica el ángulo de rotación: 90
+5. Escribe D (Dimensiones).
+6. Especifica la longitud (X): 5
+7. Especifica la anchura (Y): 15
+8. Haz clic.
+
+--------------------------------------------------
+II. ACTIVIDADES SUGERIDAS (SOLUCIÓN OCULTA)
+--------------------------------------------------
+
+ACTIVIDAD 1: El Marco de Presentación (Rotación y Área)
+
+Objetivo: Dibujar un marco inclinado y luego un segundo marco más pequeño dentro de este, definiendo el área.
+Instrucciones:
+1. **Marco Exterior:** Dibuja un rectángulo comenzando en (0,0), rotado **30 grados** con una longitud de **30** y una anchura de **20**.
+2. **Marco Interior:** Dibuja un segundo rectángulo que comience **en la misma esquina (0,0)**, pero que tenga un **área total de 300 unidades**. Especifica la **anchura (Y)** como **15**.
+   (No necesitas rotar el segundo rectángulo, ya que AutoCAD mantiene la última rotación. Si no deseas la rotación, escríbela de nuevo y pon 0).
+
+<details>
+<summary>Ver Solución (Longitud y Ángulo del Marco Interior)</summary>
+
+Si no se reinicia la rotación: El segundo rectángulo se dibujará a 30 grados.
+Si se reinicia la rotación (R, 0):
+1.  Área: 300. Anchura (Y): 15.
+2.  Longitud (X) calculada por AutoCAD: 300 / 15 = 20.
+3.  El marco interior debe ser de 20x15 unidades, alineado a los ejes X/Y.
+</details>
+
+---
+
+ACTIVIDAD 2: Base para Columnas (Dimensiones y Modificación)
+
+Objetivo: Dibujar una base rectangular y luego copiarla y modificarla para crear varias bases de columna.
+Instrucciones:
+1. **Base Original:** Dibuja un rectángulo de 5x5 unidades (cuadrado) comenzando en (10,10).
+2. **Desplazamiento:** Utiliza el comando **DESFASE** (OFFSET, O) para crear un borde de 0.5 unidades **hacia afuera** del cuadrado original. (Te pedirá la distancia: 0.5).
+3. **Copia:** Utiliza el comando **COPIAR** (CP) para duplicar ambos rectángulos (el original y el desplazado) dos veces, con una separación horizontal de 15 unidades entre cada copia.
+
+<details>
+<summary>Ver Solución (Coordenadas de la Esquina de la Última Copia)</summary>
+
+1.  Original (Exterior): Comienza en (9.5, 9.5). Termina en (15.5, 15.5).
+2.  Copia 1 (Exterior): Comienza en (9.5 + 15, 9.5) = (24.5, 9.5).
+3.  Copia 2 (Exterior): Comienza en (9.5 + 30, 9.5) = (39.5, 9.5).
+</details>
+
+--------------------------------------------------
+III. RETOS DE COMPRENSIÓN (3 RETOS)
+--------------------------------------------------
+
+RETO 1: La Relación de Aspecto
+Dibuja un rectángulo que tenga un área total de 180 unidades, sabiendo que la longitud (X) es exactamente **el doble** de la anchura (Y).
+Pista: Este reto requiere calcular previamente las dimensiones (X e Y) y luego usar la opción Dimensiones (D).
+
+---
+
+RETO 2: Rectángulo en Vista Isométrica
+Dibuja un rectángulo de 10x10 que parezca estar en un plano a 30 grados, usando la opción **Rotación** (R). A continuación, dibuja un segundo rectángulo de 10x10 que esté rotado **330 grados**.
+Verifica: ¿Los dos rectángulos rotados se ven como si formaran un ángulo de 60 grados entre sí?
+
+---
+
+RETO 3: El Rectángulo con Borde Interno
+Dibuja un rectángulo de 20x15 unidades usando el método de **Dimensiones** (D). A continuación, en una **nueva capa** (Ej: Borde), utiliza el comando **DESFASE** (OFFSET) para crear un borde de 1 unidad **hacia adentro**.
+Verifica: ¿Cuál es el área del rectángulo interno generado por el desfase?

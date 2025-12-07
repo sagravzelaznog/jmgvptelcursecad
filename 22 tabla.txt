@@ -1,0 +1,120 @@
+==================================================
+EJERCICIOS: COMANDO TABLA (TABLE) EN AUTOCAD
+==================================================
+
+El comando TABLA (TB) crea objetos de tabla nativos de AutoCAD para presentar datos tabulares. Estos objetos son similares a las hojas de cálculo de Excel y son altamente personalizables.
+
+--------------------------------------------------
+I. MÉTODOS DE TRAZADO (2 EJEMPLOS POR CADA MANERA)
+--------------------------------------------------
+
+Método 1: Creación de Tabla Vía Especificación Directa (Specify Window)
+
+Se define el número de filas y columnas, el ancho y la altura, y luego se dibuja el área de la tabla en el espacio modelo.
+
+Ejemplo 1.1: Lista de Materiales Básica
+Instrucciones: Crea una tabla con 3 columnas y 5 filas, con una anchura de celda de 20 y altura de celda de 5.
+1. Activa el comando TABLA (TB).
+2. En la ventana "Insertar tabla":
+   - **Columnas:** 3
+   - **Ancho de columna:** 20
+   - **Filas de datos:** 4 (El total será 5: 1 Título + 4 de datos)
+   - **Altura de fila:** 5
+3. Haz clic en Aceptar.
+4. **Punto de Inserción:** Haz clic en (10,10) para definir la esquina superior izquierda.
+5. Haz doble clic en la primera celda para ingresar el título: LISTA DE MATERIALES.
+
+Ejemplo 1.2: Tabla de Datos Vertical
+Instrucciones: Crea una tabla con 5 filas y 2 columnas, con los datos de las filas fluyendo de abajo hacia arriba.
+1. Activa el comando TABLA (TB).
+2. En la ventana "Insertar tabla":
+   - **Dirección de fila:** Hacia arriba (Up).
+   - **Columnas:** 2
+   - **Filas de datos:** 4
+3. Haz clic en Aceptar.
+4. **Punto de Inserción:** Haz clic en (50,50). (La tabla crecerá hacia arriba desde este punto).
+5. Ingresa datos: (Columna 1: Código, Columna 2: Descripción).
+
+---
+
+Método 2: Creación de Tabla Vía Enlace Externo (From Data Link)
+
+Se vincula la tabla de AutoCAD a un archivo de datos externo (Ej: Excel .XLSX) para que los datos se actualicen automáticamente.
+
+Ejemplo 2.1: Enlace a Archivo Excel
+Instrucciones: Crea un enlace a un archivo Excel y luego crea la tabla usando ese enlace.
+1. Activa el comando **DATALINK** (Opciones: Data Link).
+2. Crea un **Nuevo Enlace de Datos** (New Data Link). Asígnale un nombre (Ej: "Presupuesto_Estructura").
+3. Selecciona la ruta al archivo Excel (debes tener uno disponible en tu PC).
+4. Activa el comando TABLA (TB).
+5. En la ventana "Insertar tabla", selecciona la opción **"Desde un enlace de datos"** (From a data link).
+6. Selecciona el enlace "Presupuesto_Estructura".
+7. Haz clic en Aceptar e inserta la tabla.
+
+Ejemplo 2.2: Edición de la Configuración de Importación
+Instrucciones: Edita las opciones del enlace de datos para importar solo una parte de la hoja de cálculo.
+1. Abre la ventana **DATALINK** (Opciones: Data Link).
+2. Selecciona el enlace creado en el Ejemplo 2.1.
+3. En las opciones de celda, define un rango (Ej: **A1:C10**) para importar solo las primeras 10 filas de las primeras 3 columnas.
+4. Haz clic en Aceptar y actualiza la tabla en el dibujo (o inserta una nueva).
+
+--------------------------------------------------
+II. ACTIVIDADES SUGERIDAS (SOLUCIÓN OCULTA)
+--------------------------------------------------
+
+ACTIVIDAD 1: La Leyenda de Capas (Estilo y Propiedades)
+
+Objetivo: Crear una leyenda de dibujo con un color de fondo y editar el estilo de texto en la tabla.
+Instrucciones:
+1. Crea un **Estilo de Texto** nuevo (STYLE) llamado 'Leyenda_Small' (Fuente Arial, Altura 2).
+2. Crea una TABLA (TB) de 3 columnas y 5 filas.
+3. En la ventana "Insertar tabla", en **Estilo de Celda**, cambia el formato de las celdas de **Título** y **Encabezado** para que tengan un color de relleno (Fill Color) **Gris**.
+4. Inserta la tabla.
+5. Haz doble clic en las celdas de encabezado y asigna el **Estilo de Texto** 'Leyenda_Small' al texto.
+
+<details>
+<summary>Ver Solución (Propiedad Editada en Estilo)</summary>
+
+La clave es modificar el **Estilo de Tabla** (Table Style) o el **Estilo de Celda** (Cell Style) para aplicar el color de relleno y el estilo de texto predefinido, asegurando la consistencia en toda la tabla.
+</details>
+
+---
+
+ACTIVIDAD 2: El Reordenamiento de Celdas (Manipulación de Fila/Columna)
+
+Objetivo: Crear una tabla básica y luego insertar/eliminar celdas, reordenando los datos.
+Instrucciones:
+1. Crea una TABLA (TB) de 3x3. Ingresa datos simples (Ej: A1, B1, C1, etc.).
+2. **Eliminar Columna:** Selecciona la columna central (Columna B). Haz clic derecho y selecciona **Columnas > Eliminar**.
+3. **Insertar Fila:** Selecciona la segunda fila de datos. Haz clic derecho y selecciona **Filas > Insertar Abajo**.
+4. Ingresa el texto "NUEVA FILA" en la fila recién insertada.
+
+<details>
+<summary>Ver Solución (Número Final de Celdas)</summary>
+
+1.  Tabla inicial: 3 columnas (Título, Encabezado, Datos) x 3 filas = 9 celdas.
+2.  Al eliminar la columna central, quedan 2 columnas.
+3.  Al insertar una fila, el total de filas de datos es ahora 3 + 1 = 4.
+4.  Tabla final: 2 columnas x 5 filas (Título, Encabezado + 3 datos + 1 nueva fila) = **10 celdas**.
+</details>
+
+--------------------------------------------------
+III. RETOS DE COMPRENSIÓN (3 RETOS)
+--------------------------------------------------
+
+RETO 1: La Fórmula de Suma
+Crea una TABLA (TB) con 2 columnas. En la Columna 1, ingresa los números 10, 20 y 30 en filas separadas. En la Columna 2, ingresa una **fórmula** que sume los valores de la Columna 1.
+Pista: Utiliza el formato de fórmula de celda (Ej: =SUM(A2:A4)).
+Verifica: ¿El valor de la celda de la Columna 2 es **60**?
+
+---
+
+RETO 2: Descomponer la Tabla
+Dibuja una TABLA. Utiliza el comando **DESCOMPONER** (EXPLODE, X) sobre la tabla.
+Verifica: ¿Se puede explotar una tabla? Si es así, ¿en qué entidades se convierte? (Pista: Se convierte en un conjunto de **LINEAS** y entidades de **TEXTO** separadas).
+
+---
+
+RETO 3: El Escalado y el Texto
+Crea una TABLA simple con texto. Utiliza el comando **ESCALA** (SC) y escala la tabla por un factor de **0.5**.
+Verifica: ¿Se escaló solo la geometría de las líneas de la tabla? ¿O la altura del texto dentro de las celdas también se redujo a la mitad?

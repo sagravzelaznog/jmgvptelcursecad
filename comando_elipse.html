@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comando Elipse en AutoCAD - Aprende Fácil</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-bg: #f8f9fa;
+            --dark-text: #2c3e50;
+            --light-text: #ecf0f1;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: var(--dark-text);
+            background-color: var(--light-bg);
+            padding: 0;
+            margin: 0;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        h2 {
+            color: var(--primary-color);
+            margin: 2rem 0 1.5rem;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.8rem;
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 0.5rem;
+        }
+
+        h3 {
+            color: var(--primary-color);
+            margin: 1.5rem 0 1rem;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.4rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+        }
+
+        .card-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-header:hover {
+            background-color: #1a252f;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        .command {
+            font-family: 'Courier New', monospace;
+            background-color: #f0f0f0;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-weight: bold;
+            color: #c0392b;
+        }
+
+        .steps {
+            margin: 1rem 0 1.5rem 2rem;
+        }
+
+        .steps li {
+            margin-bottom: 0.5rem;
+            position: relative;
+        }
+
+        .steps li:before {
+            content: "→";
+            position: absolute;
+            left: -1.5rem;
+            color: var(--secondary-color);
+        }
+
+        .toggle-btn {
+            background-color: var(--accent-color);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-btn:hover {
+            background-color: #c0392b;
+        }
+
+        .toggle-content {
+            display: none;
+            padding: 1rem;
+            background-color: #f1f8ff;
+            border-radius: 4px;
+            margin-top: 1rem;
+            border-left: 4px solid var(--secondary-color);
+        }
+
+        .example-img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1rem 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .note {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 0.75rem 1.25rem;
+            margin: 1rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .warning {
+            background-color: #f8d7da;
+            border-left: 4px solid #dc3545;
+            padding: 0.75rem 1.25rem;
+            margin: 1rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .tip {
+            background-color: #d1ecf1;
+            border-left: 4px solid #0dcaf0;
+            padding: 0.75rem 1.25rem;
+            margin: 1rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 1.5rem 0;
+            margin-top: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            .card-header {
+                flex-direction: column;
+                text-align: left;
+            }
+            
+            .toggle-btn {
+                margin-top: 0.5rem;
+                align-self: flex-end;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .steps {
+                margin-left: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Comando Elipse en AutoCAD</h1>
+            <p class="subtitle">Aprende a dibujar óvalos y formas elípticas con precisión</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="intro">
+            <p>El comando <span class="command">ELIPSE</span> (o <span class="command">EL</span> en la línea de comandos) permite crear formas elípticas definiendo sus dos ejes principales: el Eje Mayor (el más largo) y el Eje Menor (el más corto).</p>
+            
+            <div class="note">
+                <strong>Concepto clave:</strong> Una elipse tiene dos ejes perpendiculares entre sí. El Eje Mayor es el diámetro más largo, y el Eje Menor es el más corto. La relación entre estos ejes determina la forma de la elipse.
+            </div>
+        </section>
+
+        <section class="methods">
+            <h2>Métodos de Trazado</h2>
+            
+            <!-- Método 1 -->
+            <div class="card">
+                <div class="card-header">
+                    <span>Método 1: CENTRO, EJE MAYOR, EJE MENOR (Center, Axis, End)</span>
+                    <span class="toggle-btn">Mostrar</span>
+                </div>
+                <div class="card-content">
+                    <p>Este método es ideal cuando conoces la ubicación exacta del centro de la elipse y las longitudes de sus ejes.</p>
+                    
+                    <div class="example">
+                        <h3>Ejemplo 1.1: Elipse Alargada Horizontal</h3>
+                        <p>Dibuja una elipse centrada en (0,0) con un semieje mayor de 15 unidades (horizontal) y un semieje menor de 5 unidades (vertical).</p>
+                        <ol class="steps">
+                            <li>Activa el comando <span class="command">ELIPSE</span> (EL).</li>
+                            <li>Escribe <span class="command">C</span> (para seleccionar la opción Centro).</li>
+                            <li>Especifica el Centro: <code>0,0</code></li>
+                            <li>Define el punto final del Eje Mayor (semieje X): <code>@15,0</code></li>
+                            <li>Define el punto final del Eje Menor (semieje Y): <code>5</code></li>
+                        </ol>
+                    </div>
+                    
+                    <div class="example">
+                        <h3>Ejemplo 1.2: Elipse Vertical</h3>
+                        <p>Dibuja una elipse centrada en (30,30) con el Eje Mayor vertical de 20 unidades y el Eje Menor horizontal de 8 unidades.</p>
+                        <ol class="steps">
+                            <li>Activa el comando <span class="command">ELIPSE</span> (EL).</li>
+                            <li>Escribe <span class="command">C</span> (Centro).</li>
+                            <li>Especifica el Centro: <code>30,30</code></li>
+                            <li>Define el punto final del Eje Mayor (semieje Y): <code>@0,10</code></li>
+                            <li>Define el punto final del Eje Menor (semieje X): <code>4</code></li>
+                        </ol>
+                        <div class="tip">
+                            <strong>Consejo:</strong> Al especificar el segundo eje, AutoCAD asume que es perpendicular al primero. Solo necesitas indicar la distancia, no la dirección.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Método 2 -->
+            <div class="card">
+                <div class="card-header">
+                    <span>Método 2: EXTREMOS DEL EJE, EXTREMO DEL OTRO EJE (Axis End, Other Axis End)</span>
+                    <span class="toggle-btn">Mostrar</span>
+                </div>
+                <div class="card-content">
+                    <p>Este método es útil cuando conoces los puntos extremos de uno de los ejes de la elipse.</p>
+                    
+                    <div class="example">
+                        <h3>Ejemplo 2.1: Elipse por Eje Completo</h3>
+                        <p>Dibuja una elipse donde el Eje Mayor completo va de (10,10) a (30,10) y el semieje menor mide 5 unidades.</p>
+                        <ol class="steps">
+                            <li>Activa el comando <span class="command">ELIPSE</span> (EL).</li>
+                            <li>Especifica el primer punto del Eje: <code>10,10</code></li>
+                            <li>Especifica el segundo punto del Eje: <code>30,10</code></li>
+                            <li>Define la distancia al otro eje (semieje Menor): <code>5</code></li>
+                        </ol>
+                    </div>
+                    
+                    <div class="example">
+                        <h3>Ejemplo 2.2: Elipse Diagonal</h3>
+                        <p>Dibuja una elipse donde el Eje Mayor completo va de (50,50) a (60,60) y el semieje menor mide 3 unidades.</p>
+                        <ol class="steps">
+                            <li>Activa el comando <span class="command">ELIPSE</span> (EL).</li>
+                            <li>Especifica el primer punto del Eje: <code>50,50</code></li>
+                            <li>Especifica el segundo punto del Eje (usa coordenadas polares): <code>@14.14<45</code></li>
+                            <li>Define la distancia al otro eje (semieje Menor): <code>3</code></li>
+                        </ol>
+                        <div class="note">
+                            <strong>Nota:</strong> Al usar coordenadas polares, <code>@14.14<45</code> representa una distancia de 14.14 unidades a 45 grados, lo que coloca el segundo punto en (60,60) desde (50,50).
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Método 3 -->
+            <div class="card">
+                <div class="card-header">
+                    <span>Método 3: ELIPSE CON ROTACIÓN</span>
+                    <span class="toggle-btn">Mostrar</span>
+                </div>
+                <div class="card-content">
+                    <p>Este método te permite rotar la elipse alrededor de su Eje Mayor después de definirlo.</p>
+                    
+                    <div class="example">
+                        <h3>Ejemplo 3.1: Elipse Rotada</h3>
+                        <p>Dibuja una elipse con un Eje Mayor de 20 unidades horizontal, un semieje menor de 5 unidades, y rota la elipse 30 grados.</p>
+                        <ol class="steps">
+                            <li>Activa el comando <span class="command">ELIPSE</span> (EL).</li>
+                            <li>Especifica el primer punto del Eje: <code>0,0</code></li>
+                            <li>Especifica el segundo punto del Eje: <code>20,0</code></li>
+                            <li>Escribe <span class="command">R</span> (para rotación).</li>
+                            <li>Especifica la rotación: <code>30</code></li>
+                            <li>Define la distancia al otro eje: <code>5</code></li>
+                        </ol>
+                    </div>
+                    
+                    <div class="warning">
+                        <strong>Importante:</strong> La opción de rotación solo está disponible cuando el Eje Mayor está perfectamente horizontal o vertical. Para otros ángulos, es mejor usar el método de puntos extremos con coordenadas polares.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de Actividades -->
+        <section class="activities">
+            <h2>Actividades Prácticas</h2>
+            
+            <!-- Actividad 1 -->
+            <div class="card">
+                <div class="card-header">
+                    <span>Actividad 1: La Perforación Inclinada</span>
+                    <span class="toggle-btn">Mostrar</span>
+                </div>
+                <div class="card-content">
+                    <h3>Objetivo:</h3>
+                    <p>Dibujar una elipse que representa una perforación en ángulo en una placa, usando el método de Centro.</p>
+                    
+                    <h3>Instrucciones:</h3>
+                    <ol class="steps">
+                        <li>Dibuja la placa (un rectángulo grande) en (0,0) con dimensiones 50x50.</li>
+                        <li>Dibuja una elipse centrada en (25,25).</li>
+                        <li>Utiliza la opción <strong>ROTACIÓN</strong> (R) del comando ELIPSE.</li>
+                        <li>Rotación: 30 grados.</li>
+                        <li>Semieje Mayor: 10</li>
+                        <li>Semieje Menor: 4</li>
+                    </ol>
+                    
+                    <div class="toggle-content">
+                        <h4>Solución:</h4>
+                        <p>Si la elipse tiene el centro en (25,25), el Eje Mayor (semieje 10) rotado a 30 grados terminará en:</p>
+                        <ul>
+                            <li>Punto 1: (25 + 10·cos(30°), 25 + 10·sin(30°)) = (33.66, 30)</li>
+                            <li>Punto 2: (25 - 10·cos(30°), 25 - 10·sin(30°)) = (16.34, 20)</li>
+                        </ul>
+                        <p>La elipse resultante tendrá 20 unidades de ancho (eje mayor) y 8 unidades de alto (eje menor), rotada 30 grados.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Actividad 2 -->
+            <div class="card">
+                <div class="card-header">
+                    <span>Actividad 2: La Base Ovalada</span>
+                    <span class="toggle-btn">Mostrar</span>
+                </div>
+                <div class="card-content">
+                    <h3>Objetivo:</h3>
+                    <p>Dibujar una base ovalada definiendo el ancho total y luego la profundidad.</p>
+                    
+                    <h3>Instrucciones:</h3>
+                    <ol class="steps">
+                        <li>Activa el comando <span class="command">ELIPSE</span> (EL).</li>
+                        <li>Eje 1, Punto A: <code>10,10</code></li>
+                        <li>Eje 1, Punto B: Usa coordenadas relativas para trazar el eje completo de 40 unidades horizontalmente.</li>
+                        <li>Distancia al otro eje (semieje Menor): 8 unidades.</li>
+                    </ol>
+                    
+                    <div class="toggle-content">
+                        <h4>Solución:</h4>
+                        <ol class="steps">
+                            <li>Punto A: <code>10,10</code></li>
+                            <li>Punto B: <code>@40,0</code> (que es 50,10)</li>
+                            <li>Semieje Menor: <code>8</code></li>
+                        </ol>
+                        <p>La elipse resultante tendrá:</p>
+                        <ul>
+                            <li>Centro en: (30,10)</li>
+                            <li>Eje Mayor: 40 unidades (de 10,10 a 50,10)</li>
+                            <li>Eje Menor: 16 unidades (de 30,2 a 30,18)</li>
+                            <li>El punto superior del Eje Menor estará en: (30, 18)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de Retos -->
+        <section class="challenges">
+            <h2>Retos de Comprensión</h2>
+            
+            <!-- Reto 1 -->
+            <div class="card">
+                <div class="card-header">
+                    <span>Reto 1: El Arco Elíptico</span>
+                    <span class="toggle-btn">Mostrar</span>
+                </div>
+                <div class="card-content">
+                    <h3>¿Cómo crear un arco elíptico a partir de una elipse completa?</h3>
+                    <ol class="steps">
+                        <li>Dibuja una elipse de 20x10 (Eje Mayor 20, Eje Menor 10) centrada en (0,0).</li>
+                        <li>Utiliza el comando <span class="command">RECORTA</span> (TRIM) con un objeto de corte adecuado para dejar solo el cuarto de elipse en el cuadrante superior derecho.</li>
+                    </ol>
+                    
+                    <div class="toggle-content">
+                        <h4>Solución:</h4>
+                        <ol class="steps">
+                            <li>Dibuja la elipse: <span class="command">ELIPSE</span> → <code>C</code> → <code>0,0</code> → <code>@10,0</code> → <code>5</code></li>
+                            <li>Dibuja dos líneas de recorte: una vertical en x=0 y otra horizontal en y=0.</li>
+                            <li>Usa <span class="command">RECORTA</span> (TRIM), selecciona las líneas como bordes, y recorta las partes de la elipse que están fuera del primer cuadrante.</li>
+                        </ol>
+                        <p><strong>Respuesta a la pregunta:</strong> La entidad resultante es un <strong>arco elíptico</strong>, que es diferente de un arco circular o una polilínea. Mantiene las propiedades de la elipse original pero solo muestra una porción de ella.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Reto 2 -->
+            <div class="card">
+                <div class="card-header">
+                    <span>Reto 2: El Círculo Disfrazado</span>
+                    <span class="toggle-btn">Mostrar</span>
+                </div>
+                <div class="card-content">
+                    <h3>¿Puede una elipse ser un círculo?</h3>
+                    <p>Dibuja una elipse comenzando en (50,50), con el segundo extremo del Eje en (70,50). Luego, define la distancia al otro eje (semieje Menor) en <strong>10</strong>.</p>
+                    
+                    <div class="toggle-content">
+                        <h4>Solución:</h4>
+                        <ol class="steps">
+                            <li>Activa <span class="command">ELIPSE</span> (EL).</li>
+                            <li>Punto 1: <code>50,50</code></li>
+                            <li>Punto 2: <code>70,50</code></li>
+                            <li>Distancia al otro eje: <code>10</code></li>
+                        </ol>
+                        <p><strong>Respuesta a la pregunta:</strong> Sí, la figura resultante es geométrica y visualmente indistinguible de un <strong>círculo</strong>. Esto sucede porque cuando la distancia al otro eje (10) es igual a la mitad de la longitud del primer eje (20/2 = 10), la elipse se convierte en un círculo perfecto.</p>
+                        <p>En términos matemáticos, un círculo es un caso especial de elipse donde los dos ejes tienen la misma longitud.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Reto 3 -->
+            <div class="card">
+                <div class="card-header">
+                    <span>Reto 3: El Ancho Específico</span>
+                    <span class="toggle-btn">Mostrar</span>
+                </div>
+                <div class="card-content">
+                    <h3>¿Cómo controlar el ancho total de una elipse?</h3>
+                    <ol class="steps">
+                        <li>Dibuja una línea horizontal de 10 unidades.</li>
+                        <li>Inicia una elipse donde el primer punto del eje sea el punto inicial de la línea.</li>
+                        <li>El segundo punto del eje debe ser el punto final de la línea.</li>
+                        <li>Especifica la distancia al otro eje (semieje Menor) para que la elipse tenga un ancho total (Eje Menor completo) de <strong>6 unidades</strong>.</li>
+                    </ol>
+                    
+                    <div class="toggle-content">
+                        <h4>Solución:</h4>
+                        <p>Para que el Eje Menor completo mida 6 unidades, el semieje Menor debe ser la mitad de ese valor, es decir, 3 unidades.</p>
+                        <ol class="steps">
+                            <li>Dibuja una línea de <code>0,0</code> a <code>10,0</code>.</li>
+                            <li>Activa <span class="command">ELIPSE</span> (EL).</li>
+                            <li>Punto 1: <code>0,0</code></li>
+                            <li>Punto 2: <code>10,0</code></li>
+                            <li>Distancia al otro eje: <code>3</code></li>
+                        </ol>
+                        <p>La elipse resultante tendrá:</p>
+                        <ul>
+                            <li>Eje Mayor: 10 unidades (de 0,0 a 10,0)</li>
+                            <li>Eje Menor: 6 unidades (de 0,-3 a 0,3)</li>
+                            <li>Centro en: (5,0)</li>
+                        </ul>
+                        <p><strong>Respuesta a la pista:</strong> Debes ingresar <code>3</code> como valor del semieje Menor para que el Eje Menor completo mida 6 unidades.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; JMGV-PTEL-2025 Todos los derechos reservados</p>
+        </div>
+    </footer>
+
+    <script>
+        // Toggle functionality for the cards
+        document.addEventListener('DOMContentLoaded', function() {
+            const toggleButtons = document.querySelectorAll('.toggle-btn');
+            
+            toggleButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const card = this.closest('.card');
+                    const content = card.querySelector('.toggle-content');
+                    
+                    if (content.style.display === 'block') {
+                        content.style.display = 'none';
+                        this.textContent = 'Mostrar';
+                    } else {
+                        content.style.display = 'block';
+                        this.textContent = 'Ocultar';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

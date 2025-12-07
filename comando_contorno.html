@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comando CONTORNO (BOUNDARY) en AutoCAD</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-bg: #f5f6fa;
+            --dark-text: #2c3e50;
+            --light-text: #ecf0f1;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --gradient-1: linear-gradient(135deg, #3498db, #2ecc71);
+            --gradient-2: linear-gradient(135deg, #e74c3c, #f39c12);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--light-bg);
+            color: var(--dark-text);
+            line-height: 1.6;
+            padding: 0;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, #2c3e50, #3498db);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            margin-bottom: 2rem;
+            border-radius: 0 0 var(--border-radius) var(--border-radius);
+            box-shadow: var(--box-shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.1);
+            z-index: 1;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            color: var(--primary-color);
+            margin: 2.5rem 0 1.2rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid var(--secondary-color);
+            position: relative;
+            display: inline-block;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--accent-color);
+        }
+
+        h3 {
+            color: var(--secondary-color);
+            margin: 1.8rem 0 1rem;
+            padding-left: 10px;
+            border-left: 4px solid var(--secondary-color);
+        }
+
+        h4 {
+            color: #2c3e50;
+            margin: 1.5rem 0 0.8rem;
+            font-size: 1.1rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 1.8rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--box-shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid #e0e0e0;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .example, .activity, .challenge {
+            margin-bottom: 2.5rem;
+            padding: 1.8rem;
+            border-left: 5px solid var(--secondary-color);
+            background-color: #f8fafc;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .activity {
+            border-left-color: #2ecc71;
+        }
+
+        .challenge {
+            border-left-color: #e74c3c;
+        }
+
+        .steps {
+            margin: 1.2rem 0 1.5rem;
+            padding-left: 1.8rem;
+            position: relative;
+        }
+
+        .steps li {
+            margin-bottom: 0.8rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .steps li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--secondary-color);
+            font-weight: bold;
+        }
+
+        .code {
+            background-color: #2d3436;
+            color: #dfe6e9;
+            padding: 1.2rem;
+            border-radius: var(--border-radius);
+            font-family: 'Courier New', monospace;
+            margin: 1.2rem 0;
+            overflow-x: auto;
+            position: relative;
+        }
+
+        .code::before {
+            content: 'Código';
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2px 8px;
+            font-size: 0.8rem;
+            border-bottom-left-radius: var(--border-radius);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--gradient-1);
+            color: white;
+            padding: 0.7rem 1.5rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin: 0.8rem 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-2);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn:hover::before {
+            opacity: 1;
+        }
+
+        .btn i {
+            margin-right: 8px;
+        }
+
+        .solution {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out;
+            background: rgba(46, 204, 113, 0.1);
+            border-radius: var(--border-radius);
+            margin: 1.2rem 0;
+            border: 1px dashed #2ecc71;
+        }
+
+        .solution-content {
+            padding: 1.5rem;
+        }
+
+        .toggle-solution {
+            background: var(--gradient-2);
+        }
+
+        .toggle-solution::before {
+            background: var(--gradient-1);
+        }
+
+        .challenge .toggle-solution {
+            background: linear-gradient(135deg, #e74c3c, #f39c12);
+        }
+
+        .challenge .toggle-solution::before {
+            background: linear-gradient(135deg, #c0392b, #d35400);
+        }
+
+        .note {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 1rem;
+            margin: 1.2rem 0;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+            position: relative;
+        }
+
+        .note::before {
+            content: '💡';
+            margin-right: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .warning {
+            background-color: #fff8e6;
+            border-left: 4px solid #ff9800;
+            padding: 1rem;
+            margin: 1.2rem 0;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+        }
+
+        .warning::before {
+            content: '⚠️';
+            margin-right: 0.5rem;
+        }
+
+        footer {
+            background: linear-gradient(135deg, #2c3e50, #3498db);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 4rem;
+            border-radius: var(--border-radius) var(--border-radius) 0 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.1);
+            z-index: 1;
+        }
+
+        .footer-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            .card, .example, .activity, .challenge {
+                padding: 1.2rem;
+            }
+
+            .steps {
+                padding-left: 1.2rem;
+            }
+        }
+
+        /* Estilos para las imágenes */
+        .image-container {
+            text-align: center;
+            margin: 1.5rem 0;
+            background: white;
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+        }
+
+        .image-caption {
+            font-style: italic;
+            color: #7f8c8d;
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        /* Estilos para la tabla de comandos */
+        .command-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            box-shadow: var(--box-shadow);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+        }
+
+        .command-table th, .command-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .command-table th {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 600;
+        }
+
+        .command-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+
+        .command-table tr:hover {
+            background-color: #f1f8ff;
+        }
+
+        .command {
+            font-family: 'Courier New', monospace;
+            background-color: #f8f9fa;
+            padding: 2px 6px;
+            border-radius: 4px;
+            border: 1px solid #e0e0e0;
+        }
+
+        /* Estilos para los iconos */
+        .icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            margin-right: 8px;
+            background-color: var(--secondary-color);
+            color: white;
+            border-radius: 50%;
+            font-size: 0.8rem;
+        }
+
+        /* Animaciones */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card, .example, .activity, .challenge {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+
+        .card:nth-child(2) { animation-delay: 0.1s; }
+        .card:nth-child(3) { animation-delay: 0.2s; }
+        .card:nth-child(4) { animation-delay: 0.3s; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>Comando CONTORNO (BOUNDARY) en AutoCAD</h1>
+            <p class="subtitle">Aprende a crear polilíneas y regiones cerradas a partir de áreas definidas por objetos existentes</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <section class="card">
+            <h2><span class="icon">📚</span> Introducción al Comando CONTORNO</h2>
+            <p>El comando <strong>CONTORNO (BOUNDARY, BO)</strong> es una herramienta poderosa en AutoCAD que permite crear polilíneas o regiones cerradas a partir de áreas definidas por objetos existentes. Sus principales usos incluyen:</p>
+            
+            <ul class="steps">
+                <li>Convertir áreas delimitadas por líneas, arcos o círculos en polilíneas cerradas</li>
+                <li>Crear regiones para operaciones booleanas o cálculos de propiedades</li>
+                <li>Preparar áreas para sombreados (HATCH) o cálculos de área precisos</li>
+                <li>Simplificar geometrías complejas en entidades manejables</li>
+            </ul>
+            
+            <div class="note">
+                <strong>Nota:</strong> A diferencia del comando PEDIT (Editar Polilínea), el comando CONTORNO puede crear polilíneas cerradas incluso cuando los objetos originales no están conectados perfectamente.
+            </div>
+        </section>
+
+        <section class="card">
+            <h2><span class="icon">🔧</span> Métodos de Trazado</h2>
+            
+            <article class="example">
+                <h3>Método 1: Designar Puntos Internos (Pick Internal Points)</h3>
+                <p>Este método permite crear un contorno seleccionando un punto dentro de un área cerrada. AutoCAD detecta automáticamente los límites más cercanos para crear la nueva entidad.</p>
+                
+                <h4>Ejemplo 1.1: Creación de Contorno a partir de Líneas Intersectantes</h4>
+                <p><strong>Objetivo:</strong> Crear una polilínea cerrada a partir de cuatro líneas que forman un cuadrado.</p>
+                
+                <div class="steps">
+                    <ol>
+                        <li>Dibuja cuatro <strong>LÍNEAS (L)</strong> separadas para formar un cuadrado:
+                            <ul>
+                                <li>De (0,0) a (10,0)</li>
+                                <li>De (10,0) a (10,10)</li>
+                                <li>De (10,10) a (0,10)</li>
+                                <li>De (0,10) a (0,0)</li>
+                            </ul>
+                        </li>
+                        <li>Activa el comando <strong>CONTORNO (BO)</strong>.</li>
+                        <li>En el cuadro de diálogo, asegúrate de que el <strong>Tipo de Objeto</strong> esté configurado como <strong>Polilínea</strong>.</li>
+                        <li>Haz clic en el botón <strong>Designar Puntos Internos</strong>.</li>
+                        <li>Haz clic <strong>dentro</strong> del área del cuadrado.</li>
+                        <li>Presiona <strong>Enter</strong> para finalizar el comando.</li>
+                        <li>Intenta seleccionar el borde: ahora tienes una polilínea de contorno (además de las cuatro líneas originales).</li>
+                    </ol>
+                </div>
+                
+                <div class="note">
+                    <strong>Consejo:</strong> Para verificar que se ha creado correctamente, mueve la nueva polilínea. Deberías poder seleccionar todo el contorno como una sola entidad.
+                </div>
+                
+                <h4>Ejemplo 1.2: Contorno en Área Intersectada (El Agujero)</h4>
+                <p><strong>Objetivo:</strong> Crear un contorno que represente el área de un rectángulo menos un círculo interior.</p>
+                
+                <div class="steps">
+                    <ol>
+                        <li>Dibuja un <strong>RECTÁNGULO (REC)</strong> de 20x10 unidades.</li>
+                        <li>Dibuja un <strong>CÍRCULO (C)</strong> de radio 3 unidades en el centro del rectángulo.</li>
+                        <li>Activa el comando <strong>CONTORNO (BO)</strong>.</li>
+                        <li>Asegúrate de que el <strong>Tipo de Objeto</strong> sea <strong>Polilínea</strong>.</li>
+                        <li>Haz clic en <strong>Designar Puntos Internos</strong>.</li>
+                        <li>Haz clic en el área <strong>entre</strong> el rectángulo y el círculo.</li>
+                        <li>Presiona <strong>Enter</strong> para finalizar.</li>
+                    </ol>
+                </div>
+                
+                <div class="note">
+                    <strong>Resultado:</strong> Se creará una polilínea que representa el perímetro exterior del rectángulo con un "agujero" circular. Esta es una polilínea con una isla interior.
+                </div>
+            </article>
+            
+            <article class="example">
+                <h3>Método 2: Usando el Tipo de Objeto "Región" (Region)</h3>
+                <p>Este método crea regiones 2D en lugar de polilíneas. Las regiones son útiles para operaciones booleanas y cálculos de propiedades de masa.</p>
+                
+                <h4>Ejemplo 2.1: Creación de Región Simple</h4>
+                <p><strong>Objetivo:</strong> Crear una región a partir de un polígono.</p>
+                
+                <div class="steps">
+                    <ol>
+                        <li>Dibuja un <strong>POLÍGONO (POL)</strong> de 6 lados:
+                            <ul>
+                                <li>Escribe <code>POL</code> y presiona Enter.</li>
+                                <li>Especifica el número de lados: <code>6</code>.</li>
+                                <li>Especifica el centro del polígono: <code>0,0</code>.</li>
+                                <li>Selecciona la opción <strong>Inscrito en círculo (I)</strong>.</li>
+                                <li>Especifica el radio: <code>5</code>.</li>
+                            </ul>
+                        </li>
+                        <li>Activa el comando <strong>CONTORNO (BO)</strong>.</li>
+                        <li>En el cuadro de diálogo, cambia el <strong>Tipo de Objeto</strong> a <strong>Región</strong>.</li>
+                        <li>Haz clic en <strong>Designar Puntos Internos</strong>.</li>
+                        <li>Haz clic dentro del polígono.</li>
+                        <li>Presiona <strong>Enter</strong> para finalizar.</li>
+                    </ol>
+                </div>
+                
+                <div class="note">
+                    <strong>Verificación:</strong> Selecciona el polígono original y la nueva región. Son dos entidades separadas. La región es un objeto 2D cerrado que puede usarse para operaciones booleanas o cálculos de propiedades.
+                </div>
+                
+                <h4>Ejemplo 2.2: Región para Unión/Sustracción</h4>
+                <p><strong>Objetivo:</strong> Crear regiones a partir de un rectángulo y un triángulo superpuestos para operaciones booleanas.</p>
+                
+                <div class="steps">
+                    <ol>
+                        <li>Dibuja un <strong>RECTÁNGULO (REC)</strong> de 20x10 unidades.</li>
+                        <li>Dibuja un <strong>TRIÁNGULO</strong> que se superponga al rectángulo:
+                            <ul>
+                                <li>Usa el comando <code>LINE</code> o <code>POL</code> (Polígono con 3 lados).</li>
+                                <li>Crea un triángulo que cubra aproximadamente la mitad superior del rectángulo.</li>
+                            </ul>
+                        </li>
+                        <li>Activa el comando <strong>CONTORNO (BO)</strong>.</li>
+                        <li>Configura el <strong>Tipo de Objeto</strong> como <strong>Región</strong>.</li>
+                        <li>Haz clic en <strong>Designar Puntos Internos</strong>.</li>
+                        <li>Haz clic dentro del rectángulo (fuera del triángulo) y presiona <strong>Enter</strong>.</li>
+                        <li>Repite el proceso para crear una región del triángulo.</li>
+                    </ol>
+                </div>
+                
+                <div class="note">
+                    <strong>Operaciones Booleanas:</strong> Ahora puedes usar los comandos <code>UNION</code>, <code>SUBSTRACT</code> o <code>INTERSECT</code> con estas regiones para crear formas más complejas.
+                </div>
+            </article>
+        </section>
+
+        <section class="card">
+            <h2><span class="icon">🎯</span> Actividades Prácticas</h2>
+            
+            <article class="activity">
+                <h3>Actividad 1: El Contorno de la Línea y el Arco</h3>
+                <p><strong>Objetivo:</strong> Crear un contorno a partir de una entidad mixta (Línea, Arco, Línea) que se une con otra línea.</p>
+                
+                <div class="steps">
+                    <ol>
+                        <li>Dibuja una <strong>POLILÍNEA (PL)</strong> con los siguientes segmentos:
+                            <ul>
+                                <li>Inicio en (10,10)</li>
+                                <li>Segmento recto hasta (20,10)</li>
+                                <li>Arco hasta (25,15)</li>
+                                <li>Segmento recto hasta (10,20)</li>
+                            </ul>
+                        </li>
+                        <li>Dibuja una <strong>LÍNEA</strong> que cierre la figura, yendo de (10,20) a (10,10).</li>
+                        <li>Activa el comando <strong>CONTORNO (BO)</strong>.</li>
+                        <li>Configura el <strong>Tipo de Objeto</strong> como <strong>Polilínea</strong>.</li>
+                        <li>Haz clic en <strong>Designar Puntos Internos</strong>.</li>
+                        <li>Haz clic dentro del área cerrada.</li>
+                        <li>Presiona <strong>Enter</strong> para finalizar.</li>
+                        <li>Borra las tres entidades originales (las dos líneas y la polilínea).</li>
+                    </ol>
+                </div>
+                
+                <button class="btn toggle-solution" onclick="toggleSolution('solution1')">
+                    <i>👁️</i> Ver Solución
+                </button>
+                
+                <div id="solution1" class="solution">
+                    <div class="solution-content">
+                        <h4>Explicación de la Solución:</h4>
+                        <p>Después de completar estos pasos, solo debería quedar una única entidad en el dibujo: la Polilínea de Contorno generada por el comando BOUNDARY.</p>
+                        <p><strong>Verificación:</strong></p>
+                        <ol>
+                            <li>Selecciona la entidad resultante.</li>
+                            <li>Verifica en las propiedades que sea una <strong>Polilínea</strong>.</li>
+                            <li>Observa que tiene los mismos vértices que la figura original, pero ahora es una sola entidad cerrada.</li>
+                        </ol>
+                        <p>Este ejercicio demuestra cómo el comando CONTORNO puede crear una polilínea cerrada a partir de múltiples entidades que juntas forman un área cerrada, incluso cuando incluyen diferentes tipos de segmentos (rectos y curvos).</p>
+                    </div>
+                </div>
+            </article>
+            
+            <article class="activity">
+                <h3>Actividad 2: Contorno del Centro (Área Anidada)</h3>
+                <p><strong>Objetivo:</strong> Crear contornos para diferentes áreas definidas por círculos concéntricos.</p>
+                
+                <div class="steps">
+                    <ol>
+                        <li>Dibuja tres <strong>CÍRCULOS (C)</strong> concéntricos:
+                            <ul>
+                                <li>Centro en (50,50)</li>
+                                <li>Radios: 10, 15 y 20 unidades</li>
+                            </ul>
+                        </li>
+                        <li>Activa el comando <strong>CONTORNO (BO)</strong>.</li>
+                        <li>Configura el <strong>Tipo de Objeto</strong> como <strong>Polilínea</strong>.</li>
+                        <li>Haz clic en <strong>Designar Puntos Internos</strong>.</li>
+                        <li>Haz clic <strong>dentro</strong> del círculo más pequeño (radio 10).</li>
+                        <li>Haz clic en el área <strong>entre</strong> el círculo de radio 15 y el de radio 20.</li>
+                        <li>Presiona <strong>Enter</strong> para finalizar.</li>
+                    </ol>
+                </div>
+                
+                <button class="btn toggle-solution" onclick="toggleSolution('solution2')">
+                    <i>👁️</i> Ver Solución
+                </button>
+                
+                <div id="solution2" class="solution">
+                    <div class="solution-content">
+                        <h4>Explicación de la Solución:</h4>
+                        <p>Al completar estos pasos, se crearán dos polilíneas de contorno:</p>
+                        <ol>
+                            <li><strong>Primer contorno:</strong> Una polilínea circular que coincide con el círculo más pequeño (radio 10).</li>
+                            <li><strong>Segundo contorno:</strong> Una polilínea en forma de anillo que representa el área entre los círculos de radio 15 y 20.</li>
+                        </ol>
+                        <p><strong>Observaciones importantes:</strong></p>
+                        <ul>
+                            <li>Cada clic en un área cerrada crea un contorno independiente.</li>
+                            <li>El orden de selección de las áreas no afecta el resultado final.</li>
+                            <li>Puedes seleccionar múltiples áreas en una sola ejecución del comando.</li>
+                        </ul>
+                        <p>Este ejercicio demuestra cómo el comando CONTORNO puede manejar áreas anidadas y crear múltiples contornos en una sola operación.</p>
+                    </div>
+                </div>
+            </article>
+        </section>
+
+        <section class="card">
+            <h2><span class="icon">🧩</span> Retos de Comprensión</h2>
+            
+            <article class="challenge">
+                <h3>Reto 1: Descomponer el Contorno</h3>
+                <p>Dibuja un rectángulo usando el comando <strong>RECTANG</strong> (que ya crea una polilínea cerrada). Luego, ejecuta el comando <strong>CONTORNO (BO)</strong> y haz clic dentro de ese rectángulo.</p>
+                
+                <p><strong>Preguntas:</strong></p>
+                <ol>
+                    <li>¿Se crea un nuevo contorno?</li>
+                    <li>¿Por qué sí o por qué no?</li>
+                </ol>
+                
+                <button class="btn toggle-solution" onclick="toggleSolution('challenge1')">
+                    <i>🔍</i> Ver Solución
+                </button>
+                
+                <div id="challenge1" class="solution">
+                    <div class="solution-content">
+                        <h4>Explicación:</h4>
+                        <p>1. <strong>¿Se crea un nuevo contorno?</strong><br>
+                        No, no se crea un nuevo contorno cuando haces clic dentro de un rectángulo creado con el comando RECTANG.</p>
+                        
+                        <p>2. <strong>¿Por qué?</strong><br>
+                        El comando RECTANG ya crea una polilínea cerrada, que es el mismo tipo de objeto que crearía el comando CONTORNO. AutoCAD es lo suficientemente inteligente como para reconocer que ya existe una polilínea cerrada que define ese límite, por lo que no crea una duplicada.</p>
+                        
+                        <p><strong>Conclusión:</strong> El comando CONTORNO es más útil cuando trabajas con formas que no son ya polilíneas cerradas, como conjuntos de líneas, arcos o círculos que juntos forman un área cerrada.</p>
+                    </div>
+                </div>
+            </article>
+            
+            <article class="challenge">
+                <h3>Reto 2: El Sombreado y el Contorno</h3>
+                <p>Dibuja una forma compleja (varias líneas que se cruzan formando una forma cerrada). Luego:</p>
+                <ol>
+                    <li>Usa el comando <strong>SOMBRADO (H)</strong> para rellenar la forma.</li>
+                    <li>Usa el comando <strong>CONTORNO (BO)</strong> para crear una polilínea de contorno.</li>
+                </ol>
+                
+                <p><strong>Pregunta:</strong> ¿Cuál de los dos comandos es más rápido para obtener una Polilínea cerrada que se necesita para calcular el área?</p>
+                
+                <button class="btn toggle-solution" onclick="toggleSolution('challenge2')">
+                    <i>🔍</i> Ver Solución
+                </button>
+                
+                <div id="challenge2" class="solution">
+                    <div class="solution-content">
+                        <h4>Explicación:</h4>
+                        <p>El comando <strong>CONTORNO (BO)</strong> es generalmente más rápido y directo para crear una polilínea cerrada cuando necesitas calcular el área de una forma compleja. Aquí está el por qué:</p>
+                        
+                        <ol>
+                            <li><strong>CONTORNO (BO):</strong>
+                                <ul>
+                                    <li>Crea directamente una polilínea cerrada en un solo paso.</li>
+                                    <li>La polilínea resultante puede usarse inmediatamente con el comando AREA.</li>
+                                    <li>No requiere pasos adicionales como podría requerir el sombreado.</li>
+                                </ul>
+                            </li>
+                            <li><strong>SOMBRADO (H):</strong>
+                                <ul>
+                                    <li>Crea un patrón de sombreado que llena el área pero no crea una polilínea directamente.</li>
+                                    <li>Para obtener una polilínea del sombreado, necesitarías usar comandos adicionales como BOUNDARY o HATCHGENERATEBOUNDARY (si está disponible en tu versión).</li>
+                                    <li>Este proceso de dos pasos es menos eficiente que usar CONTORNO directamente.</li>
+                                </ul>
+                            </li>
+                        </ol>
+                        
+                        <p><strong>Conclusión:</strong> Si tu objetivo principal es obtener una polilínea cerrada para calcular el área, el comando CONTORNO (BO) es la opción más eficiente.</p>
+                    </div>
+                </div>
+            </article>
+            
+            <article class="challenge">
+                <h3>Reto 3: La Región para el Área</h3>
+                <p>Dibuja un polígono de 5 lados. Luego:</p>
+                <ol>
+                    <li>Usa el comando <strong>CONTORNO (BO)</strong> para crear una <strong>REGIÓN</strong> a partir de él.</li>
+                    <li>Usa el comando <strong>AREA</strong> sobre la Región creada.</li>
+                </ol>
+                
+                <p><strong>Pregunta:</strong> ¿Por qué es más confiable calcular el área de un objeto de tipo <strong>Región</strong> (o Polilínea) que de un conjunto de líneas sueltas?</p>
+                
+                <button class="btn toggle-solution" onclick="toggleSolution('challenge3')">
+                    <i>🔍</i> Ver Solución
+                </button>
+                
+                <div id="challenge3" class="solution">
+                    <div class="solution-content">
+                        <h4>Explicación:</h4>
+                        <p>Calcular el área de una <strong>Región</strong> o una <strong>Polilínea cerrada</strong> es más confiable que hacerlo con un conjunto de líneas sueltas por varias razones importantes:</p>
+                        
+                        <ol>
+                            <li><strong>Precisión:</strong>
+                                <ul>
+                                    <li>Las regiones y polilíneas cerradas son entidades únicas que definen claramente un área cerrada.</li>
+                                    <li>AutoCAD puede calcular con precisión el área encerrada sin ambigüedades.</li>
+                                </ul>
+                            </li>
+                            
+                            <li><strong>Automatización:</strong>
+                                <ul>
+                                    <li>Con el comando AREA, puedes seleccionar una región o polilínea cerrada y obtener su área inmediatamente.</li>
+                                    <li>Con líneas sueltas, necesitarías seleccionar cada vértice manualmente, lo que es propenso a errores.</li>
+                                </ul>
+                            </li>
+                            
+                            <li><strong>Ventajas de las Regiones:</strong>
+                                <ul>
+                                    <li>Las regiones tienen propiedades físicas como área, perímetro y centroide que se pueden consultar fácilmente.</li>
+                                    <li>Pueden usarse en operaciones booleanas (unión, resta, intersección) para crear formas más complejas.</li>
+                                    <li>Mantienen la precisión incluso con formas muy complejas.</li>
+                                </ul>
+                            </li>
+                            
+                            <li><strong>Ventajas de las Polilíneas:</strong>
+                                <ul>
+                                    <li>Las polilíneas cerradas también permiten cálculos de área precisos.</li>
+                                    <li>Son más ligeras en términos de recursos que las regiones.</li>
+                                    <li>Pueden editarse fácilmente con comandos como PEDIT.</li>
+                                </ul>
+                            </li>
+                        </ol>
+                        
+                        <p><strong>Conclusión:</strong> Tanto las regiones como las polilíneas cerradas ofrecen una forma confiable de calcular áreas en AutoCAD, eliminando los errores humanos asociados con la selección manual de puntos y proporcionando resultados precisos independientemente de la complejidad de la forma.</p>
+                    </div>
+                </div>
+            </article>
+        </section>
+
+        <section class="card">
+            <h2><span class="icon">💡</span> Consejos y Trucos Avanzados</h2>
+            
+            <h3>1. Uso de la Tolerancia de Separación</h3>
+            <p>Cuando trabajas con formas que tienen pequeñas aberturas o imperfecciones, la opción <strong>Tolerancia de Separación</strong> en el cuadro de diálogo de CONTORNO puede ser muy útil:</p>
+            <ul class="steps">
+                <li>Aumenta este valor para permitir que AutoCAD cierre automáticamente pequeños huecos en los límites.</li>
+                <li>Útil cuando trabajas con dibujos escaneados o importados que no son perfectamente cerrados.</li>
+                <li>Ten cuidado de no establecer un valor demasiado alto, ya que podría causar resultados inesperados.</li>
+            </ul>
+            
+            <h3>2. Combinación con Otros Comandos</h3>
+            <p>El comando CONTORNO es particularmente poderoso cuando se combina con otros comandos de AutoCAD:</p>
+            <ul class="steps">
+                <li><strong>HATCH:</strong> Crea contornos primero, luego aplica sombreados a las áreas definidas.</li>
+                <li><strong>AREA:</strong> Usa las polilíneas generadas para cálculos de área precisos.</li>
+                <li><strong>REGION/UNION/SUBTRACT:</strong> Crea regiones complejas a partir de formas simples.</li>
+                <li><strong>EXTRUDE/PRESSPULL:</strong> Extruye contornos cerrados para crear objetos 3D.</li>
+            </ul>
+            
+            <h3>3. Optimización del Rendimiento</h3>
+            <p>Para dibujos complejos con muchos contornos:</p>
+            <ul class="steps">
+                <li>Usa capas para organizar los contornos generados.</li>
+                <li>Considera congelar o desactivar capas innecesarias antes de ejecutar el comando.</li>
+                <li>Para áreas muy grandes o complejas, trabaja en secciones más pequeñas.</li>
+            </ul>
+            
+            <h3>4. Exportación y Uso en Otros Programas</h3>
+            <p>Las polilíneas y regiones creadas con CONTORNO pueden ser útiles más allá de AutoCAD:</p>
+            <ul class="steps">
+                <li>Exporta las polilíneas a programas de diseño o ingeniería que acepten formatos como DXF o DWG.</li>
+                <li>Usa las regiones para cálculos de propiedades físicas en software de análisis estructural o mecánico.</li>
+                <li>Convierte las regiones a sólidos 3D para modelado avanzado.</li>
+            </ul>
+            
+            <div class="warning">
+                <strong>Importante:</strong> Recuerda que las regiones son objetos 2D. Si necesitas trabajar en 3D, primero crea las regiones y luego extruye o usa el comando PRESSPULL para darles volumen.
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; JMGV-PTEL-2025 Todos los derechos reservados</p>
+        </div>
+    </footer>
+
+    <script>
+        // Función para alternar la visibilidad de las soluciones
+        function toggleSolution(id) {
+            const solution = document.getElementById(id);
+            const button = solution.previousElementSibling;
+            
+            if (solution.style.maxHeight) {
+                solution.style.maxHeight = null;
+                if (button.classList.contains('toggle-solution')) {
+                    button.innerHTML = '<i>👁️</i> Ver Solución';
+                } else {
+                    button.innerHTML = '<i>🔍</i> Ver Solución';
+                }
+            } else {
+                solution.style.maxHeight = solution.scrollHeight + "px";
+                if (button.classList.contains('toggle-solution')) {
+                    button.innerHTML = '<i>👁️</i> Ocultar Solución';
+                } else {
+                    button.innerHTML = '<i>🔍</i> Ocultar Solución';
+                }
+            }
+        }
+
+        // Inicialización - Cerrar todas las soluciones al cargar
+        document.addEventListener('DOMContentLoaded', function() {
+            const solutions = document.querySelectorAll('.solution');
+            solutions.forEach(solution => {
+                solution.style.maxHeight = null;
+            });
+            
+            // Agregar animación de carga suave
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+        
+        // Suavizar el desplazamiento para los enlaces internos
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>

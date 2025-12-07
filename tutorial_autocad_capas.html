@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía Completa del Manejo de Capas en AutoCAD</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-bg: #f8f9fa;
+            --dark-text: #2c3e50;
+            --light-text: #7f8c8d;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark-text);
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+        }
+        
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+        }
+        
+        h1, h2, h3 {
+            color: var(--primary-color);
+        }
+        
+        h1 {
+            margin-top: 0;
+            color: white;
+        }
+        
+        h2 {
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 5px;
+            margin-top: 30px;
+        }
+        
+        .command {
+            background-color: #e8f4f8;
+            border-left: 4px solid var(--secondary-color);
+            padding: 10px 15px;
+            margin: 15px 0;
+            font-family: 'Consolas', monospace;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .example {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        .steps {
+            background-color: #f0f8ff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        
+        .steps ol, .steps ul {
+            padding-left: 20px;
+        }
+        
+        .steps li {
+            margin-bottom: 10px;
+        }
+        
+        .tip {
+            background-color: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            padding: 10px 15px;
+            margin: 15px 0;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .warning {
+            background-color: #fff3e0;
+            border-left: 4px solid #ff9800;
+            padding: 10px 15px;
+            margin: 15px 0;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .activity {
+            background-color: #f3e5f5;
+            border-left: 4px solid #9c27b0;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .challenge {
+            background-color: #e8eaf6;
+            border-left: 4px solid #3f51b5;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        details {
+            background-color: #f5f5f5;
+            padding: 10px 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+        
+        summary {
+            font-weight: bold;
+            cursor: pointer;
+            padding: 5px 0;
+        }
+        
+        .key {
+            background-color: #e0e0e0;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: monospace;
+            font-size: 0.9em;
+            border: 1px solid #bdbdbd;
+        }
+        
+        .key-combo {
+            background-color: #333;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: monospace;
+            font-size: 0.9em;
+        }
+        
+        .layer-example {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            border-left: 4px solid var(--secondary-color);
+        }
+        
+        .layer-color {
+            width: 30px;
+            height: 20px;
+            border: 1px solid #ccc;
+            margin-right: 15px;
+            border-radius: 3px;
+        }
+        
+        .layer-name {
+            font-family: 'Consolas', monospace;
+            margin-right: 15px;
+            min-width: 150px;
+        }
+        
+        .layer-line {
+            flex-grow: 1;
+            height: 2px;
+            background-color: #e0e0e0;
+            margin: 0 10px;
+        }
+        
+        .layer-status {
+            font-size: 0.9em;
+            color: #666;
+        }
+        
+        .status-on {
+            color: #4caf50;
+            font-weight: bold;
+        }
+        
+        .status-off {
+            color: #f44336;
+            text-decoration: line-through;
+        }
+        
+        .status-frozen {
+            color: #9c27b0;
+            font-style: italic;
+        }
+        
+        .status-locked {
+            color: #ff9800;
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            header {
+                padding: 15px;
+            }
+            
+            .command, .tip, .warning, .activity, .challenge, details {
+                margin-left: -10px;
+                margin-right: -10px;
+                border-radius: 0;
+            }
+            
+            .layer-example {
+                flex-wrap: wrap;
+            }
+            
+            .layer-name {
+                min-width: 100%;
+                margin-bottom: 5px;
+            }
+            
+            .layer-line {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Guía Completa del Manejo de Capas en AutoCAD</h1>
+        <p>Domina la organización de tu dibujo con capas profesionales</p>
+    </header>
+
+    <section>
+        <p>Las <strong>capas</strong> en AutoCAD son una herramienta fundamental para organizar los elementos de tus dibujos de manera lógica y eficiente. Te permiten controlar la visibilidad, el color, el tipo de línea y otras propiedades de los objetos de forma agrupada.</p>
+        
+        <div class="tip">
+            <strong>Consejo rápido:</strong> Usa el comando <span class="key">CAPA</span> (LA) para abrir el Administrador de propiedades de capas, donde podrás crear, modificar y gestionar todas las capas de tu dibujo.
+        </div>
+    </section>
+
+    <section id="creacion-gestion">
+        <h2>Creación y Gestión de Capas</h2>
+        
+        <div class="example">
+            <h3>Creación de Capas Básicas</h3>
+            <div class="steps">
+                <ol>
+                    <li>Activa el comando <span class="key">CAPA</span> (LA).</li>
+                    <li>Haz clic en el botón <strong>Nueva capa</strong> (icono de hoja con estrella).</li>
+                    <li>Asigna un nombre descriptivo a la capa (ej: "A_MUROS").</li>
+                    <li>Haz clic en el icono de color para cambiar el color de la capa.</li>
+                    <li>Selecciona un tipo de línea si es necesario.</li>
+                    <li>Repite el proceso para crear todas las capas necesarias.</li>
+                </ol>
+            </div>
+            
+            <div class="layer-example">
+                <div class="layer-color" style="background-color: #ff0000;"></div>
+                <div class="layer-name">A_MUROS</div>
+                <div class="layer-line"></div>
+                <div class="layer-status status-on">Activada</div>
+            </div>
+            
+            <div class="layer-example">
+                <div class="layer-color" style="background-color: #00ff00;"></div>
+                <div class="layer-name">A_PUERTAS</div>
+                <div class="layer-line"></div>
+                <div class="layer-status status-on">Activada</div>
+            </div>
+            
+            <div class="layer-example">
+                <div class="layer-color" style="background-color: #0000ff;"></div>
+                <div class="layer-name">A_VENTANAS</div>
+                <div class="layer-line"></div>
+                <div class="layer-status status-off">Apagada</div>
+            </div>
+        </div>
+        
+        <div class="example">
+            <h3>Cambio de Propiedades de Capa</h3>
+            <p>Para modificar las propiedades de una capa existente:</p>
+            
+            <div class="steps">
+                <ol>
+                    <li>Abre el Administrador de propiedades de capas (<span class="key">LA</span>).</li>
+                    <li>Selecciona la capa que deseas modificar.</li>
+                    <li>Haz clic en la propiedad que deseas cambiar:
+                        <ul>
+                            <li><strong>Color:</strong> Haz clic en el icono de color.</li>
+                            <li><strong>Tipo de línea:</strong> Haz clic en el tipo de línea actual.</li>
+                            <li><strong>Grosor de línea:</strong> Haz clic en el valor de grosor.</li>
+                        </ul>
+                    </li>
+                    <li>Selecciona el nuevo valor en el cuadro de diálogo correspondiente.</li>
+                    <li>Haz clic en <strong>Aceptar</strong> para aplicar los cambios.</li>
+                </ol>
+            </div>
+        </div>
+    </section>
+
+    <section id="control-visibilidad">
+        <h2>Control de Visibilidad de Capas</h2>
+        
+        <div class="example">
+            <h3>Encender/Apagar Capas</h3>
+            <div class="steps">
+                <ol>
+                    <li>Abre el Administrador de propiedades de capas (<span class="key">LA</span>).</li>
+                    <li>Localiza la capa que deseas modificar.</li>
+                    <li>Haz clic en el icono de bombilla para encender o apagar la capa.
+                        <ul>
+                            <li>Bombilla amarilla: Capa visible (encendida).</li>
+                            <li>Bombilla azul: Capa invisible (apagada).</li>
+                        </ul>
+                    </li>
+                    <li>Los cambios se aplican inmediatamente.</li>
+                </ol>
+            </div>
+            
+            <div class="tip">
+                <strong>Consejo:</strong> También puedes usar el comando <span class="key">APAGACAPA</span> (LAYOFF) para apagar capas seleccionando objetos, o <span class="key">ENCENDERCAPA</span> (LAYON) para encender todas las capas.
+            </div>
+        </div>
+        
+        <div class="example">
+            <h3>Congelar/Descongelar Capas</h3>
+            <div class="steps">
+                <ol>
+                    <li>Abre el Administrador de propiedades de capas (<span class="key">LA</span>).</li>
+                    <li>Localiza la capa que deseas congelar o descongelar.</li>
+                    <li>Haz clic en el icono de sol/copo de nieve:
+                        <ul>
+                            <li>Sol amarillo: Capa descongelada.</li>
+                            <li>Copo de nieve azul: Capa congelada.</li>
+                        </ul>
+                    </li>
+                    <li>Los cambios se aplican inmediatamente.</li>
+                </ol>
+            </div>
+            
+            <div class="tip">
+                <strong>Diferencia clave:</strong> Las capas apagadas siguen procesándose por AutoCAD, mientras que las capas congeladas se ignoran, lo que puede mejorar el rendimiento en dibujos grandes.
+            </div>
+        </div>
+        
+        <div class="example">
+            <h3>Bloquear/Desbloquear Capas</h3>
+            <div class="steps">
+                <ol>
+                    <li>Abre el Administrador de propiedades de capas (<span class="key">LA</span>).</li>
+                    <li>Localiza la capa que deseas bloquear o desbloquear.</li>
+                    <li>Haz clic en el icono de candado:
+                        <ul>
+                            <li>Candado abierto: Capa desbloqueada.</li>
+                            <li>Candado cerrado: Capa bloqueada (los objetos son visibles pero no se pueden seleccionar ni modificar).</li>
+                        </ul>
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </section>
+
+    <section id="actividades">
+        <h2>Actividades Prácticas</h2>
+        
+        <div class="activity">
+            <h3>Actividad 1: Aislamiento de Capas</h3>
+            <p><strong>Objetivo:</strong> Aprender a aislar capas para trabajar con elementos específicos.</p>
+            
+            <div class="steps">
+                <ol>
+                    <li>Crea tres capas nuevas:
+                        <ul>
+                            <li><strong>A_Mobiliario</strong> (Color: Rojo)</li>
+                            <li><strong>B_Ejes</strong> (Color: Verde, Tipo de línea: CENTER2)</li>
+                            <li><strong>C_Cotaciones</strong> (Color: Azul)</li>
+                        </ul>
+                    </li>
+                    <li>Dibuja objetos en cada capa:
+                        <ul>
+                            <li>Un CÍRCULO en A_Mobiliario</li>
+                            <li>Una LÍNEA en B_Ejes</li>
+                            <li>Un RECTANGULO en C_Cotaciones</li>
+                        </ul>
+                    </li>
+                    <li>Activa el comando <span class="key">AISLARCAPA</span> (LAYISO).</li>
+                    <li>Selecciona el <strong>CÍRCULO</strong> (A_Mobiliario).</li>
+                    <li>Observa que solo la capa A_Mobiliario permanece visible.</li>
+                    <li>Intenta seleccionar la Línea o el Rectángulo (no deberías poder hacerlo).</li>
+                    <li>Usa el comando <span class="key">DESAISLARCAPA</span> (LAYUNISO) para restaurar la visibilidad de todas las capas.</li>
+                </ol>
+            </div>
+            
+            <details>
+                <summary>Ver Solución</summary>
+                <p>El comando <span class="key">AISLARCAPA</span> (LAYISO) te permite enfocarte en elementos específicos ocultando temporalmente las demás capas. Esto es especialmente útil en dibujos complejos donde necesitas trabajar en áreas específicas sin distracciones.</p>
+                
+                <div class="tip">
+                    <strong>Consejo avanzado:</strong> Puedes personalizar el comportamiento de LAYISO usando la opción "Configuración" (Settings) para elegir si las capas no aisladas se apagan o se congelan, y si se mantienen visibles pero bloqueadas.
+                </div>
+            </details>
+        </div>
+    </section>
+
+    <section id="retos">
+        <h2>Retos de Comprensión</h2>
+        
+        <div class="challenge">
+            <h3>Reto 1: Borrado vs. Congelado</h3>
+            <p>Crea un círculo en una capa llamada <strong>CONGELAR_PRUEBA</strong>. Congela la capa. Luego, activa el comando <span class="key">BORRAR</span> (ERASE, E) y escribe <span class="key">TODO</span> (ALL).</p>
+            
+            <details>
+                <summary>Ver Respuesta</summary>
+                <p>Al ejecutar <span class="key">BORRAR</span> <span class="key">TODO</span>:</p>
+                <ul>
+                    <li>Los objetos en capas <strong>congeladas</strong> <span class="status-frozen">no se borrarán</span>.</li>
+                    <li>Los objetos en capas <strong>apagadas</strong> <span class="status-off">sí se borrarán</span>.</li>
+                    <li>Los objetos en capas <strong>bloqueadas</strong> <span class="status-locked">no se borrarán</span>.</li>
+                </ul>
+                
+                <div class="warning">
+                    <strong>¡Importante!</strong> Esta es una diferencia crucial entre congelar y apagar capas. Las capas congeladas ofrecen protección contra modificaciones accidentales, incluyendo el borrado.
+                </div>
+            </details>
+        </div>
+        
+        <div class="challenge">
+            <h3>Reto 2: La Capa de Defpoints</h3>
+            <p>Crea una <strong>COTA</strong> (DLI) en tu dibujo. Luego abre el Administrador de Capas (<span class="key">LA</span>).</p>
+            
+            <details>
+                <summary>Ver Respuesta</summary>
+                <p>AutoCAD crea automáticamente una capa especial llamada <strong>Defpoints</strong> cuando añades cotas a tu dibujo. Esta capa tiene características únicas:</p>
+                
+                <ul>
+                    <li>No se puede eliminar ni renombrar.</li>
+                    <li>No se puede establecer como capa actual.</li>
+                    <li>Los objetos en esta capa <strong>no se imprimen</strong> (la columna "Plot" está deshabilitada).</li>
+                    <li>Contiene los puntos de definición de las cotas, que son necesarios para que estas funcionen correctamente.</li>
+                </ul>
+                
+                <div class="tip">
+                    <strong>Buenas prácticas:</strong> No dibujes objetos que quieras que aparezcan en la impresión en la capa Defpoints. Crea una capa separada para elementos de anotación que necesites que sean visibles en los planos impresos.
+                </div>
+            </details>
+        </div>
+        
+        <div class="challenge">
+            <h3>Reto 3: Cambiar Capa Actual Bloqueada</h3>
+            <p>Crea una capa llamada <strong>PELIGRO</strong> y <strong>bloquéala</strong> (haz clic en el icono de candado). Luego intenta hacer clic derecho sobre la capa <strong>PELIGRO</strong> y selecciona <strong>Hacer Actual</strong> (Make Current).</p>
+            
+            <details>
+                <summary>Ver Respuesta</summary>
+                <p>Al intentar hacer que una capa bloqueada sea la capa actual:</p>
+                
+                <ul>
+                    <li>AutoCAD <strong>no permitirá</strong> establecer una capa bloqueada como capa actual.</li>
+                    <li>Mostrará un mensaje de advertencia indicando que la operación no es posible.</li>
+                    <li>Esto evita que accidentalmente dibujes en una capa bloqueada, lo que podría causar confusión.</li>
+                </ul>
+                
+                <div class="tip">
+                    <strong>Flujo de trabajo recomendado:</strong> Si necesitas dibujar en una capa específica, asegúrate de que esté desbloqueada antes de intentar hacerla actual. Puedes bloquearla nuevamente después de terminar de añadir elementos.
+                </div>
+            </details>
+        </div>
+    </section>
+
+    <section id="conclusion">
+        <h2>Conclusión</h2>
+        <p>El manejo eficiente de capas es fundamental para trabajar de manera profesional en AutoCAD. Te permite organizar tu dibujo, controlar la visibilidad de los elementos y mejorar el rendimiento en proyectos complejos.</p>
+        
+        <div class="tip">
+            <strong>Recuerda:</strong> Establece un estándar de nombres de capas desde el principio de tu proyecto y síguelo consistentemente. Esto facilitará la colaboración con otros profesionales y hará que tus dibujos sean más fáciles de entender y mantener.
+        </div>
+    </section>
+
+    <footer style="margin-top: 40px; padding: 20px 0; border-top: 1px solid #eee; text-align: center; color: #7f8c8d; font-size: 0.9em;">
+        <p>© 2025 Tutorial de AutoCAD - Manejo de Capas</p>
+    </footer>
+</body>
+</html>

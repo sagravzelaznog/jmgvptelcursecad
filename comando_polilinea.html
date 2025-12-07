@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comando Polilínea en AutoCAD - Aprende Fácil</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-bg: #f8f9fa;
+            --dark-text: #2c3e50;
+            --light-text: #ecf0f1;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: var(--dark-text);
+            background-color: var(--light-bg);
+            padding: 0;
+            margin: 0;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        h2 {
+            color: var(--primary-color);
+            margin: 2rem 0 1.5rem;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.8rem;
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 0.5rem;
+        }
+
+        h3 {
+            color: var(--primary-color);
+            margin: 1.5rem 0 1rem;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.4rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+        }
+
+        .card-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-header:hover {
+            background-color: #1a252f;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        .command {
+            font-family: 'Courier New', monospace;
+            background-color: #f0f0f0;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-weight: bold;
+            color: #c0392b;
+        }
+
+        .steps {
+            margin: 1rem 0 1.5rem 2rem;
+        }
+
+        .steps li {
+            margin-bottom: 0.5rem;
+            position: relative;
+        }
+
+        .steps li:before {
+            content: "→";
+            position: absolute;
+            left: -1.5rem;
+            color: var(--secondary-color);
+        }
+
+        .toggle-btn {
+            background-color: var(--accent-color);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-btn:hover {
+            background-color: #c0392b;
+        }
+
+        .toggle-content {
+            display: none;
+            padding: 1rem;
+            background-color: #f1f8ff;
+            border-radius: 4px;
+            margin-top: 1rem;
+            border-left: 4px solid var(--secondary-color);
+        }
+
+        .example-img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1rem 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 1.5rem 0;
+            margin-top: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            .card-header {
+                flex-direction: column;
+                text-align: left;
+            }
+            
+            .toggle-btn {
+                margin-top: 0.5rem;
+                align-self: flex-end;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .steps {
+                margin-left: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Comando Polilínea en AutoCAD</h1>
+            <p class="subtitle">Domina el trazado de líneas y arcos conectados como una sola entidad</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="intro">
+            <p>El comando <span class="command">POLILÍNEA</span> (o <span class="command">PL</span> en la línea de comandos) es una herramienta poderosa que permite crear secuencias de segmentos de línea o arco que se comportan como una sola entidad, a diferencia de varias líneas individuales.</p>
+        </section>
+
+        <section class="methods">
+            <h2>Métodos de Trazado</h2>
+            
+            <!-- Método 1 -->
+            <div class="card">
+                <div class="card-header">
+                    <span>Método 1: Segmentos de Línea con Ancho (Width, A)</span>
+                    <span class="toggle-btn">Mostrar</span>
+                </div>
+                <div class="card-content">
+                    <p>Se utiliza para dibujar segmentos con grosor inicial y final definido (útil para dibujar muros con espesor variable o flechas).</p>
+                    
+                    <div class="example">
+                        <h3>Ejemplo 1.1: Línea con Grosor Uniforme</h3>
+                        <p>Dibuja una línea de 20 unidades de largo y un grosor constante de 1 unidad.</p>
+                        <ol class="steps">
+                            <li>Activa el comando <span class="command">POLILÍNEA</span> (PL).</li>
+                            <li>Punto Inicial: <code>10,10</code></li>
+                            <li>Escribe <span class="command">A</span> (para Ancho / Width).</li>
+                            <li>Especifica el ancho inicial: <code>1</code></li>
+                            <li>Especifica el ancho final: <code>1</code> (Para que sea uniforme).</li>
+                            <li>Siguiente Punto: <code>@20&lt;0</code> (Línea horizontal de 20 unidades).</li>
+                        </ol>
+                    </div>
+                    
+                    <div class="example">
+                        <h3>Ejemplo 1.2: Flecha con Grosor Variable</h3>
+                        <p>Dibuja una flecha (forma de cono) de 10 unidades de largo, con un inicio grueso y un final delgado.</p>
+                        <ol class="steps">
+                            <li>Activa el comando <span class="command">POLILÍNEA</span> (PL).</li>
+                            <li>Punto Inicial: <code>50,50</code></li>
+                            <li>Escribe <span class="command">A</span> (Ancho / Width).</li>
+                            <li>Especifica el ancho inicial: <code>2</code></li>
+                            <li>Especifica el ancho final: <code>0</code> (Crea la punta).</li>
+                            <li>Siguiente Punto: <code>@10&lt;0</code> (La punta de la flecha termina en 60,50).</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Método 2 -->
+            <div class="card">
+                <div class="card-header">
+                    <span>Método 2: Segmentos de Arco (Arc, AR)</span>
+                    <span class="toggle-btn">Mostrar</span>
+                </div>
+                <div class="card-content">
+                    <p>Permite cambiar de un segmento recto a un arco sin salir del comando, manteniendo la tangencia si es necesario.</p>
+                    
+                    <div class="example">
+                        <h3>Ejemplo 2.1: Forma de "J" (Línea y Arco)</h3>
+                        <p>Dibuja un segmento de línea vertical de 10 unidades, seguido de un arco de 180 grados.</p>
+                        <ol class="steps">
+                            <li>Activa el comando <span class="command">POLILÍNEA</span> (PL).</li>
+                            <li>Punto Inicial: <code>0,10</code></li>
+                            <li>Siguiente Punto (Vertical): <code>@0,-10</code></li>
+                            <li>Escribe <span class="command">AR</span> (para Arco / Arc).</li>
+                            <li>Escribe <span class="command">G</span> (para Grados / Degrees, si quieres definir la longitud del arco por grados).</li>
+                            <li>Ángulo (Grados): <code>180</code> (Para una media luna).</li>
+                            <li>Siguiente punto: <code>@-5&lt;0</code> (Un arco de 180 grados que termina 5 unidades a la izquierda).</li>
+                        </ol>
+                    </div>
+                    
+                    <div class="example">
+                        <h3>Ejemplo 2.2: Transición Angular (Línea, Arco, Línea)</h3>
+                        <p>Dibuja una línea horizontal de 10 unidades, seguida de un arco de 90 grados, y finaliza con una línea vertical.</p>
+                        <ol class="steps">
+                            <li>Activa el comando <span class="command">POLILÍNEA</span> (PL).</li>
+                            <li>Punto Inicial: <code>40,40</code></li>
+                            <li>Segmento 1 (Línea): <code>@10,0</code></li>
+                            <li>Escribe <span class="command">AR</span> (Arco).</li>
+                            <li>Siguiente Punto (que crea el arco de 90 grados): <code>@0,5</code></li>
+                            <li>Escribe <span class="command">L</span> (para volver a Línea).</li>
+                            <li>Segmento 3 (Línea): <code>@0,5</code></li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de Actividades -->
+        <section class="activities">
+            <h2>Actividades Prácticas</h2>
+            
+            <!-- Actividad 1 -->
+            <div class="card">
+                <div class="card-header">
+                    <span>Actividad 1: El Trayecto del Muro (Grosor + Segmentos)</span>
+                    <span class="toggle-btn">Mostrar</span>
+                </div>
+                <div class="card-content">
+                    <h3>Objetivo:</h3>
+                    <p>Dibujar un muro de 15x20 metros en "L", con un espesor constante, como una única entidad.</p>
+                    
+                    <h3>Instrucciones:</h3>
+                    <ol class="steps">
+                        <li>Activa el comando <span class="command">POLILÍNEA</span> (PL).</li>
+                        <li>Punto Inicial: <code>0,0</code></li>
+                        <li>Escribe <span class="command">A</span> (Ancho), define el Ancho Inicial y Final en <strong>0.30</strong> (Espesor de muro).</li>
+                        <li>Segmento 1 (Horizontal): 15 unidades a la derecha.</li>
+                        <li>Segmento 2 (Vertical): 20 unidades hacia arriba.</li>
+                        <li>Cierra la Polilínea (utiliza la opción <span class="command">C</span>).</li>
+                        <li>Selecciona el objeto y verifica que solo es una entidad (Polilínea).</li>
+                    </ol>
+                    
+                    <div class="toggle-content">
+                        <h4>Solución:</h4>
+                        <p>La longitud total es 15 + 20 + 15 + 20 = 70 unidades.</p>
+                        <p>Los vértices centrales son: (0,0) → (15,0) → (15,20) → (0,20) → (0,0).</p>
+                        <p>El muro de 0.30 unidades de grosor se centrará en esta trayectoria.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Actividad 2 -->
+            <div class="card">
+                <div class="card-header">
+                    <span>Actividad 2: La Pista de Carrera (Línea y Arcos Tangentes)</span>
+                    <span class="toggle-btn">Mostrar</span>
+                </div>
+                <div class="card-content">
+                    <h3>Objetivo:</h3>
+                    <p>Dibujar un segmento recto que termina en un semicírculo.</p>
+                    
+                    <h3>Instrucciones:</h3>
+                    <ol class="steps">
+                        <li>Activa el comando <span class="command">POLILÍNEA</span> (PL).</li>
+                        <li>Punto Inicial: <code>10,10</code></li>
+                        <li>Segmento 1 (Recto): 50 unidades a la derecha (<code>@50<0</code>).</li>
+                        <li>Escribe <span class="command">AR</span> (Arco).</li>
+                        <li>Escribe <span class="command">S</span> (para seleccionar la opción Segundo punto / Second pt).</li>
+                        <li>Escribe <span class="command">E</span> (para seleccionar la opción Punto final / Endpoint).</li>
+                        <li>Punto Final (E): <code>@0,50</code> (Esto creará un arco de 90 grados).</li>
+                        <li>Escribe <span class="command">L</span> (para volver a Línea) y cierra la forma.</li>
+                    </ol>
+                    
+                    <div class="toggle-content">
+                        <h4>Solución:</h4>
+                        <p>El arco creado por el Segmento 2 terminará en la coordenada (60, 60).</p>
+                        <p>El centro del arco está en (60, 35).</p>
+                        <p>El radio del arco es de 25 unidades.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de Retos -->
+        <section class="challenges">
+            <h2>Retos de Comprensión</h2>
+            
+            <!-- Reto 1 -->
+            <div class="card">
+                <div class="card-header">
+                    <span>Reto 1: Desglose de Entidades</span>
+                    <span class="toggle-btn">Mostrar</span>
+                </div>
+                <div class="card-content">
+                    <h3>¿Qué sucede cuando descomponemos una polilínea?</h3>
+                    <p>Dibuja un rectángulo de 10x10 con el comando <span class="command">RECTANG</span> (el cual crea una Polilínea). A continuación, utiliza el comando <span class="command">DESCOMPONER</span> (EXPLODE, X) sobre ese rectángulo.</p>
+                    
+                    <div class="toggle-content">
+                        <h4>Solución:</h4>
+                        <p>Después de usar <span class="command">EXPLODE</span> en el rectángulo:</p>
+                        <ul>
+                            <li>Obtendrás 4 entidades de línea independientes.</li>
+                            <li>Cada línea será un objeto separado que podrás modificar individualmente.</li>
+                            <li>Ya no se comportarán como una única entidad polilínea.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Reto 2 -->
+            <div class="card">
+                <div class="card-header">
+                    <span>Reto 2: El Perfil con Mitad de Grosor</span>
+                    <span class="toggle-btn">Mostrar</span>
+                </div>
+                <div class="card-content">
+                    <h3>¿Cómo crear una polilínea con grosor variable?</h3>
+                    <p>Dibuja una polilínea que consista en dos segmentos:</p>
+                    <ol>
+                        <li>Segmento 1: 10 unidades de largo, con un grosor de 1.</li>
+                        <li>Segmento 2: 10 unidades de largo, que continúe el primero, pero con un grosor de 0.5.</li>
+                    </ol>
+                    <p><strong>Pista:</strong> Deberás especificar el Ancho Inicial y Final del Segmento 2 inmediatamente antes de dibujar su longitud.</p>
+                    
+                    <div class="toggle-content">
+                        <h4>Solución:</h4>
+                        <p>Pasos para crear la polilínea con grosor variable:</p>
+                        <ol class="steps">
+                            <li>Activa <span class="command">POLILÍNEA</span> (PL).</li>
+                            <li>Punto Inicial: <code>0,0</code></li>
+                            <li>Escribe <span class="command">A</span> (Ancho).</li>
+                            <li>Ancho Inicial: <code>1</code></li>
+                            <li>Ancho Final: <code>1</code></li>
+                            <li>Siguiente Punto: <code>@10,0</code> (Primer segmento).</li>
+                            <li>Escribe <span class="command">A</span> (para cambiar el ancho).</li>
+                            <li>Ancho Inicial: <code>0.5</code></li>
+                            <li>Ancho Final: <code>0.5</code></li>
+                            <li>Siguiente Punto: <code>@10,0</code> (Segundo segmento).</li>
+                        </ol>
+                        <p><strong>Respuesta a la pregunta:</strong> No es necesario que el ancho inicial del Segmento 2 coincida con el ancho final del Segmento 1. AutoCAD te permite cambiar el ancho en cualquier punto de la polilínea, lo que te da flexibilidad para crear perfiles con grosores variables.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Reto 3 -->
+            <div class="card">
+                <div class="card-header">
+                    <span>Reto 3: Cierre Múltiple</span>
+                    <span class="toggle-btn">Mostrar</span>
+                </div>
+                <div class="card-content">
+                    <h3>¿Qué sucede al cerrar una polilínea con PEDIT?</h3>
+                    <p>Dibuja una polilínea abierta (no uses la opción C) que pase por los puntos (0,0), (10,5) y (0,10). A continuación, utiliza el comando <span class="command">EDITPOL</span> (PEDIT) sobre esa polilínea.</p>
+                    <ol>
+                        <li>Utiliza la opción <span class="command">CERRAR</span> (Close) dentro del comando PEDIT.</li>
+                    </ol>
+                    
+                    <div class="toggle-content">
+                        <h4>Solución:</h4>
+                        <p>Pasos para realizar el ejercicio:</p>
+                        <ol class="steps">
+                            <li>Activa <span class="command">POLILÍNEA</span> (PL).</li>
+                            <li>Punto 1: <code>0,0</code></li>
+                            <li>Punto 2: <code>10,5</code></li>
+                            <li>Punto 3: <code>0,10</code></li>
+                            <li>Presiona Enter para terminar.</li>
+                            <li>Escribe <span class="command">PEDIT</span> y selecciona la polilínea.</li>
+                            <li>Elige la opción <span class="command">CERRAR</span> (Close).</li>
+                        </ol>
+                        <p><strong>Respuestas a las preguntas:</strong></p>
+                        <ul>
+                            <li><strong>¿Se ha añadido un nuevo segmento?</strong> Sí, PEDIT añade automáticamente un segmento que conecta el último punto (0,10) con el primer punto (0,0), cerrando la forma.</li>
+                            <li><strong>¿La entidad sigue siendo una única polilínea?</strong> Sí, la entidad sigue siendo una única polilínea, pero ahora está cerrada, lo que puede ser útil para operaciones como el sombreado o para calcular áreas.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; JMGV-PTEL-2025 Todos los derechos reservados</p>
+        </div>
+    </footer>
+
+    <script>
+        // Toggle functionality for the cards
+        document.addEventListener('DOMContentLoaded', function() {
+            const toggleButtons = document.querySelectorAll('.toggle-btn');
+            
+            toggleButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const card = this.closest('.card');
+                    const content = card.querySelector('.toggle-content');
+                    
+                    if (content.style.display === 'block') {
+                        content.style.display = 'none';
+                        this.textContent = 'Mostrar';
+                    } else {
+                        content.style.display = 'block';
+                        this.textContent = 'Ocultar';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

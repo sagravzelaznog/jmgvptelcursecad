@@ -1,0 +1,148 @@
+==================================================
+EJERCICIOS: COMANDO TEXTO (TEXT) EN AUTOCAD
+==================================================
+
+El comando TEXTO en AutoCAD tiene dos variantes principales, cada una con un propósito diferente:
+1.  **TEXTO DE LÍNEA ÚNICA (TEXT, DTEXT, DT):** Ideal para etiquetas, números o notas cortas.
+2.  **TEXTO DE LÍNEAS MÚLTIPLES (MTEXT, MT):** Ideal para párrafos largos, especificaciones o notas generales que requieren formato avanzado.
+
+--------------------------------------------------
+I. TEXTO DE LÍNEA ÚNICA (SINGLE-LINE TEXT, DT)
+--------------------------------------------------
+
+Método 1: Texto con Altura y Ángulo Definidos
+
+Se especifica la altura y el ángulo de rotación antes de ingresar el texto.
+
+Ejemplo 1.1: Etiqueta Simple y Pequeña
+Instrucciones: Dibuja un texto "Muro Principal" de 3 unidades de altura y 0 grados de rotación.
+1. Activa el comando TEXTO DE LÍNEA ÚNICA (DT).
+2. Especifica el punto inicial: 10,10.
+3. Especifica la Altura del Texto: 3.
+4. Especifica el Ángulo de Rotación: 0.
+5. Ingresa el texto: Muro Principal
+6. Presiona Enter dos veces para finalizar.
+
+Ejemplo 1.2: Texto Inclinado para Corte
+Instrucciones: Dibuja un texto "SECCIÓN A-A" de 5 unidades de altura rotado 45 grados.
+1. Activa el comando TEXTO DE LÍNEA ÚNICA (DT).
+2. Especifica el punto inicial: 50,50.
+3. Especifica la Altura del Texto: 5.
+4. Especifica el Ángulo de Rotación: 45.
+5. Ingresa el texto: SECCIÓN A-A
+6. Presiona Enter dos veces.
+
+---
+
+Método 2: Texto Justificado (Justify, J)
+
+Se utiliza para controlar la alineación del texto respecto al punto de inserción (Ej: Centro, Derecha, Mitad, etc.).
+
+Ejemplo 2.1: Etiqueta Centrada
+Instrucciones: Dibuja el texto "TÍTULO" de altura 4, centrado en el punto (30,5).
+1. Activa el comando TEXTO DE LÍNEA ÚNICA (DT).
+2. Escribe **J** (para la opción Justificar).
+3. Escribe **C** o **MC** (para Centro o Middle Center, dependiendo de la versión).
+4. Especifica el punto central: 30,5.
+5. Especifica la Altura del Texto: 4.
+6. Ángulo de Rotación: 0.
+7. Ingresa el texto: TÍTULO
+8. Presiona Enter dos veces.
+
+--------------------------------------------------
+II. TEXTO DE LÍNEAS MÚLTIPLES (MULTILINE TEXT, MTEXT)
+--------------------------------------------------
+
+Método 1: Texto de Párrafo (Definición de Esquina)
+
+Se define un cuadro de texto (rectángulo) para delimitar el ancho del párrafo.
+
+Ejemplo 2.2: Párrafo Estándar
+Instrucciones: Dibuja un párrafo de 15 unidades de ancho con texto de 2 unidades de altura.
+1. Activa el comando TEXTO DE LÍNEAS MÚLTIPLES (MT o MTEXT).
+2. Especifica la primera esquina: 10,60.
+3. Especifica la esquina opuesta (para definir el ancho de 15): 25,50.
+4. En el editor, cambia la Altura del Texto a **2**.
+5. Ingresa el texto: "Las especificaciones técnicas se encuentran en el anexo A. Toda medida es en metros."
+6. Haz clic fuera del cuadro para finalizar.
+
+Método 2: MTEXT con Columna y Formato
+Instrucciones: Dibuja una nota general que use viñetas y se alinee a la derecha.
+1. Activa MTEXT (MT).
+2. Define el cuadro de texto (ancho de 20).
+3. En el editor, en la pestaña **Columnas**, selecciona **Estático** y **2 columnas**.
+4. Ingresa la lista:
+   - *Selecciona todo el texto e inserta una viñeta (Bullets and Lists).*
+   - *Alineación: Justificar a la Derecha.*
+   - Punto 1
+   - Punto 2
+   - Punto 3
+5. Haz clic fuera.
+
+--------------------------------------------------
+III. ACTIVIDADES SUGERIDAS (SOLUCIÓN OCULTA)
+--------------------------------------------------
+
+ACTIVIDAD 1: Etiqueta de Símbolo (DT Justificado y Polar)
+
+Objetivo: Colocar una etiqueta centrada y rotada sobre un círculo, simulando un símbolo.
+Instrucciones:
+1. Dibuja un CÍRCULO (C) de radio 5 en (50,50).
+2. **Dibujar Texto:** Usa TEXTO DE LÍNEA ÚNICA (DT).
+3. **Justificación:** Selecciona Justificar **C** (Centro).
+4. **Punto de Inserción:** El centro del círculo (50,50).
+5. **Altura:** 4.
+6. **Ángulo de Rotación:** 120 grados.
+7. **Texto:** T-120
+
+<details>
+<summary>Ver Solución (Ubicación y Entidad)</summary>
+
+1.  La entidad debe ser TEXT (Texto de Línea Única).
+2.  Al girar el texto a 120 grados, la línea de base del texto debe estar inclinada hacia la esquina superior izquierda.
+3.  El punto de inserción (50,50) debe coincidir con el centro geométrico de la entidad T-120.
+</details>
+
+---
+
+ACTIVIDAD 2: Tabla de Notas (MTEXT y Alineación)
+
+Objetivo: Crear una tabla de notas de dos columnas usando el control de MTEXT.
+Instrucciones:
+1. Dibuja un RECTANGULO (25x15) para servir como contenedor.
+2. Crea un MTEXT (MT) dentro del rectángulo.
+3. **Ancho de Columna:** Define el texto para que ocupe **20** unidades de ancho (para un mejor formato).
+4. **Contenido:**
+   - Línea 1: **NOTAS DEL DIBUJO** (Centrado, negrita, subrayado).
+   - Línea 2: Requerimientos:
+   - Línea 3: 1. Revisar escalas.
+   - Línea 4: 2. Usar capa MOB.
+   - Línea 5: [Dejar línea en blanco].
+   - Línea 6: **FIN** (Alineado a la derecha).
+
+<details>
+<summary>Ver Solución (Tipos de Formato Aplicados)</summary>
+
+1.  **NOTAS DEL DIBUJO** debe usar formato de **Negrita** y **Subrayado** (dentro del editor de MTEXT).
+2.  La alineación de "FIN" se logra seleccionando solo esa palabra o línea y usando la justificación **Derecha** dentro del editor.
+</details>
+
+--------------------------------------------------
+IV. RETOS DE COMPRENSIÓN (3 RETOS)
+--------------------------------------------------
+
+RETO 1: La Edición Rápida (DDEDIT)
+Dibuja un TEXTO DE LÍNEA ÚNICA (DT) y un TEXTO DE LÍNEAS MÚLTIPLES (MT). Ejecuta el comando **DDEDIT** (DD) y haz clic en cada entidad de texto.
+Verifica: ¿El editor que aparece es el mismo para ambas entidades? (Pista: MTEXT usa un editor de formato completo; DT usa un editor de texto simple).
+
+---
+
+RETO 2: La Rotación Engañosa
+Dibuja un TEXTO DE LÍNEA ÚNICA (DT) que diga "Cuidado" a 0 grados. A continuación, utiliza el comando de modificación **GIRAR** (RO) y gíralo 90 grados.
+Verifica: ¿El texto se ve exactamente igual que si se hubiera creado directamente a 90 grados? ¿Cómo se diferencia la rotación por el comando GIRAR de la rotación intrínseca al comando DT?
+
+---
+
+RETO 3: Propiedades y Bloqueo
+Crea un MTEXT con varias líneas de texto. Abre la ventana de **PROPIEDADES** (PR) y busca la sección **COLUMNAS**. Intenta cambiar la altura del texto y el espaciado de las líneas.
+Pregunta: ¿Cómo afecta el parámetro **Ancho** (Width) en las propiedades a la forma en que se ajusta el texto si el valor es **0**? (Pista: Si el ancho es 0, el MTEXT se comporta como una línea única y solo se ajusta la altura).

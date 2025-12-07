@@ -1,0 +1,152 @@
+==================================================
+EJERCICIOS: TRAZADO DE CÍRCULOS EN AUTOCAD
+==================================================
+
+El comando CIRCULO (o C en la línea de comandos) es fundamental en AutoCAD. 
+Hay seis métodos principales para definir un círculo. Aquí exploraremos los tres más comunes y efectivos, con ejemplos y actividades.
+
+--------------------------------------------------
+I. MÉTODOS DE TRAZADO (2 EJEMPLOS POR MÉTODO)
+--------------------------------------------------
+
+Método 1: CENTRO, RADIO (C, R)
+
+Este es el método más directo. Se especifica el punto central y luego el radio.
+
+Ejemplo 1.1: Círculo Básico
+Instrucciones: Dibuja un círculo cuyo centro esté en el origen (0,0) y que tenga un radio de 5 unidades.
+1. Activa el comando CIRCULO (C).
+2. Especifica el punto central: 0,0
+3. Especifica el radio: 5
+
+Ejemplo 1.2: Círculo con Diámetro Específico
+Instrucciones: Dibuja un círculo centrado en (20,10) con un diámetro de 12 unidades.
+1. Activa el comando CIRCULO (C).
+2. Especifica el punto central: 20,10
+3. Cuando AutoCAD pida el radio o [Diámetro]: Escribe D (para Diámetro).
+4. Especifica el diámetro: 12
+
+---
+
+Método 2: 2 PUNTOS (2P)
+
+Se define el círculo especificando los puntos opuestos de su diámetro.
+
+Ejemplo 2.1: Círculo entre Dos Puntos Finales
+Instrucciones: Dibuja una línea de 10 unidades de largo y luego crea un círculo que use esa línea como su diámetro.
+1. Dibuja una LINEA (L) de 10 unidades (Ej: de 10,10 a 20,10).
+2. Activa el comando CIRCULO (C).
+3. Escribe 2P para seleccionar el modo "2 Puntos".
+4. Especifica el primer punto (Ej: punto final de la línea en 10,10).
+5. Especifica el segundo punto (Ej: punto final de la línea en 20,10).
+
+Ejemplo 2.2: Círculo Diagonal Absoluto
+Instrucciones: Dibuja un círculo cuyo diámetro esté definido por los puntos (5,5) y (15,25).
+1. Activa el comando CIRCULO (C).
+2. Escribe 2P.
+3. Especifica el primer punto: 5,5
+4. Especifica el segundo punto: 15,25
+
+---
+
+Método 3: TANGENTE, TANGENTE, RADIO (TTR)
+
+Se utiliza para dibujar un círculo que es tangente a dos objetos existentes y tiene un radio específico. Este es esencial en el dibujo técnico.
+
+Ejemplo 3.1: Círculo Tangente a Dos Líneas Perpendiculares
+Instrucciones: Dibuja un círculo de radio 4 tangente a dos líneas perpendiculares.
+1. Dibuja dos líneas perpendiculares que se intersequen (Ej: una de 0,0 a 10,0 y otra de 0,0 a 0,10).
+2. Activa el comando CIRCULO (C).
+3. Escribe TTR para seleccionar el modo "Tangente, Tangente, Radio".
+4. Selecciona el primer objeto tangente (Ej: la línea horizontal).
+5. Selecciona el segundo objeto tangente (Ej: la línea vertical).
+6. Especifica el radio: 4
+
+Ejemplo 3.2: Círculo Tangente a Círculo y Línea
+Instrucciones: Dibuja un círculo de radio 6 tangente a un círculo existente y una línea cercana.
+1. Dibuja un círculo (C) en (10,10) con radio 5.
+2. Dibuja una línea (L) de (20,5) a (20,25).
+3. Activa el comando CIRCULO (C).
+4. Escribe TTR.
+5. Selecciona el primer objeto tangente (el círculo).
+6. Selecciona el segundo objeto tangente (la línea).
+7. Especifica el radio: 6
+
+--------------------------------------------------
+II. ACTIVIDADES SUGERIDAS (CON SOLUCIÓN OCULTA)
+--------------------------------------------------
+
+ACTIVIDAD 1: El Espejo en la Esquina (TTR + Coordenadas)
+
+Objetivo: Dibujar el cuarto de círculo (cuarto de espejo) en la esquina de una habitación.
+Instrucciones:
+1. Dibuja el contorno de una habitación (solo la esquina):
+   - LINEA de 0,10 a 0,0
+   - LINEA de 0,0 a 10,0
+2. Dibuja el círculo tangente a los dos muros con un radio de 3 unidades.
+3. Utiliza RECORTA (TR) para dejar solo el cuarto de círculo dentro de la esquina.
+
+<details>
+<summary>Ver Solución (Ubicación y Comando)</summary>
+
+1.  Comando: C (CIRCULO)
+2.  Opción: TTR
+3.  Selecciona la línea vertical (0,10 a 0,0).
+4.  Selecciona la línea horizontal (0,0 a 10,0).
+5.  Radio: 3.
+El centro del círculo final es (3,3).
+</details>
+
+---
+
+ACTIVIDAD 2: El Soporte Central (2P + Modificación)
+
+Objetivo: Dibujar un soporte circular que abarque el espacio exacto entre dos puntos específicos de dos objetos.
+Instrucciones:
+1. Dibuja un RECTANGULO (REC) de 10x10, comenzando en 5,5.
+2. Dibuja una LINEA (L) de (15,15) a (25,15).
+3. Dibuja un círculo cuyo diámetro comience en el punto **medio** de la línea (P1) y termine en la esquina **superior izquierda** del rectángulo (P2).
+
+<details>
+<summary>Ver Solución (Coordenadas y Centro)</summary>
+
+1.  Punto P1 (Punto Medio de la línea): 20,15
+2.  Punto P2 (Esquina Superior Izquierda del rectángulo): 5,15
+3.  Comando: C (CIRCULO), opción 2P.
+4.  Entradas: 20,15 y 5,15.
+El centro del círculo es (12.5, 15) y su radio es 7.5.
+</details>
+
+--------------------------------------------------
+III. RETOS DE COMPRENSIÓN (3 RETOS)
+--------------------------------------------------
+
+RETO 1: El Centro Desplazado (Coordenadas Relativas)
+Dibuja un círculo de radio 4, cuyo centro se ubique **5 unidades a la derecha** y **3 unidades hacia abajo** del punto final de una línea trazada de (0,0) a (10,10).
+
+Instrucciones:
+1. LINEA (L) de 0,0 a 10,10.
+2. CIRCULO (C).
+3. Punto Central: Utiliza una coordenada relativa (Ej: Escribe la coordenada del punto final seguida de @DX,DY).
+4. Radio: 4.
+
+---
+
+RETO 2: El Círculo entre Tangentes Paralelas
+Dibuja un círculo de radio desconocido que sea tangente a **dos líneas paralelas** separadas exactamente 15 unidades.
+
+Instrucciones:
+1. Dibuja la primera línea (L) de 0,0 a 10,0.
+2. Utiliza el comando **DESFASE** (OFFSET, O) para crear una línea paralela a 15 unidades de distancia.
+3. Dibuja un círculo que sea tangente a ambas líneas (usa TTR). ¿Cuál es el radio que debes introducir?
+
+---
+
+RETO 3: Círculo Inscrito
+Dibuja un círculo **perfectamente inscrito** (tangente a los tres lados) dentro de un triángulo equilátero que tiene un lado de 20 unidades.
+
+Instrucciones:
+1. Dibuja el triángulo (Ej: con LINEA o POLIGONO).
+2. Utiliza el comando CIRCULO (C).
+3. Escribe la opción **3P** (3 Puntos).
+4. Utiliza la ayuda de la **Referencia a Objeto** (SNAP) para seleccionar el punto de tangencia (la opción **TAN**) en cada uno de los tres lados del triángulo.

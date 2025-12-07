@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comando Arco en AutoCAD - Aprende Fácil</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-bg: #f8f9fa;
+            --dark-text: #2c3e50;
+            --light-text: #ecf0f1;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: var(--dark-text);
+            background-color: var(--light-bg);
+            padding: 0;
+            margin: 0;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        h2 {
+            color: var(--primary-color);
+            margin: 2rem 0 1.5rem;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.8rem;
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 0.5rem;
+        }
+
+        h3 {
+            color: var(--primary-color);
+            margin: 1.5rem 0 1rem;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.4rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+        }
+
+        .card-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-header:hover {
+            background-color: #1a252f;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        .command {
+            font-family: 'Courier New', monospace;
+            background-color: #f0f0f0;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-weight: bold;
+            color: #c0392b;
+        }
+
+        .steps {
+            margin: 1rem 0 1.5rem 2rem;
+        }
+
+        .steps li {
+            margin-bottom: 0.5rem;
+            position: relative;
+        }
+
+        .steps li:before {
+            content: "→";
+            position: absolute;
+            left: -1.5rem;
+            color: var(--secondary-color);
+        }
+
+        .toggle-btn {
+            background-color: var(--accent-color);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-btn:hover {
+            background-color: #c0392b;
+        }
+
+        .toggle-content {
+            display: none;
+            padding: 1rem;
+            background-color: #f1f8ff;
+            border-radius: 4px;
+            margin-top: 1rem;
+            border-left: 4px solid var(--secondary-color);
+        }
+
+        .example-img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1rem 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .note {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 0.75rem 1.25rem;
+            margin: 1rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 1.5rem 0;
+            margin-top: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            .card-header {
+                flex-direction: column;
+                text-align: left;
+            }
+            
+            .toggle-btn {
+                margin-top: 0.5rem;
+                align-self: flex-end;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .steps {
+                margin-left: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Comando Arco en AutoCAD</h1>
+            <p class="subtitle">Domina el trazado de arcos con diferentes métodos de dibujo</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="intro">
+            <p>El comando <span class="command">ARCO</span> (o <span class="command">A</span> en la línea de comandos) permite dibujar segmentos de un círculo. Existen once métodos para trazar un arco, pero los más comunes y eficientes son los que definen el inicio, el centro o el final del arco.</p>
+            <div class="note">
+                <strong>Nota importante:</strong> Por defecto, los arcos en AutoCAD se dibujan en sentido <strong>antihorario</strong>. Esto significa que el orden en que especifiques los puntos afectará la dirección del arco.
+            </div>
+        </section>
+
+        <section class="methods">
+            <h2>Métodos de Trazado</h2>
+            
+            <!-- Método 1 -->
+            <div class="card">
+                <div class="card-header">
+                    <span>Método 1: INICIO, CENTRO, FIN (Start, Center, End)</span>
+                    <span class="toggle-btn">Mostrar</span>
+                </div>
+                <div class="card-content">
+                    <p>Se define el arco especificando el punto de inicio, el centro del círculo al que pertenece el arco y el punto final.</p>
+                    
+                    <div class="example">
+                        <h3>Ejemplo 1.1: Arco Semicircular Básico</h3>
+                        <p>Dibuja un arco con un radio de 5, centrado en (10,10), que abarque 180 grados (de 0 a 180).</p>
+                        <ol class="steps">
+                            <li>Activa el comando <span class="command">ARCO</span> (A).</li>
+                            <li>Punto Inicial (Start): <code>15,10</code></li>
+                            <li>Escribe <span class="command">C</span> (para seleccionar la opción Centro).</li>
+                            <li>Punto Central: <code>10,10</code></li>
+                            <li>Punto Final (End): <code>5,10</code></li>
+                        </ol>
+                    </div>
+                    
+                    <div class="example">
+                        <h3>Ejemplo 1.2: Arco de 90 Grados</h3>
+                        <p>Dibuja un arco de 90 grados en el cuadrante superior derecho.</p>
+                        <ol class="steps">
+                            <li>Activa el comando <span class="command">ARCO</span> (A).</li>
+                            <li>Punto Inicial (Start): <code>50,50</code></li>
+                            <li>Escribe <span class="command">C</span> (Centro).</li>
+                            <li>Punto Central: <code>50,60</code></li>
+                            <li>Punto Final (End): <code>60,60</code></li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Método 2 -->
+            <div class="card">
+                <div class="card-header">
+                    <span>Método 2: INICIO, FIN, RADIO (Start, End, Radius)</span>
+                    <span class="toggle-btn">Mostrar</span>
+                </div>
+                <div class="card-content">
+                    <p>Se utiliza para dibujar un arco cuando se conocen los puntos de inicio y fin, y el radio deseado.</p>
+                    
+                    <div class="example">
+                        <h3>Ejemplo 2.1: Arco con Radio Definido</h3>
+                        <p>Dibuja un arco que vaya de (0,0) a (10,0) con un radio de 6.</p>
+                        <ol class="steps">
+                            <li>Activa el comando <span class="command">ARCO</span> (A).</li>
+                            <li>Punto Inicial (Start): <code>0,0</code></li>
+                            <li>Escribe <span class="command">E</span> (para seleccionar la opción Fin / End).</li>
+                            <li>Punto Final (End): <code>10,0</code></li>
+                            <li>Escribe <span class="command">R</span> (para seleccionar la opción Radio).</li>
+                            <li>Especifica el Radio: <code>6</code></li>
+                        </ol>
+                    </div>
+                    
+                    <div class="example">
+                        <h3>Ejemplo 2.2: Arco Cóncavo (Cambio de dirección)</h3>
+                        <p>Dibuja un arco que vaya de (20,10) a (30,10) con un radio de 10.</p>
+                        <ol class="steps">
+                            <li>Activa el comando <span class="command">ARCO</span> (A).</li>
+                            <li>Punto Inicial (Start): <code>20,10</code></li>
+                            <li>Escribe <span class="command">E</span> (Fin).</li>
+                            <li>Punto Final (End): <code>30,10</code></li>
+                            <li>Escribe <span class="command">R</span> (Radio).</li>
+                            <li>Especifica el Radio: <code>10</code></li>
+                        </ol>
+                        <div class="note">
+                            <strong>Nota:</strong> Dado que el arco se dibuja en sentido antihorario por defecto, el resultado será una curva hacia abajo (cóncava). Para obtener una curva hacia arriba, usa un radio negativo: <code>-10</code>.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Método 3 -->
+            <div class="card">
+                <div class="card-header">
+                    <span>Método 3: INICIO, FIN, DIRECCIÓN (Start, End, Direction)</span>
+                    <span class="toggle-btn">Mostrar</span>
+                </div>
+                <div class="card-content">
+                    <p>Define la curva especificando los puntos inicial y final, y la dirección de la tangencia inicial.</p>
+                    
+                    <div class="example">
+                        <h3>Ejemplo 3.1: Curva Tangente Simple</h3>
+                        <p>Dibuja un arco que comience en (0,10), termine en (10,20) y tenga una dirección tangente inicial de 45 grados.</p>
+                        <ol class="steps">
+                            <li>Activa el comando <span class="command">ARCO</span> (A).</li>
+                            <li>Punto Inicial (Start): <code>0,10</code></li>
+                            <li>Escribe <span class="command">E</span> (Fin).</li>
+                            <li>Punto Final (End): <code>10,20</code></li>
+                            <li>Escribe <span class="command">D</span> (para seleccionar la opción Dirección / Direction).</li>
+                            <li>Especifica la dirección de la tangente: <code>45</code></li>
+                        </ol>
+                    </div>
+                    
+                    <div class="example">
+                        <h3>Ejemplo 3.2: Curva Continua (Continuar)</h3>
+                        <p>Dibuja una línea de (50,50) a (60,50). Luego, dibuja un arco que continúe tangencialmente desde el final de esa línea.</p>
+                        <ol class="steps">
+                            <li>Dibuja la <span class="command">LINEA</span> (L) de <code>50,50</code> a <code>60,50</code>.</li>
+                            <li>Activa el comando <span class="command">ARCO</span> (A).</li>
+                            <li>Presiona <span class="command">ENTER</span> (AutoCAD toma automáticamente el punto final de la última entidad dibujada como el inicio del arco, manteniendo la tangencia).</li>
+                            <li>Especifica el punto final del arco (Ej: <code>60,60</code>). El arco se dibujará tangencialmente hacia arriba.</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de Actividades -->
+        <section class="activities">
+            <h2>Actividades Prácticas</h2>
+            
+            <!-- Actividad 1 -->
+            <div class="card">
+                <div class="card-header">
+                    <span>Actividad 1: El Enlace de Recorrido (Inicio, Fin, Radio)</span>
+                    <span class="toggle-btn">Mostrar</span>
+                </div>
+                <div class="card-content">
+                    <h3>Objetivo:</h3>
+                    <p>Crear un arco de transición suave entre dos puntos fijos separados.</p>
+                    
+                    <h3>Instrucciones:</h3>
+                    <ol class="steps">
+                        <li>Dibuja un punto en (10,10) y otro en (40,10).</li>
+                        <li>Dibuja un arco que conecte estos dos puntos con un radio de 20 unidades.</li>
+                    </ol>
+                    
+                    <div class="toggle-content">
+                        <h4>Solución:</h4>
+                        <ol class="steps">
+                            <li>Activa el comando <span class="command">ARCO</span> (A).</li>
+                            <li>Punto Inicial (Start): <code>10,10</code></li>
+                            <li>Escribe <span class="command">E</span> (Fin).</li>
+                            <li>Punto Final (End): <code>40,10</code></li>
+                            <li>Escribe <span class="command">R</span> (Radio).</li>
+                            <li>Especifica el Radio: <code>20</code></li>
+                        </ol>
+                        <p>El centro del arco se ubicará en el punto <code>(25, 2.76)</code> si se usa Radio 20 (curva hacia abajo). El arco abarcará aproximadamente 38.94 grados.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Actividad 2 -->
+            <div class="card">
+                <div class="card-header">
+                    <span>Actividad 2: El Perfil de Rodillo (Inicio, Centro, Ángulo)</span>
+                    <span class="toggle-btn">Mostrar</span>
+                </div>
+                <div class="card-content">
+                    <h3>Objetivo:</h3>
+                    <p>Dibujar un perfil de rodillo definiendo el centro y el ángulo de la curva.</p>
+                    
+                    <h3>Instrucciones:</h3>
+                    <ol class="steps">
+                        <li>Dibuja el centro del rodillo en (50,50).</li>
+                        <li>Dibuja una línea de (50,50) a (60,50) para establecer el radio inicial (10 unidades).</li>
+                        <li>Dibuja un arco que comience en (60,50), tenga el centro en (50,50) y abarque <strong>270 grados</strong> en sentido antihorario.</li>
+                    </ol>
+                    
+                    <div class="toggle-content">
+                        <h4>Solución:</h4>
+                        <ol class="steps">
+                            <li>Activa el comando <span class="command">ARCO</span> (A).</li>
+                            <li>Punto Inicial (Start): <code>60,50</code></li>
+                            <li>Escribe <span class="command">C</span> (Centro).</li>
+                            <li>Punto Central: <code>50,50</code></li>
+                            <li>Escribe <span class="command">A</span> (para la opción Ángulo).</li>
+                            <li>Ángulo: <code>270</code></li>
+                        </ol>
+                        <p>El arco terminará en el punto <code>(50, 40)</code>, creando un perfil de 270 grados en sentido antihorario.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de Retos -->
+        <section class="challenges">
+            <h2>Retos de Comprensión</h2>
+            
+            <!-- Reto 1 -->
+            <div class="card">
+                <div class="card-header">
+                    <span>Reto 1: El Arco de la Tangente</span>
+                    <span class="toggle-btn">Mostrar</span>
+                </div>
+                <div class="card-content">
+                    <h3>¿Cómo crear una transición suave desde una línea recta?</h3>
+                    <ol class="steps">
+                        <li>Dibuja una línea horizontal de 10 unidades.</li>
+                        <li>Inicia el comando <span class="command">ARCO</span>.</li>
+                        <li>Presiona <span class="command">ENTER</span> para continuar tangencialmente desde el final de la línea.</li>
+                        <li>Dibuja el arco para que termine 5 unidades hacia arriba de la línea base.</li>
+                    </ol>
+                    
+                    <div class="toggle-content">
+                        <h4>Solución:</h4>
+                        <ol class="steps">
+                            <li>Dibuja una línea de <code>0,0</code> a <code>10,0</code>.</li>
+                            <li>Activa <span class="command">ARCO</span> (A) y presiona <span class="command">ENTER</span>.</li>
+                            <li>Especifica el punto final del arco: <code>10,5</code>.</li>
+                        </ol>
+                        <p><strong>Verificación:</strong> La curva debería verse suavemente unida a la línea, sin quiebres, ya que AutoCAD mantiene la tangencia cuando usas la opción de continuar desde la última entidad.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Reto 2 -->
+            <div class="card">
+                <div class="card-header">
+                    <span>Reto 2: El Arco Invertido</span>
+                    <span class="toggle-btn">Mostrar</span>
+                </div>
+                <div class="card-content">
+                    <h3>¿Cómo afecta el signo del radio a la dirección del arco?</h3>
+                    <p>Dibuja un arco que vaya de (0,0) a (20,0) con un radio de <strong>-15</strong>.</p>
+                    
+                    <div class="toggle-content">
+                        <h4>Solución:</h4>
+                        <ol class="steps">
+                            <li>Activa <span class="command">ARCO</span> (A).</li>
+                            <li>Punto Inicial (Start): <code>0,0</code></li>
+                            <li>Escribe <span class="command">E</span> (Fin).</li>
+                            <li>Punto Final (End): <code>20,0</code></li>
+                            <li>Escribe <span class="command">R</span> (Radio).</li>
+                            <li>Especifica el Radio: <code>-15</code></li>
+                        </ol>
+                        <p><strong>Diferencia visual:</strong></p>
+                        <ul>
+                            <li>Con <code>Radio=15</code>: El arco se dibuja hacia abajo (cóncavo).</li>
+                            <li>Con <code>Radio=-15</code>: El arco se dibuja hacia arriba (convexo).</li>
+                        </ul>
+                        <p>El signo negativo invierte la dirección predeterminada (antihoraria) del arco.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Reto 3 -->
+            <div class="card">
+                <div class="card-header">
+                    <span>Reto 3: El Método del Centro Fijo</span>
+                    <span class="toggle-btn">Mostrar</span>
+                </div>
+                <div class="card-content">
+                    <h3>¿Cómo funciona el método por centro en AutoCAD?</h3>
+                    <ol class="steps">
+                        <li>Dibuja un círculo centrado en (50,50) con un radio de 10.</li>
+                        <li>Inicia el comando <span class="command">ARCO</span>.</li>
+                        <li>Usa el método <strong>CENTRO, INICIO, FIN</strong>.</li>
+                    </ol>
+                    
+                    <div class="toggle-content">
+                        <h4>Solución:</h4>
+                        <ol class="steps">
+                            <li>Dibuja un círculo: <span class="command">CIRCULO</span> en <code>50,50</code> con radio <code>10</code>.</li>
+                            <li>Activa <span class="command">ARCO</span> (A).</li>
+                            <li>Escribe <span class="command">C</span> (Centro).</li>
+                            <li>Especifica el Centro: <code>50,50</code></li>
+                            <li>Punto Inicial: <code>60,50</code> (este será el punto de inicio del arco en el círculo).</li>
+                            <li>Punto Final: <code>50,60</code> (este será el punto final del arco).</li>
+                        </ol>
+                        <p><strong>Verificación:</strong></p>
+                        <ul>
+                            <li>El arco resultante es un cuarto de círculo (90 grados) que va desde las 3 en punto (60,50) hasta las 12 en punto (50,60).</li>
+                            <li>El punto final se especifica al final porque AutoCAD necesita saber primero el centro y el punto inicial para determinar la dirección y el radio del arco.</li>
+                            <li>Este método es útil cuando conoces el centro del arco y dos puntos por los que debe pasar.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; JMGV-PTEL-2025 Todos los derechos reservados</p>
+        </div>
+    </footer>
+
+    <script>
+        // Toggle functionality for the cards
+        document.addEventListener('DOMContentLoaded', function() {
+            const toggleButtons = document.querySelectorAll('.toggle-btn');
+            
+            toggleButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const card = this.closest('.card');
+                    const content = card.querySelector('.toggle-content');
+                    
+                    if (content.style.display === 'block') {
+                        content.style.display = 'none';
+                        this.textContent = 'Mostrar';
+                    } else {
+                        content.style.display = 'block';
+                        this.textContent = 'Ocultar';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

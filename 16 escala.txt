@@ -1,0 +1,125 @@
+==================================================
+EJERCICIOS: COMANDO ESCALA (SCALE) EN AUTOCAD
+==================================================
+
+El comando ESCALA (SC o SCALE) aumenta o reduce el tamaño de los objetos seleccionados de forma uniforme. Requiere tres pasos clave:
+1.  **Selección de Objetos:** Definir qué entidades se van a redimensionar.
+2.  **Punto Base (Base Point):** El punto fijo que no se moverá durante el escalado.
+3.  **Factor de Escala (Scale Factor):** El valor por el cual se multiplicará la dimensión actual.
+
+--------------------------------------------------
+I. MÉTODOS DE ESCALADO (2 EJEMPLOS POR MÉTODO)
+--------------------------------------------------
+
+Método 1: Escalado por Factor Numérico
+
+Se ingresa un valor numérico directo (Factor de Escala).
+- Factor > 1.0: Aumenta el tamaño (Ej: 2.0 duplica el tamaño).
+- Factor < 1.0: Reduce el tamaño (Ej: 0.5 reduce a la mitad).
+
+Ejemplo 1.1: Duplicar el Tamaño (Factor 2.0)
+Instrucciones: Dibuja un rectángulo de 10x5. Duplica su tamaño, manteniendo fija la esquina inferior izquierda.
+1. Dibuja un RECTANGULO (REC) de 10x5 en (0,0).
+2. Activa el comando ESCALA (SC).
+3. Selecciona el rectángulo. Presiona Enter.
+4. Punto Base: Esquina inferior izquierda (0,0).
+5. Factor de Escala: 2.0
+6. El nuevo rectángulo debe ser de 20x10.
+
+Ejemplo 1.2: Reducir a un Cuarto (Factor 0.25)
+Instrucciones: Dibuja un círculo de radio 8. Reduce su tamaño a una cuarta parte, manteniendo fijo el centro.
+1. Dibuja un CÍRCULO (C) de radio 8 en (50,50).
+2. Activa ESCALA (SC).
+3. Selecciona el círculo. Presiona Enter.
+4. Punto Base: El centro del círculo (50,50).
+5. Factor de Escala: 0.25
+6. El nuevo radio del círculo debe ser 2.
+
+---
+
+Método 2: Escalado por Referencia (Reference, R)
+
+Se utiliza cuando se conoce una dimensión actual del objeto (Longitud de Referencia) y se desea cambiarla a una nueva longitud específica (Nueva Longitud).
+
+Ejemplo 2.1: Ajustar Longitud de Muro
+Instrucciones: Dibuja una línea de 7 unidades. Escálala para que mida exactamente 15 unidades, usando el método Referencia.
+1. Dibuja una LINEA (L) de (10,10) a (17,10). (Longitud 7).
+2. Activa ESCALA (SC).
+3. Selecciona la línea. Presiona Enter.
+4. Punto Base: Punto inicial (10,10).
+5. Escribe **R** (para seleccionar la opción Referencia).
+6. **Longitud de Referencia:** Ingresa el valor actual **7** (o haz clic en los dos extremos de la línea).
+7. **Nueva Longitud:** 15
+8. La nueva línea debe medir exactamente 15 unidades (de 10,10 a 25,10).
+
+Ejemplo 2.2: Reducir con Referencia
+Instrucciones: Dibuja un cuadrado de 20x20. Escálalo para que su lado mida 8 unidades, usando Referencia.
+1. Dibuja un RECTANGULO (REC) de 20x20 en (0,0).
+2. Activa ESCALA (SC).
+3. Selecciona el rectángulo. Presiona Enter.
+4. Punto Base: (0,0).
+5. Escribe **R** (Referencia).
+6. **Longitud de Referencia:** Ingresa el valor actual **20** (o selecciona los puntos 0,0 y 20,0).
+7. **Nueva Longitud:** 8
+8. El nuevo cuadrado debe ser de 8x8. (Factor de escala implícito: 8/20 = 0.4).
+
+--------------------------------------------------
+II. ACTIVIDADES SUGERIDAS (SOLUCIÓN OCULTA)
+--------------------------------------------------
+
+ACTIVIDAD 1: El Plano a Escala (Reducción por Factor)
+
+Objetivo: Simular la reducción de un componente de ingeniería a una vista a escala.
+Instrucciones:
+1. Dibuja una POLILINEA compleja (Ej: 4 segmentos de 5 unidades cada uno en forma de "Z").
+2. **Paso A:** Mueve la polilínea para que su punto inicial quede en (50,50).
+3. **Paso B:** Escala la polilínea por un factor de **0.75**, manteniendo fijo el punto inicial (50,50).
+
+<details>
+<summary>Ver Solución (Longitud Final del Objeto)</summary>
+
+La polilínea original tiene una longitud total de 20 unidades.
+Después de escalarla por 0.75, la nueva longitud total es: $20 \times 0.75 = 15$ unidades.
+</details>
+
+---
+
+ACTIVIDAD 2: Ajuste de Bloque (Escalado por Referencia)
+
+Objetivo: Ajustar el tamaño de un bloque o símbolo dibujado incorrectamente a la dimensión real.
+Instrucciones:
+1. Dibuja un RECTANGULO (el "bloque") de 2x3 unidades.
+2. Dibuja una LINEA de referencia que mida exactamente **10** unidades de largo.
+3. Escala el rectángulo de 2x3 de modo que su lado más largo (3 unidades) se ajuste a la longitud de la Línea de Referencia (10 unidades). Mantén fijo el punto inicial del rectángulo.
+
+<details>
+<summary>Ver Solución (Dimensiones Finales del Rectángulo)</summary>
+
+1.  Longitud de Referencia (lado 3): 3.
+2.  Nueva Longitud: 10.
+3.  Factor de escala implícito: $10 / 3 \approx 3.3333$.
+4.  El lado de 2 unidades medirá: $2 \times 3.3333 \approx 6.6666$ unidades.
+5.  Las dimensiones finales son: $6.6666 \times 10$ unidades.
+</details>
+
+--------------------------------------------------
+III. RETOS DE COMPRENSIÓN (3 RETOS)
+--------------------------------------------------
+
+RETO 1: Escalado sin Factor
+Dibuja un círculo. Ejecuta el comando ESCALA (SC). Selecciona el círculo. Punto Base: el centro. Cuando te pida el Factor de Escala, presiona la tecla **ENTER** sin ingresar un valor.
+Verifica: ¿Qué sucedió? ¿Qué valor de factor de escala utilizó AutoCAD por defecto?
+
+---
+
+RETO 2: El Escalado con Borrado (Copia, C)
+Dibuja un rectángulo de 10x5. Ejecuta el comando ESCALA (SC). Selecciona el rectángulo. Punto Base: la esquina inferior izquierda.
+Antes de ingresar el factor de escala, escribe **C** (para la opción **COPIA**).
+Factor de Escala: 1.5
+Verifica: ¿Se escaló el objeto original? ¿Se creó una nueva copia? ¿Qué dimensiones tiene la copia?
+
+---
+
+RETO 3: Escalado de un Dibujo Inclinado
+Dibuja una línea de (0,0) a (10,10) (45 grados). Escálala por un factor de **0.5**, manteniendo fijo el origen (0,0).
+Verifica: ¿El ángulo de la línea (45 grados) se modificó? ¿O solo se escaló su longitud? ¿Qué tan importante es el Punto Base cuando se escala un objeto inclinado?

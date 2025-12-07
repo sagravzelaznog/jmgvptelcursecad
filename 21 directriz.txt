@@ -1,0 +1,116 @@
+==================================================
+EJERCICIOS: COMANDO DIRECTRIZ (MLEADER) EN AUTOCAD
+==================================================
+
+El comando DIRECTRIZ (MLEADER, ML) crea una línea de llamada (leader) con una punta de flecha en un extremo y una anotación de texto o bloque en el otro. Es una entidad única que simplifica la anotación.
+
+--------------------------------------------------
+I. MÉTODOS DE TRAZADO (2 EJEMPLOS POR CADA MANERA)
+--------------------------------------------------
+
+Método 1: Directriz con Línea de Referencia (Leader Line First)
+
+Se empieza dibujando la línea de directriz (Leader Line) y luego se añade la anotación.
+
+Ejemplo 1.1: Etiqueta de Componente (Texto)
+Instrucciones: Crea una directriz que señale un componente y lo etiquete como "Motor A".
+1. Dibuja un CÍRCULO (C) en (20,20) para representar el componente.
+2. Activa el comando DIRECTRIZ (ML o MLEADER).
+3. **Punto de la Punta de Flecha:** Haz clic en el borde del círculo.
+4. **Punto de Referencia (Línea de Directriz):** Mueve el cursor y haz clic fuera del círculo (Ej: @10<45).
+5. **Escribe la Anotación:** Ingresa el texto: Motor A
+6. Haz clic fuera o Ctrl+Enter para finalizar.
+
+Ejemplo 1.2: Directriz con Ángulo Específico
+Instrucciones: Crea una directriz con una línea de referencia perfectamente vertical (90 grados).
+1. Dibuja un RECTANGULO (REC) en (50,50).
+2. Activa DIRECTRIZ (ML).
+3. **Punto de la Punta de Flecha:** Haz clic en la esquina superior derecha del rectángulo.
+4. **Punto de Referencia:** Usa el modo **ORTOMODE (F8)** o coordenadas polares para asegurar que la línea de directriz sea vertical (Ej: @15<90).
+5. **Escribe la Anotación:** Nota de Detalle
+6. Finaliza el texto.
+
+---
+
+Método 2: Directriz con Contenido (Content First)
+
+Se empieza creando la anotación de texto o bloque y luego se define la línea de directriz.
+
+Ejemplo 2.1: Iniciar con Bloque (Contenido)
+Instrucciones: Crea una directriz que apunte a un punto con un texto que ya está justificado.
+1. Activa DIRECTRIZ (ML).
+2. En la cinta de opciones, busca las opciones de **Contenido** y asegúrate de que esté configurado como **MTEXT** (Texto de Líneas Múltiples).
+3. Escribe **C** (para la opción Contenido) en la línea de comandos, si es necesario.
+4. **Especifica la Ubicación del Contenido (Texto):** Haz clic en un punto (Ej: 10,60).
+5. **Ingresa la Anotación:** Válvula de Control.
+6. **Especifica la Ubicación de la Línea de Directriz:** Haz clic para dibujar la línea, moviendo el cursor para señalar el punto deseado (Ej: 20,40).
+7. Finaliza el comando.
+
+Ejemplo 2.2: Añadir a Directriz Existente (Opciones Múltiples)
+Instrucciones: Agrega una nueva punta de flecha a una directriz existente.
+1. Crea una directriz simple (Ejemplo 1.1).
+2. Activa el comando **MLEADEREDIT** o usa el comando **AÑADIR DIRECTRIZ** (Add Leader).
+3. Selecciona la directriz existente.
+4. Especifica la ubicación para la **nueva punta de flecha** (Ej: el borde inferior del círculo).
+5. Se añade un nuevo segmento de línea de directriz al mismo texto de anotación.
+
+--------------------------------------------------
+II. ACTIVIDADES SUGERIDAS (SOLUCIÓN OCULTA)
+--------------------------------------------------
+
+ACTIVIDAD 1: Etiquetado de Tolerancia (Ajuste de Estilo)
+
+Objetivo: Crear una directriz y modificar su estilo para cumplir con estándares de planos mecánicos (punta de flecha pequeña y texto específico).
+Instrucciones:
+1. Dibuja un RECTANGULO de 10x10.
+2. **Crear Directriz:** Crea una directriz (ML) que apunte al lado derecho del rectángulo.
+3. **Anotación:** Diámetro Máximo.
+4. **Modificación de Estilo:** Abre la ventana de **MLEADERSTYLE** (Estilo de Directriz) y crea un nuevo estilo llamado **'Tolerancia'**.
+   - En la pestaña **Estructura de Directriz**: Cambia la punta de flecha a **Punto Pequeño** (Dot Small).
+   - En la pestaña **Contenido**: Cambia la alineación a **Horizontal**.
+5. **Aplicar:** Aplica el estilo 'Tolerancia' a la directriz creada.
+
+<details>
+<summary>Ver Solución (Propiedad de la Punta de Flecha)</summary>
+
+Si el estilo fue aplicado correctamente, la punta de flecha de la directriz ya no debe ser una flecha cerrada (Arrowhead) sino un círculo relleno pequeño (Dot Small), indicando un cambio en la configuración de la **Estructura** del estilo.
+</details>
+
+---
+
+ACTIVIDAD 2: Agrupación de Directrices (Colección)
+
+Objetivo: Dibujar múltiples directrices y agruparlas para que compartan la misma anotación.
+Instrucciones:
+1. Dibuja tres CÍRCULOS pequeños (A, B, C) espaciados horizontalmente.
+2. **Directriz 1:** Crea una directriz que apunte al Círculo A y etiqueta: "Revisar".
+3. **Directriz 2:** Crea una directriz que apunte al Círculo B y etiqueta: "Revisar".
+4. **Directriz 3:** Crea una directriz que apunte al Círculo C y etiqueta: "Revisar".
+5. **Agrupar:** Utiliza el comando **MLEADERCOLLECT** (o Agrupar Directrices en la cinta). Selecciona las tres directrices y presiona Enter.
+6. **Resultado:** Las tres puntas de flecha ahora deben apuntar a una **sola anotación** ("Revisar") en la parte central.
+
+<details>
+<summary>Ver Solución (Comando de Agrupación)</summary>
+
+El comando MLEADERCOLLECT fusiona los textos de las directrices seleccionadas y centraliza el contenido en un solo objeto MTEXT, con líneas de directriz separadas que apuntan a cada entidad.
+</details>
+
+--------------------------------------------------
+III. RETOS DE COMPRENSIÓN (3 RETOS)
+--------------------------------------------------
+
+RETO 1: La Directriz sin Contenido
+Activa el comando DIRECTRIZ (ML). Dibuja el punto de la punta de flecha y el punto de referencia de la línea. Cuando se te pida la anotación, presiona **Ctrl+Enter** (o haz clic fuera) sin escribir texto.
+Verifica: ¿Se crea la entidad de directriz? ¿Se mantiene la línea de directriz sin texto asociado? (Pista: Sí, la directriz existe como entidad, pero sin contenido visible).
+
+---
+
+RETO 2: La Rotación y el Contenido
+Crea una directriz con el texto "PROTOTIPO" usando el punto de inserción (10,10). A continuación, utiliza el comando de modificación **GIRAR** (RO) y gírala **45 grados** alrededor del punto de la punta de flecha.
+Verifica: ¿Se gira toda la directriz? ¿El texto sigue siendo legible y orientado horizontalmente, o el cuadro de texto también gira 45 grados? (Pista: MTEXT suele mantener su legibilidad).
+
+---
+
+RETO 3: Añadir a Línea Existente
+Dibuja una LINEA simple de 5 unidades. Intenta usar el comando **AÑADIR DIRECTRIZ** (Add Leader) o **MLEADEREDIT** para añadir una punta de flecha a esa línea, convirtiéndola en una directriz.
+Pregunta: ¿Se puede convertir una LINEA simple en una MLEADER? ¿Qué comando debe usarse para crear una directriz a partir de una entidad de línea existente? (Pista: Se debe crear una **nueva** MLEADER; las entidades LINE/PLINE son distintas).

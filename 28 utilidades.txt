@@ -1,0 +1,133 @@
+==================================================
+EJERCICIOS: COMANDOS DE UTILIDAD/MEDIDA (INQUIRY) EN AUTOCAD
+==================================================
+
+Los comandos de Utilidad e Información te permiten verificar dimensiones, áreas, volúmenes y propiedades de los objetos sin acotar. Esto es fundamental para la validación y el cálculo de presupuestos.
+
+--------------------------------------------------
+I. MÉTODOS DE MEDIDA (2 EJEMPLOS POR CADA MANERA)
+--------------------------------------------------
+
+Método 1: Medición de Distancia y Radio (DISTANCE, DI / MEASUREGEOM)
+
+Se utiliza para obtener la distancia recta entre dos puntos y los datos de entidades circulares.
+
+Ejemplo 1.1: Distancia entre Puntos Inclinados
+Instrucciones: Mide la distancia real entre dos puntos en diagonal.
+1. Dibuja LINEA A: de (10,10) a (20,15).
+2. Activa el comando DISTANCIA (DI).
+3. Primer punto: (10,10).
+4. Segundo punto: (20,15).
+5. El resultado en la línea de comandos debe mostrar la distancia **real** (aprox. 11.18) y los valores Delta X y Delta Y.
+
+Ejemplo 1.2: Medición de Radio y Circunferencia
+Instrucciones: Mide el radio, el diámetro y la circunferencia de un círculo.
+1. Dibuja un CÍRCULO (C) de radio 5.
+2. Activa el comando **MÉTODO** (MEASUREGEOM, ME).
+3. Selecciona la opción **Radio** (Radius).
+4. Haz clic en el círculo.
+5. El resultado debe mostrar el Radio (5.00) y el Diámetro (10.00).
+
+---
+
+Método 2: Medición de Área (AREA, AA / MEASUREGEOM)
+
+Se utiliza para calcular el área de una figura cerrada (polilíneas, círculos, o puntos seleccionados).
+
+Ejemplo 2.1: Área por Puntos (Método Tradicional)
+Instrucciones: Mide el área de un triángulo dibujado con líneas individuales.
+1. Dibuja un TRIÁNGULO con tres LINEAS (L) separadas: (0,0) a (10,0) a (5,8) a (0,0).
+2. Activa el comando ÁREA (AREA, AA).
+3. Haz clic en los tres vértices (0,0), (10,0), (5,8). Presiona Enter.
+4. El resultado debe mostrar el **Área** (40.00).
+
+Ejemplo 2.2: Área de un Objeto (Método Rápido)
+Instrucciones: Mide el área de un polígono cerrado con un solo clic.
+1. Dibuja un RECTANGULO (REC) de 15x10 (o un POLIGONO)
+2. Activa ÁREA (AREA, AA).
+3. Escribe **O** (para seleccionar Objeto / Object).
+4. Haz clic en el borde del rectángulo.
+5. El resultado debe mostrar el Área (150.00) y el Perímetro (50.00).
+
+---
+
+Método 3: Listado de Propiedades de Entidades (LIST, LI)
+
+Se utiliza para obtener toda la información detallada de una entidad (coordenadas, longitud, área, capa, etc.).
+
+Ejemplo 3.1: Coordenadas de Vértices
+Instrucciones: Obtén la lista de coordenadas de los vértices de una polilínea.
+1. Dibuja una POLILINEA (PL) de (0,0) a (5,5) a (10,0).
+2. Activa el comando LISTA (LIST, LI).
+3. Selecciona la Polilínea. Presiona Enter.
+4. Una ventana de texto (o la línea de comandos) mostrará las coordenadas X, Y, Z de cada vértice, la longitud total, y la capa.
+
+Ejemplo 3.2: Propiedades Detalladas de Bloque
+Instrucciones: Obtén las propiedades de inserción de un bloque.
+1. Inserta un BLOQUE (I) en (50,50), rotado 45 grados.
+2. Activa LISTA (LIST, LI).
+3. Selecciona el bloque. Presiona Enter.
+4. El resultado mostrará el nombre del bloque, la coordenada de inserción (50,50) y el ángulo de rotación (45.00).
+
+--------------------------------------------------
+II. ACTIVIDADES SUGERIDAS (SOLUCIÓN OCULTA)
+--------------------------------------------------
+
+ACTIVIDAD 1: Cálculo de Material Restante (Sustracción de Áreas)
+
+Objetivo: Calcular el área neta de una placa después de perforarla.
+Instrucciones:
+1. Dibuja la PLACA (RECTANGULO) de 40x30 en (0,0).
+2. Dibuja la PERFORACIÓN (CÍRCULO) de radio 5 en el centro (20,15).
+3. **Paso A (Área de la Placa):** Usa ÁREA (AA) y selecciona la placa.
+4. **Paso B (Sustracción):** Escribe **A** (para Añadir) y luego **S** (para Sustraer).
+5. Selecciona el CÍRCULO. Presiona Enter dos veces.
+
+<details>
+<summary>Ver Solución (Área Neta Final)</summary>
+
+1.  Área de la placa: $40 \times 30 = 1200$.
+2.  Área del círculo: $\pi \times 5^2 \approx 78.54$.
+3.  Área Neta Final: $1200 - 78.54 = 1121.46$ unidades cuadradas.
+</details>
+
+---
+
+ACTIVIDAD 2: Verificación de Pendiente Inclinada (LISTA y Distancia)
+
+Objetivo: Calcular la longitud de proyección horizontal de un elemento inclinado usando LISTA.
+Instrucciones:
+1. Dibuja una LINEA (L) de (10,5) a (30,15).
+2. **Medición A (LISTA):** Usa LISTA (LI) y selecciona la línea. Anota el valor **Delta X** (DX).
+3. **Medición B (DISTANCIA):** Usa DISTANCIA (DI) y haz clic en los extremos de la línea. Anota el valor **Distancia**.
+
+<details>
+<summary>Ver Solución (Valores Esperados)</summary>
+
+1.  Coordenadas: (10, 5) a (30, 15).
+2.  Valor DX (Proyección Horizontal): **20.00** (30 - 10).
+3.  Valor DY (Proyección Vertical): **10.00** (15 - 5).
+4.  Distancia (Real): $\sqrt{20^2 + 10^2} = \sqrt{500} \approx 22.36$ unidades.
+</details>
+
+--------------------------------------------------
+III. RETOS DE COMPRENSIÓN (3 RETOS)
+--------------------------------------------------
+
+RETO 1: Área de Polilínea con Ancho
+Dibuja una **POLILINEA** (PL) de 10x10. Utiliza el comando **PEDIT** (PE) para darle un **ancho global** (Global Width) de 5.
+Utiliza el comando ÁREA (AREA, AA) y selecciona la polilínea.
+Verifica: ¿El comando ÁREA calcula el área del centro de la polilínea (100) o incluye el área adicional del ancho (5) que le diste? (Pista: Siempre calcula el área del centro, ignorando el ancho).
+
+---
+
+RETO 2: Medición de Ángulos
+Dibuja dos líneas que se cruzan en un ángulo (Ej: 30 grados). Activa el comando **MÉTODO** (MEASUREGEOM, ME). Selecciona la opción **Ángulo** (Angle). Haz clic en las dos líneas.
+Verifica: ¿Qué valor de ángulo muestra AutoCAD? ¿Cómo se vería afectado el resultado si hubieras utilizado el comando **LISTA** (LI)?
+
+---
+
+RETO 3: El Perímetro y la Polilínea
+Dibuja un cuadrado de 10x10 usando **cuatro líneas separadas**. Utiliza el comando **ÁREA** (AA) y selecciona los cuatro vértices.
+Dibuja un segundo cuadrado de 10x10 usando **una sola POLILINEA** (REC). Utiliza el comando ÁREA (AA) y selecciona la opción **Objeto** (O).
+Verifica: ¿El valor del **PERÍMETRO** es idéntico en ambos métodos? (Pista: Sí, el perímetro es la suma de las longitudes de los segmentos).

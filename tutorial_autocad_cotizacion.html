@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutorial AutoCAD: Comandos de Acotación</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-bg: #f5f7fa;
+            --dark-text: #2c3e50;
+            --light-text: #7f8c8d;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            line-height: 1.6;
+            color: var(--dark-text);
+            background-color: #f9f9f9;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #ecf0f1;
+            font-weight: 300;
+        }
+        
+        .command-section {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border-left: 5px solid var(--secondary-color);
+        }
+        
+        .command-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .command-icon {
+            background-color: var(--secondary-color);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+        
+        .command-title {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin: 0;
+        }
+        
+        .command-shortcut {
+            background-color: #e8f4fc;
+            color: var(--secondary-color);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-left: auto;
+            border: 1px solid #d0e3f2;
+        }
+        
+        h2 {
+            color: var(--primary-color);
+            margin: 1.5rem 0 1rem;
+            font-size: 1.4rem;
+        }
+        
+        p, li {
+            margin-bottom: 1rem;
+            color: #555;
+        }
+        
+        .example {
+            background-color: #f8f9fa;
+            border-left: 4px solid var(--secondary-color);
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .example-title {
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .example-title:before {
+            content: "→";
+            margin-right: 0.5rem;
+            color: var(--secondary-color);
+        }
+        
+        code {
+            background-color: #f0f0f0;
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            color: #e74c3c;
+        }
+        
+        .steps {
+            counter-reset: step;
+            margin: 1.5rem 0;
+            padding-left: 1.5rem;
+        }
+        
+        .step {
+            position: relative;
+            padding-left: 2.5rem;
+            margin-bottom: 1rem;
+            counter-increment: step;
+        }
+        
+        .step:before {
+            content: counter(step);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background-color: var(--secondary-color);
+            color: white;
+            width: 1.8rem;
+            height: 1.8rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+        
+        .activity {
+            background-color: #f0f7ff;
+            border-left: 4px solid #3498db;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .activity-title {
+            color: #2c3e50;
+            margin-top: 0;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .activity-title:before {
+            content: "📝";
+            margin-right: 0.5rem;
+        }
+        
+        details {
+            background-color: #f9f9f9;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+        
+        summary {
+            padding: 1rem;
+            background-color: #f0f0f0;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--primary-color);
+            transition: background-color 0.2s;
+        }
+        
+        summary:hover {
+            background-color: #e0e0e0;
+        }
+        
+        .solution {
+            padding: 1rem;
+            background-color: white;
+            border-top: 1px solid #e0e0e0;
+        }
+        
+        .challenge {
+            background-color: #fff8f0;
+            border-left: 4px solid #e67e22;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .challenge-title {
+            color: #d35400;
+            margin-top: 0;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .challenge-title:before {
+            content: "🔍";
+            margin-right: 0.5rem;
+        }
+        
+        .tip {
+            background-color: #f0f8ff;
+            border-left: 4px solid #3498db;
+            padding: 1rem 1rem 1rem 3rem;
+            margin: 1.5rem 0;
+            border-radius: 0 4px 4px 0;
+            position: relative;
+        }
+        
+        .tip:before {
+            content: "💡";
+            position: absolute;
+            left: 1rem;
+            top: 1rem;
+            font-size: 1.2rem;
+        }
+        
+        .tip-content {
+            margin-left: 0.5rem;
+        }
+        
+        .note {
+            background-color: #fffaf0;
+            border-left: 4px solid #f1c40f;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .note-title {
+            font-weight: 600;
+            color: #b7950b;
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+        }
+        
+        .dimension-sample {
+            background-color: #f8f9fa;
+            border: 1px solid #e1e4e8;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            white-space: pre-wrap;
+        }
+        
+        .dimension-sample .dim-line {
+            border-top: 1px solid #333;
+            position: relative;
+            margin: 1rem 0;
+        }
+        
+        .dimension-sample .dim-extension {
+            position: absolute;
+            top: -10px;
+            border-left: 1px solid #333;
+            height: 10px;
+        }
+        
+        .dimension-sample .dim-text {
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            padding: 0 5px;
+        }
+        
+        .dimension-sample.horizontal {
+            margin: 2rem 0;
+        }
+        
+        .dimension-sample.vertical {
+            display: flex;
+            align-items: flex-start;
+            gap: 2rem;
+        }
+        
+        .dimension-sample.vertical .dim-line {
+            width: 1px;
+            height: 100px;
+            border-left: 1px solid #333;
+            border-top: none;
+            margin: 0 1rem;
+        }
+        
+        .dimension-sample.vertical .dim-extension {
+            left: -10px;
+            top: auto;
+            border-left: none;
+            border-top: 1px solid #333;
+            width: 10px;
+            height: 1px;
+        }
+        
+        .dimension-sample.vertical .dim-text {
+            left: -30px;
+            top: 50%;
+            transform: translateY(-50%);
+            white-space: nowrap;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+            border-top: 1px solid #eee;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .command-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .command-shortcut {
+                margin: 1rem 0 0 0;
+                align-self: flex-start;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .command-title {
+                font-size: 1.5rem;
+            }
+            
+            .dimension-sample.vertical {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .dimension-sample.vertical .dim-line {
+                width: 100px;
+                height: 1px;
+                border-left: none;
+                border-top: 1px solid #333;
+                margin: 1rem 0;
+            }
+            
+            .dimension-sample.vertical .dim-text {
+                left: 0;
+                top: -25px;
+                transform: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Tutorial de AutoCAD: Comandos de Acotación</h1>
+            <p class="subtitle">Aprende a crear y formatear cotas profesionales en tus dibujos</p>
+        </div>
+    </header>
+    
+    <div class="container">
+        <section class="intro">
+            <p>La acotación es una parte fundamental de cualquier dibujo técnico en AutoCAD. Este tutorial te guiará a través de los comandos de acotación más utilizados, permitiéndote crear mediciones claras y precisas en tus diseños.</p>
+            
+            <div class="tip">
+                <strong>Consejo:</strong> Antes de comenzar a acotar, asegúrate de tener configurado el estilo de cota adecuado (DIMSTYLE) con el tipo de letra, tamaño y precisión deseados.
+            </div>
+        </section>
+        
+        <!-- Sección de COTA LINEAL -->
+        <section id="cota-lineal" class="command-section">
+            <div class="command-header">
+                <div class="command-icon">DLI</div>
+                <h2 class="command-title">COTA LINEAL (DIMLINEAR, DLI)</h2>
+                <span class="command-shortcut">Comando: <code>DIMLINEAR</code> o <code>DLI</code></span>
+            </div>
+            
+            <p>El comando COTA LINEAL se utiliza para medir distancias horizontales o verticales. Es el tipo de cota más común en dibujos técnicos.</p>
+            
+            <div class="example">
+                <div class="example-title">Ejemplo 1.1: Acotación Horizontal</div>
+                <p>Mide la longitud de un rectángulo de 15x8 unidades.</p>
+                
+                <div class="steps">
+                    <div class="step">Dibuja un <strong>RECTÁNGULO</strong> (REC) de 15x8 en (0,0).</div>
+                    <div class="step">Activa el comando <strong>COTA LINEAL</strong> (DLI).</div>
+                    <div class="step">Especifica la primera extensión: Esquina inferior izquierda (0,0).</div>
+                    <div class="step">Especifica la segunda extensión: Esquina inferior derecha (15,0).</div>
+                    <div class="step">Posiciona la línea de cota (Ej: a -2 unidades en Y).</div>
+                    <div class="step">El texto de la cota debe mostrar <strong>15</strong>.</div>
+                </div>
+                
+                <div class="dimension-sample horizontal">
+                    <div class="dim-line">
+                        <div class="dim-extension" style="left: 0;"></div>
+                        <div class="dim-extension" style="right: 0; left: auto;"></div>
+                        <div class="dim-text">15.00</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="example">
+                <div class="example-title">Ejemplo 1.2: Acotación Vertical</div>
+                <p>Mide la altura del mismo rectángulo.</p>
+                
+                <div class="steps">
+                    <div class="step">Activa <strong>COTA LINEAL</strong> (DLI).</div>
+                    <div class="step">Especifica la primera extensión: Esquina inferior derecha (15,0).</div>
+                    <div class="step">Especifica la segunda extensión: Esquina superior derecha (15,8).</div>
+                    <div class="step">Posiciona la línea de cota (Ej: a 20 unidades en X).</div>
+                    <div class="step">El texto de la cota debe mostrar <strong>8</strong>.</div>
+                </div>
+                
+                <div class="dimension-sample vertical">
+                    <div class="dim-line">
+                        <div class="dim-extension" style="top: 0;"></div>
+                        <div class="dim-extension" style="bottom: 0; top: auto;"></div>
+                        <div class="dim-text">8.00</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="note">
+                <div class="note-title">Nota sobre la precisión</div>
+                <p>La precisión de las cotas (número de decimales mostrados) se puede configurar en el estilo de cota (DIMSTYLE). Para cambiar la precisión:</p>
+                <ol>
+                    <li>Escribe <code>DIMSTYLE</code> y presiona Enter.</li>
+                    <li>Selecciona el estilo de cota actual y haz clic en <strong>Modificar</strong>.</li>
+                    <li>Ve a la pestaña <strong>Unidades principales</strong>.</li>
+                    <li>Ajusta la precisión según necesites.</li>
+                </ol>
+            </div>
+        </section>
+        
+        <!-- Sección de COTA RADIAL Y DIAMETRAL -->
+        <section id="cota-radial-diametral" class="command-section">
+            <div class="command-header">
+                <div class="command-icon">DRA</div>
+                <h2 class="command-title">COTA RADIAL Y DIAMETRAL</h2>
+                <span class="command-shortcut">Comandos: <code>DIMRADIUS</code> (DRA) y <code>DIMDIAMETER</code> (DDI)</span>
+            </div>
+            
+            <p>Estos comandos se utilizan para medir el radio o el diámetro de círculos y arcos, respectivamente.</p>
+            
+            <div class="example">
+                <div class="example-title">Ejemplo 2.1: Acotación de Radio</div>
+                <p>Mide el radio de un círculo.</p>
+                
+                <div class="steps">
+                    <div class="step">Dibuja un <strong>CÍRCULO</strong> (C) de radio 6.</div>
+                    <div class="step">Activa el comando <strong>COTA RADIAL</strong> (DRA).</div>
+                    <div class="step">Selecciona el borde del círculo.</div>
+                    <div class="step">Posiciona el texto. El texto debe mostrar <strong>R6</strong> (o el formato de radio configurado).</div>
+                </div>
+                
+                <div class="dimension-sample" style="text-align: center; margin: 2rem 0;">
+                    <div style="display: inline-block; position: relative;">
+                        <div style="width: 120px; height: 120px; border: 1px solid #333; border-radius: 50%; position: relative;">
+                            <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                                <div style="border-top: 1px solid #333; width: 80px; position: relative;">
+                                    <div style="position: absolute; top: -10px; left: 0; border-left: 1px solid #333; height: 10px;"></div>
+                                    <div style="position: absolute; top: -10px; right: 0; border-left: 1px solid #333; height: 10px;"></div>
+                                    <div style="position: absolute; top: -30px; left: 50%; transform: translateX(-50%); background: white; padding: 0 5px;">R6.00</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="example">
+                <div class="example-title">Ejemplo 2.2: Acotación de Diámetro</div>
+                <p>Mide el diámetro del mismo círculo.</p>
+                
+                <div class="steps">
+                    <div class="step">Activa el comando <strong>COTA DIAMETRAL</strong> (DDI).</div>
+                    <div class="step">Selecciona el borde del círculo.</div>
+                    <div class="step">Posiciona el texto. El texto debe mostrar <strong>Ø12</strong> (o el formato de diámetro configurado).</div>
+                </div>
+                
+                <div class="dimension-sample" style="text-align: center; margin: 2rem 0;">
+                    <div style="display: inline-block; position: relative;">
+                        <div style="width: 120px; height: 120px; border: 1px solid #333; border-radius: 50%; position: relative;">
+                            <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                                <div style="border-top: 1px solid #333; width: 140px; position: relative;">
+                                    <div style="position: absolute; top: -10px; left: 0; border-left: 1px solid #333; height: 10px;"></div>
+                                    <div style="position: absolute; top: -10px; right: 0; border-left: 1px solid #333; height: 10px;"></div>
+                                    <div style="position: absolute; top: -30px; left: 50%; transform: translateX(-50%); background: white; padding: 0 5px;">Ø12.00</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tip">
+                <strong>Consejo:</strong> Puedes personalizar el prefijo/sufijo de las cotas radiales y diametrales en el estilo de cota (DIMSTYLE). Por ejemplo, puedes hacer que las cotas de radio muestren "Radio = " antes del valor.
+            </div>
+        </section>
+        
+        <!-- Sección de COTA ALINEADA -->
+        <section id="cota-alineada" class="command-section">
+            <div class="command-header">
+                <div class="command-icon">DAL</div>
+                <h2 class="command-title">COTA ALINEADA (DIMALIGNED, DAL)</h2>
+                <span class="command-shortcut">Comando: <code>DIMALIGNED</code> o <code>DAL</code></span>
+            </div>
+            
+            <p>La cota alineada se utiliza para medir la distancia real de un objeto inclinado, alineando la cota paralelamente a ese objeto.</p>
+            
+            <div class="example">
+                <div class="example-title">Ejemplo 3.1: Acotar Línea Diagonal</div>
+                <p>Mide la longitud real de una línea diagonal.</p>
+                
+                <div class="steps">
+                    <div class="step">Dibuja una <strong>LÍNEA</strong> (L) de (0,0) a (10,10). (Mide aproximadamente 14.14 unidades).</div>
+                    <div class="step">Activa el comando <strong>COTA ALINEADA</strong> (DAL).</div>
+                    <div class="step">Especifica la primera extensión: (0,0).</div>
+                    <div class="step">Especifica la segunda extensión: (10,10).</div>
+                    <div class="step">Posiciona la línea de cota.</div>
+                    <div class="step">El texto de la cota debe mostrar <strong>14.1421</strong> (aproximadamente).</div>
+                </div>
+                
+                <div style="text-align: center; margin: 2rem 0; transform: rotate(45deg); width: 200px; margin-left: auto; margin-right: auto;">
+                    <div class="dim-line" style="position: relative;">
+                        <div class="dim-extension" style="left: 0;"></div>
+                        <div class="dim-extension" style="right: 0; left: auto;"></div>
+                        <div class="dim-text" style="transform: rotate(-45deg); white-space: nowrap;">14.1421</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="note">
+                <div class="note-title">Diferencia entre COTA LINEAL y COTA ALINEADA</div>
+                <p>La principal diferencia entre estos dos tipos de cotas es cómo manejan los objetos inclinados:</p>
+                <ul>
+                    <li><strong>COTA LINEAL (DLI):</strong> Siempre mide distancias horizontales o verticales, independientemente de la orientación del objeto.</li>
+                    <li><strong>COTA ALINEADA (DAL):</strong> Mide la distancia real a lo largo del objeto, siguiendo su ángulo de inclinación.</li>
+                </ul>
+                <p>Usa COTA LINEAL para medir distancias horizontales/verticales y COTA ALINEADA para medir distancias en ángulo.</p>
+            </div>
+        </section>
+        
+        <!-- Sección de ACTIVIDADES -->
+        <section id="actividades" class="activity">
+            <h2 class="activity-title">ACTIVIDADES PRÁCTICAS</h2>
+            
+            <div class="activity-content">
+                <h3>Actividad 1: Acotación de Perfil Completo</h3>
+                <p><strong>Objetivo:</strong> Aplicar diferentes tipos de cotas a una figura mixta.</p>
+                
+                <div class="steps">
+                    <div class="step">Dibuja una <strong>LÍNEA</strong> de (0,0) a (15,0).</div>
+                    <div class="step">Dibuja un <strong>ARCO</strong> (A) tangente, que inicie en (15,0) con radio 5, hasta (20,5).</div>
+                    <div class="step">Dibuja una <strong>LÍNEA</strong> de (20,5) a (30,15) (Diagonal).</div>
+                    <div class="step"><strong>Acotación:</strong></div>
+                    <div class="step" style="padding-left: 2rem;">- Cota Lineal para el primer segmento horizontal (0,0 a 15,0).</div>
+                    <div class="step" style="padding-left: 2rem;">- Cota Radial para el arco.</div>
+                    <div class="step" style="padding-left: 2rem;">- Cota Alineada para el segmento diagonal.</div>
+                </div>
+                
+                <details>
+                    <summary>Ver Solución (Valores de Cota)</summary>
+                    <div class="solution">
+                        <p>1. <strong>Cota Lineal (Horizontal):</strong> 15.00</p>
+                        <p>2. <strong>Cota Radial:</strong> R5.00</p>
+                        <p>3. <strong>Cota Alineada (Diagonal):</strong> 14.1421 (Longitud de la línea de 10 en X y 10 en Y).</p>
+                        <p><strong>Consejo:</strong> Asegúrate de que los puntos de selección sean precisos para obtener las medidas correctas. Usa referencias a objetos (F3) para mayor precisión.</p>
+                    </div>
+                </details>
+                
+                <h3>Actividad 2: Acotación de Espacios Múltiples (Cota Continua)</h3>
+                <p><strong>Objetivo:</strong> Usar la opción de cota continua para medir varios segmentos alineados rápidamente.</p>
+                
+                <div class="steps">
+                    <div class="step">Dibuja tres segmentos de línea horizontales unidos: (0,0) a (5,0), (5,0) a (12,0), (12,0) a (15,0).</div>
+                    <div class="step"><strong>Cota Base:</strong> Usa <strong>COTA LINEAL</strong> (DLI) para acotar el primer segmento (0,0 a 5,0).</div>
+                    <div class="step"><strong>Cota Continua:</strong> Activa el comando <strong>DIMCONTINUE</strong> (DCO).</div>
+                    <div class="step">Haz clic en el final del segundo segmento (12,0) y luego en el final del tercer segmento (15,0).</div>
+                    <div class="step">Resultado: Se generan dos cotas adicionales alineadas que miden <strong>7</strong> y <strong>3</strong>.</div>
+                </div>
+                
+                <div style="margin: 1.5rem 0; padding: 1rem; background: #f8f9fa; border-radius: 4px;">
+                    <div style="display: flex; justify-content: space-between; position: relative; height: 60px;">
+                        <div style="width: 100px; height: 1px; background: #333; position: relative; top: 30px;">
+                            <div style="position: absolute; top: -25px; left: 25%; transform: translateX(-50%);">5.00</div>
+                            <div style="position: absolute; top: 10px; left: 0; border-left: 1px solid #333; height: 10px;"></div>
+                            <div style="position: absolute; top: 10px; right: 0; border-left: 1px solid #333; height: 10px;"></div>
+                        </div>
+                        <div style="width: 140px; height: 1px; background: #333; position: relative; top: 30px;">
+                            <div style="position: absolute; top: -25px; left: 50%; transform: translateX(-50%);">7.00</div>
+                            <div style="position: absolute; top: 10px; left: 0; border-left: 1px solid #333; height: 10px;"></div>
+                            <div style="position: absolute; top: 10px; right: 0; border-left: 1px solid #333; height: 10px;"></div>
+                        </div>
+                        <div style="width: 60px; height: 1px; background: #333; position: relative; top: 30px;">
+                            <div style="position: absolute; top: -25px; left: 50%; transform: translateX(-50%);">3.00</div>
+                            <div style="position: absolute; top: 10px; left: 0; border-left: 1px solid #333; height: 10px;"></div>
+                            <div style="position: absolute; top: 10px; right: 0; border-left: 1px solid #333; height: 10px;"></div>
+                        </div>
+                    </div>
+                    <div style="text-align: center; font-size: 0.9em; color: #666; margin-top: 1rem;">
+                        Ejemplo de cotas continuas (DIMCONTINUE)
+                    </div>
+                </div>
+                
+                <details>
+                    <summary>Ver Solución (Comando y Cota Creada)</summary>
+                    <div class="solution">
+                        <p>El comando <strong>DIMCONTINUE</strong> (DCO) se encarga de tomar el punto final del último segmento acotado como el punto inicial del siguiente segmento, asegurando que todas las cotas estén en la misma línea.</p>
+                        <p>El valor total de la cota debe ser 5 + 7 + 3 = 15.</p>
+                        <p><strong>Consejo:</strong> Si necesitas reiniciar la secuencia de cotas continuas, simplemente presiona Enter cuando se te pida seleccionar una cota base.</p>
+                    </div>
+                </details>
+            </div>
+        </section>
+        
+        <!-- Sección de RETOS -->
+        <section id="retos" class="challenge">
+            <h2 class="challenge-title">RETOS DE COMPRENSIÓN</h2>
+            
+            <div class="challenge-content">
+                <h3>RETO 1: El Estilo de Cota</h3>
+                <p>Crea una <strong>nueva cota lineal</strong> (DLI). En la ventana de Propiedades, abre el <strong>Estilo de Cota</strong> y crea un nuevo estilo llamado <strong>'Metros'</strong>. Modifica las <strong>Unidades Principales</strong> para que la precisión muestre <strong>cero decimales</strong>.</p>
+                
+                <p><strong>Verifica:</strong> Al acotar el rectángulo de 15x8 del Ejemplo 1.1, ¿la cota muestra '15' o '15.00'?</p>
+                
+                <div class="tip">
+                    <strong>Solución:</strong> La cota debe mostrar '15' sin decimales. Al configurar la precisión a cero decimales en el estilo de cota 'Metros', AutoCAD redondeará los valores y no mostrará decimales. Esto es útil cuando trabajas con unidades enteras y no necesitas precisión decimal en las mediciones.
+                </div>
+                
+                <h3>RETO 2: La Cota de Coordenada</h3>
+                <p>Activa el comando <strong>DIMORDINATE</strong> (DOR) (Cota de Coordenada). Haz clic en el punto (10,5).</p>
+                
+                <p><strong>Verifica:</strong> ¿La cota muestra el valor de 10 o el valor de 5? ¿Para qué tipo de planos es más útil este comando?</p>
+                
+                <div class="tip">
+                    <strong>Solución:</strong> La cota de coordenada puede mostrar tanto la coordenada X como la Y, dependiendo de cómo muevas el cursor. Si mueves el cursor horizontalmente desde el punto, mostrará la coordenada Y (5). Si lo mueves verticalmente, mostrará la coordenada X (10). Este comando es especialmente útil en planos de taller o de fabricación donde se necesitan coordenadas exactas de agujeros o elementos de sujeción.
+                </div>
+                
+                <h3>RETO 3: Acotación Forzada (ORTOMODE)</h3>
+                <p>Dibuja una línea de (0,0) a (10,10). Activa <strong>COTA LINEAL</strong> (DLI). Selecciona los extremos de la línea. Mientras posicionas la cota, activa el modo <strong>ORTOMODE</strong> (F8).</p>
+                
+                <p><strong>Verifica:</strong> ¿Al arrastrar el cursor, la cota mide la distancia horizontal (10) o la distancia real (14.14)? ¿Cómo se diferencia esto de la Cota Alineada (DAL)?</p>
+                
+                <div class="tip">
+                    <strong>Solución:</strong> Con ORTOMODE activado, la cota lineal (DLI) forzará la medición horizontal o vertical, mostrando 10 (la distancia horizontal) en lugar de 14.14 (la distancia real). Esto es diferente de la cota alineada (DAL), que siempre mide la distancia real a lo largo del objeto, independientemente de la configuración de ORTOMODE. La cota alineada siempre mostrará 14.14 para una línea diagonal de 10x10, mientras que la cota lineal con ORTOMODE activado mostrará 10 (horizontal o vertical).
+                </div>
+            </div>
+        </section>
+        
+        <section class="conclusion">
+            <h2>Conclusión</h2>
+            <p>Los comandos de acotación en AutoCAD son esenciales para crear dibujos técnicos precisos y profesionales. A lo largo de este tutorial has aprendido a:</p>
+            
+            <ul>
+                <li>Utilizar la <strong>Cota Lineal (DLI)</strong> para medir distancias horizontales y verticales</li>
+                <li>Emplear la <strong>Cota Radial (DRA)</strong> y <strong>Diametral (DDI)</strong> para medir círculos y arcos</li>
+                <li>Aplicar la <strong>Cota Alineada (DAL)</strong> para medir distancias en ángulo</li>
+                <li>Crear series de cotas con <strong>Cota Continua (DCO)</strong></li>
+                <li>Personalizar estilos de cota para adaptarlos a tus necesidades</li>
+            </ul>
+            
+            <div class="tip">
+                <strong>Práctica recomendada:</strong> Crea diferentes estilos de cota para distintos tipos de mediciones en tus dibujos. Por ejemplo, podrías tener un estilo para cotas principales (con tolerancias), otro para cotas de referencia (entre paréntesis) y otro para cotas auxiliares (en una capa diferente). Esto te permitirá mantener la consistencia en todos tus planos y ahorrar tiempo al no tener que modificar cada cota individualmente.
+            </div>
+        </section>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <p>Tutorial creado para el curso de AutoCAD - Nivel Básico a Intermedio</p>
+            <p>© 2025 - Todos los derechos reservados</p>
+        </div>
+    </footer>
+</body>
+</html>

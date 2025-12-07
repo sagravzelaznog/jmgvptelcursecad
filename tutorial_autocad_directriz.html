@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía Completa del Comando DIRECTRIZ (MLEADER) en AutoCAD</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-bg: #f8f9fa;
+            --dark-text: #2c3e50;
+            --light-text: #7f8c8d;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark-text);
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+        }
+        
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+        }
+        
+        h1, h2, h3 {
+            color: var(--primary-color);
+        }
+        
+        h1 {
+            margin-top: 0;
+            color: white;
+        }
+        
+        h2 {
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 5px;
+            margin-top: 30px;
+        }
+        
+        .command {
+            background-color: #e8f4f8;
+            border-left: 4px solid var(--secondary-color);
+            padding: 10px 15px;
+            margin: 15px 0;
+            font-family: 'Consolas', monospace;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .example {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        .steps {
+            background-color: #f0f8ff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        
+        .steps ol {
+            padding-left: 20px;
+        }
+        
+        .steps li {
+            margin-bottom: 10px;
+        }
+        
+        .tip {
+            background-color: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            padding: 10px 15px;
+            margin: 15px 0;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .warning {
+            background-color: #fff3e0;
+            border-left: 4px solid #ff9800;
+            padding: 10px 15px;
+            margin: 15px 0;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .activity {
+            background-color: #f3e5f5;
+            border-left: 4px solid #9c27b0;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .challenge {
+            background-color: #e8eaf6;
+            border-left: 4px solid #3f51b5;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        details {
+            background-color: #f5f5f5;
+            padding: 10px 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+        
+        summary {
+            font-weight: bold;
+            cursor: pointer;
+            padding: 5px 0;
+        }
+        
+        .key {
+            background-color: #e0e0e0;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: monospace;
+            font-size: 0.9em;
+            border: 1px solid #bdbdbd;
+        }
+        
+        .key-combo {
+            background-color: #333;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: monospace;
+            font-size: 0.9em;
+        }
+        
+        .figure {
+            text-align: center;
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border: 1px solid #eee;
+            border-radius: 5px;
+        }
+        
+        .figure img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+        }
+        
+        .figure-caption {
+            font-style: italic;
+            color: #666;
+            margin-top: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            header {
+                padding: 15px;
+            }
+            
+            .command, .tip, .warning, .activity, .challenge, details {
+                margin-left: -10px;
+                margin-right: -10px;
+                border-radius: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Guía Completa del Comando DIRECTRIZ (MLEADER) en AutoCAD</h1>
+        <p>Domina las herramientas de anotación con líder en AutoCAD</p>
+    </header>
+
+    <section>
+        <p>El comando <strong>DIRECTRIZ (MLEADER, ML)</strong> es una herramienta poderosa en AutoCAD que permite crear anotaciones con líneas de referencia (leaders) que conectan texto o bloques con elementos específicos en el dibujo. A diferencia de las anotaciones tradicionales, las directrices son entidades únicas que combinan texto y líneas de referencia en un solo objeto, facilitando la edición y el manejo de las anotaciones.</p>
+        
+        <div class="tip">
+            <strong>Consejo:</strong> Las directrices son ideales para etiquetar componentes, agregar notas técnicas y proporcionar información adicional en planos técnicos y diagramas.
+        </div>
+    </section>
+
+    <section id="metodos">
+        <h2>Métodos de Trazado</h2>
+        
+        <h3>Método 1: Directriz con Línea de Referencia (Leader Line First)</h3>
+        <p>Este método es ideal cuando ya sabes exactamente a qué punto del dibujo quieres apuntar.</p>
+        
+        <div class="example">
+            <h4>Ejemplo 1.1: Etiqueta de Componente (Texto)</h4>
+            <div class="steps">
+                <ol>
+                    <li>Dibuja un CÍRCULO (C) en (20,20) para representar el componente.</li>
+                    <li>Activa el comando <span class="key">DIRECTRIZ</span> (ML o MLEADER).</li>
+                    <li><strong>Punto de la Punta de Flecha:</strong> Haz clic en el borde del círculo.</li>
+                    <li><strong>Punto de Referencia:</strong> Mueve el cursor y haz clic fuera del círculo (Ej: @10<45).</li>
+                    <li><strong>Escribe la Anotación:</strong> Ingresa el texto: <code>Motor A</code></li>
+                    <li>Haz clic fuera o presiona <span class="key-combo">Ctrl+Enter</span> para finalizar.</li>
+                </ol>
+            </div>
+            
+            <div class="tip">
+                <strong>Consejo:</strong> Mantén presionada la tecla <span class="key">Shift</span> para restringir la línea de directriz a ángulos de 15°.
+            </div>
+        </div>
+        
+        <div class="example">
+            <h4>Ejemplo 1.2: Directriz con Ángulo Específico</h4>
+            <div class="steps">
+                <ol>
+                    <li>Dibuja un RECTANGULO (REC) en (50,50).</li>
+                    <li>Activa <span class="key">DIRECTRIZ</span> (ML).</li>
+                    <li><strong>Punto de la Punta de Flecha:</strong> Haz clic en la esquina superior derecha del rectángulo.</li>
+                    <li><strong>Punto de Referencia:</strong> Usa <span class="key">ORTOMODE (F8)</span> o coordenadas polares para asegurar que la línea sea vertical (Ej: @15<90).</li>
+                    <li><strong>Escribe la Anotación:</strong> Nota de Detalle</li>
+                    <li>Finaliza el texto.</li>
+                </ol>
+            </div>
+        </div>
+        
+        <h3>Método 2: Directriz con Contenido (Content First)</h3>
+        <p>Este método es útil cuando necesitas colocar el texto primero y luego la línea de referencia.</p>
+        
+        <div class="example">
+            <h4>Ejemplo 2.1: Iniciar con Bloque (Contenido)</h4>
+            <div class="steps">
+                <ol>
+                    <li>Activa <span class="key">DIRECTRIZ</span> (ML).</li>
+                    <li>En la cinta de opciones, asegúrate de que el tipo de contenido sea <strong>MTEXT</strong>.</li>
+                    <li>Escribe <span class="key">C</span> (para la opción Contenido).</li>
+                    <li><strong>Ubicación del Contenido:</strong> Haz clic en un punto (Ej: 10,60).</li>
+                    <li><strong>Anotación:</strong> Escribe "Válvula de Control".</li>
+                    <li><strong>Ubicación de la Línea:</strong> Haz clic para dibujar la línea, moviendo el cursor para señalar el punto deseado (Ej: 20,40).</li>
+                    <li>Finaliza el comando.</li>
+                </ol>
+            </div>
+        </div>
+        
+        <div class="example">
+            <h4>Ejemplo 2.2: Añadir a Directriz Existente</h4>
+            <div class="steps">
+                <ol>
+                    <li>Crea una directriz simple (Ejemplo 1.1).</li>
+                    <li>Activa el comando <span class="key">MLEADEREDIT</span> o usa <strong>Añadir Directriz</strong> en la cinta.</li>
+                    <li>Selecciona la directriz existente.</li>
+                    <li>Especifica la ubicación para la <strong>nueva punta de flecha</strong> (Ej: el borde inferior del círculo).</li>
+                    <li>Se añade un nuevo segmento de línea de directriz al mismo texto de anotación.</li>
+                </ol>
+            </div>
+            
+            <div class="tip">
+                <strong>Consejo:</strong> Usa <span class="key">MLEADERCOLLECT</span> para agrupar múltiples directrices en una sola anotación.
+            </div>
+        </div>
+    </section>
+
+    <section id="actividades">
+        <h2>Actividades Prácticas</h2>
+        
+        <div class="activity">
+            <h3>Actividad 1: Etiquetado de Tolerancia (Ajuste de Estilo)</h3>
+            <p><strong>Objetivo:</strong> Crear una directriz y modificar su estilo para cumplir con estándares de planos mecánicos.</p>
+            
+            <div class="steps">
+                <ol>
+                    <li>Dibuja un RECTANGULO de 10x10.</li>
+                    <li>Crea una directriz (ML) que apunte al lado derecho del rectángulo con la anotación "Diámetro Máximo".</li>
+                    <li>Abre la ventana de <span class="key">MLEADERSTYLE</span> (Estilo de Directriz).</li>
+                    <li>Crea un nuevo estilo llamado 'Tolerancia':
+                        <ul>
+                            <li><strong>Pestaña Estructura:</strong> Cambia la punta de flecha a <strong>Punto Pequeño</strong> (Dot Small).</li>
+                            <li><strong>Pestaña Contenido:</strong> Establece la alineación a <strong>Horizontal</strong>.</li>
+                        </ul>
+                    </li>
+                    <li>Aplica el estilo 'Tolerancia' a la directriz creada.</li>
+                </ol>
+            </div>
+            
+            <details>
+                <summary>Ver Solución</summary>
+                <p>Si el estilo fue aplicado correctamente, la punta de flecha de la directriz debe mostrarse como un círculo relleno pequeño (Dot Small) en lugar de una flecha cerrada estándar.</p>
+            </details>
+        </div>
+        
+        <div class="activity">
+            <h3>Actividad 2: Agrupación de Directrices (Colección)</h3>
+            <p><strong>Objetivo:</strong> Dibujar múltiples directrices y agruparlas para que compartan la misma anotación.</p>
+            
+            <div class="steps">
+                <ol>
+                    <li>Dibuja tres CÍRCULOS pequeños (A, B, C) espaciados horizontalmente.</li>
+                    <li>Crea una directriz que apunte al Círculo A con la etiqueta "Revisar".</li>
+                    <li>Repite para los Círculos B y C con la misma etiqueta.</li>
+                    <li>Usa el comando <span class="key">MLEADERCOLLECT</span> (o Agrupar Directrices en la cinta).</li>
+                    <li>Selecciona las tres directrices y presiona Enter.</li>
+                </ol>
+            </div>
+            
+            <details>
+                <summary>Ver Solución</summary>
+                <p>Las tres puntas de flecha ahora deben apuntar a una sola anotación "Revisar" ubicada en una posición central.</p>
+            </details>
+        </div>
+    </section>
+
+    <section id="retos">
+        <h2>Retos de Comprensión</h2>
+        
+        <div class="challenge">
+            <h3>Reto 1: La Directriz sin Contenido</h3>
+            <p>Activa el comando <span class="key">DIRECTRIZ (ML)</span>. Dibuja el punto de la punta de flecha y el punto de referencia de la línea. Cuando se te pida la anotación, presiona <span class="key-combo">Ctrl+Enter</span> sin escribir texto.</p>
+            <p><strong>Pregunta:</strong> ¿Se crea la entidad de directriz? ¿Se mantiene la línea de directriz sin texto asociado?</p>
+            
+            <details>
+                <summary>Ver Respuesta</summary>
+                <p>Sí, la directriz se crea como entidad, pero sin contenido visible. La línea de directriz permanece en el dibujo, pero sin texto asociado.</p>
+            </details>
+        </div>
+        
+        <div class="challenge">
+            <h3>Reto 2: La Rotación y el Contenido</h3>
+            <p>Crea una directriz con el texto "PROTOTIPO" usando el punto de inserción (10,10). Luego, usa el comando <span class="key">GIRAR (RO)</span> para rotarla 45° alrededor del punto de la punta de flecha.</p>
+            <p><strong>Pregunta:</strong> ¿Se gira toda la directriz? ¿El texto sigue siendo legible y orientado horizontalmente?</p>
+            
+            <details>
+                <summary>Ver Respuesta</summary>
+                <p>La línea de directriz gira 45°, pero el texto MTEXT mantiene su orientación horizontal para facilitar la lectura, a menos que se haya configurado específicamente para rotar con la directriz en el estilo.</p>
+            </details>
+        </div>
+        
+        <div class="challenge">
+            <h3>Reto 3: Añadir a Línea Existente</h3>
+            <p>Dibuja una LÍNEA simple de 5 unidades. Intenta usar el comando <span class="key">AÑADIR DIRECTRIZ</span> o <span class="key">MLEADEREDIT</span> para añadir una punta de flecha a esa línea.</p>
+            <p><strong>Pregunta:</strong> ¿Se puede convertir una LÍNEA simple en una MLEADER?</p>
+            
+            <details>
+                <summary>Ver Respuesta</summary>
+                <p>No se puede convertir directamente una LÍNEA en una MLEADER. Debes crear una nueva MLEADER que se superponga a la línea existente o usar la línea como guía para colocar la directriz.</p>
+            </details>
+        </div>
+    </section>
+
+    <section id="conclusion">
+        <h2>Conclusión</h2>
+        <p>El comando DIRECTRIZ (MLEADER) es una herramienta versátil para crear anotaciones claras y profesionales en tus dibujos de AutoCAD. Al dominar los diferentes métodos de creación y las opciones de personalización, podrás mejorar significativamente la claridad y el aspecto profesional de tus planos técnicos.</p>
+        
+        <div class="tip">
+            <strong>Recuerda:</strong> La consistencia en el estilo de tus directrices es clave para crear dibujos profesionales. Utiliza estilos de directriz predefinidos y guías de estilo para mantener la uniformidad en todos tus proyectos.
+        </div>
+    </section>
+
+    <footer style="margin-top: 40px; padding: 20px 0; border-top: 1px solid #eee; text-align: center; color: #7f8c8d; font-size: 0.9em;">
+        <p>© 2025 Tutorial de AutoCAD - Comando DIRECTRIZ (MLEADER)</p>
+    </footer>
+</body>
+</html>

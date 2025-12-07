@@ -1,0 +1,127 @@
+==================================================
+EJERCICIOS: COMANDO GIRAR (ROTATE) EN AUTOCAD
+==================================================
+
+El comando GIRAR (RO o ROTATE) reorienta objetos seleccionados alrededor de un punto base. Requiere tres pasos clave:
+1.  **Selección de Objetos:** Definir qué entidades se van a girar.
+2.  **Punto Base (Base Point):** El punto fijo alrededor del cual pivotará el objeto.
+3.  **Ángulo de Rotación:** El valor del ángulo (positivo para antihorario, negativo para horario).
+
+--------------------------------------------------
+I. MÉTODOS DE ROTACIÓN (2 EJEMPLOS POR MÉTODO)
+--------------------------------------------------
+
+Método 1: Rotación por Ángulo Absoluto
+
+Se ingresa directamente el valor angular deseado (Ej: 45 grados, 90 grados). Por defecto, AutoCAD gira en sentido **antihorario** (positivo).
+
+Ejemplo 1.1: Girar 90 Grados
+Instrucciones: Dibuja una línea horizontal. Gírala 90 grados en sentido antihorario.
+1. Dibuja una LINEA (L) de (10,10) a (20,10).
+2. Activa el comando GIRAR (RO).
+3. Selecciona la línea. Presiona Enter.
+4. Punto Base: El punto inicial de la línea (10,10).
+5. Ángulo de Rotación: 90
+6. La línea resultante debe ser vertical (de 10,10 a 10,20).
+
+Ejemplo 1.2: Girar en Sentido Horario
+Instrucciones: Dibuja un rectángulo. Gíralo 30 grados en sentido horario alrededor de su centro.
+1. Dibuja un RECTANGULO (REC) de 10x5 en (50,50).
+2. Activa GIRAR (RO).
+3. Selecciona el rectángulo. Presiona Enter.
+4. Punto Base: Usa Osnap **Centro Geométrico** para seleccionar el centro del rectángulo.
+5. Ángulo de Rotación: **-30** (usar valor negativo para horario).
+6. El rectángulo girará en su lugar 30 grados hacia la derecha.
+
+---
+
+Método 2: Rotación por Referencia (Reference, R)
+
+Se utiliza cuando se conoce el ángulo actual de un objeto (Ángulo de Referencia) y se desea cambiarlo a un nuevo ángulo (Ángulo Nuevo).
+
+Ejemplo 2.1: Alinear Horizontalmente
+Instrucciones: Dibuja una línea de (0,0) a (10,10) (que está a 45 grados). Gírala para que quede perfectamente horizontal (a 0 grados).
+1. Dibuja LINEA 1: de (0,0) a (10,10).
+2. Activa GIRAR (RO).
+3. Selecciona Línea 1. Presiona Enter.
+4. Punto Base: (0,0).
+5. Escribe **R** (para seleccionar la opción Referencia).
+6. Ángulo de Referencia: Ingresa el ángulo actual de la línea: **45** (o selecciona el punto final (10,10)).
+7. Ángulo Nuevo: **0**
+8. La línea resultante debe ir de (0,0) a (14.14, 0).
+
+Ejemplo 2.2: Girar con Copia (Copy, C)
+Instrucciones: Dibuja un rectángulo. Gíralo 60 grados y **conserva el original** en su posición.
+1. Dibuja un RECTANGULO (REC) de 8x4 en (20,20).
+2. Activa GIRAR (RO).
+3. Selecciona el rectángulo. Presiona Enter.
+4. Punto Base: Esquina inferior izquierda (20,20).
+5. Escribe **C** (para seleccionar la opción Copia).
+6. Ángulo de Rotación: 60
+7. Se crea una nueva copia rotada, y el rectángulo original permanece en (20,20).
+
+--------------------------------------------------
+II. ACTIVIDADES SUGERIDAS (SOLUCIÓN OCULTA)
+--------------------------------------------------
+
+ACTIVIDAD 1: El Soporte Inclinado (Rotación y Referencia)
+
+Objetivo: Dibujar un soporte y alinearlo con una línea de construcción diagonal existente.
+Instrucciones:
+1. Dibuja el SOPORTE: Un rectángulo (REC) de 10x2 comenzando en (5,5).
+2. Dibuja la GUÍA: Una línea (L) que va de (0,0) a (20,20) (45 grados).
+3. **Rotar SOPORTE:** Mueve el soporte de modo que su esquina inferior izquierda quede en (0,0).
+4. Utiliza el comando GIRAR (RO) sobre el soporte.
+5. Punto Base: (0,0).
+6. Utiliza la opción **REFERENCIA** (R) y elije un ángulo de referencia de **0** (el ángulo actual del soporte) para alinearlo con el **Ángulo Nuevo** de **45**.
+
+<details>
+<summary>Ver Solución (Coordenadas de la Esquina Superior Derecha Final)</summary>
+
+1.  El soporte original (10x2) tiene sus lados alineados a 0 y 90 grados.
+2.  Al rotarlo 45 grados alrededor de (0,0), el lado más largo (10) estará en el ángulo 45.
+3.  La esquina superior derecha final (anteriormente en 15,7) se ubicará en (8.48, 8.48).
+</details>
+
+---
+
+ACTIVIDAD 2: El Abanico (Copia Múltiple de Ángulo Fijo)
+
+Objetivo: Crear un patrón de "abanico" duplicando un objeto a intervalos angulares fijos.
+Instrucciones:
+1. Dibuja una LINEA (el "rayo") de (50,50) a (60,50).
+2. Activa GIRAR (RO).
+3. Selecciona el rayo. Presiona Enter.
+4. Punto Base: (50,50) (El pivote).
+5. Utiliza la opción **COPIA** (C).
+6. Ángulo de Rotación: **30**.
+7. Repite el paso 5 con ángulos de **60, 90 y 120** grados (o repite la copia con @30).
+
+<details>
+<summary>Ver Solución (Ubicación del Rayo Final)</summary>
+
+Si se usa el método de ingreso de ángulos absolutos (30, 60, 90, 120), se crean 4 copias, además del original (5 en total). El último rayo (el de 120 grados) terminará en (45, 58.66).
+</details>
+
+--------------------------------------------------
+III. RETOS DE COMPRENSIÓN (3 RETOS)
+--------------------------------------------------
+
+RETO 1: El Ángulo Desconocido
+Dibuja una línea de (0,0) a (15,5). Utiliza el comando **GIRAR** (RO) con la opción **REFERENCIA** (R).
+En el paso de **Ángulo de Referencia**, **no** ingreses el valor, sino que usa Osnap para seleccionar el punto inicial y el punto final de la línea.
+En el paso de **Ángulo Nuevo**, ingresa **0**.
+Verifica: ¿Se alineó la línea con el eje X? ¿Qué significa usar puntos para definir el ángulo de referencia?
+
+---
+
+RETO 2: El Bloque Giratorio
+Crea un **BLOQUE** (B) a partir de un pequeño círculo y una línea, con el punto base en el centro del círculo. Inserta el bloque en el dibujo.
+Utiliza el comando **GIRAR** (RO) sobre la instancia del bloque.
+Pregunta: ¿Se gira solo el bloque o también la geometría original utilizada para crearlo? (Pista: Gira solo la instancia del bloque).
+
+---
+
+RETO 3: Rotar sin Mover
+Dibuja una línea. Ejecuta el comando **GIRAR** (RO). Elige un punto base. Cuando te pida el Ángulo de Rotación, presiona la tecla **ENTER** sin ingresar un valor.
+Verifica: ¿El objeto giró? ¿Qué coordenada se utilizó por defecto como ángulo de rotación?

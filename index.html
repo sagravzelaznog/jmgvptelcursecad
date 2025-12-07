@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual de AutoCAD - Índice de Tutoriales</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --success-color: #27ae60;
+            --warning-color: #f39c12;
+            --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-main);
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+            padding: 0;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        h2 {
+            color: var(--primary-color);
+            margin: 2rem 0 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--secondary-color);
+        }
+
+        h3 {
+            color: var(--secondary-color);
+            margin: 1.5rem 0 0.5rem;
+            padding: 0.5rem;
+            background-color: #f0f8ff;
+            border-radius: 4px;
+        }
+
+        .category {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .tutorial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .tutorial-card {
+            background-color: #f8f9fa;
+            border-left: 4px solid var(--secondary-color);
+            padding: 1rem;
+            border-radius: 0 4px 4px 0;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .tutorial-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .tutorial-card a {
+            text-decoration: none;
+            color: var(--dark-color);
+            display: block;
+        }
+
+        .tutorial-card h4 {
+            color: var(--secondary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .tutorial-card p {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .tutorial-card .filename {
+            font-family: monospace;
+            font-size: 0.8rem;
+            color: #666;
+            margin-top: 0.5rem;
+            word-break: break-all;
+        }
+
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 1.5rem 0;
+            margin-top: 3rem;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .container {
+                padding: 15px;
+            }
+            
+            .tutorial-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.75rem;
+            }
+            
+            h2 {
+                font-size: 1.4rem;
+            }
+            
+            body {
+                font-size: 0.95rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Manual de AutoCAD</h1>
+            <p>Guía completa de comandos y ejercicios prácticos</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <section class="category">
+            <h2>Comandos Básicos de Dibujo</h2>
+            <div class="tutorial-grid">
+                <div class="tutorial-card">
+                    <a href="comando_linea.html">
+                        <h4>Línea</h4>
+                        <p>Aprende a crear líneas rectas en AutoCAD con precisión.</p>
+                        <div class="filename">comando_linea.html</div>
+                    </a>
+                </div>
+                <div class="tutorial-card">
+                    <a href="comando_circulo.html">
+                        <h4>Círculo</h4>
+                        <p>Domina la creación de círculos con diferentes métodos.</p>
+                        <div class="filename">comando_circulo.html</div>
+                    </a>
+                </div>
+                <div class="tutorial-card">
+                    <a href="comando_arco.html">
+                        <h4>Arco</h4>
+                        <p>Crea arcos precisos con múltiples opciones de dibujo.</p>
+                        <div class="filename">comando_arco.html</div>
+                    </a>
+                </div>
+                <div class="tutorial-card">
+                    <a href="comando_rectangulo.html">
+                        <h4>Rectángulo</h4>
+                        <p>Dibuja rectángulos con dimensiones exactas.</p>
+                        <div class="filename">comando_rectangulo.html</div>
+                    </a>
+                </div>
+                <div class="tutorial-card">
+                    <a href="comando_poligono.html">
+                        <h4>Polígono</h4>
+                        <p>Crea polígonos regulares con cualquier número de lados.</p>
+                        <div class="filename">comando_poligono.html</div>
+                    </a>
+                </div>
+                <div class="tutorial-card">
+                    <a href="comando_polilinea.html">
+                        <h4>Polilínea</h4>
+                        <p>Trabaja con líneas y arcos conectados como una sola entidad.</p>
+                        <div class="filename">comando_polilinea.html</div>
+                    </a>
+                </div>
+                <div class="tutorial-card">
+                    <a href="comando_elipse.html">
+                        <h4>Elipse</h4>
+                        <p>Dibuja elipses y arcos elípticos con precisión.</p>
+                        <div class="filename">comando_elipse.html</div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="category">
+            <h2>Comandos de Modificación</h2>
+            <div class="tutorial-grid">
+                <div class="tutorial-card">
+                    <a href="copiar_tutorial.html">
+                        <h4>Copiar</h4>
+                        <p>Duplica objetos en tu dibujo con precisión.</p>
+                        <div class="filename">copiar_tutorial.html</div>
+                    </a>
+                </div>
+                <div class="tutorial-card">
+                    <a href="desplazar_tutorial.html">
+                        <h4>Desplazar</h4>
+                        <p>Mueve objetos de una ubicación a otra.</p>
+                        <div class="filename">desplazar_tutorial.html</div>
+                    </a>
+                </div>
+                <div class="tutorial-card">
+                    <a href="escala_tutorial.html">
+                        <h4>Escala</h4>
+                        <p>Cambia el tamaño de los objetos de forma proporcional.</p>
+                        <div class="filename">escala_tutorial.html</div>
+                    </a>
+                </div>
+                <div class="tutorial-card">
+                    <a href="girar_tutorial.html">
+                        <h4>Girar</h4>
+                        <p>Rota objetos alrededor de un punto base.</p>
+                        <div class="filename">girar_tutorial.html</div>
+                    </a>
+                </div>
+                <div class="tutorial-card">
+                    <a href="recorta_alarga_tutorial.html">
+                        <h4>Recortar/Alargar</h4>
+                        <p>Modifica objetos para que terminen exactamente en los límites de otros.</p>
+                        <div class="filename">recorta_alarga_tutorial.html</div>
+                    </a>
+                </div>
+                <div class="tutorial-card">
+                    <a href="simetria_tutorial.html">
+                        <h4>Simetría</h4>
+                        <p>Crea imágenes especulares de objetos.</p>
+                        <div class="filename">simetria_tutorial.html</div>
+                    </a>
+                </div>
+                <div class="tutorial-card">
+                    <a href="estirar_tutorial.html">
+                        <h4>Estirar</h4>
+                        <p>Estira o contrae objetos de forma selectiva.</p>
+                        <div class="filename">estirar_tutorial.html</div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="category">
+            <h2>Gestión de Objetos</h2>
+            <div class="tutorial-grid">
+                <div class="tutorial-card">
+                    <a href="tutorial_autocad_grupos.html">
+                        <h4>Grupos</h4>
+                        <p>Organiza objetos en grupos para una manipulación más fácil.</p>
+                        <div class="filename">tutorial_autocad_grupos.html</div>
+                    </a>
+                </div>
+                <div class="tutorial-card">
+                    <a href="tutorial_autocad_bloques.html">
+                        <h4>Bloques</h4>
+                        <p>Crea y gestiona bloques para elementos reutilizables.</p>
+                        <div class="filename">tutorial_autocad_bloques.html</div>
+                    </a>
+                </div>
+                <div class="tutorial-card">
+                    <a href="tutorial_autocad_capas.html">
+                        <h4>Capas</h4>
+                        <p>Organiza tu dibujo con capas para un mejor control.</p>
+                        <div class="filename">tutorial_autocad_capas.html</div>
+                    </a>
+                </div>
+                <div class="tutorial-card">
+                    <a href="tutorial_autocad_propiedades.html">
+                        <h4>Propiedades</h4>
+                        <p>Modifica las propiedades de los objetos en tu dibujo.</p>
+                        <div class="filename">tutorial_autocad_propiedades.html</div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="category">
+            <h2>Anotaciones y Texto</h2>
+            <div class="tutorial-grid">
+                <div class="tutorial-card">
+                    <a href="tutorial_autocad_texto.html">
+                        <h4>Texto</h4>
+                        <p>Añade y formatea texto en tus dibujos.</p>
+                        <div class="filename">tutorial_autocad_texto.html</div>
+                    </a>
+                </div>
+                <div class="tutorial-card">
+                    <a href="tutorial_autocad_tabla.html">
+                        <h4>Tablas</h4>
+                        <p>Crea y formatea tablas para datos organizados.</p>
+                        <div class="filename">tutorial_autocad_tabla.html</div>
+                    </a>
+                </div>
+                <div class="tutorial-card">
+                    <a href="tutorial_autocad_cotizacion.html">
+                        <h4>Cotización</h4>
+                        <p>Herramientas para crear cotizaciones en AutoCAD.</p>
+                        <div class="filename">tutorial_autocad_cotizacion.html</div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="category">
+            <h2>Utilidades y Herramientas</h2>
+            <div class="tutorial-grid">
+                <div class="tutorial-card">
+                    <a href="tutorial_autocad_utilidades.html">
+                        <h4>Utilidades de Medida</h4>
+                        <p>Herramientas para medir distancias, áreas y más.</p>
+                        <div class="filename">tutorial_autocad_utilidades.html</div>
+                    </a>
+                </div>
+                <div class="tutorial-card">
+                    <a href="comando_sombreado.html">
+                        <h4>Sombreados</h4>
+                        <p>Aplica patrones de sombreado a áreas cerradas.</p>
+                        <div class="filename">comando_sombreado.html</div>
+                    </a>
+                </div>
+                <div class="tutorial-card">
+                    <a href="comando_degradado.html">
+                        <h4>Degradados</h4>
+                        <p>Crea rellenos con degradados de color.</p>
+                        <div class="filename">comando_degradado.html</div>
+                    </a>
+                </div>
+                <div class="tutorial-card">
+                    <a href="tutorial_autocad_zoom.html">
+                        <h4>Zoom y Navegación</h4>
+                        <p>Domina las herramientas de visualización.</p>
+                        <div class="filename">tutorial_autocad_zoom.html</div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="category">
+            <h2>Ejercicios Prácticos</h2>
+            <div class="tutorial-grid">
+                <div class="tutorial-card">
+                    <a href="ejercicios_practicos_autocad.html">
+                        <h4>Ejercicios Integrados</h4>
+                        <p>Proyectos prácticos que combinan múltiples comandos.</p>
+                        <div class="filename">ejercicios_practicos_autocad.html</div>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; JMGV-PTEL-2025 - Manual de AutoCAD - Todos los derechos reservados</p>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicios Prácticos de AutoCAD - Nivel Intermedio</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --success-color: #27ae60;
+            --warning-color: #f39c12;
+            --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-main);
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+            padding: 0;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        h2 {
+            color: var(--primary-color);
+            margin: 2rem 0 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--secondary-color);
+        }
+
+        h3 {
+            color: var(--secondary-color);
+            margin: 1.5rem 0 0.5rem;
+            background-color: #e8f4fd;
+            padding: 0.5rem;
+            border-radius: 4px;
+        }
+
+        .command {
+            background-color: #f0f8ff;
+            border-left: 4px solid var(--secondary-color);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .command-name {
+            font-weight: bold;
+            color: var(--secondary-color);
+        }
+
+        .exercise {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .exercise-title {
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #eee;
+        }
+
+        .objective {
+            font-style: italic;
+            margin-bottom: 1rem;
+            color: #555;
+        }
+
+        .steps {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .steps li {
+            margin-bottom: 0.75rem;
+        }
+
+        .steps .substeps {
+            margin-left: 1.5rem;
+            margin-top: 0.5rem;
+            list-style-type: lower-alpha;
+        }
+
+        .tip {
+            background-color: #e8f4fd;
+            border-left: 4px solid var(--secondary-color);
+            padding: 0.75rem 1rem;
+            margin: 1rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .tip-title {
+            font-weight: bold;
+            color: var(--secondary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        details {
+            margin: 1rem 0;
+            background-color: #f8f9fa;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+
+        summary {
+            font-weight: bold;
+            cursor: pointer;
+            padding: 0.75rem 0;
+            outline: none;
+            color: var(--secondary-color);
+        }
+
+        summary:hover {
+            color: var(--primary-color);
+        }
+
+        .solution {
+            margin-top: 1rem;
+            padding: 1rem;
+            background-color: #f0f7f4;
+            border-radius: 4px;
+            border-left: 4px solid var(--success-color);
+        }
+
+        .solution ol, .solution ul {
+            margin-left: 1.5rem;
+        }
+
+        .solution li {
+            margin-bottom: 0.5rem;
+        }
+
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 1.5rem 0;
+            margin-top: 3rem;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .container {
+                padding: 15px;
+            }
+            
+            .exercise {
+                padding: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.75rem;
+            }
+            
+            h2 {
+                font-size: 1.4rem;
+            }
+            
+            body {
+                font-size: 0.95rem;
+            }
+
+            .steps, .substeps {
+                margin-left: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Ejercicios Prácticos de AutoCAD</h1>
+            <p>Nivel Intermedio - Aplicación de comandos de trazado y modificación</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <section>
+            <p>Esta guía contiene ejercicios prácticos diseñados para aplicar comandos esenciales de AutoCAD como TRAZADO (LÍNEA, CÍRCULO, POLILÍNEA) y MODIFICACIÓN (COPIAR, DESPLAZAR, EMPALME, SIMETRÍA).</p>
+        </section>
+
+        <div class="exercise">
+            <h2 class="exercise-title">EJERCICIO 1: La Placa con Ranura y Esquina Redondeada</h2>
+            <p class="objective"><strong>Objetivo:</strong> Diseñar una placa rectangular con ranura central y esquinas redondeadas aplicando comandos de dibujo y modificación.</p>
+            
+            <h3>Instrucciones Paso a Paso:</h3>
+            <ol class="steps">
+                <li><strong>Crear Contorno (RECTANG):</strong> Dibuja un rectángulo de 100x60 unidades. Punto inicial en (0,0).</li>
+                <li><strong>Redondear Esquinas (EMPALME, F):</strong>
+                    <ul class="substeps">
+                        <li>Activa el comando <span class="command-name">EMPALME (FILLET, F)</span></li>
+                        <li>Selecciona la opción <strong>Radio (R)</strong> y establece un valor de <strong>5</strong></li>
+                        <li>Selecciona la opción <strong>Polilínea (P)</strong> y haz clic en el rectángulo</li>
+                    </ul>
+                </li>
+                <li><strong>Línea de Centro:</strong> Dibuja una línea de (50, 20) a (50, 40).</li>
+                <li><strong>Crear Ranura (CÍRCULO, C y COPIAR, CP):</strong>
+                    <ul class="substeps">
+                        <li>Dibuja un CÍRCULO de radio <strong>5</strong> en (50, 20)</li>
+                        <li>Usa <strong>COPIAR (CP)</strong> para duplicar el círculo en (50, 40)</li>
+                    </ul>
+                </li>
+                <li><strong>Unir Círculos (LÍNEA, L):</strong> Dibuja dos líneas verticales tangentes para conectar los círculos.</li>
+                <li><strong>Limpiar Ranura (RECORTA, TR):</strong>
+                    <ul class="substeps">
+                        <li>Activa <strong>RECORTA (TRIM, TR)</strong></li>
+                        <li>Selecciona los bordes de corte (las líneas verticales)</li>
+                        <li>Elimina los arcos internos de los círculos</li>
+                    </ul>
+                </li>
+                <li><strong>Finalizar (FUSIÓN, J):</strong> Une las líneas y arcos en una sola polilínea.</li>
+            </ol>
+
+            <div class="tip">
+                <div class="tip-title">Consejo Práctico</div>
+                <p>Utiliza el comando <strong>OSNAP</strong> (F3) para activar los modos de referencia a objeto como <strong>Tangente</strong> y <strong>Centro</strong> que facilitarán la conexión precisa de las líneas a los círculos.</p>
+            </div>
+
+            <details>
+                <summary>Ver Solución (Coordenadas y Dimensiones Finales)</summary>
+                <div class="solution">
+                    <ol>
+                        <li>El contorno final es de 100x60, con arcos R5 en las esquinas.</li>
+                        <li>La esquina superior derecha está redondeada y termina en X=95, Y=60.</li>
+                        <li>La ranura central está ubicada entre Y=20 y Y=40, centrada en X=50.</li>
+                        <li>La longitud total de la ranura, incluyendo los radios, es de 40 unidades.</li>
+                        <li>El centro geométrico del objeto final es (50, 30).</li>
+                    </ol>
+                </div>
+            </details>
+        </div>
+
+        <div class="exercise">
+            <h2 class="exercise-title">EJERCICIO 2: El Módulo Hexagonal y su Repetición</h2>
+            <p class="objective"><strong>Objetivo:</strong> Crear un patrón de baldosas hexagonales con agujeros de referencia y aplicar simetría.</p>
+            
+            <h3>Instrucciones Paso a Paso:</h3>
+            <ol class="steps">
+                <li><strong>Dibujar el Módulo (POLÍGONO, POL):</strong>
+                    <ul class="substeps">
+                        <li>Activa <strong>POLÍGONO (POLYGON, POL)</strong></li>
+                        <li>Ingresa <strong>6</strong> lados</li>
+                        <li>Centro en (0,0)</li>
+                        <li>Selecciona la opción <strong>Circunscrito (C)</strong> con radio <strong>12</strong></li>
+                    </ul>
+                </li>
+                <li><strong>Agujero Central (CÍRCULO, C):</strong> Dibuja un círculo de radio <strong>2</strong> en (0,0).</li>
+                <li><strong>Detalle de Esquina (LÍNEA, EMPALME):</strong>
+                    <ul class="substeps">
+                        <li>Dibuja una línea de (12, 0) a (20, 0)</li>
+                        <li>Aplica <strong>EMPALME (FILLET, F)</strong> con radio <strong>5</strong> entre el lado del hexágono y la línea</li>
+                    </ul>
+                </li>
+                <li><strong>Crear Patrón (SIMETRÍA, MI):</strong>
+                    <ul class="substeps">
+                        <li>Selecciona el Hexágono, el Círculo y la línea horizontal</li>
+                        <li>Activa <strong>SIMETRÍA (MIRROR, MI)</strong></li>
+                        <li>Especifica la línea de simetría vertical (ej: de (0,-20) a (0,20))</li>
+                        <li>Responde <strong>No (N)</strong> a "¿Borrar objetos originales?"</li>
+                    </ul>
+                </li>
+                <li><strong>Desplazar Módulo (DESPLAZAR, M):</strong>
+                    <ul class="substeps">
+                        <li>Selecciona todas las entidades</li>
+                        <li>Punto base: (0,0)</li>
+                        <li>Segundo punto: @50,0</li>
+                    </ul>
+                </li>
+            </ol>
+
+            <div class="tip">
+                <div class="tip-title">Consejo Práctico</div>
+                <p>Para mayor precisión al crear el patrón simétrico, activa el modo <strong>ORTO (F8)</strong> al dibujar la línea de simetría vertical.</p>
+            </div>
+
+            <details>
+                <summary>Ver Solución (Longitud de Lado del Hexágono)</summary>
+                <div class="solution">
+                    <ol>
+                        <li>El hexágono circunscrito con radio 12 tiene una longitud de lado de aproximadamente 13.856 unidades.</li>
+                        <li>El punto de empalme se ubica a 12 unidades del centro.</li>
+                        <li>El módulo final está centrado en X=50.</li>
+                        <li>La distancia entre los centros de los agujeros de los hexágonos adyacentes será de 24 unidades (2 × radio del hexágono).</li>
+                    </ol>
+                </div>
+            </details>
+        </div>
+
+        <div class="exercise">
+            <h2 class="exercise-title">EJERCICIO 3: Perfil de Viga con Nervadura</h2>
+            <p class="objective"><strong>Objetivo:</strong> Crear un perfil de viga con base rectangular, parte superior trapezoidal y refuerzo diagonal.</p>
+            
+            <h3>Instrucciones Paso a Paso:</h3>
+            <ol class="steps">
+                <li><strong>Base (RECTANG):</strong>
+                    <ul class="substeps">
+                        <li>Activa <strong>RECTANG (RECTANGLE, REC)</strong></li>
+                        <li>Primera esquina: (0,0)</li>
+                        <li>Segunda esquina: @40,10</li>
+                    </ul>
+                </li>
+                <li><strong>Nervadura Superior (LÍNEA, L):</strong>
+                    <ul class="substeps">
+                        <li>Activa <strong>LÍNEA (LINE, L)</strong></li>
+                        <li>Punto inicial: (40,10)</li>
+                        <li>@0,15 (sube 15 unidades)</li>
+                        <li>@-10,0 (izquierda 10 unidades)</li>
+                        <li>@0,-15 (baja 15 unidades)</li>
+                        <li>@-30,0 (izquierda 30 unidades para cerrar)</li>
+                    </ul>
+                </li>
+                <li><strong>Refuerzo Diagonal (LÍNEA, L):</strong>
+                    <ul class="substeps">
+                        <li>Dibuja una línea de (40, 0) a (0, 25)</li>
+                    </ul>
+                </li>
+                <li><strong>Limpieza y Fusión (RECORTA, FUSIÓN):</strong>
+                    <ul class="substeps">
+                        <li>Usa <strong>RECORTA (TRIM, TR)</strong> para eliminar el segmento de la línea de refuerzo que está dentro del perfil</li>
+                        <li>Usa <strong>FUSIÓN (JOIN, J)</strong> para unir todos los segmentos del contorno en una sola polilínea</li>
+                    </ul>
+                </li>
+            </ol>
+
+            <div class="tip">
+                <div class="tip-title">Consejo Práctico</div>
+                <p>Al usar el comando <strong>RECORTA (TRIM, TR)</strong>, presiona <strong>Enter</strong> dos veces para seleccionar todos los objetos como bordes de corte, lo que te permitirá recortar cualquier segmento que cruce otro objeto.</p>
+            </div>
+
+            <details>
+                <summary>Ver Solución (Longitud de la Línea de Refuerzo)</summary>
+                <div class="solution">
+                    <ol>
+                        <li>Vértices del perfil: (0,0), (40,0), (40,10), (40,25), (30,25), (30,10), (0,10), (0,0).</li>
+                        <li>Línea de refuerzo: de (40,0) a (0,25).</li>
+                        <li>Longitud de la línea: √(40² + 25²) ≈ 47.17 unidades.</li>
+                        <li>Perímetro total del perfil: 40 (base) + 25 (lado derecho) + 10 (superior) + 15 (diagonal superior) + 30 (superior izquierda) + 10 (lado izquierdo) = 130 unidades.</li>
+                    </ol>
+                </div>
+            </details>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; JMGV-PTEL-2025 Todos los derechos reservados</p>
+        </div>
+    </footer>
+</body>
+</html>

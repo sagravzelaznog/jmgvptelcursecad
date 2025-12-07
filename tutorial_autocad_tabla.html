@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía Completa del Comando TABLA (TABLE) en AutoCAD</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-bg: #f8f9fa;
+            --dark-text: #2c3e50;
+            --light-text: #7f8c8d;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark-text);
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+        }
+        
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+        }
+        
+        h1, h2, h3 {
+            color: var(--primary-color);
+        }
+        
+        h1 {
+            margin-top: 0;
+            color: white;
+        }
+        
+        h2 {
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 5px;
+            margin-top: 30px;
+        }
+        
+        .command {
+            background-color: #e8f4f8;
+            border-left: 4px solid var(--secondary-color);
+            padding: 10px 15px;
+            margin: 15px 0;
+            font-family: 'Consolas', monospace;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .example {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        .steps {
+            background-color: #f0f8ff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        
+        .steps ol, .steps ul {
+            padding-left: 20px;
+        }
+        
+        .steps li {
+            margin-bottom: 10px;
+        }
+        
+        .tip {
+            background-color: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            padding: 10px 15px;
+            margin: 15px 0;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .warning {
+            background-color: #fff3e0;
+            border-left: 4px solid #ff9800;
+            padding: 10px 15px;
+            margin: 15px 0;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .activity {
+            background-color: #f3e5f5;
+            border-left: 4px solid #9c27b0;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .challenge {
+            background-color: #e8eaf6;
+            border-left: 4px solid #3f51b5;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        details {
+            background-color: #f5f5f5;
+            padding: 10px 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+        
+        summary {
+            font-weight: bold;
+            cursor: pointer;
+            padding: 5px 0;
+        }
+        
+        .key {
+            background-color: #e0e0e0;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: monospace;
+            font-size: 0.9em;
+            border: 1px solid #bdbdbd;
+        }
+        
+        .key-combo {
+            background-color: #333;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: monospace;
+            font-size: 0.9em;
+        }
+        
+        .figure {
+            text-align: center;
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border: 1px solid #eee;
+            border-radius: 5px;
+        }
+        
+        .figure img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+        }
+        
+        .figure-caption {
+            font-style: italic;
+            color: #666;
+            margin-top: 10px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.9em;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        th, td {
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        
+        thead th {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+        }
+        
+        tbody tr:nth-child(even) {
+            background-color: #f3f3f3;
+        }
+        
+        tbody tr:hover {
+            background-color: #e9e9e9;
+        }
+        
+        .code-block {
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            margin: 10px 0;
+            overflow-x: auto;
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            header {
+                padding: 15px;
+            }
+            
+            .command, .tip, .warning, .activity, .challenge, details {
+                margin-left: -10px;
+                margin-right: -10px;
+                border-radius: 0;
+            }
+            
+            table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Guía Completa del Comando TABLA (TABLE) en AutoCAD</h1>
+        <p>Domina la creación y personalización de tablas profesionales en AutoCAD</p>
+    </header>
+
+    <section>
+        <p>El comando <strong>TABLA (TB, TABLE)</strong> en AutoCAD permite crear y administrar datos tabulares directamente en tus dibujos. Estas tablas son similares a las hojas de cálculo y ofrecen una forma estructurada de presentar información como listas de materiales, planificaciones o cualquier otro dato organizado.</p>
+        
+        <div class="tip">
+            <strong>Consejo:</strong> Las tablas en AutoCAD pueden contener texto, bloques y fórmulas, y pueden vincularse a archivos de Excel para mantener los datos actualizados automáticamente.
+        </div>
+    </section>
+
+    <section id="metodos">
+        <h2>Métodos de Creación de Tablas</h2>
+        
+        <h3>Método 1: Creación de Tabla Vía Especificación Directa</h3>
+        <p>Este método te permite definir manualmente las propiedades de la tabla antes de insertarla en el dibujo.</p>
+        
+        <div class="example">
+            <h4>Ejemplo 1.1: Lista de Materiales Básica</h4>
+            <div class="steps">
+                <ol>
+                    <li>Activa el comando <span class="key">TABLA</span> (TB).</li>
+                    <li>En la ventana "Insertar tabla":
+                        <ul>
+                            <li><strong>Columnas:</strong> 3</li>
+                            <li><strong>Ancho de columna:</strong> 20</li>
+                            <li><strong>Filas de datos:</strong> 4 (Total: 1 Título + 4 filas de datos)</li>
+                            <li><strong>Altura de fila:</strong> 5</li>
+                        </ul>
+                    </li>
+                    <li>Haz clic en <strong>Aceptar</strong>.</li>
+                    <li><strong>Punto de Inserción:</strong> Haz clic en (10,10).</li>
+                    <li>Haz doble clic en la primera celda para ingresar el título: <code>LISTA DE MATERIALES</code>.</li>
+                </ol>
+            </div>
+        </div>
+        
+        <div class="example">
+            <h4>Ejemplo 1.2: Tabla de Datos Vertical</h4>
+            <div class="steps">
+                <ol>
+                    <li>Activa el comando <span class="key">TABLA</span> (TB).</li>
+                    <li>En la ventana "Insertar tabla":
+                        <ul>
+                            <li><strong>Dirección de fila:</strong> Hacia arriba (Up)</li>
+                            <li><strong>Columnas:</strong> 2</li>
+                            <li><strong>Filas de datos:</strong> 4</li>
+                        </ul>
+                    </li>
+                    <li>Haz clic en <strong>Aceptar</strong>.</li>
+                    <li><strong>Punto de Inserción:</strong> Haz clic en (50,50).</li>
+                    <li>Ingresa los datos en las celdas (Columna 1: Código, Columna 2: Descripción).</li>
+                </ol>
+            </div>
+            
+            <div class="tip">
+                <strong>Consejo:</strong> La opción "Hacia arriba" es útil cuando necesitas que la tabla crezca hacia arriba desde un punto de inserción fijo, como en planos de planta donde el espacio es limitado.
+            </div>
+        </div>
+        
+        <h3>Método 2: Creación de Tabla Vía Enlace Externo</h3>
+        <p>Este método permite vincular la tabla de AutoCAD a un archivo de Excel, manteniendo los datos sincronizados.</p>
+        
+        <div class="example">
+            <h4>Ejemplo 2.1: Enlace a Archivo Excel</h4>
+            <div class="steps">
+                <ol>
+                    <li>Activa el comando <span class="key">DATALINK</span> (o ve a la pestaña Insertar > Grupo Vinculación de datos > Administrador de vínculos de datos).</li>
+                    <li>Crea un <strong>Nuevo Enlace de Datos</strong> y asígnale un nombre (Ej: "Presupuesto_Estructura").</li>
+                    <li>Selecciona la ruta al archivo Excel que deseas vincular.</li>
+                    <li>Activa el comando <span class="key">TABLA</span> (TB).</li>
+                    <li>En la ventana "Insertar tabla", selecciona la opción <strong>"Desde un enlace de datos"</strong>.</li>
+                    <li>Selecciona el enlace "Presupuesto_Estructura" que creaste.</li>
+                    <li>Haz clic en <strong>Aceptar</strong> e inserta la tabla en tu dibujo.</li>
+                </ol>
+            </div>
+        </div>
+        
+        <div class="example">
+            <h4>Ejemplo 2.2: Edición de la Configuración de Importación</h4>
+            <div class="steps">
+                <ol>
+                    <li>Abre la ventana <span class="key">DATALINK</span>.</li>
+                    <li>Selecciona el enlace que creaste en el Ejemplo 2.1.</li>
+                    <li>Haz clic en <strong>Editar</strong>.</li>
+                    <li>En las opciones de celda, define un rango específico (Ej: <strong>A1:C10</strong>).</li>
+                    <li>Haz clic en <strong>Aceptar</strong> y actualiza la tabla en el dibujo.</li>
+                </ol>
+            </div>
+            
+            <div class="tip">
+                <strong>Consejo:</strong> Los vínculos de datos se pueden configurar para actualizarse automáticamente o solo cuando lo solicites, lo que te da control sobre cuándo se sincronizan los cambios.
+            </div>
+        </div>
+    </section>
+
+    <section id="actividades">
+        <h2>Actividades Prácticas</h2>
+        
+        <div class="activity">
+            <h3>Actividad 1: La Leyenda de Capas (Estilo y Propiedades)</h3>
+            <p><strong>Objetivo:</strong> Crear una leyenda de dibujo con un color de fondo y editar el estilo de texto en la tabla.</p>
+            
+            <div class="steps">
+                <ol>
+                    <li>Crea un <strong>Estilo de Texto</strong> nuevo (STYLE) llamado 'Leyenda_Small' con fuente Arial y altura 2.</li>
+                    <li>Activa el comando <span class="key">TABLA</span> (TB) y configura una tabla de 3 columnas y 5 filas.</li>
+                    <li>En la ventana "Insertar tabla":
+                        <ul>
+                            <li>Haz clic en <strong>Estilo de tabla...</strong></li>
+                            <li>Selecciona <strong>Nuevo</strong> y asígnale un nombre (Ej: "Estilo_Leyenda").</li>
+                            <li>En la pestaña <strong>General</strong>, establece el estilo de texto como 'Leyenda_Small'.</li>
+                            <li>En la pestaña <strong>Celdas</strong>, selecciona el estilo de celda <strong>Título</strong> y haz clic en <strong>Editar</strong>.</li>
+                            <li>En la pestaña <strong>Bordes</strong>, selecciona un color de relleno gris.</li>
+                        </ul>
+                    </li>
+                    <li>Haz clic en <strong>Aceptar</strong> para cerrar todas las ventanas de diálogo.</li>
+                    <li>Inserta la tabla en tu dibujo y verifica que el título tenga el fondo gris y el estilo de texto correcto.</li>
+                </ol>
+            </div>
+            
+            <details>
+                <summary>Ver Solución</summary>
+                <p>La clave es modificar el <strong>Estilo de Tabla</strong> para aplicar tanto el color de relleno como el estilo de texto predefinido. Asegúrate de que el estilo de celda para el título tenga configurado el color de relleno y que el estilo de tabla esté configurado para usar 'Leyenda_Small' como estilo de texto predeterminado.</p>
+            </details>
+        </div>
+        
+        <div class="activity">
+            <h3>Actividad 2: El Reordenamiento de Celdas</h3>
+            <p><strong>Objetivo:</strong> Crear una tabla básica y luego insertar/eliminar celdas, reordenando los datos.</p>
+            
+            <div class="steps">
+                <ol>
+                    <li>Crea una nueva tabla con 3 columnas y 3 filas usando el comando <span class="key">TABLA</span> (TB).</li>
+                    <li>Ingresa datos de ejemplo en cada celda (A1, B1, C1, A2, B2, etc.).</li>
+                    <li><strong>Eliminar Columna:</strong>
+                        <ul>
+                            <li>Haz clic en cualquier celda de la columna central (Columna B).</li>
+                            <li>En la cinta de opciones, ve a la pestaña <strong>Filas y Columnas</strong>.</li>
+                            <li>Haz clic en <strong>Eliminar</strong> > <strong>Columnas</strong>.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Insertar Fila:</strong>
+                        <ul>
+                            <li>Haz clic en cualquier celda de la segunda fila de datos.</li>
+                            <li>En la cinta de opciones, haz clic en <strong>Insertar filas</strong> > <strong>Insertar abajo</strong>.</li>
+                            <li>Ingresa el texto "NUEVA FILA" en la fila recién insertada.</li>
+                        </ul>
+                    </li>
+                </ol>
+            </div>
+            
+            <details>
+                <summary>Ver Solución</summary>
+                <p>Después de completar la actividad, tu tabla debería tener:</p>
+                <ul>
+                    <li>2 columnas (se eliminó la columna central)</li>
+                    <li>4 filas (3 originales + 1 insertada)</li>
+                    <li>El texto "NUEVA FILA" en la fila que se insertó</li>
+                </ul>
+                <p>Recuerda que al eliminar una columna, todos los datos de esa columna se perderán. Es recomendable hacer una copia de seguridad de los datos importantes antes de realizar operaciones de eliminación.</p>
+            </details>
+        </div>
+    </section>
+
+    <section id="retos">
+        <h2>Retos de Comprensión</h2>
+        
+        <div class="challenge">
+            <h3>Reto 1: La Fórmula de Suma</h3>
+            <p>Crea una tabla con 2 columnas y 4 filas de datos. En la Columna 1, ingresa los números 10, 20 y 30 en las primeras tres celdas. En la cuarta celda de la Columna 2, ingresa una <strong>fórmula</strong> que sume los valores de la Columna 1.</p>
+            
+            <div class="tip">
+                <strong>Pista:</strong> Las fórmulas en las tablas de AutoCAD usan una sintaxis similar a Excel. Intenta usar <code>=SUM(A2:A4)</code> en la celda B5.
+            </div>
+            
+            <details>
+                <summary>Ver Respuesta</summary>
+                <p>Para sumar los valores de la Columna 1 (celdas A2 a A4) en la celda B5:</p>
+                <div class="code-block">
+                    =SUM(A2:A4)
+                </div>
+                <p>El resultado debería ser <strong>60</strong> (10+20+30). Asegúrate de que la celda donde ingresas la fórmula esté seleccionada y que estés en modo de edición de texto (haz doble clic en la celda).</p>
+            </details>
+        </div>
+        
+        <div class="challenge">
+            <h3>Reto 2: Descomponer la Tabla</h3>
+            <p>Dibuja una tabla simple con algunos datos. Luego, utiliza el comando <span class="key">DESCOMPONER</span> (EXPLODE, X) sobre la tabla.</p>
+            
+            <div class="warning">
+                <strong>¡Atención!</strong> Esta operación no se puede deshacer fácilmente. Asegúrate de guardar tu trabajo antes de intentarlo.
+            </div>
+            
+            <details>
+                <summary>Ver Respuesta</summary>
+                <p>Al descomponer una tabla en AutoCAD:</p>
+                <ul>
+                    <li>La tabla se convierte en líneas individuales para los bordes de las celdas</li>
+                    <li>El contenido de texto se convierte en entidades de texto individuales (TEXT o MTEXT)</li>
+                    <li>Se pierden todas las fórmulas y la estructura de la tabla</li>
+                    <li>No es posible volver a convertir las entidades resultantes en una tabla</li>
+                </ul>
+                <p>Esta operación es útil cuando necesitas editar manualmente los elementos de la tabla o cuando necesitas convertir la tabla a un formato que no soporte tablas nativas.</p>
+            </details>
+        </div>
+        
+        <div class="challenge">
+            <h3>Reto 3: El Escalado y el Texto</h3>
+            <p>Crea una tabla simple con texto. Utiliza el comando <span class="key">ESCALA</span> (SC) y escala la tabla por un factor de <strong>0.5</strong>.</p>
+            
+            <details>
+                <summary>Ver Respuesta</summary>
+                <p>Al escalar una tabla en AutoCAD:</p>
+                <ul>
+                    <li><strong>Geometría:</strong> Todas las líneas de la tabla se escalan al 50% de su tamaño original.</li>
+                    <li><strong>Texto:</strong> El comportamiento del texto depende de la configuración de anotación:
+                        <ul>
+                            <li>Si el texto tiene <strong>altura fija</strong> (no anotativo), conservará su tamaño original a menos que la opción <strong>Escalar uniformemente</strong> esté activada.</li>
+                            <li>Si el texto es <strong>anotativo</strong>, se ajustará según la escala de anotación actual.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Fórmulas:</strong> Las fórmulas se mantienen pero pueden dar resultados inesperados si hacen referencia a celdas que han cambiado de posición.</li>
+                </ul>
+                <p>Para evitar problemas con el escalado de tablas, es recomendable:</p>
+                <ol>
+                    <li>Usar estilos de tabla con alturas de texto relativas</li>
+                    <li>Considerar el uso de texto anotativo</li>
+                    <li>Evitar escalar tablas que contengan fórmulas complejas</li>
+                    <li>Probar el escalado en una copia de la tabla primero</li>
+                </ol>
+            </details>
+        </div>
+    </section>
+
+    <section id="conclusion">
+        <h2>Conclusión</h2>
+        <p>El comando TABLA (TABLE) es una herramienta poderosa en AutoCAD que te permite organizar y presentar datos de manera clara y profesional. Ya sea que estés creando listas de materiales, planificaciones o cualquier otro tipo de información tabular, las tablas de AutoCAD ofrecen flexibilidad y control sobre la presentación de tus datos.</p>
+        
+        <div class="tip">
+            <strong>Recuerda:</strong> Las tablas vinculadas a archivos de Excel pueden ahorrarte tiempo al mantener tus dibujos actualizados automáticamente. Sin embargo, es importante gestionar cuidadosamente estos vínculos para evitar problemas de referencia.
+        </div>
+    </section>
+
+    <footer style="margin-top: 40px; padding: 20px 0; border-top: 1px solid #eee; text-align: center; color: #7f8c8d; font-size: 0.9em;">
+        <p>© 2025 Tutorial de AutoCAD - Comando TABLA (TABLE)</p>
+    </footer>
+</body>
+</html>

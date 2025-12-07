@@ -1,0 +1,113 @@
+==================================================
+EJERCICIOS: COMANDO GRUPO (GROUP) EN AUTOCAD
+==================================================
+
+El comando GRUPO (G) permite agrupar temporalmente un conjunto de entidades para que puedan ser seleccionadas y manipuladas conjuntamente (moverse, copiarse, girarse), sin necesidad de convertirlas en un Bloque. A diferencia de los Bloques, los grupos son más flexibles y no afectan la definición del dibujo.
+
+--------------------------------------------------
+I. MÉTODOS DE CREACIÓN Y MANEJO (2 EJEMPLOS POR CADA MANERA)
+--------------------------------------------------
+
+Método 1: Creación de Grupo Nombrado (GROUP, G)
+
+Se asigna un nombre específico al grupo, lo que permite activarlo, desactivarlo y seleccionarlo fácilmente en el futuro.
+
+Ejemplo 1.1: Grupo de Mobiliario de Oficina
+Instrucciones: Dibuja un escritorio y una silla. Agrupa ambos bajo el nombre "OFICINA_1".
+1. Dibuja un RECTANGULO (Escritorio) y un CÍRCULO (Silla).
+2. Activa el comando GRUPO (G).
+3. Escribe **N** (para seleccionar la opción Nombre / Name).
+4. Ingresa el nombre: **OFICINA_1**.
+5. Selecciona el escritorio y la silla. Presiona Enter.
+6. Verifica: Haz clic en el escritorio. La silla también debe seleccionarse automáticamente.
+
+Ejemplo 1.2: Control de Selección de Grupo (Group Selection)
+Instrucciones: Desactiva la selección de grupo para editar un elemento individual.
+1. Utiliza el grupo "OFICINA_1" del ejemplo anterior.
+2. Presiona la combinación de teclas **Ctrl + H** (o usa el comando **GROUPDISPLAYMODE**).
+3. Intenta seleccionar el escritorio. Solo el escritorio debe seleccionarse.
+4. Utiliza el comando **DESAGRUPAR** (UNGROUP) o presiona **Ctrl + H** de nuevo para reactivar la selección de grupo.
+
+---
+
+Método 2: Creación de Grupo No Nombrado (Opción por Defecto)
+
+Se crea un grupo automáticamente con un nombre genérico (Ej: *A1, *A2).
+
+Ejemplo 2.1: Agrupación Rápida de Componentes
+Instrucciones: Dibuja un conjunto de líneas de ejes. Agrupalos sin asignar un nombre.
+1. Dibuja tres LINEAS cortas y paralelas.
+2. Activa el comando GRUPO (G).
+3. Selecciona las tres líneas. Presiona Enter.
+4. El grupo se crea automáticamente (Ej: *A1).
+5. Utiliza el comando **MOVER** (M). Selecciona una de las líneas: todo el grupo se moverá.
+
+Ejemplo 2.2: Añadir Entidades a un Grupo Existente
+Instrucciones: Añade un nuevo círculo al grupo no nombrado creado en el Ejemplo 2.1.
+1. Dibuja un CÍRCULO cercano.
+2. Activa el comando **EDITARGRUPO** (GROUPEDIT, GRED).
+3. Selecciona el grupo no nombrado (*A1).
+4. Escribe **A** (para la opción Añadir / Add).
+5. Selecciona el CÍRCULO. Presiona Enter.
+6. Verifica: Haz clic en cualquier línea: el círculo también debe seleccionarse.
+
+--------------------------------------------------
+II. ACTIVIDADES SUGERIDAS (SOLUCIÓN OCULTA)
+--------------------------------------------------
+
+ACTIVIDAD 1: El Conjunto de Iluminación (Grupos Anidados y Copia)
+
+Objetivo: Crear un grupo a partir de objetos y otro grupo a partir de la copia del primero, reordenando los elementos.
+Instrucciones:
+1. Dibuja un CÍRCULO (Lámpara) y un TEXTO "L1".
+2. **Grupo 1:** Agrupa el círculo y el texto bajo el nombre **'LAMPARA_BASE'**.
+3. **Copia:** Copia el grupo 'LAMPARA_BASE' 10 unidades a la derecha.
+4. **Grupo 2:** Agrupa el objeto original y la copia bajo el nombre **'ILUMINACION_GENERAL'**.
+5. **Edición:** Utiliza **EDITARGRUPO** sobre 'ILUMINACION_GENERAL' y **REMOVER** el texto "L1" de la copia.
+
+<details>
+<summary>Ver Solución (Estado Final de la Entidad)</summary>
+
+1.  Al finalizar, el grupo 'ILUMINACION_GENERAL' contendrá 4 entidades (Círculo y Texto original, Círculo copiado).
+2.  La clave es que, después de REMOVER el texto de la copia, solo el círculo copiado permanece como una entidad separada dentro del grupo, mientras que el texto de la copia vuelve a ser una entidad libre (o es eliminado, dependiendo de si se selecciona remover y luego borrar).
+</details>
+
+---
+
+ACTIVIDAD 2: El Reordenamiento de Componentes (Desagrupar y Reagrupar)
+
+Objetivo: Desagrupar un objeto, editar una parte y reagruparlo inmediatamente.
+Instrucciones:
+1. Dibuja un RECTANGULO y dos LINEAS internas. Agrupa todo bajo el nombre **'PLACA_ELECTRONICA'**.
+2. **Desagrupar:** Utiliza el comando **DESAGRUPAR** (UNGROUP) sobre el grupo 'PLACA_ELECTRONICA'.
+3. **Edición:** Mueve el RECTANGULO 5 unidades hacia arriba (Y).
+4. **Reagrupar:** Vuelve a agrupar los tres elementos (el rectángulo movido y las dos líneas) bajo el **mismo nombre** 'PLACA_ELECTRONICA'.
+
+<details>
+<summary>Ver Solución (Verificación de Nombre)</summary>
+
+La clave es que UNGROUP elimina el grupo, liberando las entidades. El comando GROUP posterior debe recrear el grupo con las entidades en su nueva posición. El nombre 'PLACA_ELECTRONICA' se puede reutilizar sin problemas.
+</details>
+
+--------------------------------------------------
+III. RETOS DE COMPRENSIÓN (3 RETOS)
+--------------------------------------------------
+
+RETO 1: Grupo vs. Bloque (Propiedades)
+Dibuja un círculo. Conviértelo en un **GRUPO** ('Grupo_A'). Dibuja otro círculo y conviértelo en un **BLOQUE** ('Bloque_B').
+Utiliza el comando **LISTA** (LIST, LI) sobre cada entidad.
+Verifica: ¿Qué tipo de entidad reporta AutoCAD para el GRUPO y qué tipo reporta para el BLOQUE? (Pista: El grupo sigue listando las entidades originales; el bloque es una 'REFERENCIA A BLOQUE').
+
+---
+
+RETO 2: La Selección de Entidades no Agrupadas
+Crea un grupo de 3 círculos. Hay un cuarto círculo sin agrupar cerca. Ejecuta el comando **SELECCIONARGRUPO** (SELECTGROUP) y selecciona el grupo.
+Verifica: ¿Se selecciona solo el grupo? ¿Cómo puedes diferenciar visualmente las entidades agrupadas de las que no lo están durante la selección? (Pista: Las entidades agrupadas suelen mostrar una caja de límite de selección alrededor de todo el grupo).
+
+---
+
+RETO 3: Agrupar en Capa Diferente
+Crea una capa **A_Grupo** (Color Verde) y una capa **B_Contenido** (Color Rojo).
+Dibuja un RECTANGULO en A_Grupo y un CÍRCULO en B_Contenido.
+Agrupa ambos elementos bajo el nombre 'Doble_Capa'.
+Pregunta: Si el grupo es seleccionado, ¿qué color muestra? ¿Y si se mueve el grupo a una tercera capa? (Pista: Los grupos no tienen color propio, sus entidades individuales mantienen el color de su capa original).

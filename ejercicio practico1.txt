@@ -1,0 +1,88 @@
+==================================================
+EJERCICIOS INTEGRALES DE AUTOCAD (NIVEL INTERMEDIO)
+==================================================
+
+OBJETIVO: Aplicar comandos de Trazado (LINEA, CIRCULO, POLILINEA) y Modificación (COPIAR, DESPLAZAR, EMPALME, SIMETRÍA).
+
+--------------------------------------------------
+EJERCICIO 1: LA PLACA CON RANURA Y ESQUINA REDONDEADA
+--------------------------------------------------
+
+Descripción: Diseñar una placa rectangular de 100x60 unidades, con una ranura central de 40 unidades de largo y un radio de 5, y esquinas exteriores redondeadas.
+
+Instrucciones Paso a Paso:
+
+1.  **Crear Contorno (RECTANG):** Dibuja un rectángulo de 100x60 unidades. Punto inicial en (0,0).
+2.  **Redondear Esquinas (EMPALME, F):** Aplica un EMPALME (F) con **Radio (R)** de **5** a las cuatro esquinas del rectángulo. (Usa la opción Polilínea para hacerlo rápidamente).
+3.  **Línea de Centro:** Dibuja una línea de (50, 20) a (50, 40).
+4.  **Crear Ranura (COPIAR, CP):**
+    a. Dibuja un CÍRCULO de radio **5** en (50, 20).
+    b. COPIA este círculo a (50, 40) (o usa el vector @0,20).
+5.  **Unir Círculos (LINEA):** Dibuja dos líneas tangentes (verticales) para conectar los dos círculos, formando la ranura central.
+6.  **Limpiar Ranura (RECORTA, TR):** Usa RECORTA (TR) para eliminar los arcos internos de los círculos, dejando solo la forma de "cápsula".
+7.  **Finalizar:** Utiliza FUSIÓN (J) para unir las líneas y el arco de la ranura en una sola polilínea.
+
+<details>
+<summary>Ver Solución (Coordenadas y Dimensiones Finales)</summary>
+
+1.  El contorno final es de 100x60, con arcos R5. La esquina superior derecha está redondeada y termina en X=95, Y=60.
+2.  La ranura central está ubicada entre Y=20 y Y=40, y la línea de centro es X=50.
+3.  La longitud total de la ranura, incluyendo los radios, es de 40 unidades.
+4.  El centro geométrico del objeto final es (50, 30).
+</details>
+
+--------------------------------------------------
+EJERCICIO 2: EL MÓDULO HEXAGONAL Y SU REPETICIÓN
+--------------------------------------------------
+
+Descripción: Diseñar un módulo de baldosas hexagonales que incluye un agujero circular de referencia, y duplicarlo tres veces usando un eje de simetría.
+
+Instrucciones Paso a Paso:
+
+1.  **Dibujar el Módulo (POLIGONO, POL):** Dibuja un HEXÁGONO (6 lados) centrado en (0,0), **Circunscrito** a un círculo de radio **12**.
+2.  **Agujero Central (CIRCULO, C):** Dibuja un círculo de radio **2** en el centro (0,0).
+3.  **Detalle de Esquina (LINEA, EMPALME):**
+    a. Dibuja una línea de (12, 0) a (20, 0).
+    b. Aplica **EMPALME (F)** con **Radio (R)** de **5** entre el lado derecho del hexágono y la línea.
+4.  **Crear Patrón (SIMETRÍA, MI):**
+    a. Selecciona el Hexágono, el Círculo y la línea horizontal creada en el paso 3a.
+    b. Utiliza **SIMETRÍA (MI)**, seleccionando una Línea de Simetría vertical (Ej: de (0, -20) a (0, 20)).
+    c. **Borrar originales?** No (N). El patrón es ahora simétrico en el eje Y.
+5.  **Desplazar Módulo:** Selecciona todas las entidades y DESPLAZALAS (M) 50 unidades a la derecha (Punto Base 0,0, Desplazamiento @50,0).
+
+<details>
+<summary>Ver Solución (Longitud de Lado del Hexágono)</summary>
+
+1.  El hexágono Circunscrito con radio 12 debe tener una longitud de lado de $12 \times (2/\sqrt{3}) \approx 13.856$ unidades.
+2.  El punto de empalme se ubica a 12 unidades del centro. El Empalme R5 se aplica entre el lado recto y la extensión.
+3.  El módulo final está centrado en X=50.
+</details>
+
+--------------------------------------------------
+EJERCICIO 3: PERFIL DE VIGA CON NERVADURA
+--------------------------------------------------
+
+Descripción: Crear un perfil de viga con una base rectangular, una parte superior trapezoidal y una nervadura de refuerzo en ángulo.
+
+Instrucciones Paso a Paso:
+
+1.  **Base (RECTANG):** Dibuja un rectángulo de 40x10. Punto inicial en (0,0).
+2.  **Nervadura Superior (LINEA y Relativas):** Continúa la polilínea desde (40, 10).
+    a. Sube 15 unidades: @0,15
+    b. Mueve 10 unidades a la izquierda: @-10,0
+    c. Baja 15 unidades: @0,-15
+    d. Cierra el contorno superior: @-30,0
+3.  **Refuerzo Diagonal (LINEA, Coordenadas Absolutas):** Dibuja una línea de refuerzo que vaya de la esquina inferior derecha de la base a la esquina superior izquierda del perfil.
+    - LINEA: de (40, 0) a (0, 25).
+4.  **Limpieza y Fusión (RECORTA, FUSIÓN):**
+    a. Utiliza **RECORTA (TR)** para eliminar el segmento de la línea de refuerzo (nervadura) que está **dentro** del perfil.
+    b. Utiliza **FUSIÓN (J)** para unir todos los segmentos del contorno de la viga (los cuatro lados de la base, los cuatro lados de la nervadura superior) en una sola polilínea.
+
+<details>
+<summary>Ver Solución (Longitud de la Línea de Refuerzo)</summary>
+
+1.  Los vértices finales del perfil de la viga son: (0,0), (40,0), (40,10), (40,25), (30,25), (30,10), (0,10), (0,0).
+2.  La línea de refuerzo va de (40,0) a (0,25).
+3.  Su longitud real es $\sqrt{40^2 + 25^2} \approx 47.17$ unidades.
+4.  El segmento recortado es la parte de la línea que se superpone a la viga. La polilínea final debe tener una longitud de 40 + 25 + 10 + 15 + 30 + 10 = 130 (perímetro) y 47.17 (nervadura recortada).
+</details>

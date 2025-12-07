@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutorial AutoCAD: Comandos de Texto</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-bg: #f5f7fa;
+            --dark-text: #2c3e50;
+            --light-text: #7f8c8d;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            line-height: 1.6;
+            color: var(--dark-text);
+            background-color: #f9f9f9;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #ecf0f1;
+            font-weight: 300;
+        }
+        
+        .command-section {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border-left: 5px solid var(--secondary-color);
+        }
+        
+        .command-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .command-icon {
+            background-color: var(--secondary-color);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+        
+        .command-title {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin: 0;
+        }
+        
+        .command-shortcut {
+            background-color: #e8f4fc;
+            color: var(--secondary-color);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-left: auto;
+            border: 1px solid #d0e3f2;
+        }
+        
+        h2 {
+            color: var(--primary-color);
+            margin: 1.5rem 0 1rem;
+            font-size: 1.4rem;
+        }
+        
+        p, li {
+            margin-bottom: 1rem;
+            color: #555;
+        }
+        
+        .example {
+            background-color: #f8f9fa;
+            border-left: 4px solid var(--secondary-color);
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .example-title {
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .example-title:before {
+            content: "→";
+            margin-right: 0.5rem;
+            color: var(--secondary-color);
+        }
+        
+        code {
+            background-color: #f0f0f0;
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            color: #e74c3c;
+        }
+        
+        .steps {
+            counter-reset: step;
+            margin: 1.5rem 0;
+            padding-left: 1.5rem;
+        }
+        
+        .step {
+            position: relative;
+            padding-left: 2.5rem;
+            margin-bottom: 1rem;
+            counter-increment: step;
+        }
+        
+        .step:before {
+            content: counter(step);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background-color: var(--secondary-color);
+            color: white;
+            width: 1.8rem;
+            height: 1.8rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+        
+        .activity {
+            background-color: #f0f7ff;
+            border-left: 4px solid #3498db;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .activity-title {
+            color: #2c3e50;
+            margin-top: 0;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .activity-title:before {
+            content: "📝";
+            margin-right: 0.5rem;
+        }
+        
+        details {
+            background-color: #f9f9f9;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+        
+        summary {
+            padding: 1rem;
+            background-color: #f0f0f0;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--primary-color);
+            transition: background-color 0.2s;
+        }
+        
+        summary:hover {
+            background-color: #e0e0e0;
+        }
+        
+        .solution {
+            padding: 1rem;
+            background-color: white;
+            border-top: 1px solid #e0e0e0;
+        }
+        
+        .challenge {
+            background-color: #fff8f0;
+            border-left: 4px solid #e67e22;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .challenge-title {
+            color: #d35400;
+            margin-top: 0;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .challenge-title:before {
+            content: "🔍";
+            margin-right: 0.5rem;
+        }
+        
+        .tip {
+            background-color: #f0f8ff;
+            border-left: 4px solid #3498db;
+            padding: 1rem 1rem 1rem 3rem;
+            margin: 1.5rem 0;
+            border-radius: 0 4px 4px 0;
+            position: relative;
+        }
+        
+        .tip:before {
+            content: "💡";
+            position: absolute;
+            left: 1rem;
+            top: 1rem;
+            font-size: 1.2rem;
+        }
+        
+        .command-variation {
+            margin: 1.5rem 0;
+            padding: 1rem;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+            border: 1px dashed #d0d7de;
+        }
+        
+        .command-variation-title {
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .command-variation-title:before {
+            content: "↳";
+            margin-right: 0.5rem;
+            color: #7f8c8d;
+        }
+        
+        .note {
+            background-color: #fffaf0;
+            border-left: 4px solid #f1c40f;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .note-title {
+            font-weight: 600;
+            color: #b7950b;
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+        }
+        
+        .text-sample {
+            background-color: #f8f9fa;
+            border: 1px solid #e1e4e8;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            white-space: pre-wrap;
+        }
+        
+        .text-sample.note-sample {
+            background-color: #fff8e1;
+            border-left: 4px solid #ffc107;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+            border-top: 1px solid #eee;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .command-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .command-shortcut {
+                margin: 1rem 0 0 0;
+                align-self: flex-start;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .command-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Tutorial de AutoCAD: Comandos de Texto</h1>
+            <p class="subtitle">Aprende a crear y formatear texto en tus dibujos</p>
+        </div>
+    </header>
+    
+    <div class="container">
+        <section class="intro">
+            <p>El texto es un componente esencial en los dibujos técnicos de AutoCAD. Este tutorial te guiará a través de los comandos de texto más utilizados: TEXTO DE LÍNEA ÚNICA (DT) y TEXTO DE LÍNEAS MÚLTIPLES (MT). Aprenderás a crear, formatear y editar texto de manera efectiva en tus diseños.</p>
+            
+            <div class="tip">
+                <strong>Consejo:</strong> Antes de comenzar, asegúrate de tener configurado el estilo de texto adecuado (STYLE) con la fuente y altura correctas para tu dibujo.
+            </div>
+        </section>
+        
+        <!-- Sección de TEXTO DE LÍNEA ÚNICA -->
+        <section id="texto-linea-unica" class="command-section">
+            <div class="command-header">
+                <div class="command-icon">DT</div>
+                <h2 class="command-title">TEXTO DE LÍNEA ÚNICA (DTEXT, DT)</h2>
+                <span class="command-shortcut">Comando: <code>DTEXT</code> o <code>DT</code></span>
+            </div>
+            
+            <p>El comando TEXTO DE LÍNEA ÚNICA se utiliza para crear una o más líneas de texto, donde cada línea es un objeto independiente. Es ideal para etiquetas, números o notas cortas.</p>
+            
+            <h3>Método 1: Texto con Altura y Ángulo Definidos</h3>
+            <p>Se especifica la altura y el ángulo de rotación antes de ingresar el texto.</p>
+            
+            <div class="example">
+                <div class="example-title">Ejemplo 1.1: Etiqueta Simple</div>
+                <p>Dibuja un texto "Muro Principal" de 3 unidades de altura y 0 grados de rotación.</p>
+                
+                <div class="steps">
+                    <div class="step">Activa el comando <strong>TEXTO DE LÍNEA ÚNICA</strong> (DT).</div>
+                    <div class="step">Especifica el punto inicial: <code>10,10</code>.</div>
+                    <div class="step">Especifica la Altura del Texto: <code>3</code>.</div>
+                    <div class="step">Especifica el Ángulo de Rotación: <code>0</code>.</div>
+                    <div class="step">Ingresa el texto: <code>Muro Principal</code></div>
+                    <div class="step">Presiona Enter dos veces para finalizar.</div>
+                </div>
+            </div>
+            
+            <div class="example">
+                <div class="example-title">Ejemplo 1.2: Texto Inclinado</div>
+                <p>Dibuja un texto "SECCIÓN A-A" de 5 unidades de altura rotado 45 grados.</p>
+                
+                <div class="steps">
+                    <div class="step">Activa el comando <strong>TEXTO DE LÍNEA ÚNICA</strong> (DT).</div>
+                    <div class="step">Especifica el punto inicial: <code>50,50</code>.</div>
+                    <div class="step">Especifica la Altura del Texto: <code>5</code>.</div>
+                    <div class="step">Especifica el Ángulo de Rotación: <code>45</code>.</div>
+                    <div class="step">Ingresa el texto: <code>SECCIÓN A-A</code></div>
+                    <div class="step">Presiona Enter dos veces para finalizar.</div>
+                </div>
+            </div>
+            
+            <h3>Método 2: Texto Justificado (Justify, J)</h3>
+            <p>Se utiliza para controlar la alineación del texto respecto al punto de inserción.</p>
+            
+            <div class="example">
+                <div class="example-title">Ejemplo 2.1: Etiqueta Centrada</div>
+                <p>Dibuja el texto "TÍTULO" de altura 4, centrado en el punto (30,5).</p>
+                
+                <div class="steps">
+                    <div class="step">Activa el comando <strong>TEXTO DE LÍNEA ÚNICA</strong> (DT).</div>
+                    <div class="step">Escribe <code>J</code> (para la opción Justificar).</div>
+                    <div class="step">Escribe <code>C</code> o <code>MC</code> (para Centro o Middle Center).</div>
+                    <div class="step">Especifica el punto central: <code>30,5</code>.</div>
+                    <div class="step">Especifica la Altura del Texto: <code>4</code>.</div>
+                    <div class="step">Ángulo de Rotación: <code>0</code>.</div>
+                    <div class="step">Ingresa el texto: <code>TÍTULO</code></div>
+                    <div class="step">Presiona Enter dos veces para finalizar.</div>
+                </div>
+            </div>
+            
+            <div class="note">
+                <div class="note-title">Nota sobre la justificación</div>
+                <p>AutoCAD ofrece múltiples opciones de justificación para el texto de línea única. Algunas de las más utilizadas son:</p>
+                <ul>
+                    <li><strong>Izquierda (L):</strong> Alineación estándar (predeterminada).</li>
+                    <li><strong>Centro (C):</strong> Centra el texto horizontalmente en el punto de inserción.</li>
+                    <li><strong>Derecha (R):</strong> Alinea el texto a la derecha del punto de inserción.</li>
+                    <li><strong>Ajustar (F):</strong> Ajusta el texto entre dos puntos, modificando su escala horizontal.</li>
+                    <li><strong>Medio (M):</strong> Centra el texto tanto horizontal como verticalmente en el punto de inserción.</li>
+                </ul>
+            </div>
+        </section>
+        
+        <!-- Sección de TEXTO DE LÍNEAS MÚLTIPLES -->
+        <section id="texto-lineas-multiples" class="command-section">
+            <div class="command-header">
+                <div class="command-icon">MT</div>
+                <h2 class="command-title">TEXTO DE LÍNEAS MÚLTIPLES (MTEXT, MT)</h2>
+                <span class="command-shortcut">Comando: <code>MTEXT</code> o <code>MT</code></span>
+            </div>
+            
+            <p>El comando TEXTO DE LÍNEAS MÚLTIPLES permite crear párrafos de texto con formato avanzado, ideal para notas largas, especificaciones o descripciones detalladas.</p>
+            
+            <h3>Método 1: Texto de Párrafo (Definición de Esquina)</h3>
+            <p>Se define un cuadro de texto (rectángulo) para delimitar el ancho del párrafo.</p>
+            
+            <div class="example">
+                <div class="example-title">Ejemplo 2.2: Párrafo Estándar</div>
+                <p>Dibuja un párrafo de 15 unidades de ancho con texto de 2 unidades de altura.</p>
+                
+                <div class="steps">
+                    <div class="step">Activa el comando <strong>TEXTO DE LÍNEAS MÚLTIPLES</strong> (MT o MTEXT).</div>
+                    <div class="step">Especifica la primera esquina: <code>10,60</code>.</div>
+                    <div class="step">Especifica la esquina opuesta (para definir el ancho de 15): <code>25,50</code>.</div>
+                    <div class="step">En el editor, cambia la Altura del Texto a <code>2</code>.</div>
+                    <div class="step">Ingresa el texto: <code>"Las especificaciones técnicas se encuentran en el anexo A. Toda medida es en metros."</code></div>
+                    <div class="step">Haz clic fuera del cuadro para finalizar.</div>
+                </div>
+            </div>
+            
+            <h3>Método 2: MTEXT con Columnas y Formato</h3>
+            <p>Dibuja una nota general que use viñetas y se alinee a la derecha.</p>
+            
+            <div class="example">
+                <div class="example-title">Ejemplo 2.3: Texto con Formato Avanzado</div>
+                
+                <div class="steps">
+                    <div class="step">Activa <strong>MTEXT</strong> (MT).</div>
+                    <div class="step">Define el cuadro de texto (ancho de 20).</div>
+                    <div class="step">En el editor, en la pestaña <strong>Columnas</strong>, selecciona <strong>Estático</strong> y <strong>2 columnas</strong>.</div>
+                    <div class="step">Ingresa la lista con formato:</div>
+                </div>
+                
+                <div class="text-sample note-sample">
+<strong>NOTAS DEL DIBUJO</strong>
+
+Requerimientos:
+• Punto 1
+• Punto 2
+• Punto 3
+
+<span style="float: right;">FIN</span>
+                </div>
+                
+                <div class="tip">
+                    <strong>Consejo:</strong> Para alinear texto a la derecha en MTEXT, selecciona el texto y usa el botón de alineación a la derecha en la barra de herramientas de formato, o usa el código <code>\A2;</code> al principio del párrafo.
+                </div>
+            </div>
+            
+            <div class="note">
+                <div class="note-title">Formato avanzado en MTEXT</div>
+                <p>El editor de MTEXT te permite aplicar diferentes formatos a tu texto:</p>
+                <ul>
+                    <li><strong>Negrita</strong>, <em>cursiva</em> y <u>subrayado</u></li>
+                    <li>Cambiar el tipo y tamaño de fuente</li>
+                    <li>Crear listas con viñetas o numeradas</li>
+                    <li>Ajustar el interlineado</li>
+                    <li>Insertar símbolos especiales</li>
+                    <li>Crear tablas y columnas</li>
+                </ul>
+                <p>Para acceder a estas opciones, haz doble clic en el texto MTEXT para abrir el editor.</p>
+            </div>
+        </section>
+        
+        <!-- Sección de ACTIVIDADES -->
+        <section id="actividades" class="activity">
+            <h2 class="activity-title">ACTIVIDADES PRÁCTICAS</h2>
+            
+            <div class="activity-content">
+                <h3>Actividad 1: Etiqueta de Símbolo (DT Justificado y Polar)</h3>
+                <p><strong>Objetivo:</strong> Colocar una etiqueta centrada y rotada sobre un círculo, simulando un símbolo.</p>
+                
+                <div class="steps">
+                    <div class="step">Dibuja un <strong>CÍRCULO</strong> (C) de radio 5 en (50,50).</div>
+                    <div class="step">Activa el comando <strong>TEXTO DE LÍNEA ÚNICA</strong> (DT).</div>
+                    <div class="step">Escribe <code>J</code> y luego <code>C</code> para justificación Centro.</div>
+                    <div class="step">Especifica el punto de inserción: <code>50,50</code> (centro del círculo).</div>
+                    <div class="step">Especifica la Altura del Texto: <code>4</code>.</div>
+                    <div class="step">Especifica el Ángulo de Rotación: <code>120</code> grados.</div>
+                    <div class="step">Ingresa el texto: <code>T-120</code></div>
+                </div>
+                
+                <details>
+                    <summary>Ver Solución (Ubicación y Entidad)</summary>
+                    <div class="solution">
+                        <p>1. La entidad debe ser TEXT (Texto de Línea Única).</p>
+                        <p>2. Al girar el texto a 120 grados, la línea de base del texto debe estar inclinada hacia la esquina superior izquierda.</p>
+                        <p>3. El punto de inserción (50,50) debe coincidir con el centro geométrico de la entidad T-120.</p>
+                        <p>4. Asegúrate de que el texto esté en una capa con un color que contraste con el círculo para mejor visibilidad.</p>
+                    </div>
+                </details>
+                
+                <h3>Actividad 2: Tabla de Notas (MTEXT y Alineación)</h3>
+                <p><strong>Objetivo:</strong> Crear una tabla de notas de dos columnas usando el control de MTEXT.</p>
+                
+                <div class="steps">
+                    <div class="step">Dibuja un <strong>RECTÁNGULO</strong> (REC) de 25x15 unidades para servir como contenedor.</div>
+                    <div class="step">Activa el comando <strong>MTEXT</strong> (MT) y define un área dentro del rectángulo.</div>
+                    <div class="step">Configura el ancho de columna para que ocupe aproximadamente 20 unidades de ancho.</div>
+                    <div class="step">Ingresa el siguiente contenido con formato:</div>
+                </div>
+                
+                <div class="text-sample note-sample">
+<strong><u>NOTAS DEL DIBUJO</u></strong>
+
+Requerimientos:
+1. Revisar escalas.
+2. Usar capa MOB.
+
+<span style="float: right;"><strong>FIN</strong></span>
+                </div>
+                
+                <details>
+                    <summary>Ver Solución (Tipos de Formato Aplicados)</summary>
+                    <div class="solution">
+                        <p>1. <strong>NOTAS DEL DIBUJO</strong> debe usar formato de <strong>Negrita</strong> y <strong>Subrayado</strong> (dentro del editor de MTEXT).</p>
+                        <p>2. La alineación de "FIN" se logra seleccionando solo esa palabra o línea y usando la justificación <strong>Derecha</strong> dentro del editor.</p>
+                        <p>3. Los números de los requisitos se pueden crear como una lista numerada automática o manualmente.</p>
+                        <p>4. Asegúrate de dejar una línea en blanco antes de "FIN" para mejor presentación.</p>
+                    </div>
+                </details>
+            </div>
+        </section>
+        
+        <!-- Sección de RETOS -->
+        <section id="retos" class="challenge">
+            <h2 class="challenge-title">RETOS DE COMPRENSIÓN</h2>
+            
+            <div class="challenge-content">
+                <h3>RETO 1: La Edición Rápida (DDEDIT)</h3>
+                <p>Dibuja un TEXTO DE LÍNEA ÚNICA (DT) y un TEXTO DE LÍNEAS MÚLTIPLES (MT). Ejecuta el comando <strong>DDEDIT</strong> (DD) y haz clic en cada entidad de texto.</p>
+                
+                <p><strong>Verifica:</strong> ¿El editor que aparece es el mismo para ambas entidades?</p>
+                
+                <div class="tip">
+                    <strong>Solución:</strong> No es el mismo editor. Al usar DDEDIT en un texto de línea única (DT), aparece un editor de texto simple en la línea de comandos. En cambio, al usarlo en un texto de líneas múltiples (MT), se abre el editor de texto enriquecido con todas las opciones de formato.
+                </div>
+                
+                <h3>RETO 2: La Rotación Engañosa</h3>
+                <p>Dibuja un TEXTO DE LÍNEA ÚNICA (DT) que diga "Cuidado" a 0 grados. Luego, utiliza el comando <strong>GIRAR</strong> (RO) para rotarlo 90 grados.</p>
+                
+                <p><strong>Verifica:</strong> ¿El texto se ve exactamente igual que si se hubiera creado directamente a 90 grados? ¿Cómo se diferencia la rotación por el comando GIRAR de la rotación intrínseca al comando DT?</p>
+                
+                <div class="tip">
+                    <strong>Solución:</strong> No es exactamente igual. Cuando usas el comando GIRAR, el texto gira como un objeto completo, incluyendo su punto de inserción. Cuando especificas el ángulo directamente en el comando DT, el texto se crea con esa orientación desde el principio. La diferencia principal está en cómo se maneja el punto de inserción y la justificación del texto. Con GIRAR, todo el objeto gira alrededor del punto base, mientras que con la rotación en DT, el texto se genera ya con esa orientación.
+                </div>
+                
+                <h3>RETO 3: Propiedades y Bloqueo</h3>
+                <p>Crea un MTEXT con varias líneas de texto. Abre la ventana de <strong>PROPIEDADES</strong> (PR) y busca la sección <strong>COLUMNAS</strong>. Intenta cambiar la altura del texto y el espaciado de las líneas.</p>
+                
+                <p><strong>Pregunta:</strong> ¿Cómo afecta el parámetro <strong>Ancho</strong> (Width) en las propiedades a la forma en que se ajusta el texto si el valor es <strong>0</strong>?</p>
+                
+                <div class="tip">
+                    <strong>Solución:</strong> Cuando el ancho (Width) de un MTEXT se establece en 0, el texto se comporta como una línea única que se extiende indefinidamente hacia la derecha, sin ajuste de línea automático. Solo se ajusta la altura del texto según el valor especificado. El texto no se ajustará al ancho del cuadro de texto, sino que formará una sola línea horizontal larga. Para que el texto se ajuste automáticamente al ancho del cuadro de MTEXT, debes especificar un valor de ancho mayor que 0.
+                </div>
+            </div>
+        </section>
+        
+        <section class="conclusion">
+            <h2>Conclusión</h2>
+            <p>Los comandos de texto en AutoCAD son herramientas poderosas que te permiten añadir información clara y profesional a tus dibujos. Dominar tanto el TEXTO DE LÍNEA ÚNICA (DT) como el TEXTO DE LÍNEAS MÚLTIPLES (MT) te permitirá:</p>
+            
+            <ul>
+                <li>Crear etiquetas precisas para elementos de tu dibujo</li>
+                <li>Agregar notas y especificaciones detalladas</li>
+                <li>Mantener la consistencia en tus diseños</li>
+                <li>Mejorar la legibilidad y comprensión de tus planos</li>
+                <li>Ahorrar tiempo con opciones de formato avanzado</li>
+            </ul>
+            
+            <div class="tip">
+                <strong>Práctica recomendada:</strong> Crea estilos de texto (STYLE) para diferentes usos en tus dibujos, como títulos, etiquetas y notas. Esto te permitirá mantener la consistencia en todos tus proyectos y ahorrar tiempo al no tener que formatear cada texto individualmente.
+            </div>
+        </section>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <p>Tutorial creado para el curso de AutoCAD - Nivel Básico a Intermedio</p>
+            <p>© 2025 - Todos los derechos reservados</p>
+        </div>
+    </footer>
+</body>
+</html>

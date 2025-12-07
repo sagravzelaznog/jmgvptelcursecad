@@ -1,0 +1,139 @@
+==================================================
+EJERCICIOS: COMANDOS RECORTA (TRIM) Y ALARGAR (EXTEND)
+==================================================
+
+Estos comandos trabajan juntos para ajustar entidades a límites definidos:
+1.  **RECORTA (TR):** Elimina partes de un objeto que se extienden más allá de un límite o punto de intersección.
+2.  **ALARGAR (EX):** Extiende un objeto hasta que alcanza un límite de otro objeto.
+
+Ambos comandos ahora funcionan de manera dinámica en las versiones modernas de AutoCAD: puedes activarlos y luego simplemente hacer clic en los objetos que quieres modificar.
+
+--------------------------------------------------
+I. COMANDO RECORTA (TRIM, TR)
+--------------------------------------------------
+
+Método 1: Recortar por Límites Implícitos (Modo Rápido)
+
+Se activa el comando y AutoCAD utiliza automáticamente todas las entidades como posibles límites de corte.
+
+Ejemplo 1.1: Eliminar Cruce Central
+Instrucciones: Dibuja dos líneas que se cruzan y recorta el segmento interno de la intersección.
+1. Dibuja LINEA 1: de (0,5) a (10,5).
+2. Dibuja LINEA 2: de (5,0) a (5,10).
+3. Activa el comando RECORTA (TR).
+4. **Haz clic** en el segmento de la Línea 1 **entre** las dos líneas.
+5. **Haz clic** en el segmento de la Línea 2 **entre** las dos líneas.
+6. El resultado es un espacio vacío en la intersección.
+
+Ejemplo 1.2: Recortar Excedentes en Esquina
+Instrucciones: Dibuja dos líneas que se superponen y recorta las partes exteriores para formar una esquina limpia.
+1. Dibuja LINEA 1: de (20,0) a (30,10).
+2. Dibuja LINEA 2: de (30,5) a (20,15). (Se cruzan).
+3. Activa RECORTA (TR).
+4. **Haz clic** en el segmento superior de la Línea 2 que excede la intersección.
+5. **Haz clic** en el segmento izquierdo de la Línea 1 que excede la intersección.
+6. El resultado es una esquina limpia en el cuadrante inferior derecho.
+
+---
+
+Método 2: Recortar Usando Límite de Corte Explícito (Modo Antiguo)
+
+Se seleccionan primero los límites de corte (los objetos que actuarán como "cuchillos") y luego se seleccionan las entidades a recortar.
+
+Ejemplo 2.1: Agujero en Tubería (Límites: Círculos)
+Instrucciones: Dibuja dos círculos. Recorta la línea que pasa por el medio.
+1. Dibuja CÍRCULO 1 (Radio 5) en (0,0) y CÍRCULO 2 (Radio 5) en (20,0).
+2. Dibuja una LINEA horizontal que pase por el centro de ambos círculos (Ej: -5,0 a 25,0).
+3. Activa RECORTA (TR).
+4. **Selecciona Objetos de Límite:** Haz clic en el borde del Círculo 1 y el Círculo 2. Presiona Enter.
+5. **Selecciona Objeto a Recortar:** Haz clic en el segmento de la línea que está entre los dos círculos.
+6. La línea central desaparece entre los círculos.
+
+--------------------------------------------------
+II. COMANDO ALARGAR (EXTEND, EX)
+--------------------------------------------------
+
+Método 1: Alargar a Límites Implícitos (Modo Rápido)
+
+Se activa el comando y AutoCAD detecta automáticamente la primera entidad que el objeto va a tocar.
+
+Ejemplo 1.3: Extender al Muro
+Instrucciones: Dibuja una línea corta. Extiéndela hasta que toque un rectángulo (muro).
+1. Dibuja un RECTANGULO (REC) de 2x10 en (20,0). (El Límite).
+2. Dibuja una LINEA corta de (5,5) a (15,5).
+3. Activa el comando ALARGAR (EX).
+4. **Haz clic** en el extremo derecho de la Línea corta (15,5).
+5. La línea debe alargarse hasta X=20.
+
+Método 2: Alargar Usando Límite de Frontera Explícito
+
+Se seleccionan primero los límites (los objetos hasta donde se quiere alargar) y luego se selecciona el objeto que se va a extender.
+
+Ejemplo 2.2: Extender a Múltiples Lados
+Instrucciones: Dibuja dos muros verticales. Extiende una línea horizontal para que toque ambos muros.
+1. Dibuja LINEA Límite A: de (10,0) a (10,20).
+2. Dibuja LINEA Límite B: de (40,0) a (40,20).
+3. Dibuja una LINEA horizontal de (20,10) a (30,10).
+4. Activa ALARGAR (EX).
+5. **Selecciona Objetos de Límite:** Haz clic en Línea A y Línea B. Presiona Enter.
+6. **Selecciona Objeto a Alargar:** Haz clic en el lado izquierdo de la línea horizontal.
+7. **Selecciona Objeto a Alargar:** Haz clic en el lado derecho de la línea horizontal.
+8. La línea horizontal ahora va de X=10 a X=40.
+
+--------------------------------------------------
+III. ACTIVIDADES SUGERIDAS (SOLUCIÓN OCULTA)
+--------------------------------------------------
+
+ACTIVIDAD 1: El Pasillo con Puerta (RECORTA y ALARGAR)
+
+Objetivo: Usar ambos comandos para crear una abertura de puerta en un muro continuo.
+Instrucciones:
+1. Dibuja el **Muro Principal:** Una LINEA de (0,10) a (30,10).
+2. Dibuja los **Límites de la Puerta:** Dos LINEAS verticales cortas: de (10,5) a (10,15) y de (15,5) a (15,15).
+3. **Paso A (Recortar):** Usa RECORTA (TR) para eliminar el segmento del Muro Principal entre las dos Líneas de Límite de la puerta.
+4. **Paso B (Alargar):** Dibuja una línea de (25,12) a (27,12). Usa ALARGAR (EX) para extender esta línea hasta que toque el muro final (X=30).
+
+<details>
+<summary>Ver Solución (Coordenadas y Orden de Operación)</summary>
+
+1.  El Muro Principal se rompe, quedando dos segmentos: [0, 10] y [15, 30].
+2.  La Línea del Paso B se extiende de X=27 a X=30.
+3.  El orden de operación fue crucial: primero RECORTAR el espacio, luego ALARGAR a la nueva frontera creada.
+</details>
+
+---
+
+ACTIVIDAD 2: Limpieza de Cruces (RECORTA y Polilíneas)
+
+Objetivo: Recortar un conjunto de líneas dentro de una polilínea cerrada.
+Instrucciones:
+1. Dibuja un RECTANGULO (REC) de 20x20 en (0,0). (Este será el límite exterior).
+2. Dibuja tres LINEAS diagonales que crucen completamente el rectángulo (Ej: de -5,-5 a 25,25).
+3. Usa RECORTA (TR) para eliminar todas las partes de las líneas diagonales que están **fuera** del rectángulo, conservando solo los segmentos internos.
+
+<details>
+<summary>Ver Solución (Propiedades de la Polilínea)</summary>
+
+La clave es que el RECTANGULO, al ser una POLILINEA, es detectado automáticamente como el límite de corte, incluso si no se selecciona explícitamente en el modo rápido. Después del recorte, los tres segmentos diagonales deben tener puntos finales en la coordenada X=0, X=20, Y=0 o Y=20.
+</details>
+
+--------------------------------------------------
+IV. RETOS DE COMPRENSIÓN (3 RETOS)
+--------------------------------------------------
+
+RETO 1: El Borrado con Recorta (Borrar)
+Dibuja una línea corta y una línea larga que no se crucen. Activa RECORTA (TR).
+A continuación, usa la opción **BORRAR** (Erase, E) dentro del comando RECORTA y haz clic en la línea larga.
+Verifica: ¿Se eliminó la línea larga? ¿Para qué sirve la opción BORRAR dentro de RECORTA? (Pista: Para eliminar objetos que no se pueden recortar porque no cruzan un límite).
+
+---
+
+RETO 2: Alargar Sin Final
+Dibuja una línea de 5 unidades. Intenta usar ALARGAR (EX) sin dibujar ninguna otra entidad.
+Pregunta: ¿Se puede alargar la línea? ¿Por qué ALARGAR siempre requiere un **límite de frontera** (Boundary Edge) en el espacio de trabajo?
+
+---
+
+RETO 3: El Alargar Imposible (No Paralelo)
+Dibuja un círculo de radio 10 en (20,10). Dibuja una línea de (0,0) a (5,5). Intenta usar ALARGAR (EX) para extender la línea hasta que toque el círculo.
+Verifica: ¿Se extiende la línea? (Pista: ALARGAR solo funciona si el objeto que se extiende **interceptará** al objeto límite en algún punto. En este caso, la línea necesitaría proyectarse).

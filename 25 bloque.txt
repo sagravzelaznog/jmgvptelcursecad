@@ -1,0 +1,116 @@
+==================================================
+EJERCICIOS: COMANDO BLOQUE (BLOCK) EN AUTOCAD
+==================================================
+
+El comando BLOQUE (B) combina un conjunto de objetos individuales en una única entidad nombrada. El principal beneficio es la reducción del tamaño del archivo y la actualización global (si modificas el bloque original, todas las copias insertadas se actualizan).
+
+--------------------------------------------------
+I. MÉTODOS DE CREACIÓN E INSERCIÓN (2 EJEMPLOS POR CADA MANERA)
+--------------------------------------------------
+
+Método 1: Creación de Bloque Local (BLOCK, B)
+
+Se define la geometría, el nombre y el punto base para usar el bloque dentro del dibujo actual.
+
+Ejemplo 1.1: Bloque de Silla y Punto Base Central
+Instrucciones: Dibuja una silla y créala como un bloque con el punto de inserción en el centro.
+1. Dibuja la geometría de una silla simple (RECTANGULO de 4x4 y cuatro CÍRCULOS pequeños para patas).
+2. Activa el comando BLOQUE (B).
+3. **Nombre:** SILLA_COMEDOR
+4. **Objetos:** Selecciona todas las entidades de la silla.
+5. **Punto Base:** Utiliza Osnap **Centro Geométrico** para seleccionar el centro del rectángulo principal.
+6. Aceptar. La geometría original se convierte en la **definición** del bloque.
+
+Ejemplo 1.2: Inserción y Rotación
+Instrucciones: Inserta el bloque SILLA_COMEDOR y rótalo 90 grados.
+1. Activa el comando INSERTAR (I).
+2. Selecciona el bloque **SILLA_COMEDOR**.
+3. **Punto de Inserción:** Haz clic en (20,20).
+4. **Ángulo de Rotación:** Escribe **90**.
+5. La silla debe aparecer rotada 90 grados alrededor de su punto base (20,20).
+
+---
+
+Método 2: Escribir Bloque (WBLOCK)
+
+Se guarda la definición del bloque como un archivo de dibujo (`.DWG`) separado, listo para ser insertado en cualquier otro proyecto.
+
+Ejemplo 2.1: Exportar Puerta
+Instrucciones: Dibuja la geometría de una puerta y guárdala como un archivo de bloque reutilizable (`Puerta_90cm.dwg`).
+1. Dibuja la geometría de una puerta abatible (dos líneas y un arco).
+2. Activa el comando **ESCRIBEBLOQUE** (WBLOCK, W).
+3. **Fuente:** Selecciona **Objetos** (Objects).
+4. **Punto Base:** Selecciona la esquina de la jamba donde la puerta pivota (Ej: 0,0).
+5. **Objetos:** Selecciona las entidades de la puerta.
+6. **Destino (File Name):** Guarda el archivo como `Puerta_90cm.dwg`.
+7. El dibujo original mantiene los objetos, pero se crea un archivo `.dwg` externo.
+
+Ejemplo 2.2: Inserción de Bloque Externo
+Instrucciones: Inserta el archivo de bloque `Puerta_90cm.dwg` en el dibujo actual.
+1. Abre un nuevo archivo de AutoCAD (o sigue trabajando en el actual).
+2. Activa el comando INSERTAR (I).
+3. **Examinar (Browse):** Busca y selecciona el archivo `Puerta_90cm.dwg`.
+4. **Punto de Inserción:** Haz clic en la esquina de un muro.
+5. La geometría de la puerta aparece en el dibujo.
+
+--------------------------------------------------
+II. ACTIVIDADES SUGERIDAS (SOLUCIÓN OCULTA)
+--------------------------------------------------
+
+ACTIVIDAD 1: El Tablero de Control (Creación y Copia)
+
+Objetivo: Crear un bloque a partir de geometría compleja y usarlo para generar una matriz con espaciado uniforme.
+Instrucciones:
+1. Dibuja el **Contorno del Interruptor:** Un RECTANGULO de 2x2.
+2. Dibuja el **Símbolo Interno:** Una "X" que cruza el rectángulo.
+3. **Crear Bloque:** Crea un bloque llamado **INTERRUPTOR** con el punto base en la esquina **inferior izquierda** del rectángulo (0,0).
+4. **Matriz:** Inserta el bloque INTERRUPTOR en (10,10).
+5. Utiliza el comando **COPIAR** (CP) para crear una matriz de 4x2 bloques, con una separación de **3 unidades** en X y **3 unidades** en Y entre cada bloque.
+
+<details>
+<summary>Ver Solución (Coordenadas y Actualización)</summary>
+
+1.  La esquina inferior izquierda del último bloque (4to en X, 2do en Y) debe ser (10 + 3*3, 10 + 1*3) = (19, 13).
+2.  Clave: Si entras al editor de bloques (BEDIT) y cambias la "X" por un "Círculo" en el bloque INTERRUPTOR, todas las 8 copias de la matriz se actualizarán automáticamente.
+</details>
+
+---
+
+ACTIVIDAD 2: El Reemplazo Global (BEDIT)
+
+Objetivo: Modificar un bloque y observar cómo se actualizan todas sus instancias.
+Instrucciones:
+1. Dibuja un CÍRCULO de radio 1. Crea un bloque llamado **SIMBOLO** con el centro en (0,0).
+2. Inserta el bloque **SIMBOLO** 5 veces en ubicaciones aleatorias.
+3. **Edición:** Activa el comando **EDITARBLOQUE** (BEDIT). Selecciona el bloque **SIMBOLO**.
+4. **Modificación:** Dentro del editor, **BORRA** el círculo original y dibuja un **TRIÁNGULO** (POLIGONO, 3 lados) de lado 2 centrado en (0,0).
+5. **Guardar:** Utiliza el comando **GUARDAR CAMBIOS DE BLOQUE** y cierra el editor.
+6. **Resultado:** Los 5 círculos originales deben haberse convertido en 5 triángulos.
+
+<details>
+<summary>Ver Solución (Uso de BEDIT)</summary>
+
+El comando EDITARBLOQUE (BEDIT) es la herramienta principal para la modificación global. Al editar el bloque en su "entorno de definición" y guardar, todas las instancias (copias insertadas) en el dibujo se actualizan.
+</details>
+
+--------------------------------------------------
+III. RETOS DE COMPRENSIÓN (3 RETOS)
+--------------------------------------------------
+
+RETO 1: La Descomposición del Bloque (EXPLODE)
+Dibuja un rectángulo de 10x10. Conviértelo en un bloque llamado 'Caja'. Inserta el bloque. Utiliza el comando **DESCOMPONER** (EXPLODE, X) sobre la instancia del bloque 'Caja'.
+Verifica: ¿Se convierte el bloque de nuevo en una Polilínea editable? ¿La definición del bloque (en la lista de bloques) sigue existiendo?
+
+---
+
+RETO 2: Escalado No Uniforme
+Inserta un bloque. Utiliza el comando **ESCALA** (SC) sobre la instancia del bloque. En lugar de ingresar un solo factor de escala, mira las opciones en la ventana de **PROPIEDADES** (PR).
+Intenta escalar en X por **2** y en Y por **1**.
+Verifica: ¿El bloque se estira o se deforma? ¿Cómo afecta la escala X, Y, Z a la geometría del bloque?
+
+---
+
+RETO 3: Bloque y Capas
+Crea una capa llamada **'MOBILIARIO_CAPA'** (Color Azul). Dibuja la geometría de una silla en la **Capa 0**. Conviértela en un bloque llamado 'Silla_0'.
+Inserta la 'Silla_0' y colócala en la capa **'MOBILIARIO_CAPA'**.
+Pregunta: ¿Si la geometría interna del bloque se dibujó en la Capa 0, el bloque insertado toma el color **Azul** de la capa 'MOBILIARIO_CAPA'? (Pista: Sí, si la geometría interna está en Capa 0, hereda las propiedades de la capa donde se inserta).

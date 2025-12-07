@@ -1,0 +1,131 @@
+==================================================
+EJERCICIOS: COMANDO ZOOM (Z) EN AUTOCAD
+==================================================
+
+El comando ZOOM (Z) te permite controlar la ampliación de la vista de dibujo, pero no altera el tamaño real de los objetos (siempre dibujamos a escala 1:1). El método más común es usar la rueda del ratón, pero las opciones de comando ofrecen control absoluto.
+
+--------------------------------------------------
+I. MÉTODOS DE MANEJO DE ZOOM (2 EJEMPLOS POR CADA MANERA)
+--------------------------------------------------
+
+Método 1: Zoom por Ventana (Window, W)
+
+Permite definir un área rectangular específica en la pantalla para llenarla completamente con la ventana de visualización. Es el método más preciso para acercarse a un detalle.
+
+Ejemplo 1.1: Acercamiento a Detalle de Esquina
+Instrucciones: Dibuja un rectángulo de 10x10. Haz zoom a la esquina superior derecha usando la opción Ventana.
+1. Dibuja un RECTANGULO (REC) de 10x10 en (0,0).
+2. Dibuja un CÍRCULO pequeño en la esquina superior derecha (Ej: 9,9).
+3. Activa el comando ZOOM (Z).
+4. Escribe **W** (para seleccionar Ventana / Window).
+5. Primera esquina: Haz clic en (8,8).
+6. Esquina opuesta: Haz clic en (11,11).
+7. El área entre 8,8 y 11,11 llenará la pantalla.
+
+Ejemplo 1.2: Acercamiento a Objeto Específico
+Instrucciones: Dibuja dos círculos separados. Haz zoom solo al círculo de la izquierda.
+1. Dibuja CÍRCULO A (Radio 2) en (10,10) y CÍRCULO B (Radio 2) en (50,10).
+2. Activa ZOOM (Z).
+3. Escribe **W** (Ventana).
+4. Dibuja una ventana que encierre completamente CÍRCULO A, sin tocar CÍRCULO B.
+5. Solo CÍRCULO A debe ser visible en la pantalla.
+
+---
+
+Método 2: Zoom por Extensión/Todo (Extents / All, E / A)
+
+Permite visualizar la totalidad del dibujo. Es crucial para centrar el trabajo rápidamente.
+
+Ejemplo 2.1: Zoom a la Extensión Completa
+Instrucciones: Dibuja un objeto pequeño cerca del origen y un objeto grande lejos (simulando un "desorden" en el dibujo). Centra ambos.
+1. Dibuja LINEA A: de (0,0) a (2,0).
+2. Dibuja LINEA B: de (500,500) a (502,500).
+3. Activa ZOOM (Z).
+4. Escribe **E** (para seleccionar Extensión / Extents).
+5. La vista se ajustará para mostrar LINEA A y LINEA B en el mismo cuadro de visualización.
+
+Ejemplo 2.2: Zoom a Todo (Incluye Límites de la Cuadrícula)
+Instrucciones: Configura los límites de la cuadrícula en un área específica y luego aplica Zoom Todo.
+1. Comando **LIMITES** (LIMITS). Ingresa (0,0) y luego (100,100).
+2. Dibuja un objeto en (50,50).
+3. Activa ZOOM (Z).
+4. Escribe **A** (para seleccionar Todo / All).
+5. La vista se ajusta para mostrar todos los objetos dibujados Y los límites definidos (0,0 a 100,100).
+
+---
+
+Método 3: Zoom Dinámico (Dynamic / Scale, D / Escala)
+
+Permite un control de zoom basado en un factor multiplicador (escala) o un paneo interactivo (dinámico).
+
+Ejemplo 3.1: Zoom 2x (Factor 2)
+Instrucciones: Dibuja un cuadrado de 5x5. Amplía la vista 2 veces más.
+1. Dibuja un RECTANGULO de 5x5 en (10,10).
+2. Activa ZOOM (Z).
+3. Ingresa el factor de escala: **2X**.
+4. La vista se duplicará, usando el centro de la pantalla como base.
+
+Ejemplo 3.2: Zoom por Factor Reductivo (Factor 0.5)
+Instrucciones: Reduce la vista a la mitad de su tamaño actual.
+1. Asegúrate de tener un nivel de zoom actual.
+2. Activa ZOOM (Z).
+3. Ingresa el factor de escala: **0.5X**.
+4. La vista se reducirá a la mitad.
+
+--------------------------------------------------
+II. ACTIVIDADES SUGERIDAS (SOLUCIÓN OCULTA)
+--------------------------------------------------
+
+ACTIVIDAD 1: Aislamiento de Objeto con Ventana
+
+Objetivo: Utilizar la opción Ventana para aislar un objeto específico dentro de un conjunto de elementos densos.
+Instrucciones:
+1. Dibuja 10 CÍRCULOS pequeños (radio 1) muy juntos en el área de (0,0) a (20,20).
+2. Dibuja 1 CÍRCULO grande (radio 5) en (50,50).
+3. **Paso A:** Aplica **ZOOM EXTENSION** (Z, E) para ver todo.
+4. **Paso B:** Utiliza **ZOOM VENTANA** (Z, W) para acercarte y ver solo los 10 círculos pequeños, sin que el círculo grande toque los bordes de la pantalla.
+
+<details>
+<summary>Ver Solución (Coordenadas de la Ventana)</summary>
+
+La ventana debe tener coordenadas aproximadas a [0, 0] y [20, 20], o quizás [25, 25] para proporcionar un margen. Si se seleccionó correctamente, el Círculo grande (50,50) no debe ser visible.
+</details>
+
+---
+
+ACTIVIDAD 2: Recuperación de Vista Previa (Previous, P)
+
+Objetivo: Navegar a un detalle y luego volver rápidamente a la vista anterior.
+Instrucciones:
+1. **Vista Inicial:** Aplica **ZOOM EXTENSION** (Z, E).
+2. **Navegación:** Utiliza **ZOOM VENTANA** (Z, W) para acercarte al cuadrante inferior izquierdo del dibujo.
+3. **Retorno:** Activa ZOOM (Z).
+4. Escribe **P** (para seleccionar Previo / Previous).
+5. La vista debe regresar a la visualización de Extensión del Paso 1.
+
+<details>
+<summary>Ver Solución (Uso de la Memoria de Vistas)</summary>
+
+El comando ZOOM P (Previo) almacena la vista anterior cada vez que se ejecuta un nuevo comando de zoom. Si se ejecutó Z, E, y luego Z, W, el comando Z, P debe recuperar la vista completa (Z, E).
+</details>
+
+--------------------------------------------------
+III. RETOS DE COMPRENSIÓN (3 RETOS)
+--------------------------------------------------
+
+RETO 1: Zoom de Objeto (Object, O)
+Dibuja un rectángulo de 5x5. Activa ZOOM (Z). Escribe **O** (para seleccionar Objeto / Object). Haz clic en el rectángulo.
+Verifica: ¿La vista se ajustó para mostrar el objeto capturado en el centro de la pantalla? ¿Cómo se diferencia esto de ZOOM EXTENSION si el rectángulo es el único objeto?
+
+---
+
+RETO 2: Paneo con el Ratón (Mouse)
+En lugar de usar el comando PAN (P), presiona y **mantén presionada la rueda central del ratón**.
+Verifica: ¿Qué sucede con el cursor? ¿Se puede desplazar el dibujo sin salir de un comando activo (Ej: mientras dibujas una línea)?
+
+---
+
+RETO 3: Zoom y Escala de Anotación
+Dibuja un CÍRCULO y añade una **COTA** (DLI) al mismo.
+Utiliza **ZOOM EXTENSION** (Z, E) y luego **ZOOM VENTANA** (Z, W) para acercarte mucho al círculo.
+Pregunta: ¿Cambia la altura del texto de la cota visiblemente cuando te acercas o alejas, o solo parece más grande/pequeño? (Pista: La cota está en el Espacio Modelo. ¿Qué sucedería si la cota estuviera en el Espacio Papel?).

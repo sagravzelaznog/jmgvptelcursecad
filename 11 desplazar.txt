@@ -1,0 +1,118 @@
+==================================================
+EJERCICIOS: COMANDO DESPLAZAR (MOVE) EN AUTOCAD
+==================================================
+
+El comando DESPLAZAR (D o MOVE) mueve objetos seleccionados de una ubicación a otra. Requiere dos pasos clave:
+1.  **Punto Base (Base Point):** El punto de referencia desde donde se moverá el objeto.
+2.  **Punto de Desplazamiento (Second Point):** La nueva ubicación o el vector de desplazamiento.
+
+--------------------------------------------------
+I. MÉTODOS DE DESPLAZAMIENTO (2 EJEMPLOS POR MÉTODO)
+--------------------------------------------------
+
+Método 1: Desplazamiento por Coordenadas Relativas (@DX, DY)
+
+Se utiliza un vector de desplazamiento (Delta X, Delta Y) para mover el objeto una distancia y dirección precisas con respecto a su posición actual, sin importar el punto base seleccionado.
+
+Ejemplo 1.1: Mover 10 unidades Verticalmente
+Instrucciones: Dibuja un círculo. Muévelo 10 unidades en dirección positiva del eje Y (hacia arriba).
+1. Dibuja un CÍRCULO (C) en (10,10) con radio 3.
+2. Activa el comando DESPLAZAR (D).
+3. Selecciona el círculo. Presiona Enter.
+4. Punto Base (Puede ser cualquier punto, Ej: el centro del círculo, 10,10).
+5. Punto de Desplazamiento (Vector): @0,10 (Mover 0 en X, 10 en Y).
+6. El centro del círculo final debe ser (10, 20).
+
+Ejemplo 1.2: Mover en Diagonal Exacta
+Instrucciones: Mueve un rectángulo 5 unidades a la derecha y 3 unidades hacia abajo.
+1. Dibuja un RECTANGULO (REC) en (50,50) de 8x6.
+2. Activa DESPLAZAR (D).
+3. Selecciona el rectángulo. Presiona Enter.
+4. Punto Base (Ej: esquina inferior izquierda, 50,50).
+5. Punto de Desplazamiento (Vector): @5,-3
+6. El punto inicial del rectángulo final debe ser (55, 47).
+
+---
+
+Método 2: Desplazamiento por Referencia a Objeto (Osnap)
+
+Se utiliza cuando la nueva ubicación está definida por un punto geométrico específico de otro objeto (punto final, centro, intersección, etc.).
+
+Ejemplo 2.1: Alinear Centro a Centro
+Instrucciones: Mueve un triángulo para que su centro geométrico coincida con el centro de un círculo.
+1. Dibuja un CÍRCULO (C) en (50,50) con radio 5.
+2. Dibuja un TRIÁNGULO (POL) cerca del círculo.
+3. Activa DESPLAZAR (D).
+4. Selecciona el triángulo. Presiona Enter.
+5. Punto Base: Utiliza la referencia a objeto (Osnap) **Centro Geométrico** para seleccionar el centro del triángulo.
+6. Punto de Desplazamiento: Utiliza la referencia a objeto (Osnap) **Centro** para seleccionar el centro del círculo (50,50).
+7. El triángulo se superpone al círculo, centrado en (50,50).
+
+Ejemplo 2.2: Unir Extremo a Extremo
+Instrucciones: Mueve una línea para que su punto final se una perfectamente al punto medio de otra línea.
+1. Dibuja LINEA 1: de 10,10 a 20,10.
+2. Dibuja LINEA 2: de 5,0 a 15,0.
+3. Activa DESPLAZAR (D).
+4. Selecciona LINEA 2. Presiona Enter.
+5. Punto Base: Usa Osnap **Punto Final** (End) para seleccionar el final de la Línea 2 (15,0).
+6. Punto de Desplazamiento: Usa Osnap **Punto Medio** (Mid) para seleccionar el centro de la Línea 1 (15,10).
+7. La Línea 2 debe ahora estar unida a la Línea 1 por su punto medio, formando una "T" invertida.
+
+--------------------------------------------------
+II. ACTIVIDADES SUGERIDAS (SOLUCIÓN OCULTA)
+--------------------------------------------------
+
+ACTIVIDAD 1: El Desplazamiento Exacto (Relativo y Referencia)
+
+Objetivo: Mover un objeto a una nueva ubicación y luego ajustarlo con precisión.
+Instrucciones:
+1. Dibuja un CÍRCULO de radio 5 en el origen (0,0).
+2. **Paso A (Mover por Vector):** Muévelo exactamente 40 unidades a la derecha y 15 unidades hacia arriba usando coordenadas relativas.
+3. **Paso B (Ajuste por Referencia):** Dibuja una LINEA de 5 unidades de largo en (50,50). Mueve el círculo de la posición final del Paso A, para que su **cuadrante superior** toque el **punto final** de la línea.
+
+<details>
+<summary>Ver Solución (Coordenada Final del Centro)</summary>
+
+1.  Paso A: El centro final es (0+40, 0+15) = (40, 15).
+2.  Paso B: La línea termina en (55,50) si es horizontal. El cuadrante superior del círculo (40, 20) debe moverse a (55, 50).
+3.  El vector de movimiento para el Paso B es: @15, 30.
+4.  El centro final del círculo es: (55, 45).
+</details>
+
+---
+
+ACTIVIDAD 2: El Reordenamiento de Componentes (Osnap y Círculo)
+
+Objetivo: Reordenar dos componentes (Rectángulo y Círculo) de modo que el círculo quede perfectamente tangente y centrado en el lado del rectángulo.
+Instrucciones:
+1. Dibuja un RECTANGULO (REC) de 20x10 en (10,10).
+2. Dibuja un CÍRCULO (C) de radio 2 en (50,50).
+3. Utiliza el comando DESPLAZAR (D) para mover el círculo de modo que su punto **cuadrante izquierdo** se ubique en el **punto medio** del lado derecho del rectángulo.
+
+<details>
+<summary>Ver Solución (Coordenada Final del Centro del Círculo)</summary>
+
+1.  El punto medio del lado derecho del rectángulo está en: (30, 15).
+2.  El punto base del movimiento debe ser el **Cuadrante Izquierdo** del círculo.
+3.  El centro del círculo debe moverse de (50,50) a: (30 + 2, 15) = (32, 15).
+</details>
+
+--------------------------------------------------
+III. RETOS DE COMPRENSIÓN (3 RETOS)
+--------------------------------------------------
+
+RETO 1: Desplazamiento a Distancia Cero
+Dibuja un círculo. Ejecuta el comando DESPLAZAR (D), selecciónalo, y en el Punto de Desplazamiento, ingresa: **@0,0**.
+Verifica: ¿Se movió el círculo? ¿Por qué es importante entender que MOVE requiere un vector de desplazamiento?
+
+---
+
+RETO 2: El Desplazamiento sin Punto Base
+Dibuja una línea de 5 unidades de largo en (0,0). Ejecuta DESPLAZAR (D), selecciona la línea. Cuando se te pida el Punto Base, presiona **ENTER** (aceptando el (0,0) como base por defecto) o simplemente haz clic en un lugar vacío. A continuación, ingresa el Punto de Desplazamiento como: **5,5**.
+Verifica: ¿Dónde terminó el punto inicial de la línea? ¿Cómo afecta la elección del punto base al punto final del objeto?
+
+---
+
+RETO 3: Desplazar y Repetir
+Dibuja un pequeño círculo. Ejecuta el comando **COPIAR** (CP). Elige un Punto Base. Antes de dar el punto de desplazamiento, pulsa la tecla **M** (para Múltiple).
+Pregunta: ¿Cómo se relaciona la funcionalidad de COPIAR con la opción Múltiple con el comando DESPLAZAR? (Pista: Desplazar solo mueve la entidad original, no crea copias).

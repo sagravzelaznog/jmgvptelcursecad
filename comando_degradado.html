@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comando DEGRADADO (GRADIENT) en AutoCAD</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-bg: #f5f6fa;
+            --dark-text: #2c3e50;
+            --light-text: #ecf0f1;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --gradient-1: linear-gradient(135deg, #3498db, #2ecc71);
+            --gradient-2: linear-gradient(135deg, #e74c3c, #f39c12);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--light-bg);
+            color: var(--dark-text);
+            line-height: 1.6;
+            padding: 0;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: var(--gradient-1);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            margin-bottom: 2rem;
+            border-radius: 0 0 var(--border-radius) var(--border-radius);
+            box-shadow: var(--box-shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.1);
+            z-index: 1;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            color: var(--primary-color);
+            margin: 2.5rem 0 1.2rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid var(--secondary-color);
+            position: relative;
+            display: inline-block;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--accent-color);
+        }
+
+        h3 {
+            color: var(--secondary-color);
+            margin: 1.8rem 0 1rem;
+            padding-left: 10px;
+            border-left: 4px solid var(--secondary-color);
+        }
+
+        h4 {
+            color: #2c3e50;
+            margin: 1.5rem 0 0.8rem;
+            font-size: 1.1rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 1.8rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--box-shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid #e0e0e0;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .example, .activity, .challenge {
+            margin-bottom: 2.5rem;
+            padding: 1.8rem;
+            border-left: 5px solid var(--secondary-color);
+            background-color: #f8fafc;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .example::before, .activity::before, .challenge::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, rgba(52, 152, 219, 0.1), transparent);
+            z-index: 0;
+        }
+
+        .activity {
+            border-left-color: #2ecc71;
+        }
+
+        .challenge {
+            border-left-color: #e74c3c;
+        }
+
+        .steps {
+            margin: 1.2rem 0 1.5rem;
+            padding-left: 1.8rem;
+            position: relative;
+        }
+
+        .steps li {
+            margin-bottom: 0.8rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .steps li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--secondary-color);
+            font-weight: bold;
+        }
+
+        .code {
+            background-color: #2d3436;
+            color: #dfe6e9;
+            padding: 1.2rem;
+            border-radius: var(--border-radius);
+            font-family: 'Courier New', monospace;
+            margin: 1.2rem 0;
+            overflow-x: auto;
+            position: relative;
+        }
+
+        .code::before {
+            content: 'Código';
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2px 8px;
+            font-size: 0.8rem;
+            border-bottom-left-radius: var(--border-radius);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--gradient-1);
+            color: white;
+            padding: 0.7rem 1.5rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin: 0.8rem 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-2);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn:hover::before {
+            opacity: 1;
+        }
+
+        .btn i {
+            margin-right: 8px;
+        }
+
+        .solution {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out;
+            background: rgba(46, 204, 113, 0.1);
+            border-radius: var(--border-radius);
+            margin: 1.2rem 0;
+            border: 1px dashed #2ecc71;
+        }
+
+        .solution-content {
+            padding: 1.5rem;
+        }
+
+        .toggle-solution {
+            background: var(--gradient-2);
+        }
+
+        .toggle-solution::before {
+            background: var(--gradient-1);
+        }
+
+        .challenge .toggle-solution {
+            background: linear-gradient(135deg, #e74c3c, #f39c12);
+        }
+
+        .challenge .toggle-solution::before {
+            background: linear-gradient(135deg, #c0392b, #d35400);
+        }
+
+        .note {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 1rem;
+            margin: 1.2rem 0;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+            position: relative;
+        }
+
+        .note::before {
+            content: '💡';
+            margin-right: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .warning {
+            background-color: #fff8e6;
+            border-left: 4px solid #ff9800;
+            padding: 1rem;
+            margin: 1.2rem 0;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+        }
+
+        .warning::before {
+            content: '⚠️';
+            margin-right: 0.5rem;
+        }
+
+        footer {
+            background: var(--gradient-1);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 4rem;
+            border-radius: var(--border-radius) var(--border-radius) 0 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.1);
+            z-index: 1;
+        }
+
+        .footer-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            .card, .example, .activity, .challenge {
+                padding: 1.2rem;
+            }
+
+            .steps {
+                padding-left: 1.2rem;
+            }
+        }
+
+        /* Estilos para las tarjetas de gradiente */
+        .gradient-preview {
+            height: 100px;
+            border-radius: var(--border-radius);
+            margin: 1rem 0;
+            box-shadow: var(--box-shadow);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease;
+        }
+
+        .gradient-preview:hover {
+            transform: scale(1.02);
+        }
+
+        .gradient-1 {
+            background: linear-gradient(45deg, #3498db, #2ecc71);
+        }
+
+        .gradient-2 {
+            background: linear-gradient(45deg, #e74c3c, #f39c12);
+        }
+
+        .gradient-3 {
+            background: radial-gradient(circle, #9b59b6, #3498db);
+        }
+
+        .gradient-4 {
+            background: linear-gradient(135deg, #1abc9c, #3498db, #9b59b6);
+        }
+
+        /* Estilos para la tabla de comandos */
+        .command-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            box-shadow: var(--box-shadow);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+        }
+
+        .command-table th, .command-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .command-table th {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 600;
+        }
+
+        .command-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+
+        .command-table tr:hover {
+            background-color: #f1f8ff;
+        }
+
+        .command {
+            font-family: 'Courier New', monospace;
+            background-color: #f8f9fa;
+            padding: 2px 6px;
+            border-radius: 4px;
+            border: 1px solid #e0e0e0;
+        }
+
+        /* Estilos para los iconos */
+        .icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            margin-right: 8px;
+            background-color: var(--secondary-color);
+            color: white;
+            border-radius: 50%;
+            font-size: 0.8rem;
+        }
+
+        /* Animaciones */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card, .example, .activity, .challenge {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+
+        .card:nth-child(2) { animation-delay: 0.1s; }
+        .card:nth-child(3) { animation-delay: 0.2s; }
+        .card:nth-child(4) { animation-delay: 0.3s; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>Comando DEGRADADO (GRADIENT) en AutoCAD</h1>
+            <p class="subtitle">Aprende a crear y personalizar degradados para mejorar la presentación de tus diseños</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <section class="card">
+            <h2><span class="icon">📚</span> Introducción al Comando DEGRADADO</h2>
+            <p>El comando <strong>DEGRADADO (GRADIENT)</strong> es una opción dentro del comando SOMBRADO (HATCH) que permite rellenar un área cerrada con una transición suave entre dos colores. Es especialmente útil para:</p>
+            
+            <ul class="steps">
+                <li>Crear efectos visuales atractivos en presentaciones</li>
+                <li>Simular iluminación y sombreado en vistas 2D</li>
+                <li>Resaltar áreas específicas de un dibujo</li>
+                <li>Crear fondos degradados para planos y presentaciones</li>
+            </ul>
+            
+            <div class="note">
+                <strong>Nota:</strong> A diferencia de los patrones de sombreado tradicionales, los degradados no representan materiales específicos y son principalmente de naturaleza decorativa.
+            </div>
+        </section>
+
+        <section class="card">
+            <h2><span class="icon">🔧</span> Métodos de Trazado</h2>
+            
+            <article class="example">
+                <h3>Método 1: Degradado con Dos Colores (Two-Color Gradient)</h3>
+                <p>Este método define una transición suave entre dos colores específicos, ofreciendo un amplio rango de posibilidades creativas.</p>
+                
+                <h4>Ejemplo 1.1: Degradado Diagonal (Patrón Lineal)</h4>
+                <p><strong>Objetivo:</strong> Crear un degradado diagonal de azul a blanco en un rectángulo.</p>
+                
+                <div class="steps">
+                    <ol>
+                        <li>Dibuja un <strong>RECTANGULO (REC)</strong> de 15x10 unidades.</li>
+                        <li>Activa el comando <strong>SOMBRADO (H)</strong>.</li>
+                        <li>En la cinta de opciones, en la sección <strong>Tipo de Sombreado</strong>, selecciona <strong>Degradado</strong>.</li>
+                        <li>Selecciona <strong>Dos Colores</strong> (Two Color).</li>
+                        <li>Configura los colores:
+                            <ul>
+                                <li>Color 1: Azul (o elige tu tono preferido)</li>
+                                <li>Color 2: Blanco</li>
+                            </ul>
+                        </li>
+                        <li>Estilo (Pattern): <strong>LINEAL</strong>.</li>
+                        <li>Ángulo de degradado: <strong>45 grados</strong>.</li>
+                        <li>Haz clic <strong>dentro</strong> del rectángulo para aplicar el degradado.</li>
+                    </ol>
+                </div>
+                
+                <div class="gradient-preview gradient-1">Degradado Lineal 45°</div>
+                
+                <div class="note">
+                    <strong>Consejo:</strong> Puedes ajustar el ángulo del degradado para cambiar la dirección de la transición. Prueba con 0°, 45°, 90° o 135° para ver diferentes efectos.
+                </div>
+                
+                <h4>Ejemplo 1.2: Degradado Central (Patrón Esférico)</h4>
+                <p><strong>Objetivo:</strong> Crear un efecto de brillo central en un círculo usando degradado esférico.</p>
+                
+                <div class="steps">
+                    <ol>
+                        <li>Dibuja un <strong>CÍRCULO (C)</strong> de radio 8 unidades.</li>
+                        <li>Activa el comando <strong>SOMBRADO (H)</strong> y selecciona <strong>Degradado</strong>.</li>
+                        <li>Configura los colores:
+                            <ul>
+                                <li>Color 1: Amarillo (para el centro brillante)</li>
+                                <li>Color 2: Naranja (para los bordes)</li>
+                            </ul>
+                        </li>
+                        <li>Estilo (Pattern): <strong>ESFÉRICO</strong> (Spherical).</li>
+                        <li>Haz clic <strong>dentro</strong> del círculo para aplicar el degradado.</li>
+                        <li>Experimenta con la opción <strong>Centrado</strong> (Center):
+                            <ul>
+                                <li>Activada: El degradado se centrará perfectamente en el círculo.</li>
+                                <li>Desactivada: El punto de origen del degradado se desplazará, creando un efecto de iluminación lateral.</li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div>
+                
+                <div class="gradient-preview gradient-3" style="background: radial-gradient(circle, #f1c40f, #e67e22);">Degradado Esférico</div>
+            </article>
+            
+            <article class="example">
+                <h3>Método 2: Degradado con Un Solo Color (One-Color Gradient)</h3>
+                <p>Este método utiliza un solo color que se desvanece hacia el blanco (o se intensifica desde el blanco), ofreciendo un aspecto más sutil y controlado.</p>
+                
+                <h4>Ejemplo 2.1: Sombra Interior Suave</h4>
+                <p><strong>Objetivo:</strong> Crear un efecto de sombra interior en un rectángulo.</p>
+                
+                <div class="steps">
+                    <ol>
+                        <li>Dibuja un <strong>RECTANGULO (REC)</strong> de 20x10 unidades.</li>
+                        <li>Activa el comando <strong>SOMBRADO (H)</strong> y selecciona <strong>Degradado</strong>.</li>
+                        <li>Selecciona <strong>Un Color</strong> (One Color).</li>
+                        <li>Elige un color base: <strong>Gris Oscuro</strong>.</li>
+                        <li>Estilo (Pattern): <strong>CILÍNDRICO INVERTIDO</strong> (Inverse Cylinder).</li>
+                        <li>Ajusta el control deslizante de sombreado para controlar la intensidad del degradado.</li>
+                        <li>Haz clic <strong>dentro</strong> del rectángulo para aplicar el degradado.</li>
+                    </ol>
+                </div>
+                
+                <div class="gradient-preview" style="background: radial-gradient(ellipse at center, #ffffff 0%, #bdc3c7 100%);">Sombra Interior</div>
+                
+                <div class="note">
+                    <strong>Consejo:</strong> Este efecto es ideal para crear botones o elementos de interfaz con un aspecto tridimensional sin necesidad de modelado 3D.
+                </div>
+                
+                <h4>Ejemplo 2.2: Transición Radial Suave</h4>
+                <p><strong>Objetivo:</strong> Crear un degradado radial que se intensifica hacia el centro de un polígono.</p>
+                
+                <div class="steps">
+                    <ol>
+                        <li>Dibuja un <strong>POLIGONO (POL)</strong> de 6 lados con radio 5 unidades.</li>
+                        <li>Activa el comando <strong>SOMBRADO (H)</strong> y selecciona <strong>Degradado</strong>.</li>
+                        <li>Selecciona <strong>Un Color</strong>.</li>
+                        <li>Elige un color llamativo como <strong>Rojo</strong>.</li>
+                        <li>Estilo (Pattern): <strong>RADIAL</strong> (Radial).</li>
+                        <li>Ajusta el control deslizante para que el degradado vaya del 30% al 100% de intensidad.</li>
+                        <li>Haz clic <strong>dentro</strong> del polígono para aplicar el degradado.</li>
+                    </ol>
+                </div>
+                
+                <div class="gradient-preview" style="background: radial-gradient(circle, #e74c3c 0%, #c0392b 100%);">Degradado Radial</div>
+                
+                <div class="warning">
+                    <strong>Importante:</strong> Asegúrate de que el área donde aplicas el degradado esté completamente cerrada. Si hay huecos en los límites, el degradado podría no aplicarse correctamente.
+                </div>
+            </article>
+        </section>
+
+        <section class="card">
+            <h2><span class="icon">🎯</span> Actividades Prácticas</h2>
+            
+            <article class="activity">
+                <h3>Actividad 1: El Botón de Interfaz (Dos Colores y Rotación)</h3>
+                <p><strong>Objetivo:</strong> Crear un botón con efecto 3D usando degradado rotado.</p>
+                
+                <p><strong>Instrucciones:</strong></p>
+                <div class="steps">
+                    <ol>
+                        <li>Dibuja un <strong>CÍRCULO</strong> de radio 5 unidades.</li>
+                        <li>Activa el comando <strong>SOMBRADO (H)</strong> y selecciona <strong>Degradado</strong>.</li>
+                        <li>Configura un degradado <strong>Lineal</strong> con dos colores:
+                            <ul>
+                                <li>Color 1: Verde Claro (#2ecc71)</li>
+                                <li>Color 2: Verde Oscuro (#27ae60)</li>
+                            </ul>
+                        </li>
+                        <li>Establece el ángulo del degradado a <strong>-45 grados</strong>.</li>
+                        <li>Haz clic dentro del círculo para aplicar el degradado.</li>
+                    </ol>
+                </div>
+                
+                <div class="gradient-preview" style="background: linear-gradient(-45deg, #2ecc71, #27ae60);">Botón 3D</div>
+                
+                <button class="btn toggle-solution" onclick="toggleSolution('solution1')">
+                    <i>👁️</i> Ver Solución
+                </button>
+                
+                <div id="solution1" class="solution">
+                    <div class="solution-content">
+                        <h4>Explicación de la Solución:</h4>
+                        <p>La clave para crear un efecto 3D realista en un botón es la dirección del degradado:</p>
+                        <ol>
+                            <li>El ángulo <strong>-45 grados</strong> coloca el color más claro (Verde Claro) en la esquina superior izquierda, simulando una fuente de luz que viene desde arriba a la izquierda.</li>
+                            <li>El color más oscuro (Verde Oscuro) se ubica en la esquina inferior derecha, creando el efecto de sombra.</li>
+                            <li>Este contraste entre claros y oscuros es lo que da la ilusión de tridimensionalidad.</li>
+                        </ol>
+                        <p>Puedes mejorar el efecto añadiendo un borde sutil al círculo o superponiendo un círculo más pequeño con transparencia para simular un resplandor.</p>
+                    </div>
+                </div>
+            </article>
+            
+            <article class="activity">
+                <h3>Actividad 2: El Logo del Sol Naciente</h3>
+                <p><strong>Objetivo:</strong> Crear un efecto de sol naciente usando degradados en una forma semicircular.</p>
+                
+                <p><strong>Instrucciones:</strong></p>
+                <div class="steps">
+                    <ol>
+                        <li>Dibuja un <strong>CÍRCULO</strong> de radio 10 unidades.</li>
+                        <li>Dibuja una <strong>LÍNEA</strong> horizontal que pase por el centro del círculo (de -10,0 a 10,0).</li>
+                        <li>Activa el comando <strong>SOMBRADO (H)</strong> y selecciona <strong>Degradado</strong>.</li>
+                        <li>Configura un degradado <strong>Esférico</strong> con dos colores:
+                            <ul>
+                                <li>Color 1: Rojo (#e74c3c)</li>
+                                <li>Color 2: Amarillo (#f1c40f)</li>
+                            </ul>
+                        </li>
+                        <li>Haz clic en la <strong>mitad superior</strong> del círculo (por encima de la línea horizontal).</li>
+                        <li>Ajusta la posición del punto de origen del degradado para centrar el efecto de "sol".</li>
+                    </ol>
+                </div>
+                
+                <div style="display: flex; justify-content: space-around; flex-wrap: wrap; margin: 1rem 0;">
+                    <div style="text-align: center; margin: 0.5rem;">
+                        <div style="width: 100px; height: 50px; background: radial-gradient(circle at 50% 100%, #e74c3c, #f1c40f); border-radius: 50% 50% 0 0; margin: 0 auto 0.5rem;"></div>
+                        <div style="font-size: 0.8rem;">Sol naciente</div>
+                    </div>
+                </div>
+                
+                <button class="btn toggle-solution" onclick="toggleSolution('solution2')">
+                    <i>👁️</i> Ver Solución
+                </button>
+                
+                <div id="solution2" class="solution">
+                    <div class="solution-content">
+                        <h4>Explicación de la Solución:</h4>
+                        <p>Para crear el efecto de sol naciente:</p>
+                        <ol>
+                            <li>El degradado <strong>Esférico</strong> crea un punto de luz central que se desvanece hacia los bordes.</li>
+                            <li>Al aplicar el degradado solo a la mitad superior del círculo (usando la línea como límite), simulamos un sol que asoma por el horizonte.</li>
+                            <li>La combinación de colores cálidos (rojo a amarillo) refuerza la idea de un amanecer.</li>
+                            <li>Puedes ajustar la posición del punto de origen del degradado para simular diferentes horas del día (más alto para mediodía, más bajo para atardecer).</li>
+                        </ol>
+                        <p>Para un efecto más realista, podrías añadir un degradado azul en la mitad inferior del círculo para representar el reflejo en el agua.</p>
+                    </div>
+                </div>
+            </article>
+        </section>
+
+        <section class="card">
+            <h2><span class="icon">🧩</span> Retos de Comprensión</h2>
+            
+            <article class="challenge">
+                <h3>Reto 1: El Degradado Bloqueado</h3>
+                <p>Dibuja un rectángulo y aplícale un degradado lineal simple (Ej: Azul a Blanco). Luego, utiliza el comando <strong>EDITAR SOMBREADO (HATCHEDIT, HE)</strong> y busca la opción <strong>ORIGEN (Origin)</strong>.</p>
+                
+                <p><strong>Preguntas:</strong></p>
+                <ol>
+                    <li>¿Cómo afecta el cambio de origen a la apariencia del degradado lineal?</li>
+                    <li>¿Qué sucede si mueves el origen fuera de los límites del objeto?</li>
+                </ol>
+                
+                <button class="btn toggle-solution" onclick="toggleSolution('challenge1')">
+                    <i>🔍</i> Ver Solución
+                </button>
+                
+                <div id="challenge1" class="solution">
+                    <div class="solution-content">
+                        <h4>Explicación:</h4>
+                        <ol>
+                            <li><strong>Efecto del cambio de origen:</strong>
+                                <ul>
+                                    <li>El origen del degradado determina el punto de partida del patrón de degradado.</li>
+                                    <li>Al mover el origen, toda la secuencia de colores se desplaza manteniendo su patrón.</li>
+                                    <li>Por ejemplo, en un degradado lineal de azul a blanco, el punto donde el azul es más intenso se moverá junto con el origen.</li>
+                                </ul>
+                            </li>
+                            <li><strong>Origen fuera de los límites:</strong>
+                                <ul>
+                                    <li>El degradado seguirá funcionando normalmente, pero el punto de inicio del patrón estará fuera del objeto visible.</li>
+                                    <li>Esto puede ser útil para crear efectos donde solo quieres ver una parte específica del rango de degradado.</li>
+                                    <li>El degradado se "recorta" a los límites del objeto, mostrando solo la porción que intersecta con él.</li>
+                                </ul>
+                            </li>
+                        </ol>
+                        <p><strong>Consejo profesional:</strong> Usa el comando <code>HATCHEDIT</code> para ajustar el origen del degradado sin tener que volver a crearlo desde cero.</p>
+                    </div>
+                </div>
+            </article>
+            
+            <article class="challenge">
+                <h3>Reto 2: La Transparencia</h3>
+                <p>Dibuja un círculo. Aplica un degradado <strong>Sólido (SOLID)</strong> de color Cian. Luego, busca la propiedad <strong>TRANSPARENCIA</strong> en el editor de sombreado y establécelo al <strong>50%</strong>.</p>
+                
+                <p><strong>Preguntas:</strong></p>
+                <ol>
+                    <li>¿Qué sucede con la apariencia del degradado al aplicar transparencia?</li>
+                    <li>¿Cómo afecta esto a la visualización de objetos que están detrás del degradado?</li>
+                </ol>
+                
+                <button class="btn toggle-solution" onclick="toggleSolution('challenge2')">
+                    <i>🔍</i> Ver Solución
+                </button>
+                
+                <div id="challenge2" class="solution">
+                    <div class="solution-content">
+                        <h4>Explicación:</h4>
+                        <ol>
+                            <li><strong>Efecto en el degradado:</strong>
+                                <ul>
+                                    <li>Al aplicar transparencia al 50%, el degradado se vuelve semitransparente, permitiendo ver a través de él.</li>
+                                    <li>La transparencia se aplica de manera uniforme a todo el degradado, no solo a ciertas áreas.</li>
+                                    <li>Los colores del degradado se mezclan con el fondo u objetos subyacentes.</li>
+                                </ul>
+                            </li>
+                            <li><strong>Visualización de objetos subyacentes:</strong>
+                                <ul>
+                                    <li>Los objetos que están detrás del degradado se vuelven visibles a través de él.</li>
+                                    <li>El color resultante es una mezcla del color del degradado y los colores de los objetos subyacentes.</li>
+                                    <li>Esto es especialmente útil para crear efectos de vidrio, humo, reflejos o superposiciones semitransparentes.</li>
+                                </ul>
+                            </li>
+                        </ol>
+                        <p><strong>Consejo profesional:</strong> Combina la transparencia con diferentes modos de fusión (si tu versión de AutoCAD lo permite) para crear efectos más sofisticados como superposiciones de luz o sombras proyectadas.</p>
+                    </div>
+                </div>
+            </article>
+            
+            <article class="challenge">
+                <h3>Reto 3: Degradado y Círculo Superpuestos</h3>
+                <p>Dibuja un <strong>CÍRCULO</strong> de radio 10 centrado en (0,0). Luego, dibuja una <strong>ELIPSE</strong> de 20x10 también centrada en (0,0). Aplica un degradado (Ej: Esférico) a la <strong>ELIPSE</strong>.</p>
+                
+                <p><strong>Preguntas:</strong></p>
+                <ol>
+                    <li>¿El comando Degradado puede detectar y respetar la curva del <strong>CÍRCULO</strong> como un límite interno válido?</li>
+                    <li>¿Qué sucede si intentas aplicar el degradado a la elipse sin seleccionar el círculo como límite?</li>
+                </ol>
+                
+                <button class="btn toggle-solution" onclick="toggleSolution('challenge3')">
+                    <i>🔍</i> Ver Solución
+                </button>
+                
+                <div id="challenge3" class="solution">
+                    <div class="solution-content">
+                        <h4>Explicación:</h4>
+                        <ol>
+                            <li><strong>Detección de límites:</strong>
+                                <ul>
+                                    <li>Por defecto, el comando Degradado <strong>no detecta automáticamente</strong> el círculo como un límite interno a menos que se lo indiques explícitamente.</li>
+                                    <li>Para crear un degradado con un "agujero" circular, debes usar la opción <strong>Seleccionar Objetos</strong> y seleccionar tanto la elipse como el círculo, asegurándote de que el círculo esté en una capa que permita la selección.</li>
+                                </ul>
+                            </li>
+                            <li><strong>Sin selección de límites:</strong>
+                                <ul>
+                                    <li>Si aplicas el degradado a la elipse sin seleccionar el círculo, el degradado cubrirá toda el área de la elipse, incluyendo la parte que se superpone con el círculo.</li>
+                                    <li>El círculo seguirá siendo visible, pero el degradado lo atravesará en lugar de rodearlo.</li>
+                                    <li>Para que el degradado respete el círculo como un límite, debes usar la opción <strong>Seleccionar Objetos</strong> y seleccionar tanto la elipse como el círculo, o usar la opción <strong>Designar Puntos Internos</strong> y hacer clic en la región entre la elipse y el círculo.</li>
+                                </ul>
+                            </li>
+                        </ol>
+                        <p><strong>Consejo profesional:</strong> Para lograr el efecto de degradado con agujero, también puedes usar el comando <code>BOUNDARY</code> primero para crear una polilínea compuesta que incluya tanto el borde exterior como el interior, y luego aplicar el degradado a esta nueva entidad.</p>
+                    </div>
+                </div>
+            </article>
+        </section>
+
+        <section class="card">
+            <h2><span class="icon">💡</span> Consejos y Trucos Avanzados</h2>
+            
+            <h3>1. Uso de Capas para Controlar la Visibilidad</h3>
+            <p>Crea capas separadas para diferentes elementos de degradado. Esto te permitirá:</p>
+            <ul class="steps">
+                <li>Activar/desactivar la visibilidad de ciertos efectos de degradado.</li>
+                <li>Ajustar la transparencia de grupos completos de degradados.</li>
+                <li>Congelar o bloquear elementos específicos durante el trabajo.</li>
+            </ul>
+            
+            <h3>2. Combinación con Otros Efectos</h3>
+            <p>Los degradados funcionan muy bien en combinación con:</p>
+            <ul class="steps">
+                <li><strong>Sombreados de patrón:</strong> Usa degradados sutiles como fondo para patrones de sombreado técnico.</li>
+                <li><strong>Texto:</strong> Aplica degradados a textos para crear efectos de letras metálicas o de neón.</li>
+                <li><strong>Bordes:</strong> Crea bordes degradados usando el comando <code>OFFSET</code> y rellena el espacio entre líneas con degradados.</li>
+            </ul>
+            
+            <h3>3. Optimización del Rendimiento</h3>
+            <p>Los degradados complejos pueden ralentizar dibujos grandes. Para optimizar el rendimiento:</p>
+            <ul class="steps">
+                <li>Usa la opción <strong>REGEN</strong> después de hacer cambios importantes en los degradados.</li>
+                <li>Considera usar la opción <strong>REGENAUTO</strong> para controlar cuándo se actualizan los degradados.</li>
+                <li>En dibujos muy grandes, usa degradados más simples o considera convertirlos a imágenes rasterizadas para mejorar el rendimiento.</li>
+            </ul>
+            
+            <h3>4. Exportación e Impresión</h3>
+            <p>Al exportar o imprimir dibujos con degradados:</p>
+            <ul class="steps">
+                <li>Verifica la configuración de resolución en las opciones de impresión/exportación.</li>
+                <li>Para impresión de alta calidad, aumenta la resolución de los degradados.</li>
+                <li>Si exportas a PDF, asegúrate de que la opción de compatibilidad con degradados esté habilitada.</li>
+            </ul>
+        </section>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; JMGV-PTEL-2025 Todos los derechos reservados</p>
+        </div>
+    </footer>
+
+    <script>
+        // Función para alternar la visibilidad de las soluciones
+        function toggleSolution(id) {
+            const solution = document.getElementById(id);
+            const button = solution.previousElementSibling;
+            
+            if (solution.style.maxHeight) {
+                solution.style.maxHeight = null;
+                button.innerHTML = '<i>👁️</i> Ver Solución';
+                if (button.classList.contains('toggle-solution')) {
+                    button.innerHTML = '<i>👁️</i> Ver Solución';
+                } else {
+                    button.innerHTML = '<i>🔍</i> Ver Solución';
+                }
+            } else {
+                solution.style.maxHeight = solution.scrollHeight + "px";
+                if (button.classList.contains('toggle-solution')) {
+                    button.innerHTML = '<i>👁️</i> Ocultar Solución';
+                } else {
+                    button.innerHTML = '<i>🔍</i> Ocultar Solución';
+                }
+            }
+        }
+
+        // Inicialización - Cerrar todas las soluciones al cargar
+        document.addEventListener('DOMContentLoaded', function() {
+            const solutions = document.querySelectorAll('.solution');
+            solutions.forEach(solution => {
+                solution.style.maxHeight = null;
+            });
+            
+            // Agregar animación de carga suave
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+        
+        // Suavizar el desplazamiento para los enlaces internos
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>

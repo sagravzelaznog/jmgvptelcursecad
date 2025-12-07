@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía Completa de la Paleta de PROPIEDADES en AutoCAD</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-bg: #f8f9fa;
+            --dark-text: #2c3e50;
+            --light-text: #7f8c8d;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark-text);
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+        }
+        
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+        }
+        
+        h1, h2, h3 {
+            color: var(--primary-color);
+        }
+        
+        h1 {
+            margin-top: 0;
+            color: white;
+        }
+        
+        h2 {
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 5px;
+            margin-top: 30px;
+        }
+        
+        .command {
+            background-color: #e8f4f8;
+            border-left: 4px solid var(--secondary-color);
+            padding: 10px 15px;
+            margin: 15px 0;
+            font-family: 'Consolas', monospace;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .example {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        .steps {
+            background-color: #f0f8ff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        
+        .steps ol, .steps ul {
+            padding-left: 20px;
+        }
+        
+        .steps li {
+            margin-bottom: 10px;
+        }
+        
+        .tip {
+            background-color: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            padding: 10px 15px;
+            margin: 15px 0;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .warning {
+            background-color: #fff3e0;
+            border-left: 4px solid #ff9800;
+            padding: 10px 15px;
+            margin: 15px 0;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .activity {
+            background-color: #f3e5f5;
+            border-left: 4px solid #9c27b0;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .challenge {
+            background-color: #e8eaf6;
+            border-left: 4px solid #3f51b5;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        details {
+            background-color: #f5f5f5;
+            padding: 10px 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+        
+        summary {
+            font-weight: bold;
+            cursor: pointer;
+            padding: 5px 0;
+        }
+        
+        .key {
+            background-color: #e0e0e0;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: monospace;
+            font-size: 0.9em;
+            border: 1px solid #bdbdbd;
+        }
+        
+        .key-combo {
+            background-color: #333;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: monospace;
+            font-size: 0.9em;
+        }
+        
+        .properties-palette {
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 300px;
+            margin: 15px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            float: right;
+            margin-left: 20px;
+        }
+        
+        .properties-header {
+            background-color: #e0e0e0;
+            padding: 8px 10px;
+            font-weight: bold;
+            border-bottom: 1px solid #ccc;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .properties-section {
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .section-header {
+            background-color: #e8e8e8;
+            padding: 5px 10px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .property-row {
+            display: flex;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .property-name {
+            width: 50%;
+            padding: 4px 8px;
+            background-color: #f8f8f8;
+            border-right: 1px solid #ddd;
+            font-size: 0.9em;
+        }
+        
+        .property-value {
+            width: 50%;
+            padding: 4px 8px;
+            font-size: 0.9em;
+        }
+        
+        .property-value input {
+            width: 100%;
+            border: 1px solid #ccc;
+            padding: 2px 4px;
+        }
+        
+        .property-value select {
+            width: 100%;
+            border: 1px solid #ccc;
+            padding: 2px 4px;
+        }
+        
+        .property-color {
+            width: 16px;
+            height: 16px;
+            display: inline-block;
+            border: 1px solid #999;
+            vertical-align: middle;
+            margin-right: 5px;
+        }
+        
+        .clearfix::after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            header {
+                padding: 15px;
+            }
+            
+            .command, .tip, .warning, .activity, .challenge, details {
+                margin-left: -10px;
+                margin-right: -10px;
+                border-radius: 0;
+            }
+            
+            .properties-palette {
+                float: none;
+                width: 100%;
+                margin: 15px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Guía Completa de la Paleta de PROPIEDADES en AutoCAD</h1>
+        <p>Domina el control preciso de los objetos en tus dibujos</p>
+    </header>
+
+    <section>
+        <p>La paleta de <strong>PROPIEDADES</strong> (PR o Ctrl+1) es una de las herramientas más versátiles de AutoCAD, permitiéndote ver y modificar todos los atributos de los objetos seleccionados. A diferencia de los comandos individuales, la paleta de propiedades te da acceso completo a todas las características de un objeto en un solo lugar.</p>
+        
+        <div class="tip">
+            <strong>Consejo rápido:</strong> Mantén presionada la tecla <span class="key">Ctrl</span> y selecciona múltiples objetos para ver y editar sus propiedades comunes. Si los objetos seleccionados tienen valores diferentes para una propiedad, se mostrará como <em>Varía</em>.
+        </div>
+    </section>
+
+    <section id="metodos-modificacion">
+        <h2>Métodos de Modificación de Propiedades</h2>
+        
+        <div class="properties-palette">
+            <div class="properties-header">
+                <span>Propiedades</span>
+                <span>▼</span>
+            </div>
+            <div class="properties-section">
+                <div class="section-header">
+                    <span>General</span>
+                    <span>+</span>
+                </div>
+                <div class="property-row">
+                    <div class="property-name">Capa</div>
+                    <div class="property-value">
+                        <select>
+                            <option>0</option>
+                            <option selected>Mobiliario</option>
+                            <option>Puertas</option>
+                            <option>Ventanas</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="property-row">
+                    <div class="property-name">Color</div>
+                    <div class="property-value">
+                        <span class="property-color" style="background-color: #FFFF00;"></span>
+                        <select style="width: calc(100% - 25px);">
+                            <option>PorCapa</option>
+                            <option selected>Rojo</option>
+                            <option>Verde</option>
+                            <option>Amarillo</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="property-row">
+                    <div class="property-name">Tipo de línea</div>
+                    <div class="property-value">
+                        <select>
+                            <option>PorCapa</option>
+                            <option selected>CONTINUOUS</option>
+                            <option>DASHED</option>
+                            <option>CENTER</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="properties-section">
+                <div class="section-header">
+                    <span>Geometría</span>
+                    <span>+</span>
+                </div>
+                <div class="property-row">
+                    <div class="property-name">Centro X</div>
+                    <div class="property-value"><input type="text" value="25.00"></div>
+                </div>
+                <div class="property-row">
+                    <div class="property-name">Centro Y</div>
+                    <div class="property-value"><input type="text" value="15.00"></div>
+                </div>
+                <div class="property-row">
+                    <div class="property-name">Radio</div>
+                    <div class="property-value"><input type="text" value="8.00"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="clearfix"></div>
+        
+        <h3>Método 1: Modificación de Propiedades Generales</h3>
+        <p>Este método te permite cambiar atributos básicos como capa, color y tipo de línea sin necesidad de usar comandos separados.</p>
+        
+        <div class="example">
+            <h4>Ejemplo 1.1: Cambio de Capa y Color</h4>
+            <div class="steps">
+                <ol>
+                    <li>Dibuja un CÍRCULO (C) en la Capa 0.</li>
+                    <li>Crea una nueva capa llamada <strong>'Mobiliario'</strong> con color Azul.</li>
+                    <li>Selecciona el círculo.</li>
+                    <li>Activa la paleta de PROPIEDADES (<span class="key">PR</span> o <span class="key">Ctrl+1</span>).</li>
+                    <li>En la sección <strong>General</strong>:
+                        <ul>
+                            <li>Cambia <strong>Capa</strong> a <strong>Mobiliario</strong>.</li>
+                            <li>Cambia <strong>Color</strong> de "PorCapa" a <strong>Amarillo</strong>.</li>
+                        </ul>
+                    </li>
+                    <li>Observa que el círculo ahora es amarillo, sobrescribiendo el color de la capa.</li>
+                </ol>
+            </div>
+            
+            <div class="tip">
+                <strong>Consejo:</strong> Cuando cambias una propiedad de "PorCapa" a un valor específico, el objeto mantendrá ese valor incluso si cambias la propiedad de la capa. Para volver a heredar las propiedades de la capa, selecciona "PorCapa" en la lista desplegable.
+            </div>
+        </div>
+        
+        <div class="example">
+            <h4>Ejemplo 1.2: Cambio de Tipo de Línea y Escala</h4>
+            <div class="steps">
+                <ol>
+                    <li>Dibuja una LÍNEA (L) de 20 unidades de largo.</li>
+                    <li>Activa la paleta de PROPIEDADES (<span class="key">PR</span>).</li>
+                    <li>Selecciona la línea.</li>
+                    <li>En la sección <strong>General</strong>:
+                        <ul>
+                            <li>En <strong>Tipo de Línea</strong>, selecciona un patrón discontinuo (ej: <strong>DASHED</strong>).
+                                <div class="tip">
+                                    <strong>Nota:</strong> Si no ves el tipo de línea que necesitas, carga tipos de línea adicionales con el comando <span class="key">TIPOLINEA</span> (LINETYPE).
+                                </div>
+                            </li>
+                            <li>Cambia <strong>Escala de tipo de línea</strong> a <strong>5.0</strong> para hacer visible el patrón.</li>
+                        </ul>
+                    </li>
+                </ol>
+            </div>
+        </div>
+        
+        <h3>Método 2: Modificación de Propiedades Geométricas</h3>
+        <p>Este método te permite editar directamente las dimensiones y la ubicación de los objetos.</p>
+        
+        <div class="example">
+            <h4>Ejemplo 2.1: Modificar Radio de Círculo</h4>
+            <div class="steps">
+                <ol>
+                    <li>Dibuja un CÍRCULO (C) en (10,10) con Radio 5.</li>
+                    <li>Selecciona el círculo y abre la paleta de PROPIEDADES (<span class="key">PR</span>).</li>
+                    <li>En la sección <strong>Geometría</strong>:
+                        <ul>
+                            <li>Cambia <strong>Centro X</strong> a <strong>25</strong>.</li>
+                            <li>Cambia <strong>Radio</strong> a <strong>8.0</strong>.</li>
+                        </ul>
+                    </li>
+                    <li>El círculo se moverá a la derecha y aumentará de tamaño.</li>
+                </ol>
+            </div>
+            
+            <div class="tip">
+                <strong>Consejo:</strong> La paleta de propiedades te permite realizar múltiples cambios a la vez. Puedes modificar varias propiedades y ver los cambios en tiempo real, lo que es especialmente útil para ajustes precisos.
+            </div>
+        </div>
+        
+        <div class="example">
+            <h4>Ejemplo 2.2: Redimensionar Rectángulo por Vértice</h4>
+            <div class="steps">
+                <ol>
+                    <li>Dibuja un RECTANGULO (REC) de 10x5 en (0,0).</li>
+                    <li>Selecciona el rectángulo y abre la paleta de PROPIEDADES (<span class="key">PR</span>).</li>
+                    <li>En la sección <strong>Geometría</strong>, busca la propiedad <strong>Final X</strong>.</li>
+                    <li>Cambia el valor de <strong>Final X</strong> a <strong>30</strong>.</li>
+                    <li>El rectángulo se estirará horizontalmente, manteniendo su altura.</li>
+                </ol>
+            </div>
+        </div>
+    </section>
+
+    <section id="actividades">
+        <h2>Actividades Prácticas</h2>
+        
+        <div class="activity">
+            <h3>Actividad 1: Estandarización de Texto (MTEXT)</h3>
+            <p><strong>Objetivo:</strong> Utilizar la paleta Propiedades para unificar el estilo de texto y añadir una rotación precisa.</p>
+            
+            <div class="steps">
+                <ol>
+                    <li>Dibuja un TEXTO DE LÍNEAS MÚLTIPLES (MTEXT, MT) con fuente Arial y Altura 5.</li>
+                    <li>Dibuja un segundo MTEXT con fuente Times New Roman y Altura 2.</li>
+                    <li><strong>Paso A (Unificar):</strong>
+                        <ul>
+                            <li>Selecciona ambos textos (mantén presionada la tecla <span class="key">Mayús</span> para selección múltiple).</li>
+                            <li>Abre la paleta de PROPIEDADES (<span class="key">PR</span>).</li>
+                            <li>Cambia la altura del texto a <strong>3</strong>.</li>
+                            <li>En <strong>Estilo</strong>, selecciona un estilo estándar (o crea uno nuevo).</li>
+                        </ul>
+                    </li>
+                    <li><strong>Paso B (Rotación):</strong>
+                        <ul>
+                            <li>Con ambos textos aún seleccionados, busca la propiedad <strong>Rotación</strong>.</li>
+                            <li>Cambia el valor a <strong>330.0</strong> (o -30 grados).</li>
+                        </ul>
+                    </li>
+                    <li>Ambos textos deberían tener ahora el mismo estilo, altura y estar rotados -30 grados.</li>
+                </ol>
+            </div>
+            
+            <details>
+                <summary>Ver Solución</summary>
+                <p>Al seleccionar múltiples objetos, la paleta de propiedades muestra solo las propiedades comunes. Al cambiar una propiedad como la rotación, todos los objetos seleccionados se modificarán para tener ese valor.</p>
+                
+                <div class="tip">
+                    <strong>Consejo avanzado:</strong> Puedes usar la paleta de propiedades para modificar varios objetos a la vez, incluso si son de diferentes tipos. Por ejemplo, podrías seleccionar un círculo, un rectángulo y un texto, y cambiarles el color a todos simultáneamente.
+                </div>
+            </details>
+        </div>
+        
+        <div class="activity">
+            <h3>Actividad 2: El Reemplazo Rápido de Bloque</h3>
+            <p><strong>Objetivo:</strong> Cambiar la definición de un bloque ya insertado por otro.</p>
+            
+            <div class="steps">
+                <ol>
+                    <li>Dibuja un CÍRCULO y conviértelo en un bloque llamado <strong>A_Círculo</strong>.</li>
+                    <li>Inserta el bloque <strong>A_Círculo</strong> en el dibujo.</li>
+                    <li>Dibuja un RECTANGULO y conviértelo en un bloque llamado <strong>B_Rect</strong>.</li>
+                    <li><strong>Reemplazo:</strong>
+                        <ul>
+                            <li>Selecciona la instancia del bloque <strong>A_Círculo</strong> en el dibujo.</li>
+                            <li>Abre la paleta de PROPIEDADES (<span class="key">PR</span>).</li>
+                            <li>En la sección <strong>Varios</strong>, busca la propiedad <strong>Nombre</strong>.</li>
+                            <li>Cambia el valor de <strong>Nombre</strong> de "A_Círculo" a <strong>B_Rect</strong>.</li>
+                        </ul>
+                    </li>
+                    <li>La instancia seleccionada del círculo se convertirá en un rectángulo.</li>
+                </ol>
+            </div>
+            
+            <details>
+                <summary>Ver Solución</summary>
+                <p>Esta técnica es útil para reemplazar bloques existentes sin tener que borrarlos y volver a insertarlos. La paleta de propiedades te permite cambiar la definición de bloque de una instancia específica, lo que puede ahorrar tiempo en dibujos complejos.</p>
+                
+                <div class="warning">
+                    <strong>¡Atención!</strong> Ten en cuenta que solo estás cambiando la definición de bloque para la instancia seleccionada. Otras instancias del bloque original permanecerán sin cambios. Si quieres reemplazar todas las instancias de un bloque, es mejor usar el comando <span class="key">REMPLAZARBLOQUE</span> (BLOCKREPLACE).
+                </div>
+            </details>
+        </div>
+    </section>
+
+    <section id="retos">
+        <h2>Retos de Comprensión</h2>
+        
+        <div class="challenge">
+            <h3>Reto 1: Propiedades sin Seleccionar</h3>
+            <p>Activa la paleta de PROPIEDADES (<span class="key">PR</span>) sin seleccionar ningún objeto.</p>
+            
+            <details>
+                <summary>Ver Respuesta</summary>
+                <p>Cuando no hay objetos seleccionados, la paleta de propiedades muestra información sobre el dibujo actual, incluyendo:</p>
+                <ul>
+                    <li><strong>Capa actual:</strong> La capa en la que se crearán los nuevos objetos.</li>
+                    <li><strong>Estilo de texto actual:</strong> El estilo de texto que se aplicará a los nuevos textos.</li>
+                    <li><strong>Estilo de cota actual:</strong> El estilo que se usará para las nuevas cotas.</li>
+                    <li><strong>Estilo de tabla actual:</strong> El estilo que se aplicará a las nuevas tablas.</li>
+                    <li><strong>Unidades de dibujo:</strong> Configuración de unidades actual.</li>
+                </ul>
+                
+                <div class="tip">
+                    <strong>Consejo:</strong> Usa esta vista para verificar rápidamente la configuración actual de tu dibujo antes de comenzar a dibujar. Puedes hacer doble clic en la mayoría de los valores para modificarlos directamente.
+                </div>
+            </details>
+        </div>
+        
+        <div class="challenge">
+            <h3>Reto 2: La Cota y la Precisión</h3>
+            <p>Dibuja una línea de 10 unidades. Crea una <strong>COTA LINEAL</strong> (DLI) para medirla (valor 10.00). Selecciona la cota y abre la paleta de PROPIEDADES (<span class="key">PR</span>). Busca la sección <strong>Unidades Principales</strong> y cambia la <strong>Precisión</strong> a 4 decimales.</p>
+            
+            <details>
+                <summary>Ver Respuesta</summary>
+                <p>Al cambiar la precisión de una cota:</p>
+                <ul>
+                    <li>El valor de la cota visible cambiará a <strong>10.0000</strong> (mostrando 4 decimales).</li>
+                    <li>Esta modificación <strong>solo afecta a la cota seleccionada</strong>, no al estilo de cota general.</li>
+                    <li>Si quieres cambiar la precisión para todas las cotas futuras, modifica el estilo de cota correspondiente.</li>
+                </ul>
+                
+                <div class="tip">
+                    <strong>Buenas prácticas:</strong> Es recomendable mantener la consistencia en la precisión de las cotas dentro de un mismo dibujo. Usa estilos de cota para estandarizar la apariencia de todas las cotas.
+                </div>
+            </details>
+        </div>
+        
+        <div class="challenge">
+            <h3>Reto 3: Propiedades de la Polilínea</h3>
+            <p>Dibuja una <strong>POLILINEA</strong> (PL) con dos segmentos. Selecciónala y abre la paleta de PROPIEDADES (<span class="key">PR</span>). Busca la propiedad <strong>Global Width</strong> (Grosor Global) y cámbiala a <strong>1.0</strong>.</p>
+            
+            <details>
+                <summary>Ver Respuesta</summary>
+                <p>Al modificar el <strong>Grosor Global</strong> de una polilínea:</p>
+                <ul>
+                    <li>Toda la polilínea adquiere un grosor uniforme de 1.0 unidades.</li>
+                    <li>Esta propiedad es diferente del <strong>Grosor de Línea</strong> (Lineweight) en la sección General:
+                        <ul>
+                            <li><strong>Grosor Global:</strong> Es una propiedad geométrica de la polilínea que siempre es visible en el espacio modelo.</li>
+                            <li><strong>Grosor de Línea:</strong> Es una propiedad de visualización que solo se muestra cuando el botón <strong>Peso de línea</strong> está activado en la barra de estado.</li>
+                        </ul>
+                    </li>
+                    <li>El grosor global se puede hacer variable a lo largo de la polilínea usando la opción <strong>Ancho</strong> (WIDTH) en el comando EDITARPOLI (PEDIT).</li>
+                </ul>
+                
+                <div class="tip">
+                    <strong>Uso práctico:</strong> El grosor global es útil para crear elementos como flechas, líneas de cota personalizadas o cualquier otra forma que requiera un ancho específico en el espacio modelo.
+                </div>
+            </details>
+        </div>
+    </section>
+
+    <section id="conclusion">
+        <h2>Conclusión</h2>
+        <p>La paleta de PROPIEDADES es una herramienta poderosa que te da control total sobre los objetos en tus dibujos de AutoCAD. Al dominar su uso, podrás realizar ediciones precisas y eficientes, ahorrando tiempo y mejorando la calidad de tus diseños.</p>
+        
+        <div class="tip">
+            <strong>Recuerda:</strong> La paleta de propiedades es contextual, lo que significa que muestra diferentes opciones según el tipo y la cantidad de objetos seleccionados. Experimenta con diferentes selecciones para descubrir todas las posibilidades que ofrece esta versátil herramienta.
+        </div>
+    </section>
+
+    <footer style="margin-top: 40px; padding: 20px 0; border-top: 1px solid #eee; text-align: center; color: #7f8c8d; font-size: 0.9em;">
+        <p>© 2025 Tutorial de AutoCAD - Paleta de PROPIEDADES</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,127 @@
+==================================================
+EJERCICIOS: COMANDOS DE ACOTACIÓN (DIMENSION) EN AUTOCAD
+==================================================
+
+Los comandos de COTA (DIMENSION) no solo miden, sino que también crean objetos gráficos que representan esas medidas. La precisión en la acotación es tan importante como la precisión en el dibujo.
+
+--------------------------------------------------
+I. MÉTODOS DE ACOTACIÓN (2 EJEMPLOS POR CADA TIPO DE COTA)
+--------------------------------------------------
+
+Método 1: Cota Lineal (DIMLINEAR, DLI)
+
+Se utiliza para medir distancias horizontales o verticales. Es el tipo de cota más común.
+
+Ejemplo 1.1: Acotación Horizontal
+Instrucciones: Mide la longitud de un rectángulo de 15x8 unidades.
+1. Dibuja un RECTANGULO (REC) de 15x8 en (0,0).
+2. Activa el comando COTA LINEAL (DLI).
+3. Especifica la primera extensión: Esquina inferior izquierda (0,0).
+4. Especifica la segunda extensión: Esquina inferior derecha (15,0).
+5. Posiciona la línea de cota (Ej: a -2 unidades en Y).
+6. El texto de la cota debe mostrar **15**.
+
+Ejemplo 1.2: Acotación Vertical
+Instrucciones: Mide la altura del mismo rectángulo.
+1. Activa COTA LINEAL (DLI).
+2. Especifica la primera extensión: Esquina inferior derecha (15,0).
+3. Especifica la segunda extensión: Esquina superior derecha (15,8).
+4. Posiciona la línea de cota (Ej: a 20 unidades en X).
+6. El texto de la cota debe mostrar **8**.
+
+---
+
+Método 2: Cota Radial (DIMRADIUS, DRA) y Diametral (DIMDIAMETER, DDI)
+
+Se utiliza para medir el radio o el diámetro de círculos y arcos.
+
+Ejemplo 2.1: Acotación de Radio
+Instrucciones: Mide el radio de un círculo.
+1. Dibuja un CÍRCULO (C) de radio 6.
+2. Activa el comando COTA RADIAL (DRA).
+3. Selecciona el borde del círculo.
+4. Posiciona el texto. El texto debe mostrar **R6** (o el formato de radio configurado).
+
+Ejemplo 2.2: Acotación de Diámetro
+Instrucciones: Mide el diámetro del mismo círculo.
+1. Activa el comando COTA DIAMETRAL (DDI).
+2. Selecciona el borde del círculo.
+3. Posiciona el texto. El texto debe mostrar **Ø12** (o el formato de diámetro configurado).
+
+---
+
+Método 3: Cota Alineada (DIMALIGNED, DAL)
+
+Se utiliza para medir la distancia real de un objeto inclinado, alineando la cota paralelamente a ese objeto.
+
+Ejemplo 3.1: Acotar Línea Diagonal
+Instrucciones: Mide la longitud real de una línea diagonal.
+1. Dibuja una LINEA (L) de (0,0) a (10,10). (Mide 14.14 unidades).
+2. Activa el comando COTA ALINEADA (DAL).
+3. Especifica la primera extensión: (0,0).
+4. Especifica la segunda extensión: (10,10).
+5. Posiciona la línea de cota.
+6. El texto de la cota debe mostrar **14.1421** (aproximadamente).
+
+--------------------------------------------------
+II. ACTIVIDADES SUGERIDAS (SOLUCIÓN OCULTA)
+--------------------------------------------------
+
+ACTIVIDAD 1: Acotación de Perfil Completo
+
+Objetivo: Aplicar los tres tipos de cota a una figura mixta para verificar todas las dimensiones.
+Instrucciones:
+1. Dibuja una LINEA de (0,0) a (15,0).
+2. Dibuja un ARCO (A) tangente, que inicie en (15,0) con radio 5, hasta (20,5).
+3. Dibuja una LINEA de (20,5) a (30,15) (Diagonal).
+4. **Acotación:**
+   - Cota Lineal para el primer segmento horizontal (0,0 a 15,0).
+   - Cota Radial para el arco.
+   - Cota Alineada para el segmento diagonal.
+
+<details>
+<summary>Ver Solución (Valores de Cota)</summary>
+
+1.  Cota Lineal (Horizontal): **15.00**
+2.  Cota Radial: **R5.00**
+3.  Cota Alineada (Diagonal): **14.1421** (Longitud de la línea de 10 en X y 10 en Y).
+</details>
+
+---
+
+ACTIVIDAD 2: Acotación de Espacios Múltiples (Cota Continua)
+
+Objetivo: Usar la opción de cota continua para medir varios segmentos alineados rápidamente.
+Instrucciones:
+1. Dibuja tres segmentos de línea horizontales unidos: (0,0) a (5,0), (5,0) a (12,0), (12,0) a (15,0).
+2. **Cota Base:** Usa COTA LINEAL (DLI) para acotar el primer segmento (0,0 a 5,0).
+3. **Cota Continua:** Activa el comando **DIMCONTINUE** (DCO) (Cota Continua).
+4. Haz clic en el final del segundo segmento (12,0) y luego en el final del tercer segmento (15,0).
+5. Resultado: Se generan dos cotas adicionales alineadas que miden **7** y **3**.
+
+<details>
+<summary>Ver Solución (Comando y Cota Creada)</summary>
+
+El comando DIMCONTINUE se encarga de tomar el punto final del último segmento acotado como el punto inicial del siguiente segmento, asegurando que todas las cotas estén en la misma línea. El valor total de la cota debe ser 5 + 7 + 3 = 15.
+</details>
+
+--------------------------------------------------
+III. RETOS DE COMPRENSIÓN (3 RETOS)
+--------------------------------------------------
+
+RETO 1: El Estilo de Cota
+Crea una **nueva cota lineal** (DLI). En la ventana de Propiedades, abre el **Estilo de Cota** y crea un nuevo estilo llamado **'Metros'**. Modifica las **Unidades Principales** para que la precisión muestre **cero decimales**.
+Verifica: ¿Al acotar el rectángulo de 15x8 del Ejemplo 1.1, la cota muestra '15' o '15.00'?
+
+---
+
+RETO 2: La Cota de Coordenada
+Activa el comando **DIMORDINATE** (DOR) (Cota de Coordenada). Haz clic en el punto (10,5).
+Verifica: ¿La cota muestra el valor de 10 o el valor de 5? ¿Para qué tipo de planos es más útil este comando? (Pista: Muestra solo la coordenada X o Y).
+
+---
+
+RETO 3: Acotación Forzada (ORTOMODE)
+Dibuja una línea de (0,0) a (10,10). Activa COTA LINEAL (DLI). Selecciona los extremos de la línea.
+Mientras posicionas la cota, activa el modo **ORTOMODE** (F8).
+Verifica: ¿Al arrastrar el cursor, la cota mide la distancia horizontal (10) o la distancia real (14.14)? ¿Cómo se diferencia esto de la Cota Alineada (DAL)?

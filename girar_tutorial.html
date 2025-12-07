@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comando GIRAR (ROTATE) en AutoCAD</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #1abc9c; /* Teal color for ROTATE command */
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --success: #2ecc71;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: '⟳';
+            position: absolute;
+            font-size: 15rem;
+            right: 2rem;
+            top: 50%;
+            transform: translateY(-50%) rotate(45deg);
+            opacity: 0.1;
+            z-index: 0;
+        }
+        
+        header h1 {
+            position: relative;
+            z-index: 1;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        header p {
+            position: relative;
+            z-index: 1;
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .command-info {
+            background-color: white;
+            border-left: 4px solid var(--secondary);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border-radius: 0 8px 8px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .command-info h2 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .command-info h2::before {
+            content: '🔄';
+            font-size: 1.5em;
+        }
+        
+        .command-syntax {
+            background-color: #f8f9fa;
+            border: 1px solid #e1e4e8;
+            padding: 1rem;
+            border-radius: 6px;
+            margin: 1rem 0;
+            font-family: 'Consolas', 'Courier New', monospace;
+            position: relative;
+        }
+        
+        .command-syntax::before {
+            content: 'Sintaxis:';
+            position: absolute;
+            top: -10px;
+            left: 10px;
+            background: white;
+            padding: 0 5px;
+            font-size: 0.8rem;
+            color: var(--secondary);
+            font-weight: bold;
+        }
+        
+        .method {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border: 1px solid #e1e4e8;
+        }
+        
+        .method h3 {
+            color: var(--secondary);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #f0f0f0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .example {
+            background-color: #f8f9fa;
+            border-left: 3px solid var(--secondary);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 6px 6px 0;
+        }
+        
+        .example h4 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .example h4::before {
+            content: '📐';
+        }
+        
+        .steps {
+            margin: 1rem 0;
+            padding-left: 1.5rem;
+        }
+        
+        .steps li {
+            margin-bottom: 0.5rem;
+            position: relative;
+        }
+        
+        .steps li::before {
+            content: '→';
+            position: absolute;
+            left: -1.5rem;
+            color: var(--secondary);
+        }
+        
+        .activity {
+            background-color: #f0f7ff;
+            border: 1px solid #d0e3ff;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .activity h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .activity h3::before {
+            content: '🎯';
+        }
+        
+        .challenge {
+            background-color: #fff8e6;
+            border: 1px solid #ffeeba;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .challenge h3 {
+            color: #d35400;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .challenge h3::before {
+            content: '💡';
+        }
+        
+        .solution {
+            margin-top: 1rem;
+            border-top: 1px dashed #ccc;
+            padding-top: 1rem;
+        }
+        
+        .solution-summary {
+            cursor: pointer;
+            color: var(--secondary);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 1rem 0;
+        }
+        
+        .solution-summary::before {
+            content: '👁️';
+            font-size: 1.1em;
+        }
+        
+        .solution-content {
+            display: none;
+            background-color: #f8f9fa;
+            padding: 1rem;
+            border-radius: 6px;
+            margin-top: 0.5rem;
+            border: 1px solid #e1e4e8;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .tip {
+            background-color: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 6px 6px 0;
+            position: relative;
+        }
+        
+        .tip::before {
+            content: '💡';
+            margin-right: 0.5rem;
+            font-size: 1.2em;
+        }
+        
+        .command-shortcut {
+            background-color: var(--secondary);
+            color: white;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+        
+        .coordinate {
+            font-family: 'Consolas', 'Courier New', monospace;
+            background-color: #f0f0f0;
+            padding: 0.1rem 0.3rem;
+            border-radius: 3px;
+            font-size: 0.9em;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 1.5rem;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            border-top: 1px solid #eee;
+        }
+        
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+            
+            .container {
+                padding: 10px;
+            }
+            
+            .command-syntax {
+                font-size: 0.9rem;
+                padding: 0.8rem;
+            }
+        }
+        
+        /* Animation for command examples */
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        .rotate-icon {
+            display: inline-block;
+            animation: rotate 3s linear infinite;
+            transform-origin: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Comando GIRAR (ROTATE) en AutoCAD</h1>
+            <p>Guía completa con ejemplos prácticos y ejercicios</p>
+        </header>
+        
+        <div class="command-info">
+            <h2>Comando GIRAR (ROTATE)</h2>
+            <p>El comando GIRAR (RO o ROTATE) reorienta objetos seleccionados alrededor de un punto base fijo, permitiendo rotaciones precisas en el plano 2D.</p>
+            
+            <div class="command-syntax">
+                <strong>Comando:</strong> GIRAR (RO o ROTATE)<br>
+                <strong>Menú:</strong> Modificar → Girar<br>
+                <strong>Barra de herramientas:</strong> Modificar → <span class="rotate-icon">⟳</span>
+            </div>
+            
+            <div class="tip">
+                <strong>Consejo:</strong> Usa la tecla <kbd>F8</kbd> para activar/desactivar el modo Orto y facilitar rotaciones de 90° o 45°.
+            </div>
+        </div>
+        
+        <div class="method">
+            <h3>Métodos de Rotación</h3>
+            
+            <div class="example">
+                <h4>Método 1: Rotación por Ángulo Absoluto</h4>
+                <p>Se ingresa directamente el valor angular deseado (positivo para antihorario, negativo para horario).</p>
+                
+                <div class="example">
+                    <h5>Ejemplo 1.1: Girar 90° en sentido antihorario</h5>
+                    <ol class="steps">
+                        <li>Dibuja una <strong>LÍNEA</strong> (L) de <span class="coordinate">(10,10)</span> a <span class="coordinate">(20,10)</span>.</li>
+                        <li>Activa el comando <strong>GIRAR</strong> (RO).</li>
+                        <li>Selecciona la línea y presiona <kbd>Enter</kbd>.</li>
+                        <li>Punto Base: <span class="coordinate">(10,10)</span> (esquina inferior izquierda).</li>
+                        <li>Ángulo de Rotación: <span class="coordinate">90</span> (grados).</li>
+                        <li>La línea resultante será vertical de <span class="coordinate">(10,10)</span> a <span class="coordinate">(10,20)</span>.</li>
+                    </ol>
+                </div>
+                
+                <div class="example">
+                    <h5>Ejemplo 1.2: Girar 30° en sentido horario</h5>
+                    <ol class="steps">
+                        <li>Dibuja un <strong>RECTÁNGULO</strong> (REC) de 10x5 en <span class="coordinate">(50,50)</span>.</li>
+                        <li>Activa <strong>GIRAR</strong> (RO).</li>
+                        <li>Selecciona el rectángulo y presiona <kbd>Enter</kbd>.</li>
+                        <li>Punto Base: Usa <strong>Centro Geométrico</strong> (Ctrl+clic derecho → Centro).</li>
+                        <li>Ángulo de Rotación: <span class="coordinate">-30</span> (negativo para horario).</li>
+                    </ol>
+                </div>
+            </div>
+            
+            <div class="example">
+                <h4>Método 2: Rotación por Referencia (R)</h4>
+                <p>Útil cuando se conoce el ángulo actual y se desea cambiarlo a un valor específico.</p>
+                
+                <div class="example">
+                    <h5>Ejemplo 2.1: Alinear Horizontalmente</h5>
+                    <ol class="steps">
+                        <li>Dibuja una línea de <span class="coordinate">(0,0)</span> a <span class="coordinate">(10,10)</span> (45°).</li>
+                        <li>Activa <strong>GIRAR</strong> (RO).</li>
+                        <li>Selecciona la línea y presiona <kbd>Enter</kbd>.</li>
+                        <li>Punto Base: <span class="coordinate">(0,0)</span>.</li>
+                        <li>Escribe <strong>R</strong> (Referencia).</li>
+                        <li>Ángulo de Referencia: <span class="coordinate">45</span> o selecciona los puntos <span class="coordinate">(0,0)</span> y <span class="coordinate">(10,10)</span>.</li>
+                        <li>Ángulo Nuevo: <span class="coordinate">0</span> (horizontal).</li>
+                        <li>La línea se alineará con el eje X.</li>
+                    </ol>
+                </div>
+                
+                <div class="example">
+                    <h5>Ejemplo 2.2: Girar con Copia (C)</h5>
+                    <ol class="steps">
+                        <li>Dibuja un <strong>RECTÁNGULO</strong> (REC) de 8x4 en <span class="coordinate">(20,20)</span>.</li>
+                        <li>Activa <strong>GIRAR</strong> (RO).</li>
+                        <li>Selecciona el rectángulo y presiona <kbd>Enter</kbd>.</li>
+                        <li>Punto Base: <span class="coordinate">(20,20)</span> (esquina inferior izquierda).</li>
+                        <li>Escribe <strong>C</strong> (Copia).</li>
+                        <li>Ángulo de Rotación: <span class="coordinate">60</span>.</li>
+                        <li>Se crea una copia rotada 60°.</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        
+        <div class="activity">
+            <h3>Actividad 1: El Soporte Inclinado</h3>
+            <p><strong>Objetivo:</strong> Dibujar un soporte y alinearlo con una línea de construcción diagonal.</p>
+            
+            <ol class="steps">
+                <li>Dibuja el <strong>SOPORTE</strong>: Un rectángulo (REC) de 10x2 comenzando en <span class="coordinate">(5,5)</span>.</li>
+                <li>Dibuja la <strong>GUÍA</strong>: Una línea (L) de <span class="coordinate">(0,0)</span> a <span class="coordinate">(20,20)</span> (45°).</li>
+                <li>Mueve el soporte para que su esquina inferior izquierda quede en <span class="coordinate">(0,0)</span>.</li>
+                <li>Activa <strong>GIRAR</strong> (RO) y selecciona el soporte.</li>
+                <li>Punto Base: <span class="coordinate">(0,0)</span>.</li>
+                <li>Escribe <strong>R</strong> (Referencia).</li>
+                <li>Ángulo de Referencia: <span class="coordinate">0</span> (actual).</li>
+                <li>Ángulo Nuevo: <span class="coordinate">45</span>.</li>
+            </ol>
+            
+            <div class="solution">
+                <div class="solution-summary">Ver Solución (Coordenadas de la Esquina Superior Derecha Final)</div>
+                <div class="solution-content">
+                    <p>1. El soporte original (10x2) tiene sus lados alineados a 0° y 90°.</p>
+                    <p>2. Al rotarlo 45° alrededor de <span class="coordinate">(0,0)</span>, el lado más largo (10) estará en 45°.</p>
+                    <p>3. La esquina superior derecha final (antes en <span class="coordinate">(15,7)</span>) se ubicará en <span class="coordinate">(8.48, 8.48)</span>.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="activity">
+            <h3>Actividad 2: El Abanico</h3>
+            <p><strong>Objetivo:</strong> Crear un patrón de "abanico" duplicando un objeto a intervalos angulares fijos.</p>
+            
+            <ol class="steps">
+                <li>Dibuja una <strong>LÍNEA</strong> (el "rayo") de <span class="coordinate">(50,50)</span> a <span class="coordinate">(60,50)</span>.</li>
+                <li>Activa <strong>GIRAR</strong> (RO) y selecciona el rayo.</li>
+                <li>Punto Base: <span class="coordinate">(50,50)</span> (pivote).</li>
+                <li>Escribe <strong>C</strong> (Copia).</li>
+                <li>Ángulo de Rotación: <span class="coordinate">30</span>.</li>
+                <li>Repite el proceso con ángulos de <span class="coordinate">60</span>, <span class="coordinate">90</span> y <span class="coordinate">120</span> grados.</li>
+            </ol>
+            
+            <div class="solution">
+                <div class="solution-summary">Ver Solución (Cantidad de Rayos y Ubicación Final)</div>
+                <div class="solution-content">
+                    <p>1. Se crean 4 copias además del original (5 rayos en total).</p>
+                    <p>2. El último rayo (120°) terminará en <span class="coordinate">(45, 58.66)</span>.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="challenge">
+            <h3>Retos de Comprensión</h3>
+            
+            <div class="example">
+                <h4>Reto 1: El Ángulo Desconocido</h4>
+                <p>1. Dibuja una línea de <span class="coordinate">(0,0)</span> a <span class="coordinate">(15,5)</span>.</p>
+                <p>2. Usa <strong>GIRAR</strong> (RO) con la opción <strong>REFERENCIA</strong> (R).</p>
+                <p>3. Para el ángulo de referencia, selecciona los puntos <span class="coordinate">(0,0)</span> y <span class="coordinate">(15,5)</span>.</p>
+                <p>4. Ángulo Nuevo: <span class="coordinate">0</span>.</p>
+                <p><strong>Pregunta:</strong> ¿Se alineó la línea con el eje X? ¿Qué significa usar puntos para definir el ángulo de referencia?</p>
+            </div>
+            
+            <div class="example">
+                <h4>Reto 2: El Bloque Giratorio</h4>
+                <p>1. Crea un <strong>BLOQUE</strong> (B) con un círculo y una línea, con punto base en el centro del círculo.</p>
+                <p>2. Inserta el bloque en el dibujo.</p>
+                <p>3. Usa <strong>GIRAR</strong> (RO) en la instancia del bloque.</p>
+                <p><strong>Pregunta:</strong> ¿Se gira solo el bloque o también la geometría original? (Pista: Solo gira la instancia del bloque).</p>
+            </div>
+            
+            <div class="example">
+                <h4>Reto 3: Rotar sin Mover</h4>
+                <p>1. Dibuja una línea cualquiera.</p>
+                <p>2. Ejecuta <strong>GIRAR</strong> (RO).</p>
+                <p>3. Elige un punto base.</p>
+                <p>4. Al pedir el Ángulo de Rotación, presiona <kbd>Enter</kbd>.</p>
+                <p><strong>Pregunta:</strong> ¿El objeto giró? ¿Qué coordenada se usó por defecto?</p>
+            </div>
+        </div>
+        
+        <footer>
+            <p>© 2025 Tutorial de AutoCAD - Comando GIRAR (ROTATE)</p>
+        </footer>
+    </div>
+    
+    <script>
+        // Toggle solution visibility
+        document.querySelectorAll('.solution-summary').forEach(summary => {
+            summary.addEventListener('click', function() {
+                const content = this.nextElementSibling;
+                if (content.style.display === 'block') {
+                    content.style.display = 'none';
+                    this.innerHTML = '👁️ ' + this.textContent.replace('👁️ ', '');
+                } else {
+                    content.style.display = 'block';
+                    this.innerHTML = '🔍 ' + this.textContent.replace('👁️ ', '');
+                }
+            });
+        });
+        
+        // Add animation to command examples on hover
+        document.querySelectorAll('.example').forEach(example => {
+            example.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-2px)';
+                this.style.boxShadow = '0 5px 15px rgba(0,0,0,0.1)';
+            });
+            
+            example.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+                this.style.boxShadow = '0 2px 10px rgba(0,0,0,0.05)';
+            });
+        });
+        
+        // Highlight command shortcuts
+        document.addEventListener('DOMContentLoaded', function() {
+            const shortcuts = document.querySelectorAll('strong');
+            shortcuts.forEach(el => {
+                if (el.textContent.trim() === 'GIRAR' || 
+                    el.textContent.trim() === 'ROTATE' || 
+                    el.textContent.trim() === 'RO' ||
+                    el.textContent.trim() === 'RECTÁNGULO' ||
+                    el.textContent.trim() === 'LÍNEA') {
+                    el.classList.add('command-shortcut');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

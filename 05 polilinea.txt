@@ -1,0 +1,130 @@
+==================================================
+EJERCICIOS: TRAZADO DE POLILÍNEA (PLINE) EN AUTOCAD
+==================================================
+
+El comando POLILINEA (PL) es una herramienta poderosa que permite crear secuencias de segmentos de línea o arco que se comportan como una sola entidad (polilínea), a diferencia de varias líneas individuales.
+
+--------------------------------------------------
+I. MÉTODOS DE TRAZADO (2 EJEMPLOS POR MÉTODO)
+--------------------------------------------------
+
+El trazado de la Polilínea utiliza los mismos métodos de coordenadas (Absolutas, Relativas, Polares) que el comando LINEA. La diferencia reside en las OPCIONES especiales del comando PLINE.
+
+Método 1: Segmentos de Línea con Ancho (Width, A)
+
+Se utiliza para dibujar segmentos con grosor inicial y final definido (útil para dibujar muros con espesor variable o flechas).
+
+Ejemplo 1.1: Línea con Grosor Uniforme
+Instrucciones: Dibuja una línea de 20 unidades de largo y un grosor constante de 1 unidad.
+1. Activa el comando POLILINEA (PL).
+2. Punto Inicial: 10,10
+3. Escribe A (para Ancho / Width).
+4. Especifica el ancho inicial: 1
+5. Especifica el ancho final: 1 (Para que sea uniforme).
+6. Siguiente Punto: @20<0 (Línea horizontal de 20 unidades).
+
+Ejemplo 1.2: Flecha con Grosor Variable
+Instrucciones: Dibuja una flecha (forma de cono) de 10 unidades de largo, con un inicio grueso y un final delgado.
+1. Activa el comando POLILINEA (PL).
+2. Punto Inicial: 50,50
+3. Escribe A (Ancho / Width).
+4. Especifica el ancho inicial: 2
+5. Especifica el ancho final: 0 (Crea la punta).
+6. Siguiente Punto: @10<0 (La punta de la flecha termina en 60,50).
+
+---
+
+Método 2: Segmentos de Arco (Arc, AR)
+
+Permite cambiar de un segmento recto a un arco sin salir del comando, manteniendo la tangencia si es necesario.
+
+Ejemplo 2.1: Forma de "J" (Línea y Arco)
+Instrucciones: Dibuja un segmento de línea vertical de 10 unidades, seguido de un arco de 180 grados.
+1. Activa el comando POLILINEA (PL).
+2. Punto Inicial: 0,10
+3. Siguiente Punto (Vertical): @0,-10
+4. Escribe AR (para Arco / Arc).
+5. Escribe G (para Grados / Degrees, si quieres definir la longitud del arco por grados).
+6. Ángulo (Grados): 180 (Para una media luna).
+7. Siguiente punto: @-5<0 (Un arco de 180 grados que termina 5 unidades a la izquierda).
+
+Ejemplo 2.2: Transición Angular (Línea, Arco, Línea)
+Instrucciones: Dibuja una línea horizontal de 10 unidades, seguida de un arco de 90 grados, y finaliza con una línea vertical.
+1. Activa el comando POLILINEA (PL).
+2. Punto Inicial: 40,40
+3. Segmento 1 (Línea): @10,0
+4. Escribe AR (Arco).
+5. Siguiente Punto (que crea el arco de 90 grados): @0,5
+6. Escribe L (para volver a Línea).
+7. Segmento 3 (Línea): @0,5
+
+--------------------------------------------------
+II. ACTIVIDADES SUGERIDAS (SOLUCIÓN OCULTA)
+--------------------------------------------------
+
+ACTIVIDAD 1: El Trayecto del Muro (Grosor + Segmentos)
+
+Objetivo: Dibujar un muro de 15x20 metros en "L", con un espesor constante, como una única entidad.
+Instrucciones:
+1. Activa el comando POLILINEA (PL).
+2. Punto Inicial: 0,0
+3. Escribe A (Ancho), define el Ancho Inicial y Final en **0.30** (Espesor de muro).
+4. Segmento 1 (Horizontal): 15 unidades a la derecha.
+5. Segmento 2 (Vertical): 20 unidades hacia arriba.
+6. Cierra la Polilínea (utiliza la opción C).
+7. Selecciona el objeto y verifica que solo es una entidad (Polilínea).
+
+<details>
+<summary>Ver Solución (Longitud total y Coordenadas)</summary>
+
+La longitud total es 15 + 20 + 15 + 20 = 70 unidades.
+Los vértices centrales son: (0,0) -> (15,0) -> (15,20) -> (0,20) -> (0,0).
+El muro de 0.30 unidades de grosor se centrará en esta trayectoria.
+</details>
+
+---
+
+ACTIVIDAD 2: La Pista de Carrera (Línea y Arcos Tangentes)
+
+Objetivo: Dibujar un segmento recto que termina en un semicírculo.
+Instrucciones:
+1. Activa el comando POLILINEA (PL).
+2. Punto Inicial: 10,10
+3. Segmento 1 (Recto): 50 unidades a la derecha (@50<0).
+4. Escribe AR (Arco).
+5. Escribe S (para seleccionar la opción Segundo punto / Second pt).
+6. Escribe E (para seleccionar la opción Punto final / Endpoint).
+7. Punto Final (E): @0,50 (Esto creará un arco de 90 grados).
+8. Escribe L (para volver a Línea) y cierra la forma.
+
+<details>
+<summary>Ver Solución (Radio del Arco y Coordenadas del Punto Final)</summary>
+
+El arco creado por el Segmento 2 terminará en la coordenada (60, 60).
+El centro del arco está en (60, 35).
+El radio del arco es de 25 unidades.
+</details>
+
+--------------------------------------------------
+III. RETOS DE COMPRENSIÓN (3 RETOS)
+--------------------------------------------------
+
+RETO 1: Desglose de Entidades
+Dibuja un rectángulo de 10x10 con el comando **RECTANG** (el cual crea una Polilínea). A continuación, utiliza el comando **DESCOMPONER** (EXPLODE, X) sobre ese rectángulo.
+Verifica: ¿Cuántas entidades tienes ahora? ¿De qué tipo son?
+
+---
+
+RETO 2: El Perfil con Mitad de Grosor
+Dibuja una polilínea que consista en dos segmentos:
+1. Segmento 1: 10 unidades de largo, con un grosor de 1.
+2. Segmento 2: 10 unidades de largo, que continúe el primero, pero con un grosor de 0.5.
+Pista: Deberás especificar el Ancho Inicial y Final del Segmento 2 inmediatamente antes de dibujar su longitud.
+Verifica: ¿El ancho inicial del Segmento 2 debe coincidir con el ancho final del Segmento 1?
+
+---
+
+RETO 3: Cierre Múltiple
+Dibuja una polilínea abierta (no uses la opción C) que pase por los puntos (0,0), (10,5) y (0,10). A continuación, utiliza el comando **EDITPOL** (PEDIT) sobre esa polilínea.
+1. Utiliza la opción **CERRAR** (Close) dentro del comando PEDIT.
+Verifica: ¿Se ha añadido un nuevo segmento para unir el último punto con el primero? ¿La entidad sigue siendo una única polilínea?

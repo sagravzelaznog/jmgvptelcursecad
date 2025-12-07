@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comando Círculo en AutoCAD - Aprende Fácil</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-bg: #f8f9fa;
+            --dark-text: #2c3e50;
+            --light-text: #ecf0f1;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: var(--dark-text);
+            background-color: var(--light-bg);
+            padding: 0;
+            margin: 0;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        /* Main Content */
+        main {
+            padding: 2rem 0;
+        }
+
+        .card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+            overflow: hidden;
+        }
+
+        .card-header {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 1rem 1.5rem;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .card-header:hover {
+            background-color: #2980b9;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+            display: none;
+        }
+
+        .card.active .card-content {
+            display: block;
+        }
+
+        /* Button Styles */
+        .btn {
+            display: inline-block;
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        /* Example and Exercise Styles */
+        .example, .exercise, .challenge {
+            background-color: #f8f9fa;
+            border-left: 4px solid var(--secondary-color);
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .example h3, .exercise h3, .challenge h3 {
+            color: var(--primary-color);
+            margin-bottom: 0.8rem;
+        }
+
+        .challenge {
+            border-left-color: var(--accent-color);
+            background-color: #fff5f5;
+        }
+
+        .challenge h3 {
+            color: var(--accent-color);
+        }
+
+        .steps {
+            counter-reset: step;
+            padding-left: 1.5rem;
+        }
+
+        .step {
+            position: relative;
+            margin-bottom: 1rem;
+            padding-left: 2rem;
+        }
+
+        .step:before {
+            counter-increment: step;
+            content: counter(step);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 1.8rem;
+            height: 1.8rem;
+            background-color: var(--secondary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        .challenge .step:before {
+            background-color: var(--accent-color);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+            
+            .card-header {
+                font-size: 1.1rem;
+                padding: 0.8rem 1rem;
+            }
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary-color);
+            color: var(--light-text);
+            text-align: center;
+            padding: 1.5rem 0;
+            margin-top: 2rem;
+            font-size: 0.9rem;
+        }
+
+        /* Toggle Content */
+        .toggle-content {
+            display: none;
+            padding: 1rem;
+            background-color: #f1f8ff;
+            border-radius: 4px;
+            margin-top: 1rem;
+            border-left: 3px solid var(--secondary-color);
+        }
+
+        .toggle-btn {
+            background: none;
+            border: none;
+            color: var(--secondary-color);
+            cursor: pointer;
+            padding: 0.3rem 0.6rem;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            display: inline-flex;
+            align-items: center;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-btn:hover {
+            background-color: rgba(52, 152, 219, 0.1);
+        }
+
+        .toggle-btn:after {
+            content: '▼';
+            font-size: 0.7rem;
+            margin-left: 0.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .toggle-btn.active:after {
+            transform: rotate(180deg);
+        }
+
+        .command {
+            font-family: 'Courier New', monospace;
+            background-color: #f1f1f1;
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+            font-size: 0.9em;
+        }
+
+        .method {
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+        }
+
+        .method h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--secondary-color);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Comando Círculo en AutoCAD</h1>
+            <p class="subtitle">Domina las diferentes formas de crear círculos en AutoCAD</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="intro">
+            <p>El comando <span class="command">CÍRCULO</span> (o <span class="command">C</span> en la línea de comandos) es fundamental en AutoCAD. Permite crear círculos de diferentes maneras según las necesidades de tu diseño. A continuación, exploraremos los métodos más comunes con ejemplos prácticos.</p>
+        </section>
+
+        <!-- Sección de Métodos -->
+        <section class="methods">
+            <h2>Métodos de Trazado</h2>
+            
+            <!-- Método 1 -->
+            <div class="card">
+                <div class="card-header">
+                    <span>Método 1: Centro y Radio/Diámetro</span>
+                    <span class="toggle-btn">Mostrar</span>
+                </div>
+                <div class="card-content">
+                    <div class="method">
+                        <p>Este es el método más directo. Se especifica el punto central y luego el radio o diámetro.</p>
+                        
+                        <div class="example">
+                            <h3>Ejemplo 1.1: Círculo Básico</h3>
+                            <p>Dibuja un círculo cuyo centro esté en el origen (0,0) y que tenga un radio de 5 unidades.</p>
+                            <div class="steps">
+                                <div class="step">Activa el comando <span class="command">CÍRCULO</span> (escribe <span class="command">C</span> y presiona <span class="command">Enter</span>).</div>
+                                <div class="step">Especifica el punto central: <span class="command">0,0</span> y presiona <span class="command">Enter</span>.</div>
+                                <div class="step">Especifica el radio: <span class="command">5</span> y presiona <span class="command">Enter</span>.</div>
+                            </div>
+                            <button class="toggle-btn">Ver imagen de referencia</button>
+                            <div class="toggle-content">
+                                <p>Imagen de referencia del círculo básico aquí</p>
+                            </div>
+                        </div>
+
+                        <div class="example">
+                            <h3>Ejemplo 1.2: Círculo con Diámetro Específico</h3>
+                            <p>Dibuja un círculo centrado en (20,10) con un diámetro de 12 unidades.</p>
+                            <div class="steps">
+                                <div class="step">Activa el comando <span class="command">CÍRCULO</span> (<span class="command">C</span> + <span class="command">Enter</span>).</div>
+                                <div class="step">Especifica el punto central: <span class="command">20,10</span> y presiona <span class="command">Enter</span>.</div>
+                                <div class="step">Escribe <span class="command">D</span> para seleccionar la opción Diámetro y presiona <span class="command">Enter</span>.</div>
+                                <div class="step">Especifica el diámetro: <span class="command">12</span> y presiona <span class="command">Enter</span>.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Método 2 -->
+            <div class="card">
+                <div class="card-header">
+                    <span>Método 2: 2 Puntos (2P)</span>
+                    <span class="toggle-btn">Mostrar</span>
+                </div>
+                <div class="card-content">
+                    <div class="method">
+                        <p>Se define el círculo especificando los puntos opuestos de su diámetro.</p>
+                        
+                        <div class="example">
+                            <h3>Ejemplo 2.1: Círculo entre Dos Puntos Finales</h3>
+                            <p>Dibuja una línea de 10 unidades de largo y luego crea un círculo que use esa línea como su diámetro.</p>
+                            <div class="steps">
+                                <div class="step">Dibuja una <span class="command">LÍNEA</span> (<span class="command">L</span> + <span class="command">Enter</span>) de 10 unidades (de 10,10 a 20,10).</div>
+                                <div class="step">Activa el comando <span class="command">CÍRCULO</span> (<span class="command">C</span> + <span class="command">Enter</span>).</div>
+                                <div class="step">Escribe <span class="command">2P</span> y presiona <span class="command">Enter</span> para seleccionar el modo "2 Puntos".</div>
+                                <div class="step">Selecciona el primer punto (extremo de la línea en 10,10).</div>
+                                <div class="step">Selecciona el segundo punto (otro extremo de la línea en 20,10).</div>
+                            </div>
+                        </div>
+
+                        <div class="example">
+                            <h3>Ejemplo 2.2: Círculo Diagonal Absoluto</h3>
+                            <p>Dibuja un círculo cuyo diámetro esté definido por los puntos (5,5) y (15,25).</p>
+                            <div class="steps">
+                                <div class="step">Activa el comando <span class="command">CÍRCULO</span> (<span class="command">C</span> + <span class="command">Enter</span>).</div>
+                                <div class="step">Escribe <span class="command">2P</span> y presiona <span class="command">Enter</span>.</div>
+                                <div class="step">Especifica el primer punto: <span class="command">5,5</span> y presiona <span class="command">Enter</span>.</div>
+                                <div class="step">Especifica el segundo punto: <span class="command">15,25</span> y presiona <span class="command">Enter</span>.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Método 3 -->
+            <div class="card">
+                <div class="card-header">
+                    <span>Método 3: Tangente, Tangente, Radio (TTR)</span>
+                    <span class="toggle-btn">Mostrar</span>
+                </div>
+                <div class="card-content">
+                    <div class="method">
+                        <p>Se utiliza para dibujar un círculo que es tangente a dos objetos existentes y tiene un radio específico.</p>
+                        
+                        <div class="example">
+                            <h3>Ejemplo 3.1: Círculo Tangente a Dos Líneas Perpendiculares</h3>
+                            <p>Dibuja un círculo de radio 4 tangente a dos líneas perpendiculares.</p>
+                            <div class="steps">
+                                <div class="step">Dibuja dos líneas perpendiculares que se intersequen (ejemplo: una de 0,0 a 10,0 y otra de 0,0 a 0,10).</div>
+                                <div class="step">Activa el comando <span class="command">CÍRCULO</span> (<span class="command">C</span> + <span class="command">Enter</span>).</div>
+                                <div class="step">Escribe <span class="command">TTR</span> y presiona <span class="command">Enter</span>.</div>
+                                <div class="step">Selecciona la primera línea tangente (la línea horizontal).</div>
+                                <div class="step">Selecciona la segunda línea tangente (la línea vertical).</div>
+                                <div class="step">Especifica el radio: <span class="command">4</span> y presiona <span class="command">Enter</span>.</div>
+                            </div>
+                        </div>
+
+                        <div class="example">
+                            <h3>Ejemplo 3.2: Círculo Tangente a Círculo y Línea</h3>
+                            <p>Dibuja un círculo de radio 6 tangente a un círculo existente y una línea cercana.</p>
+                            <div class="steps">
+                                <div class="step">Dibuja un círculo en (10,10) con radio 5.</div>
+                                <div class="step">Dibuja una línea de (20,5) a (20,25).</div>
+                                <div class="step">Activa el comando <span class="command">CÍRCULO</span>.</div>
+                                <div class="step">Escribe <span class="command">TTR</span> y presiona <span class="command">Enter</span>.</div>
+                                <div class="step">Selecciona el primer objeto tangente (el círculo).</div>
+                                <div class="step">Selecciona el segundo objeto tangente (la línea).</div>
+                                <div class="step">Especifica el radio: <span class="command">6</span> y presiona <span class="command">Enter</span>.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de Actividades -->
+        <section class="activities">
+            <h2>Actividades Prácticas</h2>
+            
+            <!-- Actividad 1 -->
+            <div class="card">
+                <div class="card-header">
+                    <span>Actividad 1: El Espejo en la Esquina (TTR + Coordenadas)</span>
+                    <span class="toggle-btn">Mostrar</span>
+                </div>
+                <div class="card-content">
+                    <div class="exercise">
+                        <h3>Objetivo:</h3>
+                        <p>Dibujar el cuarto de círculo (cuarto de espejo) en la esquina de una habitación.</p>
+                        
+                        <h3>Instrucciones:</h3>
+                        <div class="steps">
+                            <div class="step">Dibuja el contorno de una habitación (solo la esquina):</div>
+                            <div class="step">- Línea de 0,10 a 0,0</div>
+                            <div class="step">- Línea de 0,0 a 10,0</div>
+                            <div class="step">Dibuja el círculo tangente a los dos muros con un radio de 3 unidades.</div>
+                            <div class="step">Utiliza <span class="command">RECORTA</span> (TR) para dejar solo el cuarto de círculo dentro de la esquina.</div>
+                        </div>
+
+                        <button class="toggle-btn">Ver Solución</button>
+                        <div class="toggle-content">
+                            <h4>Solución:</h4>
+                            <div class="steps">
+                                <div class="step">1. Activa el comando <span class="command">CÍRCULO</span> (<span class="command">C</span> + <span class="command">Enter</span>).</div>
+                                <div class="step">2. Escribe <span class="command">TTR</span> y presiona <span class="command">Enter</span>.</div>
+                                <div class="step">3. Selecciona la línea vertical (0,10 a 0,0).</div>
+                                <div class="step">4. Selecciona la línea horizontal (0,0 a 10,0).</div>
+                                <div class="step">5. Especifica el radio: <span class="command">3</span> y presiona <span class="command">Enter</span>.</div>
+                                <div class="step">6. El centro del círculo final es (3,3).</div>
+                                <div class="step">7. Usa el comando <span class="command">RECORTA</span> (<span class="command">TR</span> + <span class="command">Enter</span> dos veces) para eliminar las partes del círculo que sobresalen de la esquina.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Actividad 2 -->
+            <div class="card">
+                <div class="card-header">
+                    <span>Actividad 2: El Soporte Central (2P + Modificación)</span>
+                    <span class="toggle-btn">Mostrar</span>
+                </div>
+                <div class="card-content">
+                    <div class="exercise">
+                        <h3>Objetivo:</h3>
+                        <p>Dibujar un soporte circular que abarque el espacio exacto entre dos puntos específicos de dos objetos.</p>
+                        
+                        <h3>Instrucciones:</h3>
+                        <div class="steps">
+                            <div class="step">Dibuja un RECTÁNGULO (REC) de 10x10, comenzando en 5,5.</div>
+                            <div class="step">Dibuja una LÍNEA (L) de (15,15) a (25,15).</div>
+                            <div class="step">Dibuja un círculo cuyo diámetro comience en el punto <strong>medio</strong> de la línea (P1) y termine en la esquina <strong>superior izquierda</strong> del rectángulo (P2).</div>
+                        </div>
+
+                        <button class="toggle-btn">Ver Solución</button>
+                        <div class="toggle-content">
+                            <h4>Solución:</h4>
+                            <div class="steps">
+                                <div class="step">1. Punto P1 (Punto Medio de la línea): 20,15</div>
+                                <div class="step">2. Punto P2 (Esquina Superior Izquierda del rectángulo): 5,15</div>
+                                <div class="step">3. Activa el comando <span class="command">CÍRCULO</span> (<span class="command">C</span> + <span class="command">Enter</span>).</div>
+                                <div class="step">4. Escribe <span class="command">2P</span> y presiona <span class="command">Enter</span>.</div>
+                                <div class="step">5. Especifica el primer punto: <span class="command">20,15</span> y presiona <span class="command">Enter</span>.</div>
+                                <div class="step">6. Especifica el segundo punto: <span class="command">5,15</span> y presiona <span class="command">Enter</span>.</div>
+                                <div class="step">7. El centro del círculo es (12.5, 15) y su radio es 7.5 unidades.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de Retos -->
+        <section class="challenges">
+            <h2>Retos de Comprensión</h2>
+            
+            <!-- Reto 1 -->
+            <div class="card">
+                <div class="card-header">
+                    <span>Reto 1: El Centro Desplazado (Coordenadas Relativas)</span>
+                    <span class="toggle-btn">Mostrar</span>
+                </div>
+                <div class="card-content">
+                    <div class="challenge">
+                        <h3>¿Puedes dibujar un círculo cuyo centro esté desplazado de un punto existente?</h3>
+                        <p>Dibuja un círculo de radio 4, cuyo centro se ubique <strong>5 unidades a la derecha</strong> y <strong>3 unidades hacia abajo</strong> del punto final de una línea trazada de (0,0) a (10,10).</p>
+                        
+                        <div class="steps">
+                            <div class="step">1. Dibuja una LÍNEA (L) de 0,0 a 10,10.</div>
+                            <div class="step">2. Activa el comando CÍRCULO (C).</div>
+                            <div class="step">3. Para el punto central, usa una coordenada relativa desde el punto final de la línea.</div>
+                            <div class="step">4. Especifica el radio: 4.</div>
+                        </div>
+
+                        <button class="toggle-btn">Ver Pista</button>
+                        <div class="toggle-content">
+                            <p>Recuerda que para usar coordenadas relativas en AutoCAD, puedes usar el símbolo @ seguido de los desplazamientos en X y Y. Por ejemplo, @5,-3 se traduce como "5 unidades a la derecha y 3 unidades hacia abajo" desde el último punto seleccionado.</p>
+                        </div>
+
+                        <button class="toggle-btn" style="margin-top: 10px;">Ver Solución</button>
+                        <div class="toggle-content">
+                            <h4>Solución:</h4>
+                            <div class="steps">
+                                <div class="step">1. Dibuja la línea: <span class="command">L</span> + <span class="command">Enter</span>, luego <span class="command">0,0</span> + <span class="command">Enter</span>, <span class="command">10,10</span> + <span class="command">Enter</span>.</div>
+                                <div class="step">2. Activa el comando CÍRCULO: <span class="command">C</span> + <span class="command">Enter</span>.</div>
+                                <div class="step">3. Para el centro del círculo, selecciona el punto final de la línea (10,10) y luego escribe <span class="command">@5,-3</span> + <span class="command">Enter</span>.</div>
+                                <div class="step">4. Especifica el radio: <span class="command">4</span> + <span class="command">Enter</span>.</div>
+                                <div class="step">5. El centro del círculo estará en (15,7).</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reto 2 -->
+            <div class="card">
+                <div class="card-header">
+                    <span>Reto 2: El Círculo entre Tangentes Paralelas</span>
+                    <span class="toggle-btn">Mostrar</span>
+                </div>
+                <div class="card-content">
+                    <div class="challenge">
+                        <h3>¿Puedes dibujar un círculo tangente a dos líneas paralelas?</h3>
+                        <p>Dibuja un círculo de radio desconocido que sea tangente a <strong>dos líneas paralelas</strong> separadas exactamente 15 unidades.</p>
+                        
+                        <div class="steps">
+                            <div class="step">1. Dibuja la primera línea (L) de 0,0 a 10,0.</div>
+                            <div class="step">2. Utiliza el comando <span class="command">DESFASE</span> (OFFSET, O) para crear una línea paralela a 15 unidades de distancia.</div>
+                            <div class="step">3. Dibuja un círculo que sea tangente a ambas líneas (usa TTR).</div>
+                            <div class="step">¿Cuál es el radio que debes introducir?</div>
+                        </div>
+
+                        <button class="toggle-btn">Ver Pista</button>
+                        <div class="toggle-content">
+                            <p>Recuerda que para que un círculo sea tangente a dos líneas paralelas, la distancia entre las líneas debe ser igual al diámetro del círculo. Si la distancia es de 15 unidades, ¿cuál sería el radio?</p>
+                        </div>
+
+                        <button class="toggle-btn" style="margin-top: 10px;">Ver Solución</button>
+                        <div class="toggle-content">
+                            <h4>Solución:</h4>
+                            <div class="steps">
+                                <div class="step">1. Dibuja la primera línea: <span class="command">L</span> + <span class="command">Enter</span>, luego <span class="command">0,0</span> + <span class="command">Enter</span>, <span class="command">10,0</span> + <span class="command">Enter</span>.</div>
+                                <div class="step">2. Activa el comando <span class="command">DESFASE</span> (o <span class="command">O</span> + <span class="command">Enter</span>).</div>
+                                <div class="step">3. Especifica la distancia de desfase: <span class="command">15</span> + <span class="command">Enter</span>.</div>
+                                <div class="step">4. Selecciona la línea y haz clic por encima de ella para crear la línea paralela superior.</div>
+                                <div class="step">5. Activa el comando <span class="command">CÍRCULO</span> (<span class="command">C</span> + <span class="command">Enter</span>).</div>
+                                <div class="step">6. Escribe <span class="command">TTR</span> + <span class="command">Enter</span>.</div>
+                                <div class="step">7. Selecciona la primera línea (inferior).</div>
+                                <div class="step">8. Selecciona la segunda línea (superior).</div>
+                                <div class="step">9. El radio debe ser la mitad de la distancia entre las líneas: <span class="command">7.5</span> + <span class="command">Enter</span>.</div>
+                                <div class="step">10. El círculo se dibujará exactamente entre las dos líneas, tangente a ambas.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reto 3 -->
+            <div class="card">
+                <div class="card-header">
+                    <span>Reto 3: Círculo Inscrito</span>
+                    <span class="toggle-btn">Mostrar</span>
+                </div>
+                <div class="card-content">
+                    <div class="challenge">
+                        <h3>¿Puedes dibujar un círculo inscrito en un triángulo?</h3>
+                        <p>Dibuja un círculo <strong>perfectamente inscrito</strong> (tangente a los tres lados) dentro de un triángulo equilátero que tiene un lado de 20 unidades.</p>
+                        
+                        <div class="steps">
+                            <div class="step">1. Dibuja el triángulo equilátero (puedes usar el comando POLÍGONO).</div>
+                            <div class="step">2. Utiliza el comando CÍRCULO con la opción <strong>3P</strong> (3 Puntos).</div>
+                            <div class="step">3. Usa el comando <strong>TAN</strong> (Tangente) para seleccionar cada lado del triángulo.</div>
+                        </div>
+
+                        <button class="toggle-btn">Ver Pista</button>
+                        <div class="toggle-content">
+                            <p>El comando CÍRCULO con la opción 3P te permite definir un círculo que pase por tres puntos. Al combinar esto con la opción TAN (Tangente), puedes crear un círculo que sea tangente a tres objetos. Para un triángulo equilátero, el centro del círculo inscrito coincidirá con el centroide del triángulo.</p>
+                        </div>
+
+                        <button class="toggle-btn" style="margin-top: 10px;">Ver Solución</button>
+                        <div class="toggle-content">
+                            <h4>Solución:</h4>
+                            <div class="steps">
+                                <div class="step">1. Dibuja un triángulo equilátero de 20 unidades de lado:</div>
+                                <div class="step">   - Usa el comando <span class="command">POLÍGONO</span> (<span class="command">POL</span> + <span class="command">Enter</span>).</div>
+                                <div class="step">   - Especifica el número de lados: <span class="command">3</span> + <span class="command">Enter</span>.</div>
+                                <div class="step">   - Especifica el centro: <span class="command">0,0</span> + <span class="command">Enter</span>.</div>
+                                <div class="step">   - Selecciona la opción <span class="command">Inscrito en círculo</span> o <span class="command">Circunscrito en círculo</span> según prefieras.</div>
+                                <div class="step">   - Especifica el radio: <span class="command">10</span> + <span class="command">Enter</span>.</div>
+                                <div class="step">2. Para dibujar el círculo inscrito:</div>
+                                <div class="step">   - Activa el comando <span class="command">CÍRCULO</span> (<span class="command">C</span> + <span class="command">Enter</span>).</div>
+                                <div class="step">   - Escribe <span class="command">3P</span> + <span class="command">Enter</span>.</div>
+                                <div class="step">   - Escribe <span class="command">TAN</span> + <span class="command">Enter</span> y selecciona el primer lado del triángulo.</div>
+                                <div class="step">   - Escribe <span class="command">TAN</span> + <span class="command">Enter</span> y selecciona el segundo lado.</div>
+                                <div class="step">   - Escribe <span class="command">TAN</span> + <span class="command">Enter</span> y selecciona el tercer lado.</div>
+                                <div class="step">3. El círculo se dibujará perfectamente inscrito en el triángulo, tocando los tres lados.</div>
+                            </div>
+                            <p><strong>Nota:</strong> El radio del círculo inscrito en un triángulo equilátero de lado 20 unidades es aproximadamente 5.77 unidades.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; JMGV-PTEL-2025 Todos los derechos reservados</p>
+        </div>
+    </footer>
+
+    <script>
+        // Script para los acordeones
+        document.addEventListener('DOMContentLoaded', function() {
+            const cardHeaders = document.querySelectorAll('.card-header');
+            
+            cardHeaders.forEach(header => {
+                const toggleBtn = header.querySelector('.toggle-btn');
+                const card = header.parentElement;
+                
+                header.addEventListener('click', () => {
+                    card.classList.toggle('active');
+                    const content = header.nextElementSibling;
+                    
+                    if (card.classList.contains('active')) {
+                        toggleBtn.textContent = 'Ocultar';
+                        toggleBtn.classList.add('active');
+                    } else {
+                        toggleBtn.textContent = 'Mostrar';
+                        toggleBtn.classList.remove('active');
+                    }
+                });
+            });
+
+            // Script para los botones de alternar contenido
+            const toggleButtons = document.querySelectorAll('.toggle-btn');
+            
+            toggleButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.stopPropagation(); // Evita que el evento se propague al card-header
+                    const content = this.nextElementSibling;
+                    const isActive = this.classList.toggle('active');
+                    
+                    if (isActive) {
+                        content.style.display = 'block';
+                        this.textContent = this.textContent.replace('Mostrar', 'Ocultar');
+                    } else {
+                        content.style.display = 'none';
+                        this.textContent = this.textContent.replace('Ocultar', 'Mostrar');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

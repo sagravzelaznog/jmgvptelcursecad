@@ -1,0 +1,125 @@
+==================================================
+EJERCICIOS: COMANDO ESTIRAR (STRETCH) EN AUTOCAD
+==================================================
+
+El comando ESTIRAR (S o STRETCH) se utiliza para alargar o acortar objetos que cruzan o están dentro de un área de selección. La clave del éxito es la **ventana de captura** (Crossing Window o Crossing Polygon).
+
+Regla esencial:
+- Los vértices de los objetos que están **dentro** de la ventana de captura se mueven.
+- Las partes del objeto que **cruzan** el límite de la ventana se estiran (se mueven solo los puntos finales capturados).
+- Los objetos que están **completamente fuera** de la ventana de captura **no se modifican**.
+
+--------------------------------------------------
+I. MÉTODOS DE ESTIRAMIENTO (2 EJEMPLOS POR MÉTODO)
+--------------------------------------------------
+
+Método 1: Estiramiento por Coordenadas Relativas (Vector de Desplazamiento)
+
+Se utiliza un vector (una distancia y dirección precisas) para mover los vértices capturados.
+
+Ejemplo 1.1: Alargar un Muro Rectangular
+Instrucciones: Alarga un rectángulo de 10x5 en 5 unidades hacia la derecha.
+1. Dibuja un RECTANGULO (REC) de 10x5 en (0,0).
+2. Activa el comando ESTIRAR (S).
+3. **Selección:** Dibuja una **Ventana de Captura** (Crossing Window, de derecha a izquierda) que **cruza** solo el lado derecho del rectángulo. Presiona Enter.
+4. Punto Base (Puede ser cualquier punto, Ej: (0,0)).
+5. Punto de Desplazamiento (Vector): @5,0 (Estirar 5 unidades en X).
+6. La longitud final del rectángulo debe ser 15, y la altura se mantiene en 5.
+
+Ejemplo 1.2: Acortar un Perfil en Ángulo
+Instrucciones: Acorta la parte superior de un perfil en "L" en 2 unidades hacia abajo.
+1. Dibuja una POLILINEA (PL) de (0,10) a (10,10) a (10,0) a (0,0).
+2. Activa ESTIRAR (S).
+3. **Selección:** Dibuja una Ventana de Captura que cruce solo el segmento superior horizontal (10,10 a 0,10). Presiona Enter.
+4. Punto Base (Ej: 0,10).
+5. Punto de Desplazamiento (Vector): @0,-2
+6. El segmento superior ahora se encuentra en Y=8.
+
+---
+
+Método 2: Estiramiento por Referencia a Objeto (Osnap)
+
+Se utiliza un punto geométrico de referencia (Punto Medio, Cuadrante, etc.) para definir la nueva ubicación de los vértices capturados.
+
+Ejemplo 2.1: Estirar para Alinear al Centro
+Instrucciones: Estira un rectángulo para que su lado derecho quede perfectamente alineado con el centro de un círculo.
+1. Dibuja un RECTANGULO (REC) de 10x10 en (0,0).
+2. Dibuja un CÍRCULO (C) en (25,5) con radio 3.
+3. Activa ESTIRAR (S).
+4. **Selección:** Dibuja una Ventana de Captura que **cruce** el lado derecho del rectángulo. Presiona Enter.
+5. Punto Base: Utiliza Osnap **Punto Final** para seleccionar la esquina superior derecha del rectángulo (10,10).
+6. Punto de Desplazamiento: Utiliza Osnap **Centro** para seleccionar el centro del círculo (25,5).
+7. La esquina superior derecha del rectángulo ahora estará en (25,5). El rectángulo ahora tiene una longitud de 25 y una altura de 5 (se estiró y se movió).
+
+Ejemplo 2.2: Estirar para Unir (Alineación con Punto Final)
+Instrucciones: Estira el punto final de una línea para que toque el punto final de otra línea.
+1. Dibuja LINEA 1: de 10,10 a 20,10.
+2. Dibuja LINEA 2: de 30,20 a 40,20.
+3. Activa ESTIRAR (S).
+4. **Selección:** Dibuja una Ventana de Captura que solo capture el punto final derecho de la Línea 1 (20,10). Presiona Enter.
+5. Punto Base: Usa Osnap **Punto Final** (End) para seleccionar el punto capturado (20,10).
+6. Punto de Desplazamiento: Usa Osnap **Punto Final** (End) para seleccionar el punto final izquierdo de la Línea 2 (30,20).
+7. La Línea 1 ahora se extiende de (10,10) a (30,20), uniéndose a la Línea 2.
+
+--------------------------------------------------
+II. ACTIVIDADES SUGERIDAS (SOLUCIÓN OCULTA)
+--------------------------------------------------
+
+ACTIVIDAD 1: El Ajuste del Marco (Estirar y Coordenadas)
+
+Objetivo: Ajustar las dimensiones de un marco sin mover su esquina inferior izquierda.
+Instrucciones:
+1. Dibuja un RECTANGULO (Marco) de 10x15 comenzando en (0,0).
+2. **Paso 1 (Alargar en X):** Estira el lado derecho 5 unidades horizontalmente.
+3. **Paso 2 (Acortar en Y):** Estira el lado superior 3 unidades verticalmente hacia abajo.
+
+<details>
+<summary>Ver Solución (Coordenadas de la Esquina Superior Derecha Final)</summary>
+
+1.  Original: (10, 15).
+2.  Después del Paso 1 (@5,0 en el lado derecho): (15, 15).
+3.  Después del Paso 2 (@0,-3 en el lado superior): (15, 12).
+4.  La esquina inferior izquierda (0,0) se mantuvo fija.
+</details>
+
+---
+
+ACTIVIDAD 2: Movimiento de Ventana (Captura Parcial)
+
+Objetivo: Mover una ventana dibujada en un muro, manteniendo la integridad de las líneas del muro.
+Instrucciones:
+1. Dibuja el MURO: Una línea de (0,10) a (20,10).
+2. Dibuja la VENTANA (representada por una línea): de (5,10) a (10,10). (La ventana está *sobre* el muro).
+3. Dibuja un marco vertical (Línea) para la ventana en (5,12) a (5,8) y (10,12) a (10,8).
+4. **Mover Ventana:** Utiliza ESTIRAR (S) para mover la ventana (las dos líneas verticales y el segmento de la línea horizontal de la ventana) **3 unidades a la derecha**.
+5. **Selección Clave:** La Ventana de Captura debe encerrar los puntos finales de la ventana, pero dejar **fuera** los puntos finales del muro (0,10 y 20,10).
+
+<details>
+<summary>Ver Solución (Coordenadas de la Ventana Desplazada)</summary>
+
+Si la Ventana de Captura seleccionó los cuatro puntos finales internos de la ventana (5, 8; 5, 12; 10, 8; 10, 12) y la línea horizontal de la ventana, al aplicar @3,0, la ventana se moverá sin estirar los límites del muro.
+Las líneas verticales de la ventana se moverán de X=5 a X=8 y de X=10 a X=13. El muro permanecerá en [0, 20].
+</details>
+
+--------------------------------------------------
+III. RETOS DE COMPRENSIÓN (3 RETOS)
+--------------------------------------------------
+
+RETO 1: Estirar sin Vector
+Dibuja un rectángulo de 10x10. Ejecuta ESTIRAR (S). Captura el lado derecho. Punto Base: La esquina superior derecha (10,10). Punto de Desplazamiento: **Presiona ENTER**.
+Verifica: ¿Qué sucede? ¿Por qué la acción no se completa?
+
+---
+
+RETO 2: Estirar Objeto Completo
+Dibuja un círculo. Ejecuta ESTIRAR (S). Intenta dibujar la **Ventana de Captura** para estirar el círculo.
+Verifica: ¿Se puede estirar un círculo? ¿Qué hace el comando ESTIRAR si un objeto cerrado (como un círculo) es **completamente** capturado? (Pista: Intenta capturar un rectángulo por completo).
+
+---
+
+RETO 3: Estirar y Alinear Diagonalmente
+Dibuja un rectángulo de 10x5 en (0,0). Dibuja una línea diagonal de (15,10) a (25,0).
+Ejecuta ESTIRAR (S). Captura el lado derecho del rectángulo.
+Punto Base: La esquina superior derecha del rectángulo (10,5).
+Punto de Desplazamiento: El punto final superior de la línea diagonal (25,10).
+Verifica: ¿Cuál es el nuevo tamaño del rectángulo? ¿El estiramiento fue puramente horizontal o también tuvo un componente vertical?

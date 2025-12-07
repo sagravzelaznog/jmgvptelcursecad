@@ -1,0 +1,114 @@
+==================================================
+EJERCICIOS: TRAZADO DE SOMBREADO (HATCH) EN AUTOCAD
+==================================================
+
+El comando SOMBRADO (HATCH, H) se utiliza para rellenar un área cerrada con un patrón predefinido o un color sólido. Es fundamental para indicar materiales (ladrillo, concreto) o cortes en planos técnicos.
+
+--------------------------------------------------
+I. MÉTODOS DE SELECCIÓN (2 EJEMPLOS POR MÉTODO)
+--------------------------------------------------
+
+El comando HATCH se activa y luego se definen las propiedades (patrón, escala, ángulo) en la cinta de opciones o en la línea de comandos. Los métodos de trazado se refieren a cómo se selecciona el área a rellenar.
+
+Método 1: Designar Puntos Internos (Pick Internal Points)
+
+Este es el método más rápido y común. AutoCAD detecta automáticamente los límites cerrados al hacer clic dentro de ellos.
+
+Ejemplo 1.1: Sombreado de Muro (Patrón Ladrillo)
+Instrucciones: Dibuja un rectángulo de 10x5 unidades y rellénalo con el patrón de ladrillo.
+1. Dibuja un RECTANGULO (REC) de 10x5 unidades.
+2. Activa el comando SOMBRADO (H).
+3. En la cinta de opciones (o línea de comandos), selecciona el tipo de patrón: **AR-BRSTD** (Ladrillo Estándar).
+4. **Haz clic dentro** del rectángulo.
+5. Ajusta la escala (Ej: a 0.5) para que el patrón sea visible.
+
+Ejemplo 1.2: Relleno Sólido para Sección
+Instrucciones: Dibuja un CÍRCULO de radio 5 y rellénalo con un color sólido.
+1. Dibuja un CÍRCULO (C) de radio 5.
+2. Activa el comando SOMBRADO (H).
+3. Selecciona el patrón **SOLID** (Sólido).
+4. Selecciona un color (Ej: Cian).
+5. **Haz clic dentro** del círculo.
+
+---
+
+Método 2: Seleccionar Objetos (Select Objects)
+
+Se utiliza cuando se desea sombrear áreas delimitadas por objetos específicos (líneas, polilíneas, círculos), incluso si la región interna no está totalmente cerrada (aunque el resultado puede ser errático si hay demasiadas aperturas).
+
+Ejemplo 2.1: Sombreado de Polígono
+Instrucciones: Dibuja un polígono (POLIGONO, POL) de 5 lados y rellénalo con el patrón de concreto.
+1. Dibuja un POLIGONO (POL) de 5 lados.
+2. Activa el comando SOMBRADO (H).
+3. Selecciona el patrón: **AR-CONC** (Concreto).
+4. En la cinta de opciones o línea de comandos, elige la opción **Seleccionar Objetos**.
+5. **Haz clic en el borde del Polígono**.
+
+Ejemplo 2.2: Sombreado Complejo (Múltiples Líneas)
+Instrucciones: Dibuja un cuadrado de 10x10 usando **cuatro líneas** separadas (no un rectángulo). Sombréalo.
+1. Dibuja cuatro LINEAS (L) separadas para formar el cuadrado (0,0 a 10,0 a 10,10 a 0,10 a 0,0).
+2. Activa el comando SOMBRADO (H).
+3. Selecciona el patrón **ANSI31** (Acero/Metal).
+4. Elige la opción **Seleccionar Objetos**.
+5. **Haz clic en las cuatro líneas** que forman el límite.
+
+--------------------------------------------------
+II. ACTIVIDADES SUGERIDAS (SOLUCIÓN OCULTA)
+--------------------------------------------------
+
+ACTIVIDAD 1: El Muro Seccionado (Sombreado Anidado)
+
+Objetivo: Simular una sección de muro donde se combinan diferentes patrones.
+Instrucciones:
+1. Dibuja un RECTANGULO grande de 20x5 (Placa Exterior).
+2. Dibuja un RECTANGULO interno de 10x3, centrado dentro del primero (Aislamiento).
+3. **Sombreado 1 (Aislamiento):** Aplica el patrón **NET** al rectángulo interno, con escala **5.0**.
+4. **Sombreado 2 (Muro):** Aplica el patrón **AR-SAND** (Arena) al espacio restante entre los dos rectángulos (la región del 'marco').
+
+<details>
+<summary>Ver Solución (Configuración de Sombreado 2)</summary>
+
+El Sombreado 2 requiere hacer clic **entre** el rectángulo grande y el rectángulo pequeño (en los cuatro segmentos del marco). AutoCAD debe reconocer el rectángulo pequeño como un límite interior, creando un sombreado con "agujero".
+</details>
+
+---
+
+ACTIVIDAD 2: El Tablero de Ajedrez (Escala y Propiedades)
+
+Objetivo: Sombrear un cuadrado con dos patrones que simulan un tablero de ajedrez (Alternando).
+Instrucciones:
+1. Dibuja un RECTANGULO de 10x10 (el tablero).
+2. Dibuja LINEAS para dividir el tablero en 4x4 cuadrados pequeños (2.5x2.5 c/u).
+3. **Sombreado:** Aplica el patrón **SOLID** (Negro) a los cuadrados internos.
+4. **Haz clic** en los 8 cuadrados alternos (como las casillas negras de un tablero).
+
+<details>
+<summary>Ver Solución (Secuencia de Clics y Tipo de Sombreado)</summary>
+
+Si empiezas en la esquina inferior izquierda (0,0):
+- Fila 1: Clic en el Cuadrado 1 (0,0) y Cuadrado 3 (5,0).
+- Fila 2: Clic en el Cuadrado 2 (2.5, 2.5) y Cuadrado 4 (7.5, 2.5).
+... y así sucesivamente. AutoCAD crea un solo objeto de sombreado (HATCH) que cubre las 8 áreas seleccionadas.
+</details>
+
+--------------------------------------------------
+III. RETOS DE COMPRENSIÓN (3 RETOS)
+--------------------------------------------------
+
+RETO 1: El Sombreado en Capa Exclusiva
+Crea una nueva **CAPA** llamada **'Sombreado_Corte'** (Color Gris, Desactivar Ploteo). Dibuja un círculo y aplícale un sombreado (ANSI31). Asegúrate de que **el sombreado resida en la nueva capa**, mientras que el círculo permanece en la capa '0'.
+Verifica: ¿Al apagar la luz de la capa 'Sombreado_Corte', solo desaparece el sombreado?
+
+---
+
+RETO 2: El Sombreado Roto (Polilínea sin Unir)
+Dibuja un cuadrado de 10x10 usando una **POLILINEA** (PL) pero, **deliberadamente, no uses la opción CERRAR**. Deja una pequeña abertura de 0.1 unidades. Intenta sombrear el área usando el método **Designar Puntos Internos**.
+Verifica: ¿AutoCAD te permite sombrear el área? (Pista: Busca la opción **Tolerancia de Separación** en la configuración de HATCH). Si lo sombrea, ¿qué sucede si reduces la tolerancia?
+
+---
+
+RETO 3: El Ángulo Absurdo
+Dibuja un rectángulo de 10x10. Sombréalo con el patrón **LINE**.
+1. **Sombreado 1:** Ángulo de **0 grados**, Escala **1**.
+2. **Sombreado 2:** En la **misma área**, superpón un segundo sombreado (Hatch) con el patrón **LINE**, Ángulo de **90 grados**, Escala **1**.
+Verifica: ¿La combinación de los dos sombreados crea visualmente el patrón **ANSI31** (o una cuadrícula)? ¿Cómo afecta la **Transparencia** de la capa?

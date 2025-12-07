@@ -1,0 +1,114 @@
+==================================================
+EJERCICIOS: TRAZADO DE ELIPSE EN AUTOCAD
+==================================================
+
+El comando ELIPSE (EL) permite dibujar óvalos o formas elípticas. Requiere la definición de los dos ejes: el Eje Mayor (el más largo) y el Eje Menor (el más corto).
+
+--------------------------------------------------
+I. MÉTODOS DE TRAZADO (2 EJEMPLOS POR MÉTODO)
+--------------------------------------------------
+
+Método 1: CENTRO, EJE MAYOR, EJE MENOR (Center, Axis, End)
+
+Se define el punto central y luego la mitad de la longitud del Eje Mayor (radio) y la mitad de la longitud del Eje Menor (radio).
+
+Ejemplo 1.1: Elipse Alargada Horizontal
+Instrucciones: Dibuja una elipse centrada en (0,0). La mitad del Eje Mayor (radio) mide 15 unidades horizontalmente, y la mitad del Eje Menor (radio) mide 5 unidades verticalmente.
+1. Activa el comando ELIPSE (EL).
+2. Escribe C (para seleccionar la opción Centro).
+3. Especifica el Centro: 0,0
+4. Define el punto final del Eje Mayor (semieje X): @15,0
+5. Define el punto final del Eje Menor (semieje Y): 5
+
+Ejemplo 1.2: Elipse Vertical
+Instrucciones: Dibuja una elipse centrada en (30,30). La mitad del Eje Mayor mide 10 unidades verticalmente, y la mitad del Eje Menor mide 4 unidades horizontalmente.
+1. Activa el comando ELIPSE (EL).
+2. Escribe C (Centro).
+3. Especifica el Centro: 30,30
+4. Define el punto final del Eje Mayor (semieje Y): @0,10
+5. Define el punto final del Eje Menor (semieje X): 4
+
+---
+
+Método 2: EXTREMOS DEL EJE, EXTREMO DEL OTRO EJE (Axis End, Other Axis End)
+
+Se define la longitud completa del primer eje (Eje Mayor o Eje Menor) especificando sus dos extremos, y luego la mitad de la longitud del segundo eje.
+
+Ejemplo 2.1: Elipse por Eje Completo
+Instrucciones: Dibuja una elipse donde el Eje Mayor completo va de (10,10) a (30,10). El semieje Menor mide 5 unidades.
+1. Activa el comando ELIPSE (EL).
+2. Especifica el primer punto del Eje: 10,10
+3. Especifica el segundo punto del Eje: 30,10
+4. Define la distancia al otro eje (semieje Menor): 5
+
+Ejemplo 2.2: Elipse Diagonales
+Instrucciones: Dibuja una elipse donde el Eje Mayor completo va de (50,50) a (60,60). El semieje Menor mide 3 unidades.
+1. Activa el comando ELIPSE (EL).
+2. Especifica el primer punto del Eje: 50,50
+3. Especifica el segundo punto del Eje (usa Polares): @14.14<45
+4. Define la distancia al otro eje (semieje Menor): 3
+
+--------------------------------------------------
+II. ACTIVIDADES SUGERIDAS (SOLUCIÓN OCULTA)
+--------------------------------------------------
+
+ACTIVIDAD 1: La Perforación Inclinada (Centro y Rotación)
+
+Objetivo: Dibujar una elipse que representa una perforación en ángulo en una placa, usando el método de Centro.
+Instrucciones:
+1. Dibuja la placa (un rectángulo grande) en (0,0) con dimensiones 50x50.
+2. Dibuja una elipse centrada en (25,25).
+3. Utiliza la opción **ROTACIÓN** (R) del comando ELIPSE.
+4. Rotación: 30 grados.
+5. Semieje Mayor: 10
+6. Semieje Menor: 4
+7. Resultado: Una elipse de 20x8 rotada 30 grados.
+
+<details>
+<summary>Ver Solución (Coordenadas de los Extremos del Eje Mayor)</summary>
+
+Si la elipse tiene el centro en (25,25), el Eje Mayor (semieje 10) rotado a 30 grados terminará en:
+Punto 1: $25 + 10 \cos(30^\circ)$, $25 + 10 \sin(30^\circ) = (33.66, 30)$
+Punto 2: $25 - 10 \cos(30^\circ)$, $25 - 10 \sin(30^\circ) = (16.34, 20)$
+</details>
+
+---
+
+ACTIVIDAD 2: La Base Ovalada (Extremos del Eje y Coordenadas Relativas)
+
+Objetivo: Dibujar una base ovalada definiendo el ancho total y luego la profundidad.
+Instrucciones:
+1. Activa el comando ELIPSE (EL).
+2. Eje 1, Punto A: 10,10
+3. Eje 1, Punto B: Utiliza coordenadas relativas para trazar el eje completo de 40 unidades horizontalmente.
+4. Distancia al otro eje (semieje Menor): 8 unidades.
+
+<details>
+<summary>Ver Solución (Coordenadas de Entrada y Centro)</summary>
+
+1.  Punto A: 10,10.
+2.  Punto B: @40,0 (que es 50,10).
+3.  Semieje Menor: 8.
+4.  El centro de la elipse debe ser: (30,10).
+5.  El punto superior del Eje Menor debe ser: (30, 18).
+</details>
+
+--------------------------------------------------
+III. RETOS DE COMPRENSIÓN (3 RETOS)
+--------------------------------------------------
+
+RETO 1: El Arco Elíptico (ELIPSE y RECORTA)
+Dibuja una elipse de 20x10 (Eje Mayor 20, Eje Menor 10) centrada en (0,0). A continuación, utiliza el comando **RECORTA** (TR) y un objeto de corte adecuado para dejar solo el cuarto de elipse en el cuadrante superior derecho.
+Verifica: ¿La entidad resultante es una polilínea o un arco elíptico?
+
+---
+
+RETO 2: El Círculo Disfrazado
+Dibuja una elipse comenzando en (50,50), y especifica el segundo extremo del Eje en (70,50). Luego, define la distancia al otro eje (semieje Menor) en **10**.
+Verifica: ¿La figura resultante es geométrica y visualmente indistinguible de un **CÍRCULO**? ¿Por qué sucede esto?
+
+---
+
+RETO 3: El Ancho Específico
+Dibuja una línea horizontal de 10 unidades. A continuación, inicia una elipse donde el primer punto del eje sea el punto inicial de la línea, y el segundo punto del eje sea el punto final de la línea. Luego, especifica la distancia al otro eje (semieje Menor) para que la elipse tenga un ancho total (Eje Menor completo) de **6 unidades**.
+Pista: ¿Qué valor debes ingresar para el semieje Menor si el Eje Menor completo debe medir 6?

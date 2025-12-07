@@ -1,0 +1,112 @@
+==================================================
+EJERCICIOS: COMANDO CAPAS (LAYER) EN AUTOCAD
+==================================================
+
+El comando CAPAS (LA) abre el Administrador de Propiedades de Capas, que permite controlar la visibilidad, apariencia y comportamiento de los objetos en el dibujo. Una buena gestión de capas es crucial para la impresión y la edición.
+
+--------------------------------------------------
+I. MÉTODOS DE CREACIÓN Y CONFIGURACIÓN (2 EJEMPLOS POR MANERA)
+--------------------------------------------------
+
+Método 1: Creación y Propiedades Básicas (Nombre y Color)
+
+Se enfoca en establecer la jerarquía visual mediante nombres claros y colores distintivos.
+
+Ejemplo 1.1: Creación de Capas Arquitectónicas
+Instrucciones: Crea las capas base para un proyecto y asigna colores estándar.
+1. Activa el comando CAPAS (LA).
+2. Haz clic en el botón **Nueva Capa** (New Layer).
+3. Nombra la primera capa: **01_MUROS_EXISTENTES**.
+4. Nombra la segunda capa: **02_PROYECCIONES**.
+5. Asigna el **Color** 1 (Rojo) a 01_MUROS_EXISTENTES.
+6. Asigna el **Color** 8 (Gris) a 02_PROYECCIONES.
+
+Ejemplo 1.2: Configuración de Impresión y Grosor
+Instrucciones: Modifica las propiedades para controlar la salida final del dibujo.
+1. En la capa **01_MUROS_EXISTENTES**, haz clic en la columna **Grosor de Línea** (Lineweight).
+2. Asigna un grosor de **0.40 mm** (para que se imprima grueso).
+3. En la capa **02_PROYECCIONES**, haz clic en el icono de **Plotear** (Plot) para desactivarlo (No Plotear).
+4. Verifica: Los objetos en 02_PROYECCIONES serán visibles en pantalla, pero no aparecerán en el plano impreso.
+
+---
+
+Método 2: Control de Visibilidad y Estado (Encender/Congelar/Bloquear)
+
+Se utiliza para aislar objetos durante la edición o para protegerlos de modificaciones accidentales.
+
+Ejemplo 2.1: Bloquear para Proteger
+Instrucciones: Dibuja un rectángulo en la capa 0. Crea una nueva capa y bloquea esa capa.
+1. Crea la capa **BLOQUEADO_ANOTACIONES** y asígnale Color Magenta.
+2. Dibuja un CÍRCULO y colócalo en la capa **0** (Capa actual).
+3. Dibuja un RECTANGULO y muévelo a la capa **BLOQUEADO_ANOTACIONES**.
+4. En el Administrador de Capas, haz clic en el icono de **Bloquear** (candado) para **BLOQUEADO_ANOTACIONES**.
+5. Intenta seleccionar o mover el rectángulo: AutoCAD no lo permitirá.
+
+Ejemplo 2.2: Congelar para Acelerar la Edición
+Instrucciones: Dibuja dos líneas en capas diferentes y congela una capa para eliminarla de la memoria gráfica.
+1. Crea la capa **BASE_REFERENCIA** y asígnale Color Verde.
+2. Dibuja LINEA A en la capa actual (0) y LINEA B en **BASE_REFERENCIA**.
+3. En el Administrador, haz clic en el icono **Congelar** (Freeze/copo de nieve) para **BASE_REFERENCIA**.
+4. LINEA B desaparecerá.
+5. Verifica: El comando ZOOM EXTENSION (Z, E) ignorará la línea congelada, ya que no se carga en memoria.
+
+--------------------------------------------------
+II. ACTIVIDADES SUGERIDAS (SOLUCIÓN OCULTA)
+--------------------------------------------------
+
+ACTIVIDAD 1: El Objeto de Doble Propósito (Color y Grosor)
+
+Objetivo: Dibujar un único objeto con dos propiedades visuales distintas usando las capas.
+Instrucciones:
+1. Crea la capa **PLANO** (Color Blanco/Negro, Grosor **0.50 mm**).
+2. Crea la capa **DETALLE** (Color Amarillo, Grosor **0.25 mm**).
+3. Dibuja un RECTANGULO (REC) de 10x10. Colócalo en la capa **PLANO**.
+4. **COPIA** el rectángulo en su mismo lugar (superpuesto).
+5. Mueve la **copia** a la capa **DETALLE**.
+6. **Edición:** En el Administrador, establece el color de la capa **PLANO** como **Azul**.
+7. Verifica: El cuadrado exterior (PLANO) debe ser azul y grueso, y el interior (DETALLE) debe ser amarillo y delgado.
+
+<details>
+<summary>Ver Solución (Propiedad Visible sin Impresión)</summary>
+
+Si intentas imprimir el resultado, los bordes exteriores azules serán más gruesos que los bordes amarillos, demostrando que dos objetos superpuestos en distintas capas pueden tener una jerarquía gráfica clara.
+</details>
+
+---
+
+ACTIVIDAD 2: Aislamiento para Edición Rápida
+
+Objetivo: Utilizar el comando AISLAR CAPA (LAYISO) para editar solo un conjunto de objetos.
+Instrucciones:
+1. Crea las capas: **A_Mobiliario**, **B_Ejes**, **C_Cotaciones**.
+2. Dibuja: Un CÍRCULO en A_Mobiliario, una LÍNEA en B_Ejes y un RECTANGULO en C_Cotaciones.
+3. Activa el comando **AISLAR CAPA** (LAYISO).
+4. Haz clic en el **CÍRCULO** (A_Mobiliario).
+5. **Edición:** Intenta seleccionar la Línea o el Rectángulo (deben estar apagados/bloqueados).
+6. Utiliza el comando **DESAISLAR CAPA** (LAYUNISO).
+
+<details>
+<summary>Ver Solución (Configuración de LAYISO)</summary>
+
+El comando LAYISO (AISLAR CAPA) por defecto apaga (Turn Off) o Congela (Freeze) todas las demás capas, dejando solo la capa seleccionada encendida/descongelada. El comando LAYUNISO (DESAISLAR CAPA) revierte ese estado, encendiendo o descongelando las capas que fueron modificadas.
+</details>
+
+--------------------------------------------------
+III. RETOS DE COMPRENSIÓN (3 RETOS)
+--------------------------------------------------
+
+RETO 1: Borrado vs. Congelado
+Crea un círculo en la capa **CONGELAR_PRUEBA**. Congela la capa. Luego, activa el comando **BORRAR** (ERASE, E) y escribe **TODO** (ALL).
+Verifica: ¿Se borra el círculo? ¿Qué objetos (congelados, bloqueados, apagados) son ignorados por el comando BORRAR TODO?
+
+---
+
+RETO 2: La Capa de Defpoints
+Crea una **COTA** (DLI). Abre el Administrador de Capas (LA).
+Verifica: ¿AutoCAD crea automáticamente una capa llamada **Defpoints**? ¿Qué característica crucial tiene esa capa en la columna de **Plotear**? (Pista: Es la capa de definición de cotas y no se plotea por defecto).
+
+---
+
+RETO 3: Cambiar Capa Actual Bloqueada
+Crea una capa **PELIGRO** y **BLOQUÉALA** (Candado). Intenta hacer clic derecho sobre la capa **PELIGRO** y selecciona **Hacer Actual** (Make Current).
+Verifica: ¿AutoCAD permite que una capa bloqueada sea la capa actual para el dibujo? ¿Por qué sí o por qué no? (Pista: Sí lo permite, pero todo lo que se dibuje en ella estará inmediatamente protegido).

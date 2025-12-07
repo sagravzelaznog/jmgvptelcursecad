@@ -1,0 +1,115 @@
+==================================================
+EJERCICIOS: COMANDO PROPIEDADES (PROPERTIES) EN AUTOCAD
+==================================================
+
+La paleta PROPIEDADES (PR) permite ver y modificar todos los atributos de una o varias entidades seleccionadas (capa, color, tipo de línea, geometría, etc.). Para activarla, usa el comando PR o Ctrl+1.
+
+--------------------------------------------------
+I. MÉTODOS DE MODIFICACIÓN (2 EJEMPLOS POR CADA MANERA)
+--------------------------------------------------
+
+Método 1: Modificación de Propiedades Generales (Vista Rápida)
+
+Se modifican los atributos básicos del objeto sin necesidad de usar el Administrador de Capas.
+
+Ejemplo 1.1: Cambio de Capa y Color
+Instrucciones: Dibuja un círculo. Muévelo a una capa diferente y cambia su color para que sea independiente de la capa.
+1. Dibuja un CÍRCULO (C) en la Capa 0.
+2. Crea una nueva capa llamada **'Mobiliario'** (Color Azul).
+3. Selecciona el círculo.
+4. Activa la paleta PROPIEDADES (PR).
+5. En la sección **General**:
+   - Cambia **Capa** a **Mobiliario**.
+   - Cambia **Color** de "PorCapa" (ByLayer) a **Amarillo**.
+6. El círculo es ahora amarillo, aunque su capa sea azul.
+
+Ejemplo 1.2: Cambio de Tipo de Línea y Escala
+Instrucciones: Dibuja una línea. Aplícale un tipo de línea discontinua y ajusta su escala para que sea visible.
+1. Dibuja una LINEA (L) de 20 unidades.
+2. Abre la paleta PROPIEDADES (PR) y selecciona la línea.
+3. En la sección **General**:
+   - En **Tipo de Línea** (Linetype), selecciona un patrón discontinuo (Ej: **DASHED**). (Si no aparece, cárgalo usando el comando LINETYPE).
+   - Cambia la **Escala de Tipo de Línea** (Linetype Scale) a **5.0** para hacer visible el patrón.
+
+---
+
+Método 2: Modificación de Propiedades Geométricas (Geometría)
+
+Se editan las dimensiones directas o la ubicación de una entidad.
+
+Ejemplo 2.1: Modificar Radio de Círculo
+Instrucciones: Dibuja un círculo. Aumenta su radio y cambia su posición central usando la paleta.
+1. Dibuja un CÍRCULO (C) en (10,10) con Radio 5.
+2. Selecciona el círculo y abre PROPIEDADES (PR).
+3. En la sección **Geometría**:
+   - Cambia **Centro X** a **25**.
+   - Cambia **Radio** a **8.0**.
+4. El círculo se mueve y se agranda simultáneamente.
+
+Ejemplo 2.2: Redimensionar Rectángulo por Vértice
+Instrucciones: Dibuja un rectángulo. Aumenta su longitud modificando la coordenada de un vértice.
+1. Dibuja un RECTANGULO (REC) de 10x5 en (0,0).
+2. Selecciona el rectángulo. Abre PROPIEDADES (PR).
+3. La polilínea mostrará múltiples vértices. Cambia la coordenada **Final X** del rectángulo a **30** (donde termine el eje X).
+4. El rectángulo se estira horizontalmente (Longitud X ahora es 30).
+
+--------------------------------------------------
+II. ACTIVIDADES SUGERIDAS (SOLUCIÓN OCULTA)
+--------------------------------------------------
+
+ACTIVIDAD 1: Estandarización de Texto (MTEXT)
+
+Objetivo: Utilizar la paleta Propiedades para unificar el estilo de texto y añadir una rotación precisa.
+Instrucciones:
+1. Dibuja un TEXTO DE LÍNEAS MÚLTIPLES (MTEXT, MT) con fuente Arial y Altura 5.
+2. Dibuja un segundo MTEXT con fuente Times New Roman y Altura 2.
+3. **Paso A (Unificar):** Selecciona **ambos** textos. En la paleta PROPIEDADES, cambia la altura del texto a **3** y el **Estilo** a uno estándar (Ej: Standard).
+4. **Paso B (Rotación):** Con ambos textos seleccionados, cambia el valor de **Rotación** a **330.0** (o -30 grados).
+
+<details>
+<summary>Ver Solución (Propiedad Geometría y Rotación)</summary>
+
+La clave es que al seleccionar múltiples entidades, la paleta PROPIEDADES solo muestra las propiedades comunes. Si la propiedad de rotación se cambió a 330, ambas entidades girarán alrededor de su punto de inserción para tener una inclinación hacia la parte inferior derecha.
+</details>
+
+---
+
+ACTIVIDAD 2: El Reemplazo Rápido de Bloque
+
+Objetivo: Cambiar la definición de un bloque ya insertado por otro.
+Instrucciones:
+1. Dibuja un CÍRCULO, créalo como bloque llamado **A_Círculo**. Insértalo en el dibujo.
+2. Dibuja un RECTANGULO, créalo como bloque llamado **B_Rect**.
+3. **Reemplazo:** Selecciona la instancia del bloque **A_Círculo** en el dibujo.
+4. Abre la paleta PROPIEDADES (PR).
+5. En la sección **Varios**, busca la propiedad **Nombre**.
+6. Cambia el valor de **Nombre** de "A_Círculo" a **B_Rect**.
+7. **Resultado:** El círculo insertado debe convertirse inmediatamente en el rectángulo.
+
+<details>
+<summary>Ver Solución (Propiedad Modificada)</summary>
+
+El cambio del **Nombre** del bloque en la paleta PROPIEDADES permite la sustitución rápida de una instancia de bloque por otra que ya esté definida en el dibujo.
+</details>
+
+--------------------------------------------------
+III. RETOS DE COMPRENSIÓN (3 RETOS)
+--------------------------------------------------
+
+RETO 1: Propiedades sin Seleccionar
+Activa la paleta PROPIEDADES (PR). No selecciones **ningún** objeto.
+Verifica: ¿Qué información muestra la paleta de Propiedades? (Pista: Muestra las propiedades del dibujo actual, como la Capa Actual, Estilo de Cota, etc.).
+
+---
+
+RETO 2: La Cota y la Precisión
+Dibuja una línea de 10 unidades. Crea una **COTA LINEAL** (DLI) para medirla (valor 10.00). Selecciona la cota y abre PROPIEDADES (PR).
+Busca la sección **Unidades Principales**. Cambia el valor de **Precisión** a **4** decimales.
+Verifica: ¿El valor de la cota visible se modifica (a 10.0000)? ¿La modificación de la precisión afecta solo a la cota seleccionada o al estilo de cota general?
+
+---
+
+RETO 3: Propiedades de la Polilínea
+Dibuja una **POLILINEA** (PL) con dos segmentos. Selecciona la polilínea y abre PROPIEDADES (PR).
+Busca la propiedad **Global Width** (Grosor Global). Cambia el valor a **1.0**.
+Verifica: ¿Toda la polilínea adquiere un grosor uniforme? ¿Cómo se diferencia esta propiedad del cambio de **Grosor de Línea** (Lineweight) en la sección General? (Pista: Global Width es parte de la geometría de la polilínea y siempre es visible; Lineweight es una propiedad de impresión y visibilidad controlada).

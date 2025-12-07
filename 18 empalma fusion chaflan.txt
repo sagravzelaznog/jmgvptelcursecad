@@ -1,0 +1,160 @@
+==================================================
+EJERCICIOS: COMANDOS EMPALME, CHAFLÁN Y FUSIÓN
+==================================================
+
+Estos comandos se usan para modificar las esquinas y uniones de dos objetos, típicamente líneas o polilíneas, pero también arcos y círculos.
+
+1.  **EMPALME (FILLET, F):** Redondea esquinas con un radio específico.
+2.  **CHAFLÁN (CHAMFER, CHA):** Crea una esquina biselada o cortada con distancias o ángulos específicos.
+3.  **FUSIÓN (JOIN, J / PEDIT, PE):** Une líneas, arcos o polilíneas en una sola entidad.
+
+--------------------------------------------------
+I. COMANDO EMPALME (FILLET, F)
+--------------------------------------------------
+
+Método 1: Empalme con Radio Definido
+
+Se define el radio del arco que suavizará la esquina antes de seleccionar las dos entidades.
+
+Ejemplo 1.1: Redondeo de Esquina
+Instrucciones: Dibuja dos líneas que se cruzan y redondéalas con un radio de 5 unidades.
+1. Dibuja LINEA 1: de (10,10) a (20,10).
+2. Dibuja LINEA 2: de (20,10) a (20,20). (Una esquina de 90 grados).
+3. Activa el comando EMPALME (F).
+4. Escribe **R** (para seleccionar Radio).
+5. Especifica el radio: **5**.
+6. Haz clic en LINEA 1 y luego en LINEA 2.
+7. La esquina debe ser reemplazada por un arco de radio 5.
+
+Ejemplo 1.2: Empalme Cero (Unir sin Radio)
+Instrucciones: Dibuja dos líneas que no se tocan. Únelas para formar una esquina de 90 grados sin redondeo.
+1. Dibuja LINEA 1: de (30,10) a (40,10).
+2. Dibuja LINEA 2: de (50,20) a (50,30).
+3. Activa EMPALME (F).
+4. Escribe **R** (Radio).
+5. Especifica el radio: **0** (Cero).
+6. Haz clic en LINEA 1 y luego en LINEA 2.
+7. Las líneas se extenderán (o recortarán) hasta formar una esquina aguda.
+
+---
+
+Método 2: Empalme con Opción POLILÍNEA (Polyline, P)
+
+Se utiliza para aplicar el mismo radio de empalme a todas las esquinas de una polilínea cerrada a la vez.
+
+Ejemplo 2.1: Redondeo Rápido de Marco
+Instrucciones: Dibuja un rectángulo y redondea todas sus esquinas con un radio de 2 unidades.
+1. Dibuja un RECTANGULO (REC) de 10x10.
+2. Activa EMPALME (F).
+3. Escribe **R** (Radio).
+4. Especifica el radio: **2**.
+5. Escribe **P** (para seleccionar Polilínea).
+6. Haz clic en el rectángulo.
+7. Las cuatro esquinas deben redondearse simultáneamente.
+
+--------------------------------------------------
+II. COMANDO CHAFLÁN (CHAMFER, CHA)
+--------------------------------------------------
+
+Método 1: Chaflán por Distancia (Distance, D)
+
+Se definen dos distancias (una para cada línea de la esquina) que se cortarán desde el vértice.
+
+Ejemplo 2.2: Bisel Asimétrico (5x2)
+Instrucciones: Dibuja un cuadrado y chaflana una esquina cortando 5 unidades en el eje X y 2 unidades en el eje Y.
+1. Dibuja un RECTANGULO (REC) de 20x20.
+2. Activa el comando CHAFLÁN (CHA).
+3. Escribe **D** (para seleccionar Distancia).
+4. Especifica la primera distancia: **5**.
+5. Especifica la segunda distancia: **2**.
+6. Haz clic en el primer lado (X=20) y luego en el segundo lado (Y=20) de una esquina.
+7. El bisel tendrá una longitud de corte de 5 en la primera línea seleccionada y 2 en la segunda.
+
+---
+
+Método 2: Chaflán por Ángulo (Angle, A)
+
+Se define una distancia de corte en la primera línea seleccionada y el ángulo que formará el bisel con esa línea.
+
+Ejemplo 2.3: Bisel a 30 Grados
+Instrucciones: Chaflana una esquina cortando 3 unidades en el primer lado y formando un ángulo de 30 grados con ese lado.
+1. Dibuja una esquina de 90 grados (Ej: (0,0) a (10,0) a (10,10)).
+2. Activa CHAFLÁN (CHA).
+3. Escribe **A** (para seleccionar Ángulo).
+4. Especifica la longitud del chaflán en la primera línea: **3**.
+5. Especifica el ángulo desde la primera línea: **30**.
+6. Haz clic en la primera línea (horizontal) y luego en la segunda línea (vertical).
+7. La línea de chaflán cortará 3 unidades de la horizontal y se elevará a 30 grados.
+
+--------------------------------------------------
+III. COMANDO FUSIÓN (JOIN, J)
+--------------------------------------------------
+
+Ejemplo 2.4: Unir Líneas en Polilínea
+Instrucciones: Dibuja cuatro líneas separadas formando un cuadrado. Fusiónalas para crear una sola Polilínea.
+1. Dibuja LINEA 1, LINEA 2, LINEA 3, LINEA 4, formando un cuadrado de 10x10.
+2. Activa el comando FUSIÓN (J).
+3. Selecciona las cuatro líneas (L1, L2, L3, L4). Presiona Enter.
+4. Selecciona cualquiera de las líneas y verifica sus propiedades: ahora es una única Polilínea.
+
+--------------------------------------------------
+IV. ACTIVIDADES SUGERIDAS (SOLUCIÓN OCULTA)
+--------------------------------------------------
+
+ACTIVIDAD 1: El Soporte Redondeado y Biselado
+
+Objetivo: Aplicar ambos comandos (Empalme y Chaflán) en diferentes esquinas de un mismo objeto.
+Instrucciones:
+1. Dibuja un RECTANGULO (REC) de 20x10.
+2. **Esquina Superior Izquierda:** Aplica EMPALME (F) con radio **3**.
+3. **Esquina Superior Derecha:** Aplica CHAFLÁN (CHA) con distancias **4** y **4**.
+4. **Esquina Inferior Izquierda:** Dibuja dos líneas que se crucen en (0,0) y luego únelas usando EMPALME con radio **0**.
+
+<details>
+<summary>Ver Solución (Coordenadas y Orden de Operación)</summary>
+
+1.  El radio de 0 en la esquina inferior izquierda garantiza que el comando F (FILLET) actúe como una herramienta de extensión/recorte, creando una esquina aguda si las líneas no se tocan.
+2.  La clave es usar la opción EMPALME (F) para la esquina inferior izquierda. Si se usan las líneas originales del rectángulo, estas se extenderán a 0,0.
+</details>
+
+---
+
+ACTIVIDAD 2: El Perfil Único (Fusión y Edición)
+
+Objetivo: Dibuja un perfil complejo usando líneas y arcos, y luego convertirlo en una única entidad para fácil edición.
+Instrucciones:
+1. Dibuja LINEA A: de (0,0) a (10,0).
+2. Dibuja ARCO B: Inicia en (10,0), Centro en (10,5), Fin en (15,5).
+3. Dibuja LINEA C: de (15,5) a (15,10).
+4. Utiliza el comando FUSIÓN (J) para unir estas tres entidades separadas (Línea A, Arco B, Línea C) en una sola **Polilínea**.
+5. Ahora, utiliza el comando EMPALME (F) con radio **1** y la opción **POLILÍNEA** (P) en la entidad fusionada.
+
+<details>
+<summary>Ver Solución (Ubicación del Error Potencial)</summary>
+
+El arco B no es un arco continuo simple. El arco B se traza mejor como "Inicio, Fin, Centro" (10,0, 15,5, 10,5).
+Si la fusión (JOIN) es exitosa, el comando EMPALME (F) debe fallar en la esquina que ya es un arco (la unión entre la línea A y el arco B), pero aplicará el empalme en la unión entre el Arco B y la Línea C, ya que esa es una esquina de 90 grados.
+</details>
+
+--------------------------------------------------
+V. RETOS DE COMPRENSIÓN (3 RETOS)
+--------------------------------------------------
+
+RETO 1: El Chaflán de Esquina Múltiple (Opción M)
+Dibuja un rectángulo. Activa el comando CHAFLÁN (CHA). Define distancias 1 y 1.
+Antes de seleccionar la primera línea, utiliza la opción **MÚLTIPLE** (Multiple, M).
+Verifica: ¿Puedes aplicar el chaflán a las cuatro esquinas consecutivamente sin salir del comando?
+
+---
+
+RETO 2: La Fusión de Objetos No Contiguos
+Dibuja LINEA 1 de (0,0) a (5,0). Dibuja LINEA 2 de (10,0) a (15,0). (Están separadas).
+Utiliza el comando FUSIÓN (J) para unirlas.
+Verifica: ¿FUSIONA (JOIN) las dos líneas? ¿Cuál es el resultado de la entidad final? (Pista: Sí las fusiona en una sola polilínea, pero mantiene la brecha entre ellas).
+
+---
+
+RETO 3: Empalme con Opción Recortar
+Dibuja una esquina con dos líneas que se cruzan y se extienden mucho más allá de su intersección.
+Utiliza EMPALME (F) con radio 5. Antes de seleccionar las líneas, usa la opción **RECORTAR** (Trim, T) y selecciona **SIN RECORTAR** (No Trim, N).
+Verifica: ¿El comando de empalme crea el arco de radio 5? ¿Las líneas originales se mantienen completas, o se recortan al punto de tangencia?

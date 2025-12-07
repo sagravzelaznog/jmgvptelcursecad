@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comandos de Utilidad/Medida en AutoCAD</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --success-color: #27ae60;
+            --warning-color: #f39c12;
+            --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-main);
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+            padding: 0;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        h2 {
+            color: var(--primary-color);
+            margin: 2rem 0 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--secondary-color);
+        }
+
+        h3 {
+            color: var(--secondary-color);
+            margin: 1.5rem 0 0.5rem;
+        }
+
+        .command {
+            background-color: #f0f8ff;
+            border-left: 4px solid var(--secondary-color);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .command-name {
+            font-weight: bold;
+            color: var(--secondary-color);
+        }
+
+        .example {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        .example-title {
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .steps {
+            margin-left: 1.5rem;
+        }
+
+        .steps li {
+            margin-bottom: 0.5rem;
+        }
+
+        .tip {
+            background-color: #e8f4fd;
+            border-left: 4px solid var(--secondary-color);
+            padding: 0.75rem;
+            margin: 1rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .warning {
+            background-color: #fef9e7;
+            border-left: 4px solid var(--warning-color);
+            padding: 0.75rem;
+            margin: 1rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .activity {
+            background-color: #f0f7f4;
+            border: 1px solid #27ae60;
+            border-radius: 4px;
+            padding: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .activity-title {
+            color: var(--success-color);
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .challenge {
+            background-color: #f5e9f7;
+            border: 1px solid #9b59b6;
+            border-radius: 4px;
+            padding: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .challenge-title {
+            color: #8e44ad;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        details {
+            margin: 1rem 0;
+            background-color: #f8f9fa;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+
+        summary {
+            font-weight: bold;
+            cursor: pointer;
+            padding: 0.5rem 0;
+            outline: none;
+        }
+
+        summary:hover {
+            color: var(--secondary-color);
+        }
+
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 1.5rem 0;
+            margin-top: 3rem;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .container {
+                padding: 15px;
+            }
+            
+            .command, .example, .activity, .challenge, details {
+                padding: 0.75rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.75rem;
+            }
+            
+            h2 {
+                font-size: 1.4rem;
+            }
+            
+            body {
+                font-size: 0.95rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Comandos de Utilidad/Medida en AutoCAD</h1>
+            <p>Domina las herramientas de medición y consulta para verificar dimensiones, áreas y propiedades de objetos</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <section>
+            <p>Los comandos de Utilidad e Información te permiten verificar dimensiones, áreas, volúmenes y propiedades de los objetos sin acotar. Esto es fundamental para la validación y el cálculo de presupuestos.</p>
+        </section>
+
+        <section>
+            <h2>Métodos de Medida</h2>
+            
+            <div class="example">
+                <h3>Método 1: Medición de Distancia y Radio (DISTANCE, DI / MEASUREGEOM)</h3>
+                <p>Se utiliza para obtener la distancia recta entre dos puntos y los datos de entidades circulares.</p>
+                
+                <div class="example">
+                    <div class="example-title">Ejemplo 1.1: Distancia entre Puntos Inclinados</div>
+                    <p><strong>Objetivo:</strong> Medir la distancia real entre dos puntos en diagonal.</p>
+                    <ol class="steps">
+                        <li>Dibuja LINEA A: de (10,10) a (20,15).</li>
+                        <li>Activa el comando <span class="command-name">DISTANCIA (DI)</span>.</li>
+                        <li>Primer punto: (10,10).</li>
+                        <li>Segundo punto: (20,15).</li>
+                    </ol>
+                    <div class="tip">
+                        <strong>Resultado esperado:</strong> La línea de comandos mostrará la distancia <strong>real</strong> (aprox. 11.18) y los valores Delta X (10) y Delta Y (5).
+                    </div>
+                </div>
+
+                <div class="example">
+                    <div class="example-title">Ejemplo 1.2: Medición de Radio y Circunferencia</div>
+                    <p><strong>Objetivo:</strong> Medir el radio, diámetro y circunferencia de un círculo.</p>
+                    <ol class="steps">
+                        <li>Dibuja un <strong>CÍRCULO (C)</strong> de radio 5.</li>
+                        <li>Activa el comando <strong>MÉTODO (MEASUREGEOM, ME)</strong>.</li>
+                        <li>Selecciona la opción <strong>Radio (Radius)</strong>.</li>
+                        <li>Haz clic en el círculo.</li>
+                    </ol>
+                    <div class="tip">
+                        <strong>Resultado esperado:</strong> Debe mostrar el Radio (5.00) y el Diámetro (10.00).
+                    </div>
+                </div>
+            </div>
+
+            <div class="example">
+                <h3>Método 2: Medición de Área (AREA, AA / MEASUREGEOM)</h3>
+                <p>Se utiliza para calcular el área de una figura cerrada (polilíneas, círculos, o puntos seleccionados).</p>
+                
+                <div class="example">
+                    <div class="example-title">Ejemplo 2.1: Área por Puntos (Método Tradicional)</div>
+                    <p><strong>Objetivo:</strong> Medir el área de un triángulo dibujado con líneas individuales.</p>
+                    <ol class="steps">
+                        <li>Dibuja un TRIÁNGULO con tres LINEAS (L) separadas: (0,0) a (10,0) a (5,8) a (0,0).</li>
+                        <li>Activa el comando <strong>ÁREA (AREA, AA)</strong>.</li>
+                        <li>Haz clic en los tres vértices (0,0), (10,0), (5,8).</li>
+                        <li>Presiona Enter.</li>
+                    </ol>
+                    <div class="tip">
+                        <strong>Resultado esperado:</strong> El área calculada debe ser 40.00 unidades cuadradas.
+                    </div>
+                </div>
+
+                <div class="example">
+                    <div class="example-title">Ejemplo 2.2: Área de un Objeto (Método Rápido)</div>
+                    <p><strong>Objetivo:</strong> Medir el área de un polígono cerrado con un solo clic.</p>
+                    <ol class="steps">
+                        <li>Dibuja un RECTANGULO (REC) de 15x10.</li>
+                        <li>Activa <strong>ÁREA (AREA, AA)</strong>.</li>
+                        <li>Escribe <strong>O</strong> (para seleccionar Objeto / Object).</li>
+                        <li>Haz clic en el borde del rectángulo.</li>
+                    </ol>
+                    <div class="tip">
+                        <strong>Resultado esperado:</strong> Debe mostrar el Área (150.00) y el Perímetro (50.00).
+                    </div>
+                </div>
+            </div>
+
+            <div class="example">
+                <h3>Método 3: Listado de Propiedades de Entidades (LIST, LI)</h3>
+                <p>Se utiliza para obtener toda la información detallada de una entidad (coordenadas, longitud, área, capa, etc.).</p>
+                
+                <div class="example">
+                    <div class="example-title">Ejemplo 3.1: Coordenadas de Vértices</div>
+                    <p><strong>Objetivo:</strong> Obtener la lista de coordenadas de los vértices de una polilínea.</p>
+                    <ol class="steps">
+                        <li>Dibuja una POLILINEA (PL) de (0,0) a (5,5) a (10,0).</li>
+                        <li>Activa el comando <strong>LISTA (LIST, LI)</strong>.</li>
+                        <li>Selecciona la Polilínea.</li>
+                        <li>Presiona Enter.</li>
+                    </ol>
+                    <div class="tip">
+                        <strong>Resultado esperado:</strong> Se mostrarán las coordenadas X, Y, Z de cada vértice, la longitud total y la capa.
+                    </div>
+                </div>
+
+                <div class="example">
+                    <div class="example-title">Ejemplo 3.2: Propiedades Detalladas de Bloque</div>
+                    <p><strong>Objetivo:</strong> Obtener las propiedades de inserción de un bloque.</p>
+                    <ol class="steps">
+                        <li>Inserta un BLOQUE (I) en (50,50), rotado 45 grados.</li>
+                        <li>Activa <strong>LISTA (LIST, LI)</strong>.</li>
+                        <li>Selecciona el bloque.</li>
+                        <li>Presiona Enter.</li>
+                    </ol>
+                    <div class="tip">
+                        <strong>Resultado esperado:</strong> Se mostrará el nombre del bloque, la coordenada de inserción (50,50) y el ángulo de rotación (45.00).
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Actividades Prácticas</h2>
+            
+            <div class="activity">
+                <div class="activity-title">ACTIVIDAD 1: Cálculo de Material Restante</div>
+                <p><strong>Objetivo:</strong> Calcular el área neta de una placa después de perforarla.</p>
+                <p><strong>Instrucciones:</strong></p>
+                <ol class="steps">
+                    <li>Dibuja la PLACA (RECTANGULO) de 40x30 en (0,0).</li>
+                    <li>Dibuja la PERFORACIÓN (CÍRCULO) de radio 5 en el centro (20,15).</li>
+                    <li><strong>Paso A (Área de la Placa):</strong> Usa ÁREA (AA) y selecciona la placa.</li>
+                    <li><strong>Paso B (Sustracción):</strong> Escribe <strong>A</strong> (para Añadir) y luego <strong>S</strong> (para Sustraer).</li>
+                    <li>Selecciona el CÍRCULO. Presiona Enter dos veces.</li>
+                </ol>
+                
+                <details>
+                    <summary>Ver Solución (Área Neta Final)</summary>
+                    <div style="margin-top: 10px; padding: 10px; background-color: #f0f0f0; border-radius: 4px;">
+                        <ol>
+                            <li>Área de la placa: 40 × 30 = 1200</li>
+                            <li>Área del círculo: π × 5² ≈ 78.54</li>
+                            <li>Área Neta Final: 1200 - 78.54 = 1121.46 unidades cuadradas</li>
+                        </ol>
+                    </div>
+                </details>
+            </div>
+
+            <div class="activity">
+                <div class="activity-title">ACTIVIDAD 2: Verificación de Pendiente Inclinada</div>
+                <p><strong>Objetivo:</strong> Calcular la longitud de proyección horizontal de un elemento inclinado usando LISTA.</p>
+                <p><strong>Instrucciones:</strong></p>
+                <ol class="steps">
+                    <li>Dibuja una LINEA (L) de (10,5) a (30,15).</li>
+                    <li><strong>Medición A (LISTA):</strong> Usa LISTA (LI) y selecciona la línea. Anota el valor <strong>Delta X (DX)</strong>.</li>
+                    <li><strong>Medición B (DISTANCIA):</strong> Usa DISTANCIA (DI) y haz clic en los extremos de la línea. Anota el valor <strong>Distancia</strong>.</li>
+                </ol>
+                
+                <details>
+                    <summary>Ver Solución (Valores Esperados)</summary>
+                    <div style="margin-top: 10px; padding: 10px; background-color: #f0f0f0; border-radius: 4px;">
+                        <p>Coordenadas: (10, 5) a (30, 15)</p>
+                        <ol>
+                            <li>Valor DX (Proyección Horizontal): <strong>20.00</strong> (30 - 10)</li>
+                            <li>Valor DY (Proyección Vertical): <strong>10.00</strong> (15 - 5)</li>
+                            <li>Distancia (Real): √(20² + 10²) = √500 ≈ 22.36 unidades</li>
+                        </ol>
+                    </div>
+                </details>
+            </div>
+        </section>
+
+        <section>
+            <h2>Retos de Comprensión</h2>
+            
+            <div class="challenge">
+                <div class="challenge-title">RETO 1: Área de Polilínea con Ancho</div>
+                <p>¿Sabías que el ancho de una polilínea no afecta su área? ¡Compruébalo!</p>
+                <p><strong>Instrucciones:</strong></p>
+                <ol class="steps">
+                    <li>Dibuja una <strong>POLILINEA (PL)</strong> de 10x10.</li>
+                    <li>Usa el comando <strong>PEDIT (PE)</strong> para darle un <strong>ancho global (Global Width)</strong> de 5.</li>
+                    <li>Utiliza el comando <strong>ÁREA (AREA, AA)</strong> y selecciona la polilínea.</li>
+                </ol>
+                <p><strong>Pregunta:</strong> ¿El comando ÁREA calcula el área del centro de la polilínea (100) o incluye el área adicional del ancho (5) que le diste?</p>
+                
+                <details>
+                    <summary>Ver Solución</summary>
+                    <div style="margin-top: 10px; padding: 10px; background-color: #f0f0f0; border-radius: 4px;">
+                        <p>El comando ÁREA siempre calcula el área basada en el contorno central de la polilínea, ignorando completamente el ancho de línea. Por lo tanto, el resultado será 100 unidades cuadradas (10×10), independientemente del ancho que le hayas asignado.</p>
+                    </div>
+                </details>
+            </div>
+
+            <div class="challenge">
+                <div class="challenge-title">RETO 2: Medición de Ángulos</div>
+                <p>¿Cómo mide AutoCAD los ángulos entre líneas? ¡Descúbrelo con este reto!</p>
+                <p><strong>Instrucciones:</strong></p>
+                <ol class="steps">
+                    <li>Dibuja dos líneas que se crucen formando un ángulo de 30 grados.</li>
+                    <li>Activa el comando <strong>MÉTODO (MEASUREGEOM, ME)</strong>.</li>
+                    <li>Selecciona la opción <strong>Ángulo (Angle)</strong>.</li>
+                    <li>Haz clic en las dos líneas.</li>
+                </ol>
+                <p><strong>Preguntas:</strong></p>
+                <ol class="steps">
+                    <li>¿Qué valor de ángulo muestra AutoCAD?</li>
+                    <li>¿Cómo se vería afectado el resultado si hubieras utilizado el comando LISTA (LI)?</li>
+                </ol>
+                
+                <details>
+                    <summary>Ver Solución</summary>
+                    <div style="margin-top: 10px; padding: 10px; background-color: #f0f0f0; border-radius: 4px;">
+                        <ol>
+                            <li>AutoCAD mostrará el ángulo más pequeño entre las dos líneas (30° o 150°).</li>
+                            <li>El comando LISTA (LI) mostraría los ángulos de cada línea individual con respecto al eje X, pero no el ángulo entre ellas. Para obtener el ángulo entre dos líneas, MEASUREGEOM es la herramienta más directa.</li>
+                        </ol>
+                    </div>
+                </details>
+            </div>
+
+            <div class="challenge">
+                <div class="challenge-title">RETO 3: El Perímetro y la Polilínea</div>
+                <p>¿El método de dibujo afecta las mediciones de perímetro? ¡Investígalo!</p>
+                <p><strong>Instrucciones:</strong></p>
+                <ol class="steps">
+                    <li>Dibuja un cuadrado de 10x10 usando <strong>cuatro líneas separadas</strong>.</li>
+                    <li>Usa el comando <strong>ÁREA (AA)</strong> y selecciona los cuatro vértices.</li>
+                    <li>Dibuja un segundo cuadrado de 10x10 usando <strong>una sola POLILINEA (REC)</strong>.</li>
+                    <li>Usa el comando <strong>ÁREA (AA)</strong> y selecciona la opción <strong>Objeto (O)</strong>.</li>
+                </ol>
+                <p><strong>Pregunta:</strong> ¿El valor del <strong>PERÍMETRO</strong> es idéntico en ambos métodos?</p>
+                
+                <details>
+                    <summary>Ver Solución</summary>
+                    <div style="margin-top: 10px; padding: 10px; background-color: #f0f0f0; border-radius: 4px;">
+                        <p>Sí, el perímetro será idéntico (40 unidades) en ambos casos. La diferencia está en cómo se crearon los objetos, no en sus propiedades geométricas fundamentales. Sin embargo, trabajar con una polilínea cerrada es más eficiente porque:</p>
+                        <ol>
+                            <li>Es un solo objeto en lugar de cuatro</li>
+                            <li>Facilita la selección y modificación</li>
+                            <li>Permite aplicar propiedades globales como ancho de línea o extrusión</li>
+                        </ol>
+                    </div>
+                </details>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; JMGV-PTEL-2025 Todos los derechos reservados</p>
+        </div>
+    </footer>
+</body>
+</html>

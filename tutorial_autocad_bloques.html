@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía Completa del Comando BLOQUE en AutoCAD</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-bg: #f8f9fa;
+            --dark-text: #2c3e50;
+            --light-text: #7f8c8d;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark-text);
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+        }
+        
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+        }
+        
+        h1, h2, h3 {
+            color: var(--primary-color);
+        }
+        
+        h1 {
+            margin-top: 0;
+            color: white;
+        }
+        
+        h2 {
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 5px;
+            margin-top: 30px;
+        }
+        
+        .command {
+            background-color: #e8f4f8;
+            border-left: 4px solid var(--secondary-color);
+            padding: 10px 15px;
+            margin: 15px 0;
+            font-family: 'Consolas', monospace;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .example {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        .steps {
+            background-color: #f0f8ff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        
+        .steps ol, .steps ul {
+            padding-left: 20px;
+        }
+        
+        .steps li {
+            margin-bottom: 10px;
+        }
+        
+        .tip {
+            background-color: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            padding: 10px 15px;
+            margin: 15px 0;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .warning {
+            background-color: #fff3e0;
+            border-left: 4px solid #ff9800;
+            padding: 10px 15px;
+            margin: 15px 0;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .activity {
+            background-color: #f3e5f5;
+            border-left: 4px solid #9c27b0;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .challenge {
+            background-color: #e8eaf6;
+            border-left: 4px solid #3f51b5;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        details {
+            background-color: #f5f5f5;
+            padding: 10px 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+        
+        summary {
+            font-weight: bold;
+            cursor: pointer;
+            padding: 5px 0;
+        }
+        
+        .key {
+            background-color: #e0e0e0;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: monospace;
+            font-size: 0.9em;
+            border: 1px solid #bdbdbd;
+        }
+        
+        .key-combo {
+            background-color: #333;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: monospace;
+            font-size: 0.9em;
+        }
+        
+        .block-diagram {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border: 1px solid #eee;
+            border-radius: 5px;
+        }
+        
+        .block {
+            border: 2px solid #3498db;
+            border-radius: 5px;
+            padding: 10px 20px;
+            margin: 5px 0;
+            background-color: #e8f4f8;
+            text-align: center;
+            min-width: 200px;
+            position: relative;
+        }
+        
+        .block::before {
+            content: "";
+            position: absolute;
+            top: -12px;
+            left: 20px;
+            border-left: 2px solid #3498db;
+            height: 10px;
+            width: 0;
+        }
+        
+        .block:first-child::before {
+            display: none;
+        }
+        
+        .block-arrow {
+            color: #3498db;
+            font-size: 20px;
+            line-height: 1;
+        }
+        
+        .block-instance {
+            border: 2px dashed #e74c3c;
+            border-radius: 5px;
+            padding: 8px 15px;
+            margin: 10px 0;
+            background-color: #fde8e8;
+            text-align: center;
+            display: inline-block;
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            header {
+                padding: 15px;
+            }
+            
+            .command, .tip, .warning, .activity, .challenge, details {
+                margin-left: -10px;
+                margin-right: -10px;
+                border-radius: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Guía Completa del Comando BLOQUE en AutoCAD</h1>
+        <p>Domina la creación y gestión de bloques para mejorar tu productividad en AutoCAD</p>
+    </header>
+
+    <section>
+        <p>El comando <strong>BLOQUE</strong> (B) en AutoCAD te permite combinar múltiples objetos en una única entidad nombrada. Los bloques son fundamentales para crear bibliotecas de símbolos, muebles, anotaciones y otros elementos que se repiten en tus dibujos.</p>
+        
+        <div class="tip">
+            <strong>Beneficios de usar bloques:</strong>
+            <ul>
+                <li>Reducción del tamaño del archivo</li>
+                <li>Actualización global de todas las instancias</li>
+                <li>Mayor organización del dibujo</li>
+                <li>Posibilidad de añadir atributos</li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="creacion-bloques">
+        <h2>Métodos de Creación de Bloques</h2>
+        
+        <div class="block-diagram">
+            <div class="block">Objetos Individuales</div>
+            <div class="block-arrow">↓</div>
+            <div class="block">Definición de Bloque</div>
+            <div class="block-arrow">↓</div>
+            <div class="block">Instancias de Bloque</div>
+        </div>
+        
+        <h3>Método 1: Creación de Bloque Local (BLOCK, B)</h3>
+        <p>Este método crea un bloque que solo está disponible en el dibujo actual.</p>
+        
+        <div class="example">
+            <h4>Ejemplo 1.1: Bloque de Silla con Punto Base Central</h4>
+            <div class="steps">
+                <ol>
+                    <li>Dibuja la geometría de una silla simple:
+                        <ul>
+                            <li>Un RECTANGULO de 4x4 para el asiento</li>
+                            <li>Cuatro CÍRCULOS pequeños para las patas</li>
+                        </ul>
+                    </li>
+                    <li>Activa el comando <span class="key">BLOQUE</span> (B).</li>
+                    <li>En el cuadro de diálogo "Definición de bloque":
+                        <ul>
+                            <li><strong>Nombre:</strong> SILLA_COMEDOR</li>
+                            <li><strong>Punto base:</strong> Haz clic en "Seleccionar punto" y usa el Osnap <strong>Centro Geométrico</strong> para seleccionar el centro del rectángulo.</li>
+                            <li><strong>Objetos:</strong> Haz clic en "Seleccionar objetos" y selecciona todas las entidades de la silla.</li>
+                            <li>Selecciona la opción <strong>Eliminar</strong> para convertir los objetos en una definición de bloque.</li>
+                        </ul>
+                    </li>
+                    <li>Haz clic en <strong>Aceptar</strong>.</li>
+                </ol>
+            </div>
+            
+            <div class="tip">
+                <strong>Consejo:</strong> Elegir un punto base lógico (como el centro o una esquina) hará que sea más fácil colocar el bloque con precisión más adelante.
+            </div>
+        </div>
+        
+        <div class="example">
+            <h4>Ejemplo 1.2: Inserción y Rotación de un Bloque</h4>
+            <div class="steps">
+                <ol>
+                    <li>Activa el comando <span class="key">INSERTAR</span> (I).</li>
+                    <li>En el cuadro de diálogo "Insertar":
+                        <ul>
+                            <li>Selecciona el bloque <strong>SILLA_COMEDOR</strong> de la lista desplegable.</li>
+                            <li>Asegúrate de que la casilla <strong>Especificar en pantalla</strong> esté marcada para el punto de inserción.</li>
+                            <li>En la sección <strong>Ángulo</strong>, escribe <strong>90</strong>.</li>
+                        </ul>
+                    </li>
+                    <li>Haz clic en <strong>Aceptar</strong>.</li>
+                    <li>Especifica el punto de inserción en (20,20).</li>
+                    <li>La silla aparecerá en la posición (20,20) rotada 90 grados.</li>
+                </ol>
+            </div>
+        </div>
+        
+        <h3>Método 2: Escritura de Bloque (WBLOCK)</h3>
+        <p>Este método guarda el bloque como un archivo .dwg independiente que puede ser insertado en cualquier otro dibujo.</p>
+        
+        <div class="example">
+            <h4>Ejemplo 2.1: Exportar una Puerta como Bloque</h4>
+            <div class="steps">
+                <ol>
+                    <li>Dibuja la geometría de una puerta abatible:
+                        <ul>
+                            <li>Un RECTANGULO de 0.9x2.0 para la hoja de la puerta</li>
+                            <li>Un ARCO de 90 grados para el radio de apertura</li>
+                        </ul>
+                    </li>
+                    <li>Activa el comando <span class="key">ESCRIBEBLOQUE</span> (WBLOCK, W).</li>
+                    <li>En el cuadro de diálogo "Escribir bloque":
+                        <ul>
+                            <li><strong>Origen:</strong> Selecciona <strong>Objetos</strong>.</li>
+                            <li><strong>Punto base:</strong> Haz clic en "Seleccionar punto" y selecciona la esquina de la jamba donde la puerta pivota (ej: 0,0).</li>
+                            <li><strong>Objetos:</strong> Haz clic en "Seleccionar objetos" y selecciona todas las entidades de la puerta.</li>
+                            <li><strong>Destino:</strong> Haz clic en el botón de carpeta y guarda el archivo como <code>Puerta_90cm.dwg</code>.</li>
+                        </ul>
+                    </li>
+                    <li>Haz clic en <strong>Aceptar</strong>.</li>
+                </ol>
+            </div>
+            
+            <div class="tip">
+                <strong>Consejo:</strong> Los bloques guardados como archivos .dwg pueden ser compartidos entre diferentes proyectos y usuarios, lo que los hace ideales para bibliotecas de componentes estándar.
+            </div>
+        </div>
+        
+        <div class="example">
+            <h4>Ejemplo 2.2: Inserción de un Bloque Externo</h4>
+            <div class="steps">
+                <ol>
+                    <li>Abre un nuevo archivo de AutoCAD o continúa trabajando en el actual.</li>
+                    <li>Activa el comando <span class="key">INSERTAR</span> (I).</li>
+                    <li>En el cuadro de diálogo "Insertar":
+                        <ul>
+                            <li>Haz clic en <strong>Examinar</strong> y busca el archivo <code>Puerta_90cm.dwg</code> que creaste.</li>
+                            <li>Asegúrate de que la casilla <strong>Especificar en pantalla</strong> esté marcada para el punto de inserción, escala y rotación.</li>
+                        </ul>
+                    </li>
+                    <li>Haz clic en <strong>Aceptar</strong>.</li>
+                    <li>Especifica el punto de inserción en tu dibujo (ej: la esquina de un muro).</li>
+                    <li>Ajusta la escala y la rotación según sea necesario.</li>
+                </ol>
+            </div>
+        </div>
+    </section>
+
+    <section id="actividades">
+        <h2>Actividades Prácticas</h2>
+        
+        <div class="activity">
+            <h3>Actividad 1: El Tablero de Control</h3>
+            <p><strong>Objetivo:</strong> Crear un bloque y usarlo para generar una matriz con espaciado uniforme.</p>
+            
+            <div class="steps">
+                <ol>
+                    <li>Dibuja el contorno de un interruptor:
+                        <ul>
+                            <li>Un RECTANGULO de 2x2 unidades.</li>
+                            <li>Una "X" que cruce el rectángulo.</li>
+                        </ul>
+                    </li>
+                    <li>Crea un bloque llamado <strong>INTERRUPTOR</strong> con el punto base en la esquina inferior izquierda (0,0).</li>
+                    <li>Inserta el bloque INTERRUPTOR en la posición (10,10).</li>
+                    <li>Activa el comando <span class="key">COPIAR</span> (CP).</li>
+                    <li>Selecciona el bloque INTERRUPTOR y presiona Enter.</li>
+                    <li>Especifica el punto base: 0,0</li>
+                    <li>Para crear una matriz 4x2, usa la opción <strong>Matriz</strong>:
+                        <ul>
+                            <li>Número de columnas: 4</li>
+                            <li>Número de filas: 2</li>
+                            <li>Distancia entre columnas: 3</li>
+                            <li>Distancia entre filas: 3</li>
+                        </ul>
+                    </li>
+                </ol>
+            </div>
+            
+            <details>
+                <summary>Ver Solución</summary>
+                <p>Al finalizar, deberías tener una cuadrícula de 4x2 interruptores con un espaciado uniforme de 3 unidades entre ellos. La esquina inferior izquierda del último interruptor (4to en X, 2do en Y) estará en la posición (19, 13).</p>
+                
+                <div class="tip">
+                    <strong>Consejo:</strong> Si editas la definición del bloque INTERRUPTOR (usando BEDIT), todos los interruptores en la matriz se actualizarán automáticamente.
+                </div>
+            </details>
+        </div>
+        
+        <div class="activity">
+            <h3>Actividad 2: El Reemplazo Global (BEDIT)</h3>
+            <p><strong>Objetivo:</strong> Modificar un bloque existente y observar cómo se actualizan todas sus instancias.</p>
+            
+            <div class="steps">
+                <ol>
+                    <li>Dibuja un CÍRCULO con radio 1.</li>
+                    <li>Crea un bloque llamado <strong>SIMBOLO</strong> con el centro en (0,0).</li>
+                    <li>Inserta el bloque <strong>SIMBOLO</strong> 5 veces en ubicaciones aleatorias del dibujo.</li>
+                    <li>Activa el comando <span class="key">EDITARBLOQUE</span> (BEDIT).</li>
+                    <li>Selecciona el bloque <strong>SIMBOLO</strong> de la lista.</li>
+                    <li>En el editor de bloques:
+                        <ul>
+                            <li>Borra el círculo original.</li>
+                            <li>Activa el comando <span class="key">POLIGONO</span> (POL).</li>
+                            <li>Especifica 3 lados para crear un triángulo.</li>
+                            <li>Selecciona el centro en (0,0).</li>
+                            <li>Elige la opción <strong>Inscrito en círculo</strong> con radio 2.</li>
+                        </ul>
+                    </li>
+                    <li>Haz clic en <strong>Guardar cambios de bloque</strong> (icono de disco) y cierra el editor.</li>
+                </ol>
+            </div>
+            
+            <details>
+                <summary>Ver Solución</summary>
+                <p>Al guardar los cambios en el editor de bloques, todas las instancias del bloque <strong>SIMBOLO</strong> en el dibujo se actualizarán automáticamente, mostrando el triángulo en lugar del círculo original.</p>
+                
+                <div class="warning">
+                    <strong>¡Importante!</strong> Los cambios realizados en la definición de un bloque afectan a todas sus instancias en el dibujo. Si necesitas modificar solo una instancia específica, considera usar <span class="key">DESCOMPONER</span> (EXPLODE) en esa instancia (aunque esto la convertirá en entidades separadas).
+                </div>
+            </details>
+        </div>
+    </section>
+
+    <section id="retos">
+        <h2>Retos de Comprensión</h2>
+        
+        <div class="challenge">
+            <h3>Reto 1: La Descomposición del Bloque (EXPLODE)</h3>
+            <p>Dibuja un rectángulo de 10x10. Conviértelo en un bloque llamado 'Caja'. Inserta el bloque. Luego usa el comando <span class="key">DESCOMPONER</span> (EXPLODE, X) sobre la instancia del bloque 'Caja'.</p>
+            
+            <details>
+                <summary>Ver Respuesta</summary>
+                <p>Al descomponer un bloque:</p>
+                <ul>
+                    <li>La instancia seleccionada se convierte nuevamente en sus objetos componentes originales (en este caso, un rectángulo).</li>
+                    <li>La definición del bloque <strong>sigue existiendo</strong> en la base de datos del dibujo y puede seguir siendo utilizada para crear nuevas instancias.</li>
+                    <li>Las demás instancias del bloque en el dibujo no se ven afectadas.</li>
+                    <li>Si la instancia tenía propiedades específicas (como escala o rotación), los objetos resultantes mantendrán esas transformaciones aplicadas.</li>
+                </ul>
+            </details>
+        </div>
+        
+        <div class="challenge">
+            <h3>Reto 2: Escalado No Uniforme</h3>
+            <p>Inserta un bloque. Luego usa el comando <span class="key">ESCALA</span> (SC) sobre la instancia del bloque. En lugar de ingresar un solo factor de escala, utiliza la ventana de <strong>PROPIEDADES</strong> (PR) para escalar el bloque en X por 2 y en Y por 1.</p>
+            
+            <details>
+                <summary>Ver Respuesta</summary>
+                <p>Al escalar un bloque de forma no uniforme:</p>
+                <ul>
+                    <li>El bloque se estirará en la dirección X, duplicando su ancho mientras mantiene su altura original.</li>
+                    <li>Si el bloque contiene texto o atributos, estos también se estirarán, lo que puede no ser deseable.</li>
+                    <li>Para evitar la distorsión de ciertos elementos, considera crear variantes del bloque con diferentes proporciones en lugar de usar escalado no uniforme.</li>
+                    <li>Puedes restablecer la escala a valores uniformes (1,1,1) en cualquier momento desde la ventana de propiedades.</li>
+                </ul>
+            </details>
+        </div>
+        
+        <div class="challenge">
+            <h3>Reto 3: Bloque y Capas</h3>
+            <p>Crea una capa llamada <strong>MOBILIARIO_CAPA</strong> (Color Azul). Dibuja la geometría de una silla en la <strong>Capa 0</strong>. Conviértela en un bloque llamado 'Silla_0'. Luego inserta 'Silla_0' y colócala en la capa <strong>MOBILIARIO_CAPA</strong>.</p>
+            
+            <details>
+                <summary>Ver Respuesta</summary>
+                <p>Cuando los objetos dentro de un bloque están en la <strong>Capa 0</strong>:</p>
+                <ul>
+                    <li>Los objetos heredan las propiedades de la capa en la que se inserta el bloque (en este caso, el color Azul de MOBILIARIO_CAPA).</li>
+                    <li>Esta es una práctica común para crear bloques que pueden adaptarse a diferentes estilos de capa.</li>
+                    <li>Si los objetos del bloque estuvieran en una capa específica (no la 0), mantendrían las propiedades de esa capa independientemente de en qué capa se inserte el bloque.</li>
+                    <li>La capa del bloque en sí (MOBILIARIO_CAPA) controla la visibilidad y las propiedades de la referencia al bloque, pero no afecta necesariamente a los objetos dentro del bloque.</li>
+                </ul>
+                
+                <div class="tip">
+                    <strong>Buenas prácticas:</strong>
+                    <ul>
+                        <li>Dibuja siempre la geometría de los bloques en la <strong>Capa 0</strong> a menos que tengas una razón específica para no hacerlo.</li>
+                        <li>Usa <strong>PorCapa</strong> (ByLayer) para los colores y tipos de línea de los objetos dentro del bloque.</li>
+                        <li>Esto hará que tus bloques sean más flexibles y fáciles de gestionar en diferentes contextos.</li>
+                    </ul>
+                </div>
+            </details>
+        </div>
+    </section>
+
+    <section id="conclusion">
+        <h2>Conclusión</h2>
+        <p>El comando BLOQUE es una de las herramientas más poderosas de AutoCAD, permitiéndote crear bibliotecas de componentes reutilizables que pueden mejorar significativamente tu productividad. Al dominar la creación, inserción y edición de bloques, podrás trabajar de manera más eficiente en proyectos de cualquier escala.</p>
+        
+        <div class="tip">
+            <strong>Recuerda:</strong> La clave para un uso efectivo de los bloques está en la planificación. Antes de crear un bloque, considera cómo se utilizará, qué propiedades deberían ser consistentes en todas las instancias y qué propiedades deberían poder variar. Esto te ayudará a tomar decisiones sobre la estructura de capas, la definición de atributos y la configuración de las propiedades del bloque.
+        </div>
+    </section>
+
+    <footer style="margin-top: 40px; padding: 20px 0; border-top: 1px solid #eee; text-align: center; color: #7f8c8d; font-size: 0.9em;">
+        <p>© 2025 Tutorial de AutoCAD - Comando BLOQUE</p>
+    </footer>
+</body>
+</html>

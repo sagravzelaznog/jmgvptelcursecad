@@ -1,0 +1,119 @@
+==================================================
+EJERCICIOS: TRAZADO DE DEGRADADO (GRADIENT) EN AUTOCAD
+==================================================
+
+El comando DEGRADADO (GRADIENT) es una opción dentro del comando SOMBRADO (HATCH) que permite rellenar un área cerrada con una transición suave entre dos colores. Es útil para presentaciones o visualizaciones no técnicas.
+
+--------------------------------------------------
+I. MÉTODOS DE TRAZADO (2 EJEMPLOS POR MÉTODO)
+--------------------------------------------------
+
+El comando DEGRADADO se activa al iniciar HATCH y seleccionar la opción "Gradient" en la cinta de opciones o en la paleta de propiedades. Los métodos de trazado se refieren a la forma de seleccionar el área a rellenar y el estilo de la transición.
+
+Método 1: Degradado con Dos Colores (Two-Color Gradient)
+
+Se define la transición entre un Color 1 y un Color 2 (Color Principal y Color de Transición).
+
+Ejemplo 1.1: Degradado Diagonal (Patrón Lineal)
+Instrucciones: Dibuja un rectángulo y rellénalo con una transición de azul a blanco, de esquina a esquina.
+1. Dibuja un RECTANGULO (REC) de 15x10 unidades.
+2. Activa el comando SOMBRADO (H).
+3. En la cinta, en la sección **Tipo de Sombreado**, selecciona **Degradado**.
+4. Selecciona **Dos Colores** (Two Color).
+5. Color 1: Azul. Color 2: Blanco.
+6. Estilo (Pattern): **LINEAL**.
+7. Ángulo de degradado: **45** grados.
+8. Haz clic **dentro** del rectángulo.
+
+Ejemplo 1.2: Degradado Central (Patrón Esférico)
+Instrucciones: Dibuja un círculo y rellénalo con un degradado que simule un brillo central de amarillo a naranja.
+1. Dibuja un CÍRCULO (C) de radio 8.
+2. Activa el comando SOMBRADO (H), selecciona **Degradado**.
+3. Color 1: Amarillo. Color 2: Naranja.
+4. Estilo (Pattern): **ESFÉRICO** (Spherical).
+5. **Haz clic dentro** del círculo.
+6. Desactiva la opción **Centrado** (si está activa) para ver cómo el brillo se desplaza, luego actívala de nuevo para centrar el efecto.
+
+---
+
+Método 2: Degradado con Un Color (One-Color Gradient)
+
+Se utiliza un solo color que se desvanece hacia el blanco (o el fondo) o se intensifica desde el blanco (o el fondo).
+
+Ejemplo 2.1: Sombra Interior Suave
+Instrucciones: Dibuja un rectángulo y crea un degradado que vaya de color gris oscuro en el borde a blanco en el centro (simulando una sombra).
+1. Dibuja un RECTANGULO (REC) de 20x10.
+2. Activa el comando SOMBRADO (H), selecciona **Degradado**.
+3. Selecciona **Un Color** (One Color).
+4. Color: Gris Oscuro.
+5. Estilo (Pattern): **CILÍNDRICO INVERTIDO** (Inv. Cylinder).
+6. Haz clic dentro del rectángulo.
+
+Ejemplo 2.2: Transición Radial Suave
+Instrucciones: Dibuja un polígono de 6 lados y aplica un degradado de rojo que se intensifica hacia el centro.
+1. Dibuja un POLIGONO (POL) de 6 lados.
+2. Activa el comando SOMBRADO (H), selecciona **Degradado**.
+3. Selecciona **Un Color**.
+4. Color: Rojo.
+5. Estilo (Pattern): **RADIAL** (Radial).
+6. Haz clic dentro del polígono.
+
+--------------------------------------------------
+II. ACTIVIDADES SUGERIDAS (SOLUCIÓN OCULTA)
+--------------------------------------------------
+
+ACTIVIDAD 1: El Botón de Interfaz (Dos Colores y Rotación)
+
+Objetivo: Crear un botón con un efecto 3D simple usando degradado rotado.
+Instrucciones:
+1. Dibuja un CÍRCULO de radio 5.
+2. Aplica un degradado **Lineal** de **Verde Claro a Verde Oscuro**.
+3. Gira el ángulo del degradado a **-45 grados** para que el borde superior izquierdo sea claro (brillo) y el inferior derecho sea oscuro (sombra).
+
+<details>
+<summary>Ver Solución (Configuración de Brillo)</summary>
+
+La clave es usar un ángulo negativo (-45) para asegurar que el color más claro (Verde Claro) se coloque en la esquina superior izquierda, dando la ilusión de que la luz viene desde esa dirección.
+</details>
+
+---
+
+ACTIVIDAD 2: El Logo del Sol Naciente (Combinación de Selecciones)
+
+Objetivo: Crear un efecto de sol naciente con degradado que solo afecte la mitad superior de una forma.
+Instrucciones:
+1. Dibuja un CÍRCULO de radio 10.
+2. Dibuja una LÍNEA horizontal que pase por el centro del círculo (de -10,0 a 10,0).
+3. Aplica un degradado **Esférico** de **Rojo a Amarillo** a la **mitad superior** del círculo.
+
+<details>
+<summary>Ver Solución (Proceso de Sombreado)</summary>
+
+1.  Comando H (SOMBRADO), seleccionar Degradado Esférico Rojo/Amarillo.
+2.  Utilizar la opción **Designar Puntos Internos**.
+3.  Hacer clic en el área dentro del círculo, pero **encima** de la línea horizontal.
+El degradado esférico seguirá la forma semicircular, creando un centro de luz.
+</details>
+
+--------------------------------------------------
+III. RETOS DE COMPRENSIÓN (3 RETOS)
+--------------------------------------------------
+
+RETO 1: El Degradado Bloqueado
+Dibuja un rectángulo y aplícale un degradado simple (Ej: Lineal Azul/Blanco). A continuación, utiliza el comando **EDITAR SOMBREADO** (HATCHEDIT, HE) y busca la opción **ORIGEN** (Origin).
+Mueve el origen del degradado a la esquina inferior izquierda del rectángulo (0,0).
+Verifica: ¿Cómo afecta el cambio de origen a la apariencia del degradado lineal?
+
+---
+
+RETO 2: La Transparencia
+Dibuja un círculo. Aplica un degradado **Sólido** (SOLID) de color Cian. A continuación, busca la propiedad **TRANSPARENCIA** en el editor de sombreado.
+Establece la transparencia al **50%**.
+Verifica: ¿Puedes ver a través del sombreado el color del fondo o las entidades que estén detrás del mismo?
+
+---
+
+RETO 3: Degradado y Círculo Superpuestos
+Dibuja un **CÍRCULO** de radio 10 centrado en (0,0). A continuación, dibuja una **ELIPSE** de 20x10 también centrada en (0,0).
+Aplica un degradado (Ej: Esférico) a la **ELIPSE**.
+Verifica: ¿El comando Degradado puede detectar y respetar la curva del **CÍRCULO** como un límite interno válido, creando un degradado con un "agujero" circular?

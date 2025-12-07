@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comando ESCALA (SCALE) en AutoCAD</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #e67e22; /* Orange color for SCALE command */
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --success: #2ecc71;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: '⇲';
+            position: absolute;
+            font-size: 15rem;
+            right: 2rem;
+            top: 50%;
+            transform: translateY(-50%) rotate(15deg);
+            opacity: 0.1;
+            z-index: 0;
+        }
+        
+        header h1 {
+            position: relative;
+            z-index: 1;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        header p {
+            position: relative;
+            z-index: 1;
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .command-info {
+            background-color: white;
+            border-left: 4px solid var(--secondary);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border-radius: 0 8px 8px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .command-info h2 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .command-info h2::before {
+            content: '⇲';
+            font-size: 1.5em;
+            transform: rotate(15deg);
+        }
+        
+        .command-syntax {
+            background-color: #f8f9fa;
+            border: 1px solid #e1e4e8;
+            padding: 1rem;
+            border-radius: 6px;
+            margin: 1rem 0;
+            font-family: 'Consolas', 'Courier New', monospace;
+            position: relative;
+        }
+        
+        .command-syntax::before {
+            content: 'Sintaxis:';
+            position: absolute;
+            top: -10px;
+            left: 10px;
+            background: white;
+            padding: 0 5px;
+            font-size: 0.8rem;
+            color: var(--secondary);
+            font-weight: bold;
+        }
+        
+        .method {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border: 1px solid #e1e4e8;
+        }
+        
+        .method h3 {
+            color: var(--secondary);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #f0f0f0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .example {
+            background-color: #f8f9fa;
+            border-left: 3px solid var(--secondary);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 6px 6px 0;
+        }
+        
+        .example h4 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .example h4::before {
+            content: '📏';
+        }
+        
+        .steps {
+            margin: 1rem 0;
+            padding-left: 1.5rem;
+        }
+        
+        .steps li {
+            margin-bottom: 0.5rem;
+            position: relative;
+        }
+        
+        .steps li::before {
+            content: '→';
+            position: absolute;
+            left: -1.5rem;
+            color: var(--secondary);
+        }
+        
+        .activity {
+            background-color: #f0f7ff;
+            border: 1px solid #d0e3ff;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .activity h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .activity h3::before {
+            content: '🎯';
+        }
+        
+        .challenge {
+            background-color: #fff8e6;
+            border: 1px solid #ffeeba;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .challenge h3 {
+            color: #d35400;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .challenge h3::before {
+            content: '💡';
+        }
+        
+        .solution {
+            margin-top: 1rem;
+            border-top: 1px dashed #ccc;
+            padding-top: 1rem;
+        }
+        
+        .solution-summary {
+            cursor: pointer;
+            color: var(--secondary);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 1rem 0;
+        }
+        
+        .solution-summary::before {
+            content: '👁️';
+            font-size: 1.1em;
+        }
+        
+        .solution-content {
+            display: none;
+            background-color: #f8f9fa;
+            padding: 1rem;
+            border-radius: 6px;
+            margin-top: 0.5rem;
+            border: 1px solid #e1e4e8;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .tip {
+            background-color: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 6px 6px 0;
+            position: relative;
+        }
+        
+        .tip::before {
+            content: '💡';
+            margin-right: 0.5rem;
+            font-size: 1.2em;
+        }
+        
+        .command-shortcut {
+            background-color: var(--secondary);
+            color: white;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+        
+        .coordinate {
+            font-family: 'Consolas', 'Courier New', monospace;
+            background-color: #f0f0f0;
+            padding: 0.1rem 0.3rem;
+            border-radius: 3px;
+            font-size: 0.9em;
+        }
+        
+        .scale-indicator {
+            display: inline-block;
+            font-size: 1.2em;
+            margin: 0 5px;
+            transform-origin: center;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 1.5rem;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            border-top: 1px solid #eee;
+        }
+        
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+            
+            .container {
+                padding: 10px;
+            }
+            
+            .command-syntax {
+                font-size: 0.9rem;
+                padding: 0.8rem;
+            }
+        }
+        
+        /* Animation for scale examples */
+        @keyframes scale {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .scale-animation {
+            display: inline-block;
+            animation: scale 2s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Comando ESCALA (SCALE) en AutoCAD</h1>
+            <p>Guía completa con ejemplos prácticos y ejercicios</p>
+        </header>
+        
+        <div class="command-info">
+            <h2>Comando ESCALA (SCALE)</h2>
+            <p>El comando ESCALA (SC o SCALE) aumenta o reduce el tamaño de los objetos seleccionados de forma uniforme, manteniendo sus proporciones. Esencial para ajustar dibujos a diferentes escalas.</p>
+            
+            <div class="command-syntax">
+                <strong>Comando:</strong> ESCALA (SC o SCALE)<br>
+                <strong>Menú:</strong> Modificar → Escala<br>
+                <strong>Barra de herramientas:</strong> Modificar → <span class="scale-animation">⇲</span>
+            </div>
+            
+            <div class="tip">
+                <strong>Consejo:</strong> Usa el <strong>Punto Base</strong> estratégicamente. Este punto permanecerá fijo durante el escalado.
+            </div>
+        </div>
+        
+        <div class="method">
+            <h3>Métodos de Escalado</h3>
+            
+            <div class="example">
+                <h4>Método 1: Escalado por Factor Numérico</h4>
+                <p>Se ingresa un valor numérico directo como factor de escala.</p>
+                
+                <div class="example">
+                    <h5>Ejemplo 1.1: Duplicar el Tamaño (Factor 2.0)</h5>
+                    <ol class="steps">
+                        <li>Dibuja un <strong>RECTÁNGULO</strong> (REC) de 10x5 en <span class="coordinate">(0,0)</span>.</li>
+                        <li>Activa el comando <strong>ESCALA</strong> (SC).</li>
+                        <li>Selecciona el rectángulo y presiona <kbd>Enter</kbd>.</li>
+                        <li>Punto Base: <span class="coordinate">(0,0)</span> (esquina inferior izquierda).</li>
+                        <li>Factor de Escala: <span class="coordinate">2.0</span></li>
+                    </ol>
+                    <div class="tip">
+                        <strong>Resultado:</strong> El rectángulo ahora mide 20x10 unidades.
+                    </div>
+                </div>
+                
+                <div class="example">
+                    <h5>Ejemplo 1.2: Reducir a un Cuarto (Factor 0.25)</h5>
+                    <ol class="steps">
+                        <li>Dibuja un <strong>CÍRCULO</strong> (C) de radio 8 en <span class="coordinate">(50,50)</span>.</li>
+                        <li>Activa <strong>ESCALA</strong> (SC).</li>
+                        <li>Selecciona el círculo y presiona <kbd>Enter</kbd>.</li>
+                        <li>Punto Base: <span class="coordinate">(50,50)</span> (centro).</li>
+                        <li>Factor de Escala: <span class="coordinate">0.25</span></li>
+                    </ol>
+                    <div class="tip">
+                        <strong>Resultado:</strong> El nuevo radio del círculo es de 2 unidades.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="example">
+                <h4>Método 2: Escalado por Referencia (R)</h4>
+                <p>Útil cuando necesitas que un objeto tenga una dimensión específica.</p>
+                
+                <div class="example">
+                    <h5>Ejemplo 2.1: Ajustar Longitud de Muro</h5>
+                    <ol class="steps">
+                        <li>Dibuja una <strong>LÍNEA</strong> (L) de <span class="coordinate">(10,10)</span> a <span class="coordinate">(17,10)</span> (longitud 7).</li>
+                        <li>Activa <strong>ESCALA</strong> (SC).</li>
+                        <li>Selecciona la línea y presiona <kbd>Enter</kbd>.</li>
+                        <li>Punto Base: <span class="coordinate">(10,10)</span> (punto inicial).</li>
+                        <li>Escribe <strong>R</strong> (Referencia).</li>
+                        <li>Longitud de Referencia: <span class="coordinate">7</span> (o selecciona los extremos).</li>
+                        <li>Nueva Longitud: <span class="coordinate">15</span></li>
+                    </ol>
+                    <div class="tip">
+                        <strong>Resultado:</strong> La línea ahora mide exactamente 15 unidades de largo.
+                    </div>
+                </div>
+                
+                <div class="example">
+                    <h5>Ejemplo 2.2: Reducción con Referencia</h5>
+                    <ol class="steps">
+                        <li>Dibuja un <strong>CUADRADO</strong> (REC) de 20x20 en <span class="coordinate">(0,0)</span>.</li>
+                        <li>Activa <strong>ESCALA</strong> (SC).</li>
+                        <li>Selecciona el cuadrado y presiona <kbd>Enter</kbd>.</li>
+                        <li>Punto Base: <span class="coordinate">(0,0)</span>.</li>
+                        <li>Escribe <strong>R</strong> (Referencia).</li>
+                        <li>Longitud de Referencia: <span class="coordinate">20</span> (lado actual).</li>
+                        <li>Nueva Longitud: <span class="coordinate">8</span></li>
+                    </ol>
+                    <div class="tip">
+                        <strong>Resultado:</strong> El cuadrado ahora mide 8x8 unidades (factor de escala 0.4).
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="activity">
+            <h3>Actividad 1: El Plano a Escala</h3>
+            <p><strong>Objetivo:</strong> Reducir un componente de ingeniería a una vista a escala.</p>
+            
+            <ol class="steps">
+                <li>Dibuja una <strong>POLILÍNEA</strong> compleja (forma de "Z") con segmentos de 5 unidades cada uno.</li>
+                <li>Mueve la polilínea para que su punto inicial esté en <span class="coordinate">(50,50)</span>.</li>
+                <li>Activa <strong>ESCALA</strong> (SC) y selecciona la polilínea.</li>
+                <li>Punto Base: <span class="coordinate">(50,50)</span>.</li>
+                <li>Factor de Escala: <span class="coordinate">0.75</span></li>
+            </ol>
+            
+            <div class="solution">
+                <div class="solution-summary">Ver Solución (Longitud Final)</div>
+                <div class="solution-content">
+                    <p>1. La polilínea original tiene 20 unidades de longitud total (4 segmentos × 5 unidades).</p>
+                    <p>2. Al aplicar un factor de escala de 0.75: <span class="coordinate">20 × 0.75 = 15</span> unidades.</p>
+                    <p>3. Cada segmento de 5 unidades ahora mide <span class="coordinate">3.75</span> unidades.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="activity">
+            <h3>Actividad 2: Ajuste de Bloque</h3>
+            <p><strong>Objetivo:</strong> Ajustar un bloque a una dimensión específica.</p>
+            
+            <ol class="steps">
+                <li>Dibuja un <strong>RECTÁNGULO</strong> (REC) de 2x3 unidades.</li>
+                <li>Dibuja una <strong>LÍNEA</strong> de referencia de 10 unidades de largo.</li>
+                <li>Activa <strong>ESCALA</strong> (SC) y selecciona el rectángulo.</li>
+                <li>Punto Base: Esquina inferior izquierda del rectángulo.</li>
+                <li>Escribe <strong>R</strong> (Referencia).</li>
+                <li>Longitud de Referencia: <span class="coordinate">3</span> (lado largo actual).</li>
+                <li>Nueva Longitud: <span class="coordinate">10</span></li>
+            </ol>
+            
+            <div class="solution">
+                <div class="solution-summary">Ver Solución (Dimensiones Finales)</div>
+                <div class="solution-content">
+                    <p>1. Factor de escala: <span class="coordinate">10 ÷ 3 ≈ 3.3333</span></p>
+                    <p>2. Lado corto original: <span class="coordinate">2</span> unidades</p>
+                    <p>3. Lado corto escalado: <span class="coordinate">2 × 3.3333 ≈ 6.6666</span> unidades</p>
+                    <p>4. Dimensiones finales: <span class="coordinate">6.6666 × 10</span> unidades</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="challenge">
+            <h3>Retos de Comprensión</h3>
+            
+            <div class="example">
+                <h4>Reto 1: Escalado sin Factor</h4>
+                <p>1. Dibuja un círculo cualquiera.</p>
+                <p>2. Activa <strong>ESCALA</strong> (SC) y selecciona el círculo.</p>
+                <p>3. Punto Base: centro del círculo.</p>
+                <p>4. Al pedir el Factor de Escala, presiona <kbd>Enter</kbd> sin ingresar valor.</p>
+                <p><strong>Pregunta:</strong> ¿Qué valor de escala usó AutoCAD? ¿Por qué?</p>
+            </div>
+            
+            <div class="example">
+                <h4>Reto 2: Escalado con Copia</h4>
+                <p>1. Dibuja un rectángulo de 10x5.</p>
+                <p>2. Activa <strong>ESCALA</strong> (SC) y selecciona el rectángulo.</p>
+                <p>3. Punto Base: esquina inferior izquierda.</p>
+                <p>4. Escribe <strong>C</strong> (Copia).</p>
+                <p>5. Factor de Escala: <span class="coordinate">1.5</span></p>
+                <p><strong>Pregunta:</strong> ¿Qué sucede con el original? ¿Qué tamaño tiene la copia?</p>
+            </div>
+            
+            <div class="example">
+                <h4>Reto 3: Escalado de Objeto Inclinado</h4>
+                <p>1. Dibuja una línea de <span class="coordinate">(0,0)</span> a <span class="coordinate">(10,10)</span> (45°).</p>
+                <p>2. Escálala con factor <span class="coordinate">0.5</span> usando <span class="coordinate">(0,0)</span> como punto base.</p>
+                <p><strong>Pregunta:</strong> ¿Cambió el ángulo de la línea? ¿Por qué es importante el Punto Base?</p>
+            </div>
+        </div>
+        
+        <div class="tip">
+            <h4>Consejos Avanzados</h4>
+            <ul>
+                <li>Usa <strong>Referencia (R)</strong> cuando necesites que un objeto tenga una dimensión exacta.</li>
+                <li>El <strong>Punto Base</strong> determina qué punto permanece fijo durante el escalado.</li>
+                <li>Para escalar sin deformar, usa el mismo factor en todas las direcciones.</li>
+                <li>La opción <strong>Copia (C)</strong> crea una versión escalada sin modificar el original.</li>
+            </ul>
+        </div>
+        
+        <footer>
+            <p>© 2025 Tutorial de AutoCAD - Comando ESCALA (SCALE)</p>
+        </footer>
+    </div>
+    
+    <script>
+        // Toggle solution visibility
+        document.querySelectorAll('.solution-summary').forEach(summary => {
+            summary.addEventListener('click', function() {
+                const content = this.nextElementSibling;
+                if (content.style.display === 'block') {
+                    content.style.display = 'none';
+                    this.innerHTML = '👁️ ' + this.textContent.replace('👁️ ', '');
+                } else {
+                    content.style.display = 'block';
+                    this.innerHTML = '🔍 ' + this.textContent.replace('👁️ ', '');
+                }
+            });
+        });
+        
+        // Add animation to command examples on hover
+        document.querySelectorAll('.example').forEach(example => {
+            example.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-2px)';
+                this.style.boxShadow = '0 5px 15px rgba(0,0,0,0.1)';
+            });
+            
+            example.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+                this.style.boxShadow = '0 2px 10px rgba(0,0,0,0.05)';
+            });
+        });
+        
+        // Highlight command shortcuts
+        document.addEventListener('DOMContentLoaded', function() {
+            const shortcuts = document.querySelectorAll('strong');
+            shortcuts.forEach(el => {
+                if (el.textContent.trim() === 'ESCALA' || 
+                    el.textContent.trim() === 'SCALE' || 
+                    el.textContent.trim() === 'SC' ||
+                    el.textContent.trim() === 'RECTÁNGULO' ||
+                    el.textContent.trim() === 'CÍRCULO') {
+                    el.classList.add('command-shortcut');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

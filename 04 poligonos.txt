@@ -1,0 +1,136 @@
+==================================================
+EJERCICIOS: TRAZADO DE POLÍGONOS EN AUTOCAD
+==================================================
+
+El comando POLIGONO (POL) permite dibujar polígonos regulares (lados iguales y ángulos iguales) de 3 a 1024 lados. Al activarlo, AutoCAD te pedirá dos datos esenciales:
+
+1.  Número de lados.
+2.  Método de definición (Centro o Borde).
+
+Si eliges el método por Centro, deberás especificar si el polígono es Inscrito (I) o Circunscrito (C).
+
+--------------------------------------------------
+I. MÉTODOS DE TRAZADO (2 EJEMPLOS POR MÉTODO)
+--------------------------------------------------
+
+Método 1: Centro, Inscrito en Círculo (I)
+
+Se define el polígono especificando el centro y el radio de un círculo IMAGINARIO que pasa por los **vértices** del polígono.
+
+Ejemplo 1.1: Hexágono Estándar
+Instrucciones: Dibuja un hexágono (6 lados) centrado en (0,0) con un radio de 10 unidades (la distancia del centro a cada vértice es 10).
+1. Activa el comando POLIGONO (POL).
+2. Número de lados: 6
+3. Especifica el centro: 0,0
+4. Opción: I (Inscrito en círculo).
+5. Especifica el radio: 10
+
+Ejemplo 1.2: Octágono en Coordenadas Flotantes
+Instrucciones: Dibuja un octágono (8 lados) centrado en (30,20) donde el radio del círculo inscrito sea 5.
+1. Activa el comando POLIGONO (POL).
+2. Número de lados: 8
+3. Especifica el centro: 30,20
+4. Opción: I (Inscrito en círculo).
+5. Especifica el radio: 5
+
+---
+
+Método 2: Centro, Circunscrito al Círculo (C)
+
+Se define el polígono especificando el centro y el radio de un círculo IMAGINARIO que es **tangente** al **punto medio** de cada lado del polígono.
+
+Ejemplo 2.1: Pentágono Circunscrito
+Instrucciones: Dibuja un pentágono (5 lados) centrado en (50,0) con un radio tangente de 8 unidades (la distancia del centro al punto medio del lado es 8).
+1. Activa el comando POLIGONO (POL).
+2. Número de lados: 5
+3. Especifica el centro: 50,0
+4. Opción: C (Circunscrito alrededor del círculo).
+5. Especifica el radio: 8
+
+Ejemplo 2.2: Hexágono para Tuerca (Circunscrito)
+Instrucciones: Dibuja un hexágono que represente la cabeza de una tuerca, centrado en (80,40), que debe medir 12 unidades "entre caras planas".
+1. Activa el comando POLIGONO (POL).
+2. Número de lados: 6
+3. Especifica el centro: 80,40
+4. Opción: C (Circunscrito).
+5. Especifica el radio: 6 (La mitad de la distancia entre caras es el radio).
+
+---
+
+Método 3: Por Borde (E)
+
+Se define el polígono especificando la longitud del primer lado, sin necesidad de especificar el centro.
+
+Ejemplo 3.1: Cuadrado por Lado
+Instrucciones: Dibuja un cuadrado (4 lados) donde cada lado mide exactamente 15 unidades.
+1. Activa el comando POLIGONO (POL).
+2. Número de lados: 4
+3. Escribe E para seleccionar la opción Borde (Edge).
+4. Especifica el primer punto del borde: 10,10
+5. Especifica el segundo punto del borde: @15<0 (o simplemente 25,10)
+
+Ejemplo 3.2: Heptágono con Lado Definido
+Instrucciones: Dibuja un heptágono (7 lados) donde la longitud de cada lado sea 7 unidades.
+1. Activa el comando POLIGONO (POL).
+2. Número de lados: 7
+3. Escribe E (Borde).
+4. Especifica el primer punto del borde: 50,50
+5. Especifica el segundo punto del borde (Ej: usando polar): @7<90
+
+--------------------------------------------------
+II. ACTIVIDADES SUGERIDAS (SOLUCIÓN OCULTA)
+--------------------------------------------------
+
+ACTIVIDAD 1: La Placa de Montaje (Inscrito + Circunscrito)
+
+Objetivo: Dibujar una placa hexagonal con un agujero central de inspección.
+Instrucciones:
+1. **Contorno Exterior (Placa):** Dibuja un hexágono (6 lados) centrado en (50,50), que esté **Circunscrito** a un círculo de radio 10.
+2. **Contorno Interior (Agujero):** Dibuja un pentágono (5 lados) centrado en (50,50), que esté **Inscrito** en un círculo de radio 5.
+3. **Resultado:** Debes ver el hexágono por fuera y el pentágono más pequeño por dentro, ambos centrados.
+
+<details>
+<summary>Ver Solución (Longitud de Lado del Hexágono Exterior)</summary>
+
+Si el hexágono es Circunscrito con radio 10, la distancia entre las caras planas es 20. La longitud de cada lado es $\text{Lado} = \frac{2 \times \text{Radio}}{\tan(180^\circ / 6)} = \frac{20}{\sqrt{3}} \approx 11.547$ unidades.
+</details>
+
+---
+
+ACTIVIDAD 2: El Tablero Modular (Borde y Coordenadas)
+
+Objetivo: Dibujar dos tableros modulares triangulares adyacentes definiendo el lado común.
+Instrucciones:
+1. **Triángulo 1:** Dibuja un triángulo equilátero (3 lados) usando el método **Borde**. El primer punto del borde debe ser (10,10) y el segundo punto debe ser (25,10) [Longitud 15].
+2. **Triángulo 2:** Dibuja un segundo triángulo (3 lados) también usando el método **Borde**. El primer punto del borde debe ser (25,10) y el segundo punto debe ser (10,10) [Longitud 15].
+3. **Resultado:** Los dos triángulos deben estar perfectamente unidos a lo largo del lado de 15 unidades, formando un rombo.
+
+<details>
+<summary>Ver Solución (Orientación y Ángulos)</summary>
+
+El Triángulo 1 tendrá su tercer vértice por encima del lado base (17.5, 22.99).
+El Triángulo 2, al invertir el orden de la definición del borde, tendrá su tercer vértice por debajo del lado base (17.5, -2.99).
+</details>
+
+--------------------------------------------------
+III. RETOS DE COMPRENSIÓN (3 RETOS)
+--------------------------------------------------
+
+RETO 1: El Octágono que Contiene
+Dibuja un **CÍRCULO** de radio 10 centrado en (0,0). A continuación, dibuja un **OCTÁGONO** (8 lados) que esté **Circunscrito** alrededor de ese círculo.
+Verifica: ¿Al medir la distancia desde el centro del octágono al punto medio de cualquiera de sus lados, obtienes 10 unidades?
+
+---
+
+RETO 2: Comparación de Longitudes
+Dibuja dos hexágonos (6 lados) idénticos en tamaño, ambos centrados en (50,50):
+1. Hexágono A: **Inscrito** con radio 10.
+2. Hexágono B: **Circunscrito** con radio 10.
+Verifica: ¿Cuál de los dos hexágonos tiene el **lado más corto**? ¿Por qué?
+
+---
+
+RETO 3: El Pentágono Girado
+Dibuja un pentágono (5 lados) utilizando el método **Borde** (E), de modo que el primer lado mida 12 unidades y esté orientado **verticalmente** (90 grados).
+Pista: Al definir el borde, usa una coordenada relativa o polar para asegurar la orientación vertical.
+Verifica: ¿El vértice superior del pentágono está alineado horizontalmente con los dos puntos que definen el lado base?

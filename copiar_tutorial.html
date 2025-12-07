@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comando COPIAR (COPY) en AutoCAD</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #9b59b6;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --success: #2ecc71;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        h2 {
+            color: var(--primary);
+            margin: 2rem 0 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--secondary);
+        }
+        
+        h3 {
+            color: var(--secondary);
+            margin: 1.5rem 0 0.75rem;
+        }
+        
+        .method, .activity, .challenge {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .method:hover, .activity:hover, .challenge:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .example {
+            background-color: #f8f9fa;
+            border-left: 4px solid var(--secondary);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .steps {
+            counter-reset: step;
+            margin: 1rem 0;
+            padding-left: 1.5rem;
+        }
+        
+        .steps li {
+            position: relative;
+            margin-bottom: 0.75rem;
+            list-style-type: none;
+            padding-left: 2rem;
+        }
+        
+        .steps li:before {
+            counter-increment: step;
+            content: counter(step);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: var(--secondary);
+            color: white;
+            width: 1.5rem;
+            height: 1.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.875rem;
+            font-weight: bold;
+        }
+        
+        .command {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            font-family: 'Consolas', 'Monaco', monospace;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.9em;
+            display: inline-block;
+            margin: 0.2rem 0;
+        }
+        
+        .coordinates {
+            font-family: 'Consolas', 'Monaco', monospace;
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        
+        .osnap {
+            color: #27ae60;
+            font-weight: bold;
+        }
+        
+        .note {
+            background-color: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .warning {
+            background-color: #fff3e0;
+            border-left: 4px solid #ff9800;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        details {
+            background-color: #f5f5f5;
+            border-radius: 4px;
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+        
+        summary {
+            padding: 1rem;
+            background-color: #e0e0e0;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.2s;
+        }
+        
+        summary:hover {
+            background-color: #d0d0d0;
+        }
+        
+        details[open] summary {
+            background-color: #d0d0d0;
+        }
+        
+        details > div {
+            padding: 1rem;
+        }
+        
+        .activity, .challenge {
+            border-left: 4px solid var(--accent);
+        }
+        
+        .challenge {
+            border-left-color: var(--success);
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .method, .activity, .challenge {
+                padding: 1rem;
+            }
+        }
+        
+        .key {
+            display: inline-block;
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            padding: 0.2rem 0.5rem;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.9em;
+            box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+            margin: 0.2rem;
+        }
+
+        .tip {
+            background-color: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Comando COPIAR (COPY) en AutoCAD</h1>
+            <p>Guía completa con ejemplos prácticos y ejercicios</p>
+        </header>
+        
+        <section>
+            <p>El comando <span class="command">COPIAR</span> (CP) duplica objetos seleccionados y los coloca en una nueva ubicación sin modificar los originales. Requiere tres pasos clave:</p>
+            <ol>
+                <li><strong>Selección de Objetos:</strong> Definir qué entidades se van a duplicar.</li>
+                <li><strong>Punto Base (Base Point):</strong> El punto de referencia desde donde se inicia la copia.</li>
+                <li><strong>Punto de Desplazamiento (Second Point):</strong> La ubicación final de la nueva copia.</li>
+            </ol>
+        </section>
+        
+        <div class="tip">
+            <strong>💡 Consejo:</strong> El comando COPIAR mantiene el objeto original y crea una copia en la ubicación especificada, a diferencia del comando MOVE que mueve el objeto original.
+        </div>
+        
+        <h2>I. MÉTODOS DE COPIA</h2>
+        
+        <div class="method">
+            <h3>Método 1: Copia por Coordenadas Relativas (@DX, DY)</h3>
+            <p>Se utiliza un vector de desplazamiento (Delta X, Delta Y) para crear la copia a una distancia y dirección precisas con respecto al punto base. Este método es ideal para repeticiones uniformes.</p>
+            
+            <div class="example">
+                <h4>Ejemplo 1.1: Copia 10 unidades Horizontalmente</h4>
+                <p><strong>Instrucciones:</strong> Dibuja un rectángulo. Cópialo 10 unidades a la derecha.</p>
+                <ol class="steps">
+                    <li>Dibuja un <span class="command">RECTANGULO</span> (REC) en <span class="coordinates">(10,10)</span> de 5x5.</li>
+                    <li>Activa el comando <span class="command">COPIAR</span> (CP).</li>
+                    <li>Selecciona el rectángulo. Presiona <span class="key">Enter</span>.</li>
+                    <li>Punto Base (puede ser cualquier punto, Ej: la esquina inferior izquierda, <span class="coordinates">10,10</span>).</li>
+                    <li>Punto de Desplazamiento (Vector): <span class="coordinates">@10,0</span> (Mover 10 en X, 0 en Y).</li>
+                    <li>La esquina del rectángulo copiado debe ser <span class="coordinates">(20, 10)</span>.</li>
+                </ol>
+            </div>
+            
+            <div class="example">
+                <h4>Ejemplo 1.2: Copia Múltiple en Diagonal</h4>
+                <p><strong>Instrucciones:</strong> Dibuja un círculo. Crea tres copias consecutivas, cada una separada 5 unidades en X y 5 unidades en Y.</p>
+                <ol class="steps">
+                    <li>Dibuja un <span class="command">CÍRCULO</span> (C) en <span class="coordinates">(5,5)</span> con radio 1.</li>
+                    <li>Activa <span class="command">COPIAR</span> (CP).</li>
+                    <li>Selecciona el círculo. Presiona <span class="key">Enter</span>.</li>
+                    <li>Punto Base (Ej: el centro del círculo, <span class="coordinates">5,5</span>).</li>
+                    <li>Primera Copia: <span class="coordinates">@5,5</span> (El centro es ahora <span class="coordinates">10,10</span>).</li>
+                    <li>Segunda Copia: Ingresa <span class="coordinates">@5,5</span> de nuevo (El centro es ahora <span class="coordinates">15,15</span>).</li>
+                    <li>Tercera Copia: <span class="coordinates">@5,5</span> (El centro final es <span class="coordinates">20,20</span>).</li>
+                    <li>Presiona <span class="key">Enter</span> para finalizar el comando.</li>
+                </ol>
+            </div>
+            
+            <div class="note">
+                <strong>Nota:</strong> Para copias múltiples, AutoCAD mantendrá el comando activo hasta que presiones <span class="key">Enter</span> para finalizarlo. Cada nueva posición se calcula respecto a la posición de la última copia creada.
+            </div>
+        </div>
+        
+        <div class="method">
+            <h3>Método 2: Copia por Referencia a Objeto (Osnap)</h3>
+            <p>Se utiliza cuando la nueva ubicación está definida por un punto geométrico específico de otro objeto o de la entidad copiada (punto final, centro, intersección, etc.).</p>
+            
+            <div class="example">
+                <h4>Ejemplo 2.1: Copia con Unión (Extremo a Extremo)</h4>
+                <p><strong>Instrucciones:</strong> Dibuja una línea de 10 unidades. Copia la línea original para que el punto inicial de la copia se una al punto final del original.</p>
+                <ol class="steps">
+                    <li>Dibuja <span class="command">LINEA 1</span>: de <span class="coordinates">10,10</span> a <span class="coordinates">20,10</span>.</li>
+                    <li>Activa <span class="command">COPIAR</span> (CP).</li>
+                    <li>Selecciona Línea 1. Presiona <span class="key">Enter</span>.</li>
+                    <li>Punto Base: Usa Osnap <span class="osnap">Punto Final</span> (End) para seleccionar el final de la Línea 1 <span class="coordinates">(20,10)</span>.</li>
+                    <li>Punto de Desplazamiento: Usa Osnap <span class="osnap">Punto Final</span> (End) para seleccionar el mismo punto <span class="coordinates">(20,10)</span>.</li>
+                    <li>La copia se crea. El punto de inicio de la copia ahora está en <span class="coordinates">(20,10)</span> y el punto final en <span class="coordinates">(30,10)</span>.</li>
+                </ol>
+            </div>
+            
+            <div class="example">
+                <h4>Ejemplo 2.2: Copia Alineada al Centro</h4>
+                <p><strong>Instrucciones:</strong> Copia un cuadrado para que su centro geométrico se alinee con el centro de un círculo.</p>
+                <ol class="steps">
+                    <li>Dibuja un <span class="command">CÍRCULO</span> (C) en <span class="coordinates">(50,50)</span> con radio 5.</li>
+                    <li>Dibuja un <span class="command">RECTANGULO</span> (REC) en <span class="coordinates">(10,10)</span> de 4x4.</li>
+                    <li>Activa <span class="command">COPIAR</span> (CP).</li>
+                    <li>Selecciona el rectángulo. Presiona <span class="key">Enter</span>.</li>
+                    <li>Punto Base: Utiliza Osnap <span class="osnap">Centro Geométrico</span> para seleccionar el centro del rectángulo <span class="coordinates">(12,12)</span>.</li>
+                    <li>Punto de Desplazamiento: Utiliza Osnap <span class="osnap">Centro</span> para seleccionar el centro del círculo <span class="coordinates">(50,50)</span>.</li>
+                    <li>La copia del rectángulo se superpone al círculo, centrado en <span class="coordinates">(50,50)</span>.</li>
+                </ol>
+            </div>
+            
+            <div class="tip">
+                <strong>💡 Consejo:</strong> Usa las referencias a objeto (Osnap) para una mayor precisión al copiar elementos. Las referencias más útiles son: <span class="osnap">Punto Final</span>, <span class="osnap">Punto Medio</span>, <span class="osnap">Centro</span>, <span class="osnap">Intersección</span> y <span class="osnap">Cuadrante</span>.
+            </div>
+        </div>
+        
+        <h2>II. ACTIVIDADES SUGERIDAS</h2>
+        
+        <div class="activity">
+            <h3>ACTIVIDAD 1: La Matriz de Pilares (Copia Múltiple y Uniforme)</h3>
+            <p><strong>Objetivo:</strong> Crear una matriz de 3x3 pilares cuadrados separados uniformemente.</p>
+            <p><strong>Instrucciones:</strong></p>
+            <ol class="steps">
+                <li>Dibuja el Pilar (<span class="command">RECTANGULO</span> de 2x2) en <span class="coordinates">(0,0)</span>.</li>
+                <li><strong>Copia Horizontal (Fila 1):</strong> Activa <span class="command">COPIAR</span> (CP). Selecciona el pilar. Punto Base: <span class="coordinates">(0,0)</span>. Utiliza la opción <strong>Múltiple</strong> (M) y copia el pilar a una distancia de <strong>5 unidades</strong> dos veces (Ej: <span class="coordinates">5,0</span> y <span class="coordinates">10,0</span>).</li>
+                <li><strong>Copia Vertical (Filas 2 y 3):</strong> Ahora, selecciona los <strong>tres pilares</strong> de la Fila 1 (las tres polilíneas). Punto Base: <span class="coordinates">(0,0)</span>. Copia el conjunto 5 unidades hacia arriba (<span class="coordinates">@0,5</span>) y luego 10 unidades hacia arriba (<span class="coordinates">@0,10</span>).</li>
+            </ol>
+            
+            <details>
+                <summary>Ver Solución (Coordenadas de la Esquina Inferior Izquierda del Último Pilar)</summary>
+                <div>
+                    <p>El último pilar (esquina superior derecha de la matriz) debe tener su esquina inferior izquierda en <strong class="coordinates">(10, 10)</strong>.</p>
+                    <p><strong>Explicación:</strong></p>
+                    <ul>
+                        <li>Fila 1: Pilares en (0,0), (5,0), (10,0)</li>
+                        <li>Fila 2: Copia de la Fila 1 con desplazamiento @0,5 → Pilares en (0,5), (5,5), (10,5)</li>
+                        <li>Fila 3: Copia de la Fila 1 con desplazamiento @0,10 → Pilares en (0,10), (5,10), (10,10)</li>
+                    </ul>
+                </div>
+            </details>
+        </div>
+        
+        <div class="activity">
+            <h3>ACTIVIDAD 2: El Detalle de Esquina (Copia y Referencia de Punto)</h3>
+            <p><strong>Objetivo:</strong> Copiar un detalle a una esquina opuesta de un marco usando referencias de puntos.</p>
+            <p><strong>Instrucciones:</strong></p>
+            <ol class="steps">
+                <li>Dibuja un <span class="command">RECTANGULO</span> grande (Marco) de 20x20 comenzando en <span class="coordinates">(0,0)</span>.</li>
+                <li>Dibuja un <span class="command">CÍRCULO</span> de radio 1 en la esquina <strong>superior izquierda</strong> del marco (centrado en <span class="coordinates">1, 19</span>).</li>
+                <li><strong>Copia a Esquina Opuesta:</strong> Activa <span class="command">COPIAR</span> (CP). Selecciona el círculo.</li>
+                <li>Punto Base: El centro del círculo <span class="coordinates">(1, 19)</span>.</li>
+                <li>Punto de Desplazamiento: La coordenada de la esquina <strong>inferior derecha</strong> del marco <span class="coordinates">(20, 0)</span>.</li>
+                <li>Ajusta la posición si es necesario para que el círculo quede correctamente ubicado en la esquina opuesta.</li>
+            </ol>
+            
+            <details>
+                <summary>Ver Solución (Coordenada Final del Centro del Círculo Copiado)</summary>
+                <div>
+                    <p>El centro del círculo original es <span class="coordinates">(1, 19)</span>.</p>
+                    <p>La esquina objetivo es <span class="coordinates">(20, 0)</span>.</p>
+                    <p>El vector de desplazamiento (Punto de Desplazamiento) debe ser <span class="coordinates">@19,-19</span> (20-1 en X, 0-19 en Y).</p>
+                    <p>El centro del círculo copiado debe estar en: <strong class="coordinates">(20, 0)</strong>.</p>
+                    
+                    <div class="warning">
+                        <p><strong>¡Cuidado!</strong> Si el punto base es <span class="coordinates">(1, 19)</span> y el punto final es <span class="coordinates">(20, 0)</span>, la copia aparecerá en <span class="coordinates">(20, 0)</span>. Esto es <strong>incorrecto</strong> porque estaríamos colocando el centro del círculo en la esquina.</p>
+                    </div>
+                    
+                    <p><strong>Solución correcta (usando referencias):</strong></p>
+                    <ol>
+                        <li>Punto Base: Cuadrante Inferior Derecho del Marco <span class="coordinates">(20, 0)</span>.</li>
+                        <li>Punto de Desplazamiento: Cuadrante Superior Izquierdo del Marco <span class="coordinates">(0, 20)</span>.</li>
+                        <li>Vector: <span class="coordinates">@-20, 20</span>.</li>
+                        <li>Punto Base: <span class="coordinates">(1, 19)</span>. Punto Final: <span class="coordinates">(1+19, 19-19) = (20, 0)</span>.</li>
+                    </ol>
+                    <p>El centro final es <strong class="coordinates">(19, 1)</strong>.</p>
+                </div>
+            </details>
+        </div>
+        
+        <h2>III. RETOS DE COMPRENSIÓN</h2>
+        
+        <div class="challenge">
+            <h3>RETO 1: La Copia Inmediata</h3>
+            <p>Dibuja un círculo. Activa <span class="command">COPIAR</span> (CP). Selecciónalo. Punto Base: <span class="coordinates">(0,0)</span>. Cuando te pida el Punto de Desplazamiento, presiona la tecla <span class="key">ENTER</span> sin ingresar coordenadas.</p>
+            <p><strong>Verifica:</strong> ¿Qué sucedió? ¿Qué coordenadas tiene el centro de la copia si el original estaba en <span class="coordinates">(5,5)</span>?</p>
+            
+            <details>
+                <summary>Ver Solución</summary>
+                <div>
+                    <p>Al presionar <span class="key">ENTER</span> sin ingresar coordenadas, AutoCAD creará una copia superpuesta exactamente encima del objeto original.</p>
+                    <p>Si el círculo original estaba en <span class="coordinates">(5,5)</span>, la copia también estará en <span class="coordinates">(5,5)</span>, pero será un objeto independiente.</p>
+                    <p>Puedes verificar esto moviendo uno de los círculos para confirmar que hay dos objetos superpuestos.</p>
+                </div>
+            </details>
+        </div>
+        
+        <div class="challenge">
+            <h3>RETO 2: La Copia Sin Distancia</h3>
+            <p>Dibuja un rectángulo. Activa <span class="command">COPIAR</span> (CP). Selecciónalo. Punto Base: <strong>La esquina inferior izquierda del rectángulo</strong>. En el Punto de Desplazamiento, haz clic en <strong>el mismo lugar</strong> donde seleccionaste el Punto Base.</p>
+            <p><strong>Verifica:</strong> ¿Por qué AutoCAD te permite hacer esto y qué implica para la selección futura? (Pista: Busca la copia superpuesta).</p>
+            
+            <details>
+                <summary>Ver Solución</summary>
+                <div>
+                    <p>AutoCAD permite hacer esto porque técnicamente es una operación válida, aunque el desplazamiento sea cero.</p>
+                    <p>Lo que sucede es que se crea una copia exactamente en la misma posición que el original, lo que resulta en dos objetos superpuestos.</p>
+                    <p>Implicaciones:</p>
+                    <ul>
+                        <li>Puede causar confusión al seleccionar objetos, ya que parecerá que solo hay un objeto cuando en realidad hay dos superpuestos.</li>
+                        <li>Puede afectar el rendimiento del dibujo si hay muchas copias superpuestas.</li>
+                        <li>Puede causar problemas al imprimir o exportar el dibujo.</li>
+                    </ul>
+                    <p>Para evitar esto, siempre asegúrate de que el punto de desplazamiento sea diferente al punto base al usar el comando COPIAR.</p>
+                </div>
+            </details>
+        </div>
+        
+        <div class="challenge">
+            <h3>RETO 3: Copiar y Rotar a la Vez</h3>
+            <p>Dibuja una línea horizontal. Utiliza el comando <span class="command">COPIAR</span> (CP). Elige un punto base. A continuación, selecciona la opción <strong>ROTAR</strong> (Rotate, RO) dentro del comando COPIAR.</p>
+            <p><strong>Pregunta:</strong> ¿Se puede rotar la copia sin mover el original, o rotar y copiar en el mismo paso? ¿Qué valor de ángulo debes ingresar para que la copia quede vertical?</p>
+            
+            <details>
+                <summary>Ver Solución</summary>
+                <div>
+                    <p>Sí, es posible rotar la copia sin mover el original utilizando la opción <strong>ROTAR</strong> dentro del comando <span class="command">COPIAR</span>.</p>
+                    <p>Para rotar la copia 90 grados (para que quede vertical):</p>
+                    <ol>
+                        <li>Dibuja una línea horizontal.</li>
+                        <li>Activa <span class="command">COPIAR</span> (CP).</li>
+                        <li>Selecciona la línea. Presiona <span class="key">Enter</span>.</li>
+                        <li>Elige un punto base (puede ser un extremo de la línea).</li>
+                        <li>Escribe <span class="command">RO</span> (o haz clic en la opción Rotar en la barra de comandos).</n                        <li>Ingresa un ángulo de <span class="coordinates">90</span> grados.</li>
+                        <li>La copia rotada aparecerá en la posición especificada.</li>
+                    </ol>
+                    <p>La línea original permanecerá en su posición y orientación originales, mientras que la copia estará rotada 90 grados.</p>
+                    <p>Para una línea horizontal, un ángulo de <span class="coordinates">90</span> grados la hará vertical. Si la copia rota en la dirección opuesta a la deseada, usa <span class="coordinates">-90</span> grados.</p>
+                </div>
+            </details>
+        </div>
+        
+        <div class="tip">
+            <h3>Consejos Adicionales para el Comando COPIAR</h3>
+            <ul>
+                <li>Usa la opción <strong>Múltiple</strong> (tecla <span class="key">M</span>) para crear varias copias en una sola ejecución del comando.</li>
+                <li>Puedes usar referencias a objeto (<span class="osnap">Osnap</span>) tanto para el punto base como para el punto de desplazamiento.</li>
+                <li>La tecla <span class="key">F3</span> activa/desactiva los <span class="osnap">Osnap</span>.</li>
+                <li>La tecla <span class="key">F8</span> activa/desactiva el modo <strong>Ortho</strong>, útil para copias en ángulos rectos.</li>
+                <li>Puedes usar la herramienta <strong>Copiar con Referencia</strong> (comando <span class="command">COPYBASE</span>) para copiar objetos al portapapeles con un punto base específico.</li>
+            </ul>
+        </div>
+        
+        <footer style="margin-top: 3rem; padding: 2rem 0; text-align: center; color: #666; border-top: 1px solid #eee;">
+            <p>© 2025 Tutorial de AutoCAD - Comando COPIAR (COPY)</p>
+        </footer>
+    </div>
+    
+    <script>
+        // Agregar funcionalidad para expandir/contraer todos los detalles
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animación suave al hacer clic en los detalles
+            const details = document.querySelectorAll('details');
+            details.forEach(detail => {
+                detail.addEventListener('click', function() {
+                    this.classList.toggle('active');
+                });
+            });
+            
+            // Resaltar comandos al pasar el mouse
+            const commands = document.querySelectorAll('.command');
+            commands.forEach(cmd => {
+                cmd.addEventListener('mouseover', function() {
+                    this.style.backgroundColor = '#1a5276';
+                    this.style.transition = 'background-color 0.3s';
+                });
+                cmd.addEventListener('mouseout', function() {
+                    this.style.backgroundColor = '';
+                });
+            });
+            
+            // Mejorar la accesibilidad de los detalles
+            details.forEach(detail => {
+                const summary = detail.querySelector('summary');
+                if (summary) {
+                    summary.setAttribute('role', 'button');
+                    summary.setAttribute('aria-expanded', 'false');
+                    
+                    summary.addEventListener('click', function(e) {
+                        const isExpanded = this.getAttribute('aria-expanded') === 'true' || false;
+                        this.setAttribute('aria-expanded', !isExpanded);
+                    });
+                    
+                    // Permitir activar con teclado
+                    summary.addEventListener('keydown', function(e) {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            this.click();
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

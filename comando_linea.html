@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comando Línea en AutoCAD - Aprende Fácil</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-bg: #f8f9fa;
+            --dark-text: #2c3e50;
+            --light-text: #ecf0f1;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: var(--dark-text);
+            background-color: var(--light-bg);
+            padding: 0;
+            margin: 0;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        /* Main Content */
+        main {
+            padding: 2rem 0;
+        }
+
+        .card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+            overflow: hidden;
+        }
+
+        .card-header {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 1rem 1.5rem;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .card-header:hover {
+            background-color: #2980b9;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+            display: none;
+        }
+
+        .card.active .card-content {
+            display: block;
+        }
+
+        /* Button Styles */
+        .btn {
+            display: inline-block;
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        /* Example and Exercise Styles */
+        .example, .exercise, .challenge {
+            background-color: #f8f9fa;
+            border-left: 4px solid var(--secondary-color);
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .example h3, .exercise h3, .challenge h3 {
+            color: var(--primary-color);
+            margin-bottom: 0.8rem;
+        }
+
+        .challenge {
+            border-left-color: var(--accent-color);
+            background-color: #fff5f5;
+        }
+
+        .challenge h3 {
+            color: var(--accent-color);
+        }
+
+        .steps {
+            counter-reset: step;
+            padding-left: 1.5rem;
+        }
+
+        .step {
+            position: relative;
+            margin-bottom: 1rem;
+            padding-left: 2rem;
+        }
+
+        .step:before {
+            counter-increment: step;
+            content: counter(step);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 1.8rem;
+            height: 1.8rem;
+            background-color: var(--secondary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        .challenge .step:before {
+            background-color: var(--accent-color);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+            
+            .card-header {
+                font-size: 1.1rem;
+                padding: 0.8rem 1rem;
+            }
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary-color);
+            color: var(--light-text);
+            text-align: center;
+            padding: 1.5rem 0;
+            margin-top: 2rem;
+            font-size: 0.9rem;
+        }
+
+        /* Toggle Content */
+        .toggle-content {
+            display: none;
+            padding: 1rem;
+            background-color: #f1f8ff;
+            border-radius: 4px;
+            margin-top: 1rem;
+            border-left: 3px solid var(--secondary-color);
+        }
+
+        .toggle-btn {
+            background: none;
+            border: none;
+            color: var(--secondary-color);
+            cursor: pointer;
+            padding: 0.3rem 0.6rem;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            display: inline-flex;
+            align-items: center;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-btn:hover {
+            background-color: rgba(52, 152, 219, 0.1);
+        }
+
+        .toggle-btn:after {
+            content: '▼';
+            font-size: 0.7rem;
+            margin-left: 0.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .toggle-btn.active:after {
+            transform: rotate(180deg);
+        }
+
+        .command {
+            font-family: 'Courier New', monospace;
+            background-color: #f1f1f1;
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Comando Línea en AutoCAD</h1>
+            <p class="subtitle">Aprende a dominar el comando más fundamental de dibujo en AutoCAD</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="intro">
+            <p>El comando <span class="command">LÍNEA</span> es una de las herramientas más básicas y esenciales en AutoCAD. Te permite crear segmentos de línea recta entre dos puntos en el espacio de dibujo. Aprender a usarlo correctamente es fundamental para cualquier proyecto de diseño.</p>
+        </section>
+
+        <!-- Sección de Ejemplos -->
+        <section class="examples">
+            <h2>Ejemplos Prácticos</h2>
+            
+            <!-- Ejemplo 1 -->
+            <div class="card">
+                <div class="card-header">
+                    <span>Ejemplo 1: Dibujar un cuadrado</span>
+                    <span class="toggle-btn">Mostrar</span>
+                </div>
+                <div class="card-content">
+                    <div class="example">
+                        <h3>Dibujando un cuadrado de 100x100 unidades</h3>
+                        <div class="steps">
+                            <div class="step">Presiona <span class="command">L</span> y luego <span class="command">Enter</span> para activar el comando LÍNEA.</div>
+                            <div class="step">Haz clic en cualquier punto de la pantalla para establecer el primer punto.</div>
+                            <div class="step">Escribe <span class="command">@100,0</span> y presiona <span class="command">Enter</span>.</div>
+                            <div class="step">Escribe <span class="command">@0,100</span> y presiona <span class="command">Enter</span>.</div>
+                            <div class="step">Escribe <span class="command">@-100,0</span> y presiona <span class="command">Enter</span>.</div>
+                            <div class="step">Escribe <span class="command">C</span> y presiona <span class="command">Enter</span> para cerrar la figura.</div>
+                        </div>
+                        <button class="toggle-btn">Ver imagen de referencia</button>
+                        <div class="toggle-content">
+                            <p>Imagen de referencia del cuadrado aquí</p>
+                            <!-- Se puede agregar una imagen aquí -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ejemplo 2 -->
+            <div class="card">
+                <div class="card-header">
+                    <span>Ejemplo 2: Dibujar una estrella</span>
+                    <span class="toggle-btn">Mostrar</span>
+                </div>
+                <div class="card-content">
+                    <div class="example">
+                        <h3>Creando una estrella de 5 puntas</h3>
+                        <div class="steps">
+                            <div class="step">Activa el comando <span class="command">LÍNEA</span> (L + Enter).</div>
+                            <div class="step">Haz clic en un punto de inicio.</div>
+                            <div class="step">Escribe <span class="command">@100<72</span> y presiona <span class="command">Enter</span>.</div>
+                            <div class="step">Escribe <span class="command">@100<216</span> y presiona <span class="command">Enter</span>.</div>
+                            <div class="step">Escribe <span class="command">@100<0</span> y presiona <span class="command">Enter</span>.</div>
+                            <div class="step">Escribe <span class="command">@100<144</span> y presiona <span class="command">Enter</span>.</div>
+                            <div class="step">Escribe <span class="command">@100<288</span> y presiona <span class="command">Enter</span>.</div>
+                            <div class="step">Presiona <span class="command">Enter</span> para finalizar el comando.</div>
+                        </div>
+                        <button class="toggle-btn">Ver imagen de referencia</button>
+                        <div class="toggle-content">
+                            <p>Imagen de referencia de la estrella aquí</p>
+                            <!-- Se puede agregar una imagen aquí -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de Ejercicios -->
+        <section class="exercises">
+            <h2>Ejercicios para Practicar</h2>
+            
+            <!-- Ejercicio 1 -->
+            <div class="card">
+                <div class="card-header">
+                    <span>Ejercicio 1: Casa Simple</span>
+                    <span class="toggle-btn">Mostrar</span>
+                </div>
+                <div class="card-content">
+                    <div class="exercise">
+                        <h3>Instrucciones:</h3>
+                        <p>Crea un dibujo de una casa simple usando solo el comando LÍNEA.</p>
+                        <div class="steps">
+                            <div class="step">Dibuja un rectángulo de 150x100 unidades para la estructura principal.</div>
+                            <div class="step">Agrega un triángulo equilátero en la parte superior para el techo.</div>
+                            <div class="step">Incluye una puerta de 30x60 unidades.</div>
+                            <div class="step">Añade dos ventanas de 20x20 unidades.</div>
+                        </div>
+                        <button class="toggle-btn">Ver solución paso a paso</button>
+                        <div class="toggle-content">
+                            <h4>Solución:</h4>
+                            <div class="steps">
+                                <div class="step">Activa el comando LÍNEA (L + Enter).</div>
+                                <div class="step">Dibuja el rectángulo base: haz clic en un punto y usa <span class="command">@150,0</span>, luego <span class="command">@0,100</span>, <span class="command">@-150,0</span> y por último <span class="command">C</span> para cerrar.</div>
+                                <div class="step">Para el techo: desde la esquina superior izquierda del rectángulo, dibuja una línea a <span class="command">@75,50</span> y luego a la esquina superior derecha.</div>
+                                <div class="step">Para la puerta: desde un punto en la base (ej. @40,0), dibuja hacia arriba 60 unidades, luego a la derecha 30 unidades, y luego hacia abajo 60 unidades.</div>
+                                <div class="step">Para las ventanas: repite un procedimiento similar en las posiciones deseadas.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ejercicio 2 -->
+            <div class="card">
+                <div class="card-header">
+                    <span>Ejercicio 2: Letras con Líneas</span>
+                    <span class="toggle-btn">Mostrar</span>
+                </div>
+                <div class="card-content">
+                    <div class="exercise">
+                        <h3>Instrucciones:</h3>
+                        <p>Crea las letras "A" y "C" usando solo líneas rectas.</p>
+                        <div class="steps">
+                            <div class="step">Cada letra debe tener 100 unidades de altura.</div>
+                            <div class="step">Usa el comando LÍNEA para todos los trazos.</div>
+                            <div class="step">Asegúrate de que las letras sean proporcionales.</div>
+                        </div>
+                        <button class="toggle-btn">Ver solución paso a paso</button>
+                        <div class="toggle-content">
+                            <h4>Solución para la letra "A":</h4>
+                            <div class="steps">
+                                <div class="step">Dibuja una línea diagonal hacia arriba y a la derecha: <span class="command">@50,100</span></div>
+                                <div class="step">Desde el mismo punto inicial, dibuja hacia arriba y a la izquierda: <span class="command">@-50,100</span></div>
+                                <div class="step">Dibuja una línea horizontal en la mitad para la barra central.</div>
+                            </div>
+                            <h4>Solución para la letra "C":</h4>
+                            <div class="steps">
+                                <div class="step">Comienza en la parte superior derecha y dibuja hacia la izquierda.</div>
+                                <div class="step">Dibuja hacia abajo en el lado izquierdo.</div>
+                                <div class="step">Dibuja hacia la derecha en la parte inferior.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de Retos -->
+        <section class="challenges">
+            <h2>Retos de AutoCAD</h2>
+            
+            <!-- Reto 1 -->
+            <div class="card">
+                <div class="card-header">
+                    <span>Reto 1: El Puente Imposible</span>
+                    <span class="toggle-btn">Mostrar</span>
+                </div>
+                <div class="card-content">
+                    <div class="challenge">
+                        <h3>¿Puedes dibujar un puente que desafíe la gravedad?</h3>
+                        <p>Crea un diseño de puente usando solo líneas rectas. El reto es hacer que parezca que algunas partes flotan en el aire, creando una ilusión óptica interesante.</p>
+                        <button class="toggle-btn">Ver pista</button>
+                        <div class="toggle-content">
+                            <p>Pista: Experimenta con líneas que se cruzan en ángulos inusuales para crear la ilusión de profundidad. Usa líneas diagonales que converjan en puntos de fuga para dar la sensación de perspectiva.</p>
+                        </div>
+                        <button class="toggle-btn" style="margin-top: 10px;">Ver solución</button>
+                        <div class="toggle-content">
+                            <h4>Solución:</h4>
+                            <div class="steps">
+                                <div class="step">Comienza dibujando dos líneas paralelas horizontales para la base del puente.</div>
+                                <div class="step">Agrega líneas diagonales que se extiendan hacia arriba desde los extremos, creando la ilusión de distancia.</div>
+                                <div class="step">Conecta estas líneas con travesaños horizontales que parezcan más pequeños a medida que se alejan.</div>
+                                <div class="step">Añade detalles adicionales como barandillas y soportes para completar la ilusión.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reto 2 -->
+            <div class="card">
+                <div class="card-header">
+                    <span>Reto 2: La Ciudad del Futuro</span>
+                    <span class="toggle-btn">Mostrar</span>
+                </div>
+                <div class="card-content">
+                    <div class="challenge">
+                        <h3>¿Cómo se vería una ciudad futurista hecha solo con líneas?</h3>
+                        <p>Crea un skyline de una ciudad futurista usando solo el comando LÍNEA. Incluye rascacielos, puentes y elementos arquitectónicos interesantes.</p>
+                        <button class="toggle-btn">Ver pista</button>
+                        <div class="toggle-content">
+                            <p>Pista: Usa líneas en diferentes ángulos para crear edificios con diseños únicos. Experimenta con formas geométricas interesantes para los techos y ventanas.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reto 3 -->
+            <div class="card">
+                <div class="card-header">
+                    <span>Reto 3: El Laberinto Misterioso</span>
+                    <span class="toggle-btn">Mostrar</span>
+                </div>
+                <div class="card-content">
+                    <div class="challenge">
+                        <h3>¿Puedes crear un laberinto que desafíe a cualquiera que intente resolverlo?</h3>
+                        <p>Diseña un laberinto complejo usando solo líneas rectas. Asegúrate de que tenga una entrada, una salida y múltiples caminos posibles, pero solo uno que lleve a la salida.</p>
+                        <button class="toggle-btn">Ver pista</button>
+                        <div class="toggle-content">
+                            <p>Pista: Comienza con el perímetro exterior, luego agrega paredes internas. Asegúrate de que siempre haya al menos un camino desde la entrada hasta la salida. Usa líneas paralelas para crear los pasillos.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; JMGV-PTEL-2025 Todos los derechos reservados</p>
+        </div>
+    </footer>
+
+    <script>
+        // Script para los acordeones
+        document.addEventListener('DOMContentLoaded', function() {
+            const cardHeaders = document.querySelectorAll('.card-header');
+            
+            cardHeaders.forEach(header => {
+                const toggleBtn = header.querySelector('.toggle-btn');
+                const card = header.parentElement;
+                
+                header.addEventListener('click', () => {
+                    card.classList.toggle('active');
+                    const content = header.nextElementSibling;
+                    
+                    if (card.classList.contains('active')) {
+                        toggleBtn.textContent = 'Ocultar';
+                        toggleBtn.classList.add('active');
+                    } else {
+                        toggleBtn.textContent = 'Mostrar';
+                        toggleBtn.classList.remove('active');
+                    }
+                });
+            });
+
+            // Script para los botones de alternar contenido
+            const toggleButtons = document.querySelectorAll('.toggle-btn');
+            
+            toggleButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.stopPropagation(); // Evita que el evento se propague al card-header
+                    const content = this.nextElementSibling;
+                    const isActive = this.classList.toggle('active');
+                    
+                    if (isActive) {
+                        content.style.display = 'block';
+                        this.textContent = this.textContent.replace('Mostrar', 'Ocultar');
+                    } else {
+                        content.style.display = 'none';
+                        this.textContent = this.textContent.replace('Ocultar', 'Mostrar');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

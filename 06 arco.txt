@@ -1,0 +1,137 @@
+==================================================
+EJERCICIOS: TRAZADO DE ARCOS EN AUTOCAD
+==================================================
+
+El comando ARCO (A) permite dibujar segmentos de un círculo. Existen once métodos para trazar un arco, pero los más comunes y eficientes son los que definen el inicio, el centro o el final del arco.
+
+--------------------------------------------------
+I. MÉTODOS DE TRAZADO (2 EJEMPLOS POR MÉTODO)
+--------------------------------------------------
+
+Método 1: INICIO, CENTRO, FIN (Start, Center, End)
+
+Se define el arco especificando el punto de inicio, el centro del círculo al que pertenece el arco y el punto final. AutoCAD dibuja el arco en sentido antihorario por defecto.
+
+Ejemplo 1.1: Arco Semicircular Básico
+Instrucciones: Dibuja un arco con un radio de 5, centrado en (10,10), que abarque 180 grados (de 0 a 180).
+1. Activa el comando ARCO (A).
+2. Punto Inicial (Start): 15,10
+3. Escribe C (para seleccionar la opción Centro).
+4. Punto Central: 10,10
+5. Punto Final (End): 5,10
+
+Ejemplo 1.2: Arco de 90 Grados
+Instrucciones: Dibuja un arco de 90 grados en el cuadrante superior derecho.
+1. Activa el comando ARCO (A).
+2. Punto Inicial (Start): 50,50
+3. Escribe C (Centro).
+4. Punto Central: 50,60
+5. Punto Final (End): 60,60
+
+---
+
+Método 2: INICIO, FIN, RADIO (Start, End, Radius)
+
+Se utiliza para dibujar un arco cuando se conocen los puntos de inicio y fin, y el radio deseado.
+
+Ejemplo 2.1: Arco con Radio Definido
+Instrucciones: Dibuja un arco que vaya de (0,0) a (10,0) con un radio de 6.
+1. Activa el comando ARCO (A).
+2. Punto Inicial (Start): 0,0
+3. Escribe E (para seleccionar la opción Fin / End).
+4. Punto Final (End): 10,0
+5. Escribe R (para seleccionar la opción Radio).
+6. Especifica el Radio: 6
+
+Ejemplo 2.2: Arco Cóncavo (Cambio de dirección)
+Instrucciones: Dibuja un arco que vaya de (20,10) a (30,10) con un radio de 10.
+1. Activa el comando ARCO (A).
+2. Punto Inicial (Start): 20,10
+3. Escribe E (Fin).
+4. Punto Final (End): 30,10
+5. Escribe R (Radio).
+6. Especifica el Radio: 10
+Nota: Dado que el arco se dibuja antihorario, el resultado será una curva hacia abajo (cóncava). Para la curva hacia arriba, usar R=-10.
+
+---
+
+Método 3: INICIO, FIN, DIRECCIÓN (Start, End, Direction)
+
+Define la curva especificando los puntos inicial y final, y la dirección de la tangencia inicial.
+
+Ejemplo 3.1: Curva Tangente Simple
+Instrucciones: Dibuja un arco que comience en (0,10), termine en (10,20) y tenga una dirección tangente inicial de 45 grados.
+1. Activa el comando ARCO (A).
+2. Punto Inicial (Start): 0,10
+3. Escribe E (Fin).
+4. Punto Final (End): 10,20
+5. Escribe D (para seleccionar la opción Dirección / Direction).
+6. Especifica la dirección de la tangente: 45
+
+Ejemplo 3.2: Curva Continua (Continuar)
+Instrucciones: Dibuja una línea de (50,50) a (60,50). Luego, dibuja un arco que continúe tangencialmente desde el final de esa línea.
+1. Dibuja la LINEA (L) de 50,50 a 60,50.
+2. Activa el comando ARCO (A).
+3. Presiona ENTER (AutoCAD toma automáticamente el punto final de la última entidad dibujada como el inicio del arco, manteniendo la tangencia).
+4. Especifica el punto final del arco (Ej: 60,60). (El arco se dibuja tangencialmente hacia arriba).
+
+--------------------------------------------------
+II. ACTIVIDADES SUGERIDAS (SOLUCIÓN OCULTA)
+--------------------------------------------------
+
+ACTIVIDAD 1: El Enlace de Recorrido (Inicio, Fin, Radio)
+
+Objetivo: Crear un arco de transición suave entre dos puntos fijos separados.
+Instrucciones:
+1. Dibuja un punto en (10,10) y otro en (40,10).
+2. Dibuja un arco que conecte estos dos puntos con un radio de 20 unidades.
+
+<details>
+<summary>Ver Solución (Centro del Arco y Ángulo)</summary>
+
+1.  Comando: A, Start: 10,10, End: 40,10, Radius: 20.
+2.  El centro del arco se ubica en el punto (25, 2.76) si se usa Radio 20 (curva hacia abajo).
+3.  El arco es de 38.94 grados.
+</details>
+
+---
+
+ACTIVIDAD 2: El Perfil de Rodillo (Inicio, Centro, Ángulo)
+
+Objetivo: Dibujar un perfil de rodillo definiendo el centro y el ángulo de la curva.
+Instrucciones:
+1. Dibuja el centro del rodillo en (50,50).
+2. Dibuja una línea de (50,50) a (60,50) para establecer el radio inicial (10 unidades).
+3. Dibuja un arco que comience en (60,50), tenga el centro en (50,50) y abarque **270 grados** en sentido antihorario.
+
+<details>
+<summary>Ver Solución (Coordenada Final del Arco)</summary>
+
+1.  Comando: A, Start: 60,50, C (Centro): 50,50.
+2.  Escribe A (para la opción Ángulo).
+3.  Ángulo: 270.
+El arco terminará en el punto (50, 40).
+</details>
+
+--------------------------------------------------
+III. RETOS DE COMPRENSIÓN (3 RETOS)
+--------------------------------------------------
+
+RETO 1: El Arco de la Tangente
+Dibuja una línea horizontal de 10 unidades. Inicia un comando **ARCO** y presiona ENTER para continuar tangencialmente a esa línea. Dibuja el arco para que termine 5 unidades hacia arriba de la línea base.
+Verifica: ¿La curva se ve suavemente unida a la línea, sin quiebres?
+
+---
+
+RETO 2: El Arco Invertido
+Dibuja un arco que vaya de (0,0) a (20,0) con un radio de **-15**.
+Verifica: ¿Cuál es la diferencia visual entre usar Radio=15 y Radio=-15? (Pista: La dirección antihoraria se invierte).
+
+---
+
+RETO 3: El Método del Centro Fijo
+Dibuja un círculo centrado en (50,50) con un radio de 10. A continuación, inicia el comando **ARCO** usando el método **CENTRO, INICIO, FIN**.
+1. Especifica el Centro: 50,50
+2. Especifica el Inicio: 60,50
+3. Especifica el Fin: 50,60
+Verifica: ¿El arco que obtuviste es un cuarto de círculo (90 grados)? ¿Por qué el punto final se establece como el último dato?

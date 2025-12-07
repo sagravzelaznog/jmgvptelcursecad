@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comando GRUPO (GROUP) en AutoCAD</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --success-color: #27ae60;
+            --warning-color: #f39c12;
+            --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-main);
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+            padding: 0;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        h2 {
+            color: var(--primary-color);
+            margin: 2rem 0 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--secondary-color);
+        }
+
+        h3 {
+            color: var(--secondary-color);
+            margin: 1.5rem 0 0.5rem;
+        }
+
+        .command {
+            background-color: #f0f8ff;
+            border-left: 4px solid var(--secondary-color);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .command-name {
+            font-weight: bold;
+            color: var(--secondary-color);
+        }
+
+        .example {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        .example-title {
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .steps {
+            margin-left: 1.5rem;
+        }
+
+        .steps li {
+            margin-bottom: 0.5rem;
+        }
+
+        .tip {
+            background-color: #e8f4fd;
+            border-left: 4px solid var(--secondary-color);
+            padding: 0.75rem;
+            margin: 1rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .warning {
+            background-color: #fef9e7;
+            border-left: 4px solid var(--warning-color);
+            padding: 0.75rem;
+            margin: 1rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .activity {
+            background-color: #f0f7f4;
+            border: 1px solid #27ae60;
+            border-radius: 4px;
+            padding: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .activity-title {
+            color: var(--success-color);
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .challenge {
+            background-color: #f5e9f7;
+            border: 1px solid #9b59b6;
+            border-radius: 4px;
+            padding: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .challenge-title {
+            color: #8e44ad;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        details {
+            margin: 1rem 0;
+            background-color: #f8f9fa;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+
+        summary {
+            font-weight: bold;
+            cursor: pointer;
+            padding: 0.5rem 0;
+            outline: none;
+        }
+
+        summary:hover {
+            color: var(--secondary-color);
+        }
+
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 1.5rem 0;
+            margin-top: 3rem;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .container {
+                padding: 15px;
+            }
+            
+            .command, .example, .activity, .challenge, details {
+                padding: 0.75rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.75rem;
+            }
+            
+            h2 {
+                font-size: 1.4rem;
+            }
+            
+            body {
+                font-size: 0.95rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Comando GRUPO (GROUP) en AutoCAD</h1>
+            <p>Domina el uso de grupos para organizar y manipular conjuntos de objetos de manera eficiente</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <section>
+            <p>El comando <strong>GRUPO (G)</strong> en AutoCAD permite agrupar temporalmente un conjunto de entidades para que puedan ser seleccionadas y manipuladas conjuntamente (moverse, copiarse, girarse), sin necesidad de convertirlas en un Bloque. A diferencia de los Bloques, los grupos son más flexibles y no afectan la definición del dibujo.</p>
+        </section>
+
+        <section>
+            <h2>Métodos de Creación y Manejo</h2>
+            
+            <div class="example">
+                <h3>Método 1: Creación de Grupo Nombrado (GROUP, G)</h3>
+                <p>Se asigna un nombre específico al grupo, lo que permite activarlo, desactivarlo y seleccionarlo fácilmente en el futuro.</p>
+                
+                <div class="example">
+                    <div class="example-title">Ejemplo 1.1: Grupo de Mobiliario de Oficina</div>
+                    <p><strong>Objetivo:</strong> Dibujar un escritorio y una silla, y agruparlos.</p>
+                    <ol class="steps">
+                        <li>Dibuja un RECTANGULO (Escritorio) y un CÍRCULO (Silla).</li>
+                        <li>Activa el comando <span class="command-name">GRUPO (G)</span>.</li>
+                        <li>Escribe <strong>N</strong> (para seleccionar la opción Nombre / Name).</li>
+                        <li>Ingresa el nombre: <strong>OFICINA_1</strong>.</li>
+                        <li>Selecciona el escritorio y la silla. Presiona Enter.</li>
+                    </ol>
+                    <div class="tip">
+                        <strong>Verificación:</strong> Haz clic en el escritorio. La silla también debe seleccionarse automáticamente.
+                    </div>
+                </div>
+
+                <div class="example">
+                    <div class="example-title">Ejemplo 1.2: Control de Selección de Grupo</div>
+                    <p><strong>Objetivo:</strong> Desactivar la selección de grupo para editar un elemento individual.</p>
+                    <ol class="steps">
+                        <li>Utiliza el grupo "OFICINA_1" del ejemplo anterior.</li>
+                        <li>Presiona la combinación de teclas <strong>Ctrl + H</strong> (o usa el comando <strong>GROUPDISPLAYMODE</strong>).</li>
+                        <li>Intenta seleccionar el escritorio. Solo el escritorio debe seleccionarse.</li>
+                        <li>Utiliza el comando <strong>DESAGRUPAR</strong> (UNGROUP) o presiona <strong>Ctrl + H</strong> de nuevo para reactivar la selección de grupo.</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="example">
+                <h3>Método 2: Creación de Grupo No Nombrado</h3>
+                <p>Se crea un grupo automáticamente con un nombre genérico (Ej: *A1, *A2).</p>
+                
+                <div class="example">
+                    <div class="example-title">Ejemplo 2.1: Agrupación Rápida de Componentes</div>
+                    <p><strong>Objetivo:</strong> Dibujar un conjunto de líneas de ejes y agruparlos sin nombre.</p>
+                    <ol class="steps">
+                        <li>Dibuja tres LINEAS cortas y paralelas.</li>
+                        <li>Activa el comando <span class="command-name">GRUPO (G)</span>.</li>
+                        <li>Selecciona las tres líneas. Presiona Enter.</li>
+                        <li>El grupo se crea automáticamente (Ej: *A1).</li>
+                        <li>Utiliza el comando <strong>MOVER (M)</strong>. Selecciona una de las líneas: todo el grupo se moverá.</li>
+                    </ol>
+                </div>
+
+                <div class="example">
+                    <div class="example-title">Ejemplo 2.2: Añadir Entidades a un Grupo Existente</div>
+                    <p><strong>Objetivo:</strong> Añadir un nuevo círculo al grupo no nombrado.</p>
+                    <ol class="steps">
+                        <li>Dibuja un CÍRCULO cercano al grupo de líneas del ejemplo anterior.</li>
+                        <li>Activa el comando <strong>EDITARGRUPO (GROUPEDIT, GRED)</strong>.</li>
+                        <li>Selecciona el grupo no nombrado (*A1).</li>
+                        <li>Escribe <strong>A</strong> (para la opción Añadir / Add).</li>
+                        <li>Selecciona el CÍRCULO. Presiona Enter.</li>
+                    </ol>
+                    <div class="tip">
+                        <strong>Verificación:</strong> Haz clic en cualquier línea: el círculo también debe seleccionarse.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Actividades Prácticas</h2>
+            
+            <div class="activity">
+                <div class="activity-title">ACTIVIDAD 1: El Conjunto de Iluminación</div>
+                <p><strong>Objetivo:</strong> Crear un grupo a partir de objetos y otro grupo a partir de la copia del primero, reordenando los elementos.</p>
+                <p><strong>Instrucciones:</strong></p>
+                <ol class="steps">
+                    <li>Dibuja un CÍRCULO (Lámpara) y un TEXTO "L1".</li>
+                    <li><strong>Grupo 1:</strong> Agrupa el círculo y el texto bajo el nombre <strong>LAMPARA_BASE</strong>.</li>
+                    <li><strong>Copia:</strong> Copia el grupo 'LAMPARA_BASE' 10 unidades a la derecha.</li>
+                    <li><strong>Grupo 2:</strong> Agrupa el objeto original y la copia bajo el nombre <strong>ILUMINACION_GENERAL</strong>.</li>
+                    <li><strong>Edición:</strong> Utiliza <strong>EDITARGRUPO</strong> sobre 'ILUMINACION_GENERAL' y <strong>REMOVER</strong> el texto "L1" de la copia.</li>
+                </ol>
+                
+                <details>
+                    <summary>Ver Solución (Estado Final de la Entidad)</summary>
+                    <div style="margin-top: 10px; padding: 10px; background-color: #f0f0f0; border-radius: 4px;">
+                        <ol>
+                            <li>Al finalizar, el grupo 'ILUMINACION_GENERAL' contendrá 4 entidades (Círculo y Texto original, Círculo copiado).</li>
+                            <li>La clave es que, después de REMOVER el texto de la copia, solo el círculo copiado permanece como una entidad separada dentro del grupo, mientras que el texto de la copia vuelve a ser una entidad libre (o es eliminado, dependiendo de si se selecciona remover y luego borrar).</li>
+                        </ol>
+                    </div>
+                </details>
+            </div>
+
+            <div class="activity">
+                <div class="activity-title">ACTIVIDAD 2: El Reordenamiento de Componentes</div>
+                <p><strong>Objetivo:</strong> Desagrupar un objeto, editar una parte y reagruparlo inmediatamente.</p>
+                <p><strong>Instrucciones:</strong></p>
+                <ol class="steps">
+                    <li>Dibuja un RECTANGULO y dos LINEAS internas. Agrupa todo bajo el nombre <strong>PLACA_ELECTRONICA</strong>.</li>
+                    <li><strong>Desagrupar:</strong> Utiliza el comando <strong>DESAGRUPAR (UNGROUP)</strong> sobre el grupo 'PLACA_ELECTRONICA'.</li>
+                    <li><strong>Edición:</strong> Mueve el RECTANGULO 5 unidades hacia arriba (Y).</li>
+                    <li><strong>Reagrupar:</strong> Vuelve a agrupar los tres elementos (el rectángulo movido y las dos líneas) bajo el <strong>mismo nombre</strong> 'PLACA_ELECTRONICA'.</li>
+                </ol>
+                
+                <details>
+                    <summary>Ver Solución (Verificación de Nombre)</summary>
+                    <div style="margin-top: 10px; padding: 10px; background-color: #f0f0f0; border-radius: 4px;">
+                        <p>La clave es que UNGROUP elimina el grupo, liberando las entidades. El comando GROUP posterior debe recrear el grupo con las entidades en su nueva posición. El nombre 'PLACA_ELECTRONICA' se puede reutilizar sin problemas.</p>
+                    </div>
+                </details>
+            </div>
+        </section>
+
+        <section>
+            <h2>Retos de Comprensión</h2>
+            
+            <div class="challenge">
+                <div class="challenge-title">RETO 1: Grupo vs. Bloque (Propiedades)</div>
+                <p>¿Sabías que los grupos y bloques se comportan de manera diferente en AutoCAD? ¡Descubre cómo!</p>
+                <p><strong>Instrucciones:</strong></p>
+                <ol class="steps">
+                    <li>Dibuja un círculo.</li>
+                    <li>Conviértelo en un <strong>GRUPO</strong> llamado 'Grupo_A'.</li>
+                    <li>Dibuja otro círculo.</li>
+                    <li>Conviértelo en un <strong>BLOQUE</strong> llamado 'Bloque_B'.</li>
+                    <li>Utiliza el comando <strong>LISTA (LIST, LI)</strong> sobre cada entidad.</li>
+                </ol>
+                <p><strong>Pregunta:</strong> ¿Qué tipo de entidad reporta AutoCAD para el GRUPO y qué tipo reporta para el BLOQUE?</p>
+                
+                <details>
+                    <summary>Ver Solución</summary>
+                    <div style="margin-top: 10px; padding: 10px; background-color: #f0f0f0; border-radius: 4px;">
+                        <p>El grupo sigue listando las entidades originales (en este caso, un círculo), mientras que el bloque es una 'REFERENCIA A BLOQUE' que apunta a la definición del bloque 'Bloque_B'.</p>
+                    </div>
+                </details>
+            </div>
+
+            <div class="challenge">
+                <div class="challenge-title">RETO 2: La Selección de Entidades no Agrupadas</div>
+                <p>¿Cómo distingues entre objetos agrupados y no agrupados? ¡Averígualo con este reto!</p>
+                <p><strong>Instrucciones:</strong></p>
+                <ol class="steps">
+                    <li>Crea un grupo de 3 círculos.</li>
+                    <li>Dibuja un cuarto círculo cerca, pero sin agrupar.</li>
+                    <li>Ejecuta el comando <strong>SELECCIONARGRUPO (SELECTGROUP)</strong> y selecciona el grupo.</li>
+                </ol>
+                <p><strong>Preguntas:</strong></p>
+                <ol class="steps">
+                    <li>¿Se selecciona solo el grupo?</li>
+                    <li>¿Cómo puedes diferenciar visualmente las entidades agrupadas de las que no lo están durante la selección?</li>
+                </ol>
+                
+                <details>
+                    <summary>Ver Solución</summary>
+                    <div style="margin-top: 10px; padding: 10px; background-color: #f0f0f0; border-radius: 4px;">
+                        <ol>
+                            <li>Sí, el comando SELECTGROUP selecciona solo los objetos que pertenecen al grupo especificado.</li>
+                            <li>Las entidades agrupadas suelen mostrar una caja de límite de selección alrededor de todo el grupo, mientras que los objetos no agrupados muestran sus propios límites de selección individuales.</li>
+                        </ol>
+                    </div>
+                </details>
+            </div>
+
+            <div class="challenge">
+                <div class="challenge-title">RETO 3: Agrupar en Capa Diferente</div>
+                <p>¡Los grupos pueden contener objetos de diferentes capas! ¿Cómo afecta esto a su visualización?</p>
+                <p><strong>Instrucciones:</strong></p>
+                <ol class="steps">
+                    <li>Crea una capa <strong>A_Grupo</strong> (Color Verde).</li>
+                    <li>Crea una capa <strong>B_Contenido</strong> (Color Rojo).</li>
+                    <li>Dibuja un RECTANGULO en A_Grupo.</li>
+                    <li>Dibuja un CÍRCULO en B_Contenido.</li>
+                    <li>Agrupa ambos elementos bajo el nombre 'Doble_Capa'.</li>
+                </ol>
+                <p><strong>Preguntas:</strong></p>
+                <ol class="steps">
+                    <li>Si el grupo es seleccionado, ¿qué color muestra?</li>
+                    <li>¿Y si se mueve el grupo a una tercera capa?</li>
+                </ol>
+                
+                <details>
+                    <summary>Ver Solución</summary>
+                    <div style="margin-top: 10px; padding: 10px; background-color: #f0f0f0; border-radius: 4px;">
+                        <p>Los grupos no tienen color propio. Cada entidad dentro del grupo mantiene las propiedades de su capa original, independientemente de la capa en la que se encuentre el grupo. Por lo tanto:</p>
+                        <ol>
+                            <li>Al seleccionar el grupo, el rectángulo se mostrará en verde y el círculo en rojo, según sus capas respectivas.</li>
+                            <li>Si mueves el grupo a una tercera capa, los objetos individuales conservarán sus colores originales (verde y rojo) porque heredan las propiedades de sus capas, no de la capa del grupo.</li>
+                        </ol>
+                    </div>
+                </details>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; JMGV-PTEL-2025 Todos los derechos reservados</p>
+        </div>
+    </footer>
+</body>
+</html>

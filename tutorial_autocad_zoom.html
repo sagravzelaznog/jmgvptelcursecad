@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía Completa del Comando ZOOM en AutoCAD</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-bg: #f8f9fa;
+            --dark-text: #2c3e50;
+            --light-text: #7f8c8d;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark-text);
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+        }
+        
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+        }
+        
+        h1, h2, h3 {
+            color: var(--primary-color);
+        }
+        
+        h1 {
+            margin-top: 0;
+            color: white;
+        }
+        
+        h2 {
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 5px;
+            margin-top: 30px;
+        }
+        
+        .command {
+            background-color: #e8f4f8;
+            border-left: 4px solid var(--secondary-color);
+            padding: 10px 15px;
+            margin: 15px 0;
+            font-family: 'Consolas', monospace;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .example {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        .steps {
+            background-color: #f0f8ff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        
+        .steps ol, .steps ul {
+            padding-left: 20px;
+        }
+        
+        .steps li {
+            margin-bottom: 10px;
+        }
+        
+        .tip {
+            background-color: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            padding: 10px 15px;
+            margin: 15px 0;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .warning {
+            background-color: #fff3e0;
+            border-left: 4px solid #ff9800;
+            padding: 10px 15px;
+            margin: 15px 0;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .activity {
+            background-color: #f3e5f5;
+            border-left: 4px solid #9c27b0;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .challenge {
+            background-color: #e8eaf6;
+            border-left: 4px solid #3f51b5;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        details {
+            background-color: #f5f5f5;
+            padding: 10px 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+        
+        summary {
+            font-weight: bold;
+            cursor: pointer;
+            padding: 5px 0;
+        }
+        
+        .key {
+            background-color: #e0e0e0;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: monospace;
+            font-size: 0.9em;
+            border: 1px solid #bdbdbd;
+        }
+        
+        .key-combo {
+            background-color: #333;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: monospace;
+            font-size: 0.9em;
+        }
+        
+        .figure {
+            text-align: center;
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border: 1px solid #eee;
+            border-radius: 5px;
+        }
+        
+        .figure img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+        }
+        
+        .figure-caption {
+            font-style: italic;
+            color: #666;
+            margin-top: 10px;
+        }
+        
+        .zoom-method {
+            background-color: #f0f7ff;
+            border: 1px solid #d0e3ff;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        .zoom-method h3 {
+            margin-top: 0;
+            color: #1a73e8;
+            border-bottom: 1px dashed #c2e0ff;
+            padding-bottom: 8px;
+        }
+        
+        .shortcut {
+            display: inline-block;
+            background-color: #e8f0fe;
+            color: #1a73e8;
+            padding: 3px 8px;
+            border-radius: 4px;
+            margin: 2px;
+            font-family: 'Consolas', monospace;
+            font-size: 0.9em;
+            border: 1px solid #d2e3fc;
+        }
+        
+        .mouse-gesture {
+            display: inline-flex;
+            align-items: center;
+            background-color: #f1f3f4;
+            padding: 5px 10px;
+            border-radius: 16px;
+            margin: 2px;
+            font-size: 0.9em;
+        }
+        
+        .mouse-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            background-color: #e8eaed;
+            border-radius: 50%;
+            margin: 0 5px;
+            font-weight: bold;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            header {
+                padding: 15px;
+            }
+            
+            .command, .tip, .warning, .activity, .challenge, details {
+                margin-left: -10px;
+                margin-right: -10px;
+                border-radius: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Guía Completa del Comando ZOOM en AutoCAD</h1>
+        <p>Domina las técnicas de navegación y visualización en AutoCAD</p>
+    </header>
+
+    <section>
+        <p>El comando <strong>ZOOM (Z)</strong> es una herramienta fundamental en AutoCAD que te permite controlar la ampliación de la vista de tu dibujo. A diferencia de otros comandos, no modifica los objetos en sí, solo cambia la forma en que los ves en pantalla.</p>
+        
+        <div class="tip">
+            <strong>Consejo rápido:</strong> La forma más común de hacer zoom es usando la rueda del ratón: 
+            <span class="mouse-gesture">
+                <span class="mouse-button">🖱️</span> Gira hacia adelante para acercar, hacia atrás para alejar
+            </span>
+        </div>
+    </section>
+
+    <section id="metodos">
+        <h2>Métodos de Zoom en AutoCAD</h2>
+        
+        <div class="zoom-method">
+            <h3>1. Zoom por Ventana (Window, W)</h3>
+            <p>Permite definir un área rectangular específica para llenar completamente la ventana de visualización.</p>
+            
+            <div class="example">
+                <h4>Ejemplo 1.1: Acercamiento a Detalle de Esquina</h4>
+                <div class="steps">
+                    <ol>
+                        <li>Dibuja un RECTANGULO (REC) de 10x10 en (0,0).</li>
+                        <li>Dibuja un CÍRCULO pequeño en la esquina superior derecha (Ej: 9,9).</li>
+                        <li>Activa el comando <span class="key">ZOOM</span> (Z).</li>
+                        <li>Escribe <span class="shortcut">W</span> (para seleccionar Ventana / Window).</li>
+                        <li><strong>Primera esquina:</strong> Haz clic en (8,8).</li>
+                        <li><strong>Esquina opuesta:</strong> Haz clic en (11,11).</li>
+                        <li>El área entre (8,8) y (11,11) llenará la pantalla.</li>
+                    </ol>
+                </div>
+                
+                <div class="tip">
+                    <strong>Consejo:</strong> También puedes usar <span class="shortcut">Z</span> <span class="shortcut">W</span> (sin presionar Enter entre comandos) para activar rápidamente el zoom por ventana.
+                </div>
+            </div>
+            
+            <div class="example">
+                <h4>Ejemplo 1.2: Acercamiento a Objeto Específico</h4>
+                <div class="steps">
+                    <ol>
+                        <li>Dibuja CÍRCULO A (Radio 2) en (10,10).</li>
+                        <li>Dibuja CÍRCULO B (Radio 2) en (50,10).</li>
+                        <li>Activa <span class="key">ZOOM</span> (Z).</li>
+                        <li>Escribe <span class="shortcut">W</span> (Ventana).</li>
+                        <li>Dibuja una ventana que encierre completamente CÍRCULO A, sin tocar CÍRCULO B.</li>
+                        <li>Solo CÍRCULO A será visible en la pantalla.</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        
+        <div class="zoom-method">
+            <h3>2. Zoom por Extensión/Todo (Extents / All, E / A)</h3>
+            <p>Permite visualizar la totalidad del dibujo o todos los objetos visibles.</p>
+            
+            <div class="example">
+                <h4>Ejemplo 2.1: Zoom a la Extensión Completa</h4>
+                <div class="steps">
+                    <ol>
+                        <li>Dibuja LINEA A: de (0,0) a (2,0).</li>
+                        <li>Dibuja LINEA B: de (500,500) a (502,500).</li>
+                        <li>Activa <span class="key">ZOOM</span> (Z).</li>
+                        <li>Escribe <span class="shortcut">E</span> (para seleccionar Extensión / Extents).</li>
+                        <li>La vista se ajustará para mostrar ambas líneas en el mismo cuadro de visualización.</li>
+                    </ol>
+                </div>
+            </div>
+            
+            <div class="example">
+                <h4>Ejemplo 2.2: Zoom a Todo (Incluye Límites de la Cuadrícula)</h4>
+                <div class="steps">
+                    <ol>
+                        <li>Usa el comando <span class="key">LIMITES</span> (LIMITS).</li>
+                        <li>Ingresa (0,0) como primer punto y (100,100) como segundo punto.</li>
+                        <li>Dibuja un objeto en (50,50).</li>
+                        <li>Activa <span class="key">ZOOM</span> (Z).</li>
+                        <li>Escribe <span class="shortcut">A</span> (para seleccionar Todo / All).</li>
+                        <li>La vista se ajusta para mostrar los límites definidos (0,0 a 100,100).</li>
+                    </ol>
+                </div>
+                
+                <div class="tip">
+                    <strong>Diferencia clave:</strong> 
+                    <ul>
+                        <li><strong>ZOOM EXTENSIÓN (E):</strong> Muestra todos los objetos del dibujo.</li>
+                        <li><strong>ZOOM TODO (A):</strong> Muestra el área definida por los límites del dibujo (LIMITS).</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="zoom-method">
+            <h3>3. Zoom Dinámico (Dynamic / Scale, D / Escala)</h3>
+            <p>Ofrece un control de zoom basado en un factor multiplicador o un paneo interactivo.</p>
+            
+            <div class="example">
+                <h4>Ejemplo 3.1: Zoom 2x (Factor 2)</h4>
+                <div class="steps">
+                    <ol>
+                        <li>Dibuja un RECTANGULO de 5x5 en (10,10).</li>
+                        <li>Activa <span class="key">ZOOM</span> (Z).</li>
+                        <li>Ingresa el factor de escala: <span class="shortcut">2X</span>.</li>
+                        <li>La vista se duplicará, usando el centro de la pantalla como base.</li>
+                    </ol>
+                </div>
+            </div>
+            
+            <div class="example">
+                <h4>Ejemplo 3.2: Zoom por Factor Reductivo (Factor 0.5)</h4>
+                <div class="steps">
+                    <ol>
+                        <li>Asegúrate de tener un nivel de zoom actual.</li>
+                        <li>Activa <span class="key">ZOOM</span> (Z).</li>
+                        <li>Ingresa el factor de escala: <span class="shortcut">0.5X</span>.</li>
+                        <li>La vista se reducirá a la mitad.</li>
+                    </ol>
+                </div>
+                
+                <div class="tip">
+                    <strong>Consejo:</strong> También puedes usar <span class="shortcut">Z</span> <span class="shortcut">0.5X</span> (sin presionar Enter después de Z) para un acceso más rápido al zoom por factor.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="actividades">
+        <h2>Actividades Prácticas</h2>
+        
+        <div class="activity">
+            <h3>Actividad 1: Aislamiento de Objeto con Ventana</h3>
+            <p><strong>Objetivo:</strong> Utilizar la opción Ventana para aislar un objeto específico dentro de un conjunto de elementos densos.</p>
+            
+            <div class="steps">
+                <ol>
+                    <li>Dibuja 10 CÍRCULOS pequeños (radio 1) muy juntos en el área de (0,0) a (20,20).</li>
+                    <li>Dibuja 1 CÍRCULO grande (radio 5) en (50,50).</li>
+                    <li><strong>Paso A:</strong> Aplica <span class="key">ZOOM EXTENSION</span> (Z, E) para ver todo.</li>
+                    <li><strong>Paso B:</strong> Utiliza <span class="key">ZOOM VENTANA</span> (Z, W) para acercarte y ver solo los 10 círculos pequeños, sin que el círculo grande toque los bordes de la pantalla.</li>
+                </ol>
+            </div>
+            
+            <details>
+                <summary>Ver Solución</summary>
+                <p>La ventana debe tener coordenadas aproximadas [0, 0] y [20, 20], o quizás [25, 25] para proporcionar un margen. Si se seleccionó correctamente, el Círculo grande (50,50) no debe ser visible.</p>
+                
+                <div class="tip">
+                    <strong>Consejo adicional:</strong> Usa <span class="shortcut">Z</span> <span class="shortcut">P</span> (Zoom Previo) para volver rápidamente a la vista anterior.
+                </div>
+            </details>
+        </div>
+        
+        <div class="activity">
+            <h3>Actividad 2: Recuperación de Vista Previa (Previous, P)</h3>
+            <p><strong>Objetivo:</strong> Navegar a un detalle y luego volver rápidamente a la vista anterior.</p>
+            
+            <div class="steps">
+                <ol>
+                    <li><strong>Vista Inicial:</strong> Aplica <span class="key">ZOOM EXTENSION</span> (Z, E).</li>
+                    <li><strong>Navegación:</strong> Utiliza <span class="key">ZOOM VENTANA</span> (Z, W) para acercarte al cuadrante inferior izquierdo del dibujo.</li>
+                    <li><strong>Retorno:</strong> Activa <span class="key">ZOOM</span> (Z).</li>
+                    <li>Escribe <span class="shortcut">P</span> (para seleccionar Previo / Previous).</li>
+                    <li>La vista debe regresar a la visualización de Extensión del Paso 1.</li>
+                </ol>
+            </div>
+            
+            <details>
+                <summary>Ver Solución</summary>
+                <p>El comando <span class="key">ZOOM P</span> (Previo) almacena la vista anterior cada vez que se ejecuta un nuevo comando de zoom. Si se ejecutó <span class="shortcut">Z, E</span>, y luego <span class="shortcut">Z, W</span>, el comando <span class="shortcut">Z, P</span> debe recuperar la vista completa (Z, E).</p>
+                
+                <div class="tip">
+                    <strong>Consejo avanzado:</strong> AutoCAD puede almacenar hasta 10 vistas previas de zoom. Sigue usando <span class="shortcut">Z, P</span> para retroceder a través de ellas.
+                </div>
+            </details>
+        </div>
+    </section>
+
+    <section id="retos">
+        <h2>Retos de Comprensión</h2>
+        
+        <div class="challenge">
+            <h3>Reto 1: Zoom de Objeto (Object, O)</h3>
+            <p>Dibuja un rectángulo de 5x5. Activa <span class="key">ZOOM</span> (Z). Escribe <span class="shortcut">O</span> (para seleccionar Objeto / Object). Haz clic en el rectángulo.</p>
+            
+            <details>
+                <summary>Ver Respuesta</summary>
+                <p>Al usar <span class="shortcut">ZOOM OBJECT</span>:</p>
+                <ul>
+                    <li>La vista se ajusta automáticamente para mostrar el objeto seleccionado en el centro de la pantalla.</li>
+                    <li>El objeto ocupa la mayor parte posible del área de visualización.</li>
+                    <li>Si el rectángulo es el único objeto en el dibujo, el resultado es similar a <span class="shortcut">ZOOM EXTENTS</span>.</li>
+                    <li>La diferencia principal con <span class="shortcut">ZOOM WINDOW</span> es que no necesitas especificar manualmente los puntos de la ventana.</li>
+                </ul>
+            </details>
+        </div>
+        
+        <div class="challenge">
+            <h3>Reto 2: Paneo con el Ratón (Mouse)</h3>
+            <p>En lugar de usar el comando <span class="key">PAN</span> (P), presiona y <strong>mantén presionada la rueda central del ratón</strong>.</p>
+            
+            <details>
+                <summary>Ver Respuesta</summary>
+                <p>Al mantener presionada la rueda del ratón:</p>
+                <ul>
+                    <li>El cursor cambia a una mano (hand icon).</li>
+                    <li>Puedes arrastrar el dibujo en cualquier dirección.</li>
+                    <li>Esta función está disponible incluso durante otros comandos (mientras dibujas líneas, etc.).</li>
+                    <li>Para salir del modo de paneo, simplemente suelta el botón del ratón.</li>
+                </ul>
+                
+                <div class="tip">
+                    <strong>Consejo de productividad:</strong> Esta es una de las formas más rápidas de navegar por tu dibujo sin interrumpir tu flujo de trabajo actual.
+                </div>
+            </details>
+        </div>
+        
+        <div class="challenge">
+            <h3>Reto 3: Zoom y Escala de Anotación</h3>
+            <p>Dibuja un CÍRCULO y añade una <strong>COTA</strong> (DLI) al mismo. Utiliza <span class="key">ZOOM EXTENSION</span> (Z, E) y luego <span class="key">ZOOM VENTANA</span> (Z, W) para acercarte mucho al círculo.</p>
+            
+            <details>
+                <summary>Ver Respuesta</summary>
+                <p>Al hacer zoom en un dibujo con anotaciones:</p>
+                <ul>
+                    <li>Si las anotaciones son <strong>anotativas</strong>, su tamaño aparente permanecerá constante en relación con la escala de anotación actual.</li>
+                    <li>Si las anotaciones <strong>no son anotativas</strong>, su tamaño aparente cambiará con el zoom.</li>
+                    <li>En el espacio modelo, las cotas generalmente se comportan como objetos normales y se escalan con el zoom.</li>
+                    <li>En el espacio papel (layout), las anotaciones mantienen su tamaño independientemente del zoom de la ventana gráfica.</li>
+                </ul>
+                
+                <div class="warning">
+                    <strong>Nota importante:</strong> Para un comportamiento óptimo de las anotaciones al hacer zoom, se recomienda configurar estilos de anotación apropiados y utilizar el espacio papel para la presentación final.
+                </div>
+            </details>
+        </div>
+    </section>
+
+    <section id="conclusion">
+        <h2>Conclusión</h2>
+        <p>El comando ZOOM es una herramienta esencial en AutoCAD que te permite navegar eficientemente por tus dibujos, independientemente de su complejidad o tamaño. Al dominar las diferentes opciones de zoom, podrás trabajar de manera más productiva y precisa en tus proyectos.</p>
+        
+        <div class="tip">
+            <strong>Recuerda:</strong> La combinación de la rueda del ratón para hacer zoom y el botón central para hacer paneo te permitirá navegar rápidamente por tus dibujos sin necesidad de acceder constantemente a los comandos de zoom.
+        </div>
+    </section>
+
+    <footer style="margin-top: 40px; padding: 20px 0; border-top: 1px solid #eee; text-align: center; color: #7f8c8d; font-size: 0.9em;">
+        <p>© 2025 Tutorial de AutoCAD - Comando ZOOM</p>
+    </footer>
+</body>
+</html>

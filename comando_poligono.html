@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comando Polígono en AutoCAD - Aprende Fácil</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-bg: #f8f9fa;
+            --dark-text: #2c3e50;
+            --light-text: #ecf0f1;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: var(--dark-text);
+            background-color: var(--light-bg);
+            padding: 0;
+            margin: 0;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        /* Main Content */
+        main {
+            padding: 2rem 0;
+        }
+
+        .card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+            overflow: hidden;
+        }
+
+        .card-header {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 1rem 1.5rem;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .card-header:hover {
+            background-color: #2980b9;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+            display: none;
+        }
+
+        .card.active .card-content {
+            display: block;
+        }
+
+        /* Button Styles */
+        .btn {
+            display: inline-block;
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        /* Example and Exercise Styles */
+        .example, .exercise, .challenge {
+            background-color: #f8f9fa;
+            border-left: 4px solid var(--secondary-color);
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .example h3, .exercise h3, .challenge h3 {
+            color: var(--primary-color);
+            margin-bottom: 0.8rem;
+        }
+
+        .challenge {
+            border-left-color: var(--accent-color);
+            background-color: #fff5f5;
+        }
+
+        .challenge h3 {
+            color: var(--accent-color);
+        }
+
+        .steps {
+            counter-reset: step;
+            padding-left: 1.5rem;
+        }
+
+        .step {
+            position: relative;
+            margin-bottom: 1rem;
+            padding-left: 2rem;
+        }
+
+        .step:before {
+            counter-increment: step;
+            content: counter(step);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 1.8rem;
+            height: 1.8rem;
+            background-color: var(--secondary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        .challenge .step:before {
+            background-color: var(--accent-color);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+            
+            .card-header {
+                font-size: 1.1rem;
+                padding: 0.8rem 1rem;
+            }
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary-color);
+            color: var(--light-text);
+            text-align: center;
+            padding: 1.5rem 0;
+            margin-top: 2rem;
+            font-size: 0.9rem;
+        }
+
+        /* Toggle Content */
+        .toggle-content {
+            display: none;
+            padding: 1rem;
+            background-color: #f1f8ff;
+            border-radius: 4px;
+            margin-top: 1rem;
+            border-left: 3px solid var(--secondary-color);
+        }
+
+        .toggle-btn {
+            background: none;
+            border: none;
+            color: var(--secondary-color);
+            cursor: pointer;
+            padding: 0.3rem 0.6rem;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            display: inline-flex;
+            align-items: center;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-btn:hover {
+            background-color: rgba(52, 152, 219, 0.1);
+        }
+
+        .toggle-btn:after {
+            content: '▼';
+            font-size: 0.7rem;
+            margin-left: 0.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .toggle-btn.active:after {
+            transform: rotate(180deg);
+        }
+
+        .command {
+            font-family: 'Courier New', monospace;
+            background-color: #f1f1f1;
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+            font-size: 0.9em;
+        }
+
+        .method {
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+        }
+
+        .method h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--secondary-color);
+        }
+
+        .note {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .tip {
+            background-color: #d1ecf1;
+            border-left: 4px solid #0dcaf0;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .formula {
+            background-color: #f8f9fa;
+            border-left: 4px solid #6f42c1;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 4px 4px 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+
+        .visual-aid {
+            width: 100%;
+            max-width: 400px;
+            margin: 1rem 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 1rem;
+            background-color: white;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Comando Polígono en AutoCAD</h1>
+            <p class="subtitle">Aprende a crear polígonos regulares de forma precisa</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="intro">
+            <p>El comando <span class="command">POLIGONO</span> (o <span class="command">POL</span>) te permite dibujar polígonos regulares (con lados y ángulos iguales) que van desde 3 hasta 1024 lados. Al activarlo, AutoCAD te pedirá dos datos esenciales:</p>
+            <ol>
+                <li>Número de lados del polígono</li>
+                <li>Método de definición (Centro o Borde)</li>
+            </ol>
+            
+            <div class="tip">
+                <strong>Consejo:</strong> Si eliges el método por Centro, podrás especificar si el polígono es <strong>Inscrito</strong> (I) o <strong>Circunscrito</strong> (C) a un círculo imaginario.
+            </div>
+        </section>
+
+        <!-- Sección de Métodos -->
+        <section class="methods">
+            <h2>Métodos de Creación</h2>
+            
+            <!-- Método 1 -->
+            <div class="card">
+                <div class="card-header">
+                    <span>Método 1: Centro, Inscrito en Círculo (I)</span>
+                    <span class="toggle-btn">Mostrar</span>
+                </div>
+                <div class="card-content">
+                    <div class="method">
+                        <p>Este método define el polígono especificando el centro y el radio de un círculo imaginario que pasa por todos los <strong>vértices</strong> del polígono.</p>
+                        
+                        <div class="visual-aid">
+                            <div style="text-align: center; margin-bottom: 10px;">
+                                <strong>Polígono Inscrito</strong><br>
+                                <small>El círculo pasa por los vértices</small>
+                            </div>
+                            <div style="width: 100%; height: 150px; background-color: #f0f0f0; position: relative; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                                <div style="width: 80%; height: 80%; background-color: #e0e0e0; border-radius: 50%; display: flex; align-items: center; justify-content: center; position: relative;">
+                                    <div style="position: absolute; width: 100%; height: 2px; background-color: #3498db; transform-origin: center;"></div>
+                                    <div style="position: absolute; width: 100%; height: 2px; background-color: #3498db; transform: rotate(60deg);"></div>
+                                    <div style="position: absolute; width: 100%; height: 2px; background-color: #3498db; transform: rotate(120deg);"></div>
+                                    <div style="position: absolute; width: 80%; height: 80%; border: 2px dashed #e74c3c; border-radius: 50%;"></div>
+                                    <div style="position: absolute; width: 6px; height: 6px; background-color: #e74c3c; border-radius: 50%;"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="example">
+                            <h3>Ejemplo 1.1: Hexágono Estándar</h3>
+                            <p>Dibuja un hexágono (6 lados) centrado en (0,0) con un radio de 10 unidades.</p>
+                            <div class="steps">
+                                <div class="step">Activa el comando <span class="command">POLIGONO</span> (escribe <span class="command">POL</span> y presiona <span class="command">Enter</span>).</div>
+                                <div class="step">Número de lados: <span class="command">6</span> + <span class="command">Enter</span>.</div>
+                                <div class="step">Especifica el centro: <span class="command">0,0</span> + <span class="command">Enter</span>.</div>
+                                <div class="step">Opción: <span class="command">I</span> (Inscrito en círculo) + <span class="command">Enter</span>.</div>
+                                <div class="step">Especifica el radio: <span class="command">10</span> + <span class="command">Enter</span>.</div>
+                            </div>
+                        </div>
+
+                        <div class="example">
+                            <h3>Ejemplo 1.2: Octágono en Coordenadas Flotantes</h3>
+                            <p>Dibuja un octágono (8 lados) centrado en (30,20) donde el radio del círculo inscrito sea 5.</p>
+                            <div class="steps">
+                                <div class="step">Activa el comando <span class="command">POLIGONO</span> (<span class="command">POL</span> + <span class="command">Enter</span>).</div>
+                                <div class="step">Número de lados: <span class="command">8</span> + <span class="command">Enter</span>.</div>
+                                <div class="step">Especifica el centro: <span class="command">30,20</span> + <span class="command">Enter</span>.</div>
+                                <div class="step">Opción: <span class="command">I</span> + <span class="command">Enter</span>.</div>
+                                <div class="step">Radio: <span class="command">5</span> + <span class="command">Enter</span>.</div>
+                            </div>
+                        </div>
+
+                        <div class="note">
+                            <strong>Nota:</strong> En un polígono inscrito, la distancia desde el centro hasta cualquier vértice es igual al radio especificado.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Método 2 -->
+            <div class="card">
+                <div class="card-header">
+                    <span>Método 2: Centro, Circunscrito al Círculo (C)</span>
+                    <span class="toggle-btn">Mostrar</span>
+                </div>
+                <div class="card-content">
+                    <div class="method">
+                        <p>Este método define el polígono especificando el centro y el radio de un círculo imaginario que es <strong>tangente</strong> al <strong>punto medio</strong> de cada lado del polígono.</p>
+                        
+                        <div class="visual-aid">
+                            <div style="text-align: center; margin-bottom: 10px;">
+                                <strong>Polígono Circunscrito</strong><br>
+                                <small>El círculo es tangente a los lados</small>
+                            </div>
+                            <div style="width: 100%; height: 150px; background-color: #f0f0f0; position: relative; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                                <div style="width: 60%; height: 60%; background-color: #e0e0e0; border-radius: 50%; display: flex; align-items: center; justify-content: center; position: relative;">
+                                    <div style="position: absolute; width: 100%; height: 2px; background-color: #3498db; transform-origin: center;"></div>
+                                    <div style="position: absolute; width: 100%; height: 2px; background-color: #3498db; transform: rotate(60deg);"></div>
+                                    <div style="position: absolute; width: 100%; height: 2px; background-color: #3498db; transform: rotate(120deg);"></div>
+                                    <div style="position: absolute; width: 100%; height: 100%; border: 2px dashed #e74c3c; border-radius: 50%;"></div>
+                                    <div style="position: absolute; width: 6px; height: 6px; background-color: #e74c3c; border-radius: 50%;"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="example">
+                            <h3>Ejemplo 2.1: Pentágono Circunscrito</h3>
+                            <p>Dibuja un pentágono (5 lados) centrado en (50,0) con un radio tangente de 8 unidades.</p>
+                            <div class="steps">
+                                <div class="step">Activa <span class="command">POLIGONO</span> (<span class="command">POL</span> + <span class="command">Enter</span>).</div>
+                                <div class="step">Número de lados: <span class="command">5</span> + <span class="command">Enter</span>.</div>
+                                <div class="step">Centro: <span class="command">50,0</span> + <span class="command">Enter</span>.</div>
+                                <div class="step">Opción: <span class="command">C</span> (Circunscrito) + <span class="command">Enter</span>.</div>
+                                <div class="step">Radio: <span class="command">8</span> + <span class="command">Enter</span>.</div>
+                            </div>
+                        </div>
+
+                        <div class="example">
+                            <h3>Ejemplo 2.2: Hexágono para Tuerca</h3>
+                            <p>Dibuja un hexágono que represente la cabeza de una tuerca, centrado en (80,40), que mida 12 unidades "entre caras planas".</p>
+                            <div class="steps">
+                                <div class="step">Activa <span class="command">POLIGONO</span> (<span class="command">POL</span> + <span class="command">Enter</span>).</div>
+                                <div class="step">Número de lados: <span class="command">6</span> + <span class="command">Enter</span>.</div>
+                                <div class="step">Centro: <span class="command">80,40</span> + <span class="command">Enter</span>.</div>
+                                <div class="step">Opción: <span class="command">C</span> + <span class="command">Enter</span>.</div>
+                                <div class="step">Radio: <span class="command">6</span> (mitad de 12) + <span class="command">Enter</span>.</div>
+                            </div>
+                        </div>
+
+                        <div class="note">
+                            <strong>Nota:</strong> En un polígono circunscrito, la distancia desde el centro hasta el punto medio de cualquier lado es igual al radio especificado.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Método 3 -->
+            <div class="card">
+                <div class="card-header">
+                    <span>Método 3: Por Borde (E)</span>
+                    <span class="toggle-btn">Mostrar</span>
+                </div>
+                <div class="card-content">
+                    <div class="method">
+                        <p>Este método te permite definir el polígono especificando la longitud del primer lado, sin necesidad de especificar el centro.</p>
+                        
+                        <div class="visual-aid">
+                            <div style="text-align: center; margin-bottom: 10px;">
+                                <strong>Método por Borde</strong><br>
+                                <small>Define el polígono por la longitud de un lado</small>
+                            </div>
+                            <div style="width: 100%; height: 100px; position: relative; border-bottom: 2px solid #3498db; display: flex; align-items: flex-end; justify-content: space-between; padding: 0 10px;">
+                                <div style="width: 10px; height: 10px; background-color: #e74c3c; border-radius: 50%; position: relative; bottom: -5px;"></div>
+                                <div style="width: 10px; height: 10px; background-color: #e74c3c; border-radius: 50%; position: relative; bottom: -5px;"></div>
+                                <div style="position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%);">Longitud del lado</div>
+                            </div>
+                        </div>
+
+                        <div class="example">
+                            <h3>Ejemplo 3.1: Cuadrado por Lado</h3>
+                            <p>Dibuja un cuadrado (4 lados) donde cada lado mide exactamente 15 unidades.</p>
+                            <div class="steps">
+                                <div class="step">Activa <span class="command">POLIGONO</span> (<span class="command">POL</span> + <span class="command">Enter</span>).</div>
+                                <div class="step">Número de lados: <span class="command">4</span> + <span class="command">Enter</span>.</div>
+                                <div class="step">Escribe <span class="command">E</span> (Borde) + <span class="command">Enter</span>.</div>
+                                <div class="step">Primer punto: <span class="command">10,10</span> + <span class="command">Enter</span>.</div>
+                                <div class="step">Segundo punto: <span class="command">@15,0</span> o <span class="command">25,10</span> + <span class="command">Enter</span>.</div>
+                            </div>
+                        </div>
+
+                        <div class="example">
+                            <h3>Ejemplo 3.2: Heptágono con Lado Definido</h3>
+                            <p>Dibuja un heptágono (7 lados) donde la longitud de cada lado sea 7 unidades.</p>
+                            <div class="steps">
+                                <div class="step">Activa <span class="command">POLIGONO</span> (<span class="command">POL</span> + <span class="command">Enter</span>).</div>
+                                <div class="step">Número de lados: <span class="command">7</span> + <span class="command">Enter</span>.</div>
+                                <div class="step">Escribe <span class="command">E</span> + <span class="command">Enter</span>.</div>
+                                <div class="step">Primer punto: <span class="command">50,50</span> + <span class="command">Enter</span>.</div>
+                                <div class="step">Segundo punto: <span class="command">@7<90</span> (7 unidades hacia arriba) + <span class="command">Enter</span>.</div>
+                            </div>
+                        </div>
+
+                        <div class="tip">
+                            <strong>Consejo:</strong> Usa coordenadas polares (<span class="command">@distancia<ángulo</span>) para definir la dirección del primer lado de manera precisa.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de Actividades -->
+        <section class="activities">
+            <h2>Actividades Prácticas</h2>
+            
+            <!-- Actividad 1 -->
+            <div class="card">
+                <div class="card-header">
+                    <span>Actividad 1: La Placa de Montaje (Inscrito + Circunscrito)</span>
+                    <span class="toggle-btn">Mostrar</span>
+                </div>
+                <div class="card-content">
+                    <div class="exercise">
+                        <h3>Objetivo:</h3>
+                        <p>Dibujar una placa hexagonal con un agujero central de inspección.</p>
+                        
+                        <h3>Instrucciones:</h3>
+                        <div class="steps">
+                            <div class="step"><strong>Contorno Exterior (Placa):</strong> Dibuja un hexágono (6 lados) centrado en (50,50), que esté <strong>Circunscrito</strong> a un círculo de radio 10.</div>
+                            <div class="step"><strong>Contorno Interior (Agujero):</strong> Dibuja un pentágono (5 lados) centrado en (50,50), que esté <strong>Inscrito</strong> en un círculo de radio 5.</div>
+                            <div class="step"><strong>Resultado:</strong> Debes ver el hexágono por fuera y el pentágono más pequeño por dentro, ambos centrados.</div>
+                        </div>
+
+                        <button class="toggle-btn">Ver Solución</button>
+                        <div class="toggle-content">
+                            <h4>Solución:</h4>
+                            <p>Para el contorno exterior (hexágono circunscrito):</p>
+                            <div class="steps">
+                                <div class="step">1. Activa <span class="command">POLIGONO</span> (<span class="command">POL</span> + <span class="command">Enter</span>).</div>
+                                <div class="step">2. Número de lados: <span class="command">6</span> + <span class="command">Enter</span>.</div>
+                                <div class="step">3. Centro: <span class="command">50,50</span> + <span class="command">Enter</span>.</div>
+                                <div class="step">4. Opción: <span class="command">C</span> + <span class="command">Enter</span> (Circunscrito).</div>
+                                <div class="step">5. Radio: <span class="command">10</span> + <span class="command">Enter</span>.</div>
+                            </div>
+                            
+                            <p>Para el contorno interior (pentágono inscrito):</p>
+                            <div class="steps">
+                                <div class="step">1. Activa <span class="command">POLIGONO</span> de nuevo.</div>
+                                <div class="step">2. Número de lados: <span class="command">5</span> + <span class="command">Enter</span>.</div>
+                                <div class="step">3. Centro: <span class="command">50,50</span> + <span class="command">Enter</span>.</div>
+                                <div class="step">4. Opción: <span class="command">I</span> + <span class="command">Enter</span> (Inscrito).</div>
+                                <div class="step">5. Radio: <span class="command">5</span> + <span class="command">Enter</span>.</div>
+                            </div>
+                            
+                            <div class="formula">
+                                <p>Para el hexágono circunscrito con radio 10:</p>
+                                <p>Longitud del lado = 2 × Radio × tan(π/n)</p>
+                                <p>Donde n es el número de lados (6)</p>
+                                <p>Lado = 2 × 10 × tan(30°) ≈ 11.547 unidades</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Actividad 2 -->
+            <div class="card">
+                <div class="card-header">
+                    <span>Actividad 2: El Tablero Modular (Borde y Coordenadas)</span>
+                    <span class="toggle-btn">Mostrar</span>
+                </div>
+                <div class="card-content">
+                    <div class="exercise">
+                        <h3>Objetivo:</h3>
+                        <p>Dibujar dos tableros modulares triangulares adyacentes definiendo el lado común.</p>
+                        
+                        <h3>Instrucciones:</h3>
+                        <div class="steps">
+                            <div class="step"><strong>Triángulo 1:</strong> Dibuja un triángulo equilátero (3 lados) usando el método <strong>Borde</strong>. El primer punto del borde debe ser (10,10) y el segundo punto debe ser (25,10) [Longitud 15].</div>
+                            <div class="step"><strong>Triángulo 2:</strong> Dibuja un segundo triángulo (3 lados) también usando el método <strong>Borde</strong>. El primer punto del borde debe ser (25,10) y el segundo punto debe ser (10,10) [Longitud 15].</div>
+                            <div class="step"><strong>Resultado:</strong> Los dos triángulos deben estar perfectamente unidos a lo largo del lado de 15 unidades, formando un rombo.</div>
+                        </div>
+
+                        <button class="toggle-btn">Ver Solución</button>
+                        <div class="toggle-content">
+                            <h4>Solución:</h4>
+                            <p>Para el Triángulo 1:</p>
+                            <div class="steps">
+                                <div class="step">1. Activa <span class="command">POLIGONO</span> (<span class="command">POL</span> + <span class="command">Enter</span>).</div>
+                                <div class="step">2. Número de lados: <span class="command">3</span> + <span class="command">Enter</span>.</div>
+                                <div class="step">3. Escribe <span class="command">E</span> + <span class="command">Enter</span> (Borde).</div>
+                                <div class="step">4. Primer punto: <span class="command">10,10</span> + <span class="command">Enter</span>.</div>
+                                <div class="step">5. Segundo punto: <span class="command">25,10</span> + <span class="command">Enter</span>.</div>
+                            </div>
+                            
+                            <p>Para el Triángulo 2:</p>
+                            <div class="steps">
+                                <div class="step">1. Activa <span class="command">POLIGONO</span> de nuevo.</div>
+                                <div class="step">2. Número de lados: <span class="command">3</span> + <span class="command">Enter</span>.</div>
+                                <div class="step">3. Escribe <span class="command">E</span> + <span class="command">Enter</span>.</div>
+                                <div class="step">4. Primer punto: <span class="command">25,10</span> + <span class="command">Enter</span>.</div>
+                                <div class="step">5. Segundo punto: <span class="command">10,10</span> + <span class="command">Enter</span>.</div>
+                            </div>
+                            
+                            <p>Los triángulos se unirán en el lado común de (10,10) a (25,10).</p>
+                            <p>Coordenadas de los vértices:</p>
+                            <ul>
+                                <li>Triángulo 1: (10,10), (25,10), (17.5, 22.99)</li>
+                                <li>Triángulo 2: (25,10), (10,10), (17.5, -2.99)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de Retos -->
+        <section class="challenges">
+            <h2>Retos de Comprensión</h2>
+            
+            <!-- Reto 1 -->
+            <div class="card">
+                <div class="card-header">
+                    <span>Reto 1: El Octágono que Contiene</span>
+                    <span class="toggle-btn">Mostrar</span>
+                </div>
+                <div class="card-content">
+                    <div class="challenge">
+                        <h3>¿Puedes dibujar un octágono que contenga exactamente un círculo dado?</h3>
+                        <p>Dibuja un <strong>CÍRCULO</strong> de radio 10 centrado en (0,0). Luego, dibuja un <strong>OCTÁGONO</strong> (8 lados) que esté <strong>Circunscrito</strong> alrededor de ese círculo.</p>
+                        
+                        <div class="steps">
+                            <div class="step">1. Primero, dibuja el círculo con radio 10 en (0,0).</div>
+                            <div class="step">2. Luego, dibuja el octágono usando el método Circunscrito.</div>
+                            <div class="step">3. Verifica que la distancia desde el centro al punto medio de cualquier lado sea 10.</div>
+                        </div>
+
+                        <button class="toggle-btn">Ver Pista</button>
+                        <div class="toggle-content">
+                            <p>Recuerda que en un polígono circunscrito, el radio especificado es la distancia desde el centro hasta el punto medio de cualquier lado (apotema).</p>
+                        </div>
+
+                        <button class="toggle-btn" style="margin-top: 10px;">Ver Solución</button>
+                        <div class="toggle-content">
+                            <h4>Solución:</h4>
+                            <div class="steps">
+                                <div class="step">1. Dibuja el círculo: <span class="command">CIRCULO</span> (<span class="command">C</span> + <span class="command">Enter</span>), centro <span class="command">0,0</span> + <span class="command">Enter</span>, radio <span class="command">10</span> + <span class="command">Enter</span>.</div>
+                                <div class="step">2. Activa <span class="command">POLIGONO</span> (<span class="command">POL</span> + <span class="command">Enter</span>).</div>
+                                <div class="step">3. Número de lados: <span class="command">8</span> + <span class="command">Enter</span>.</div>
+                                <div class="step">4. Centro: <span class="command">0,0</span> + <span class="command">Enter</span>.</div>
+                                <div class="step">5. Opción: <span class="command">C</span> + <span class="command">Enter</span> (Circunscrito).</div>
+                                <div class="step">6. Radio: <span class="command">10</span> + <span class="command">Enter</span>.</div>
+                            </div>
+                            
+                            <p>Al medir con <span class="command">DIST</span> desde (0,0) hasta el punto medio de cualquier lado del octágono, deberías obtener exactamente 10 unidades.</p>
+                            
+                            <div class="formula">
+                                <p>Longitud del lado del octágono:</p>
+                                <p>Lado = 2 × Radio × tan(π/n)</p>
+                                <p>Lado = 2 × 10 × tan(22.5°) ≈ 8.28 unidades</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reto 2 -->
+            <div class="card">
+                <div class="card-header">
+                    <span>Reto 2: Comparación de Longitudes</span>
+                    <span class="toggle-btn">Mostrar</span>
+                </div>
+                <div class="card-content">
+                    <div class="challenge">
+                        <h3>¿Cómo se comparan los lados de un hexágono inscrito y uno circunscrito con el mismo radio?</h3>
+                        <p>Dibuja dos hexágonos (6 lados) idénticos en tamaño, ambos centrados en (50,50):</p>
+                        <ol>
+                            <li><strong>Hexágono A:</strong> <strong>Inscrito</strong> con radio 10.</li>
+                            <li><strong>Hexágono B:</strong> <strong>Circunscrito</strong> con radio 10.</li>
+                        </ol>
+                        <p>Verifica: ¿Cuál de los dos hexágonos tiene el <strong>lado más corto</strong>? ¿Por qué?</p>
+
+                        <button class="toggle-btn">Ver Pista</button>
+                        <div class="toggle-content">
+                            <p>Recuerda que en un hexágono regular inscrito, el radio es igual a la longitud del lado. ¿Qué sucede con el hexágono circunscrito?</p>
+                        </div>
+
+                        <button class="toggle-btn" style="margin-top: 10px;">Ver Solución</button>
+                        <div class="toggle-content">
+                            <h4>Solución:</h4>
+                            <p>Para el Hexágono A (Inscrito):</p>
+                            <div class="steps">
+                                <div class="step">1. Activa <span class="command">POLIGONO</span> (<span class="command">POL</span> + <span class="command">Enter</span>).</div>
+                                <div class="step">2. Número de lados: <span class="command">6</span> + <span class="command">Enter</span>.</div>
+                                <div class="step">3. Centro: <span class="command">50,50</span> + <span class="command">Enter</span>.</div>
+                                <div class="step">4. Opción: <span class="command">I</span> + <span class="command">Enter</span> (Inscrito).</div>
+                                <div class="step">5. Radio: <span class="command">10</span> + <span class="command">Enter</span>.</div>
+                            </div>
+                            
+                            <p>Para el Hexágono B (Circunscrito):</p>
+                            <div class="steps">
+                                <div class="step">1. Activa <span class="command">POLIGONO</span> de nuevo.</div>
+                                <div class="step">2. Número de lados: <span class="command">6</span> + <span class="command">Enter</span>.</div>
+                                <div class="step">3. Centro: <span class="command">50,50</span> + <span class="command">Enter</span>.</div>
+                                <div class="step">4. Opción: <span class="command">C</span> + <span class="command">Enter</span> (Circunscrito).</div>
+                                <div class="step">5. Radio: <span class="command">10</span> + <span class="command">Enter</span>.</div>
+                            </div>
+                            
+                            <p>Al comparar ambos hexágonos:</p>
+                            <ul>
+                                <li>El <strong>Hexágono A (Inscrito)</strong> tiene lados de <strong>10 unidades</strong> (igual al radio).</li>
+                                <li>El <strong>Hexágono B (Circunscrito)</strong> tiene lados más cortos.</li>
+                            </ul>
+                            
+                            <div class="formula">
+                                <p>Para el hexágono circunscrito con radio (apotema) = 10:</p>
+                                <p>Lado = 2 × Apotema × tan(π/n)</p>
+                                <p>Lado = 2 × 10 × tan(30°) ≈ 11.547 unidades</p>
+                                
+                                <p>¡Espera, esto no tiene sentido! Parece que hay una confusión en la interpretación.</p>
+                                <p>En realidad, en un hexágono regular:</p>
+                                <ul>
+                                    <li>Inscrito: Radio = Longitud del lado = 10</li>
+                                    <li>Circunscrito: Apotema = 10 → Lado = (2 × 10) / √3 ≈ 11.547</li>
+                                </ul>
+                                <p>Por lo tanto, el hexágono inscrito tiene lados más cortos (10) que el circunscrito (11.547) cuando ambos tienen el mismo radio de 10.</p>
+                            </div>
+                            
+                            <p><strong>Respuesta:</strong> El hexágono inscrito (A) tiene lados más cortos que el circunscrito (B) cuando ambos comparten el mismo radio.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reto 3 -->
+            <div class="card">
+                <div class="card-header">
+                    <span>Reto 3: El Pentágono Girado</span>
+                    <span class="toggle-btn">Mostrar</span>
+                </div>
+                <div class="card-content">
+                    <div class="challenge">
+                        <h3>¿Puedes dibujar un pentágono con un lado específico en una orientación determinada?</h3>
+                        <p>Dibuja un pentágono (5 lados) utilizando el método <strong>Borde</strong> (E), de modo que el primer lado mida 12 unidades y esté orientado <strong>verticalmente</strong> (90 grados).</p>
+                        
+                        <div class="steps">
+                            <div class="step">1. Usa el método de borde para definir el pentágono.</div>
+                            <div class="step">2. El primer punto puede ser cualquier coordenada, por ejemplo (30,30).</div>
+                            <div class="step">3. Para el segundo punto, usa coordenadas polares para asegurar la orientación vertical.</div>
+                        </div>
+
+                        <button class="toggle-btn">Ver Pista</button>
+                        <div class="toggle-content">
+                            <p>Usa la notación polar <span class="command">@distancia<ángulo</span> para el segundo punto. Para una línea vertical hacia arriba, el ángulo es 90 grados.</p>
+                        </div>
+
+                        <button class="toggle-btn" style="margin-top: 10px;">Ver Solución</button>
+                        <div class="toggle-content">
+                            <h4>Solución:</h4>
+                            <div class="steps">
+                                <div class="step">1. Activa <span class="command">POLIGONO</span> (<span class="command">POL</span> + <span class="command">Enter</span>).</div>
+                                <div class="step">2. Número de lados: <span class="command">5</span> + <span class="command">Enter</span>.</div>
+                                <div class="step">3. Escribe <span class="command">E</span> + <span class="command">Enter</span> (Borde).</div>
+                                <div class="step">4. Primer punto: <span class="command">30,30</span> + <span class="command">Enter</span>.</div>
+                                <div class="step">5. Segundo punto: <span class="command">@12<90</span> + <span class="command">Enter</span>.</div>
+                            </div>
+                            
+                            <p>Explicación:</p>
+                            <ul>
+                                <li><span class="command">@</span> = Coordenada relativa al último punto</li>
+                                <li><span class="command">12</span> = Distancia de 12 unidades</li>
+                                <li><span class="command"><90</span> = Ángulo de 90 grados (vertical hacia arriba)</li>
+                            </ul>
+                            
+                            <p>Para verificar la orientación:</p>
+                            <div class="steps">
+                                <div class="step">1. Usa el comando <span class="command">LINEA</span> (<span class="command">L</span> + <span class="command">Enter</span>).</div>
+                                <div class="step">2. Conecta los dos puntos finales de la base del pentágono.</div>
+                                <div class="step">3. Usa <span class="command">DIST</span> para medir la longitud del lado vertical.</div>
+                            </div>
+                            
+                            <p>El vértice superior del pentágono estará exactamente por encima del punto medio del lado base, formando un ángulo de 54° con los lados adyacentes (en un pentágono regular, los ángulos internos son de 108°).</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; JMGV-PTEL-2025 Todos los derechos reservados</p>
+        </div>
+    </footer>
+
+    <script>
+        // Script para los acordeones
+        document.addEventListener('DOMContentLoaded', function() {
+            const cardHeaders = document.querySelectorAll('.card-header');
+            
+            cardHeaders.forEach(header => {
+                const toggleBtn = header.querySelector('.toggle-btn');
+                const card = header.parentElement;
+                
+                header.addEventListener('click', () => {
+                    card.classList.toggle('active');
+                    const content = header.nextElementSibling;
+                    
+                    if (card.classList.contains('active')) {
+                        toggleBtn.textContent = 'Ocultar';
+                        toggleBtn.classList.add('active');
+                    } else {
+                        toggleBtn.textContent = 'Mostrar';
+                        toggleBtn.classList.remove('active');
+                    }
+                });
+            });
+
+            // Script para los botones de alternar contenido
+            const toggleButtons = document.querySelectorAll('.toggle-btn');
+            
+            toggleButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.stopPropagation(); // Evita que el evento se propague al card-header
+                    const content = this.nextElementSibling;
+                    const isActive = this.classList.toggle('active');
+                    
+                    if (isActive) {
+                        content.style.display = 'block';
+                        this.textContent = this.textContent.replace('Mostrar', 'Ocultar');
+                    } else {
+                        content.style.display = 'none';
+                        this.textContent = this.textContent.replace('Ocultar', 'Mostrar');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comando Rectángulo en AutoCAD - Aprende Fácil</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-bg: #f8f9fa;
+            --dark-text: #2c3e50;
+            --light-text: #ecf0f1;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: var(--dark-text);
+            background-color: var(--light-bg);
+            padding: 0;
+            margin: 0;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        /* Main Content */
+        main {
+            padding: 2rem 0;
+        }
+
+        .card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+            overflow: hidden;
+        }
+
+        .card-header {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 1rem 1.5rem;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .card-header:hover {
+            background-color: #2980b9;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+            display: none;
+        }
+
+        .card.active .card-content {
+            display: block;
+        }
+
+        /* Button Styles */
+        .btn {
+            display: inline-block;
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        /* Example and Exercise Styles */
+        .example, .exercise, .challenge {
+            background-color: #f8f9fa;
+            border-left: 4px solid var(--secondary-color);
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .example h3, .exercise h3, .challenge h3 {
+            color: var(--primary-color);
+            margin-bottom: 0.8rem;
+        }
+
+        .challenge {
+            border-left-color: var(--accent-color);
+            background-color: #fff5f5;
+        }
+
+        .challenge h3 {
+            color: var(--accent-color);
+        }
+
+        .steps {
+            counter-reset: step;
+            padding-left: 1.5rem;
+        }
+
+        .step {
+            position: relative;
+            margin-bottom: 1rem;
+            padding-left: 2rem;
+        }
+
+        .step:before {
+            counter-increment: step;
+            content: counter(step);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 1.8rem;
+            height: 1.8rem;
+            background-color: var(--secondary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        .challenge .step:before {
+            background-color: var(--accent-color);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+            
+            .card-header {
+                font-size: 1.1rem;
+                padding: 0.8rem 1rem;
+            }
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary-color);
+            color: var(--light-text);
+            text-align: center;
+            padding: 1.5rem 0;
+            margin-top: 2rem;
+            font-size: 0.9rem;
+        }
+
+        /* Toggle Content */
+        .toggle-content {
+            display: none;
+            padding: 1rem;
+            background-color: #f1f8ff;
+            border-radius: 4px;
+            margin-top: 1rem;
+            border-left: 3px solid var(--secondary-color);
+        }
+
+        .toggle-btn {
+            background: none;
+            border: none;
+            color: var(--secondary-color);
+            cursor: pointer;
+            padding: 0.3rem 0.6rem;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            display: inline-flex;
+            align-items: center;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-btn:hover {
+            background-color: rgba(52, 152, 219, 0.1);
+        }
+
+        .toggle-btn:after {
+            content: '▼';
+            font-size: 0.7rem;
+            margin-left: 0.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .toggle-btn.active:after {
+            transform: rotate(180deg);
+        }
+
+        .command {
+            font-family: 'Courier New', monospace;
+            background-color: #f1f1f1;
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+            font-size: 0.9em;
+        }
+
+        .method {
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+        }
+
+        .method h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--secondary-color);
+        }
+
+        .note {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .tip {
+            background-color: #d1ecf1;
+            border-left: 4px solid #0dcaf0;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Comando Rectángulo en AutoCAD</h1>
+            <p class="subtitle">Aprende a crear y modificar rectángulos de manera eficiente</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="intro">
+            <p>El comando <span class="command">RECTANG</span> (o <span class="command">REC</span>) es una herramienta poderosa en AutoCAD que permite crear rectángulos como una única polilínea cerrada. A diferencia de dibujar cuatro líneas separadas, este comando ofrece mayor flexibilidad y precisión.</p>
+            
+            <div class="tip">
+                <strong>Consejo:</strong> Los rectángulos creados con este comando son polilíneas cerradas, lo que significa que puedes editarlos como una sola entidad y usar comandos como <span class="command">PEDIT</span> para modificarlos posteriormente.
+            </div>
+        </section>
+
+        <!-- Sección de Métodos -->
+        <section class="methods">
+            <h2>Métodos de Creación</h2>
+            
+            <!-- Método 1 -->
+            <div class="card">
+                <div class="card-header">
+                    <span>Método 1: Usando Dimensiones (D)</span>
+                    <span class="toggle-btn">Mostrar</span>
+                </div>
+                <div class="card-content">
+                    <div class="method">
+                        <p>Este método te permite especificar la longitud (eje X) y la anchura (eje Y) del rectángulo.</p>
+                        
+                        <div class="example">
+                            <h3>Ejemplo 1.1: Rectángulo Básico en el Origen</h3>
+                            <p>Dibuja un rectángulo de 15 unidades de largo (X) y 8 unidades de ancho (Y), comenzando en (0,0).</p>
+                            <div class="steps">
+                                <div class="step">Activa el comando <span class="command">RECTANG</span> (escribe <span class="command">REC</span> y presiona <span class="command">Enter</span>).</div>
+                                <div class="step">Especifica la primera esquina: <span class="command">0,0</span> y presiona <span class="command">Enter</span>.</div>
+                                <div class="step">Escribe <span class="command">D</span> y presiona <span class="command">Enter</span> para seleccionar Dimensiones.</div>
+                                <div class="step">Especifica la longitud (X): <span class="command">15</span> y presiona <span class="command">Enter</span>.</div>
+                                <div class="step">Especifica la anchura (Y): <span class="command">8</span> y presiona <span class="command">Enter</span>.</div>
+                                <div class="step">Haz clic en el área de dibujo para indicar la dirección (normalmente hacia arriba y a la derecha).</div>
+                            </div>
+                        </div>
+
+                        <div class="example">
+                            <h3>Ejemplo 1.2: Rectángulo con Punto Final</h3>
+                            <p>Dibuja un rectángulo de 10x20 unidades comenzando en (30,5).</p>
+                            <div class="steps">
+                                <div class="step">Activa el comando <span class="command">RECTANG</span> (<span class="command">REC</span> + <span class="command">Enter</span>).</div>
+                                <div class="step">Especifica la primera esquina: <span class="command">30,5</span> y presiona <span class="command">Enter</span>.</div>
+                                <div class="step">Escribe <span class="command">D</span> y presiona <span class="command">Enter</span>.</div>
+                                <div class="step">Especifica la longitud (X): <span class="command">10</span> y presiona <span class="command">Enter</span>.</div>
+                                <div class="step">Especifica la anchura (Y): <span class="command">20</span> y presiona <span class="command">Enter</span>.</div>
+                                <div class="step">Haz clic para indicar la dirección (normalmente hacia arriba y a la derecha).</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Método 2 -->
+            <div class="card">
+                <div class="card-header">
+                    <span>Método 2: Usando Área (A)</span>
+                    <span class="toggle-btn">Mostrar</span>
+                </div>
+                <div class="card-content">
+                    <div class="method">
+                        <p>Este método te permite crear un rectángulo especificando su área total y una de sus dimensiones.</p>
+                        
+                        <div class="example">
+                            <h3>Ejemplo 2.1: Rectángulo por Área y Longitud</h3>
+                            <p>Dibuja un rectángulo con un área de 50 unidades, donde el lado X (longitud) mide 10 unidades.</p>
+                            <div class="steps">
+                                <div class="step">Activa el comando <span class="command">RECTANG</span> (<span class="command">REC</span> + <span class="command">Enter</span>).</div>
+                                <div class="step">Especifica la primera esquina: <span class="command">0,0</span> y presiona <span class="command">Enter</span>.</div>
+                                <div class="step">Escribe <span class="command">A</span> y presiona <span class="command">Enter</span> para seleccionar Área.</div>
+                                <div class="step">Especifica el área: <span class="command">50</span> y presiona <span class="command">Enter</span>.</div>
+                                <div class="step">Escribe <span class="command">L</span> y presiona <span class="command">Enter</span> para especificar la Longitud.</div>
+                                <div class="step">Especifica la longitud (X): <span class="command">10</span> y presiona <span class="command">Enter</span>.</div>
+                                <div class="step">AutoCAD calculará automáticamente que la anchura (Y) debe ser 5 unidades.</div>
+                                <div class="step">Haz clic para indicar la dirección.</div>
+                            </div>
+                        </div>
+
+                        <div class="example">
+                            <h3>Ejemplo 2.2: Rectángulo por Área y Anchura</h3>
+                            <p>Dibuja un rectángulo con un área de 144 unidades, donde el lado Y (anchura) mide 9 unidades.</p>
+                            <div class="steps">
+                                <div class="step">Activa el comando <span class="command">RECTANG</span> (<span class="command">REC</span> + <span class="command">Enter</span>).</div>
+                                <div class="step">Especifica la primera esquina: <span class="command">50,50</span> y presiona <span class="command">Enter</span>.</div>
+                                <div class="step">Escribe <span class="command">A</span> y presiona <span class="command">Enter</span>.</div>
+                                <div class="step">Especifica el área: <span class="command">144</span> y presiona <span class="command">Enter</span>.</div>
+                                <div class="step">Escribe <span class="command">W</span> y presiona <span class="command">Enter</span> para especificar la Anchura (Width).</div>
+                                <div class="step">Especifica la anchura (Y): <span class="command">9</span> y presiona <span class="command">Enter</span>.</div>
+                                <div class="step">AutoCAD calculará automáticamente que la longitud (X) debe ser 16 unidades.</div>
+                                <div class="step">Haz clic para indicar la dirección.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Método 3 -->
+            <div class="card">
+                <div class="card-header">
+                    <span>Método 3: Con Rotación (R)</span>
+                    <span class="toggle-btn">Mostrar</span>
+                </div>
+                <div class="card-content">
+                    <div class="method">
+                        <p>Este método te permite dibujar el rectángulo en un ángulo específico, en lugar de estar alineado con los ejes X e Y.</p>
+                        
+                        <div class="example">
+                            <h3>Ejemplo 3.1: Rectángulo Girado 45 Grados</h3>
+                            <p>Dibuja un rectángulo de 10x5 unidades con una rotación de 45 grados.</p>
+                            <div class="steps">
+                                <div class="step">Activa el comando <span class="command">RECTANG</span> (<span class="command">REC</span> + <span class="command">Enter</span>).</div>
+                                <div class="step">Especifica la primera esquina: <span class="command">0,0</span> y presiona <span class="command">Enter</span>.</div>
+                                <div class="step">Escribe <span class="command">R</span> y presiona <span class="command">Enter</span> para seleccionar Rotación.</div>
+                                <div class="step">Especifica el ángulo de rotación: <span class="command">45</span> y presiona <span class="command">Enter</span>.</div>
+                                <div class="step">Escribe <span class="command">D</span> y presiona <span class="command">Enter</span> para especificar Dimensiones.</div>
+                                <div class="step">Especifica la longitud (X): <span class="command">10</span> y presiona <span class="command">Enter</span>.</div>
+                                <div class="step">Especifica la anchura (Y): <span class="command">5</span> y presiona <span class="command">Enter</span>.</div>
+                                <div class="step">Haz clic para indicar la dirección (el rectángulo se dibujará rotado 45°).</div>
+                            </div>
+                        </div>
+
+                        <div class="example">
+                            <h3>Ejemplo 3.2: Rectángulo Vertical (90°)</h3>
+                            <p>Dibuja un rectángulo de 5x15 unidades rotado 90 grados (queda vertical).</p>
+                            <div class="steps">
+                                <div class="step">Activa el comando <span class="command">RECTANG</span> (<span class="command">REC</span> + <span class="command">Enter</span>).</div>
+                                <div class="step">Especifica la primera esquina: <span class="command">40,40</span> y presiona <span class="command">Enter</span>.</div>
+                                <div class="step">Escribe <span class="command">R</span> y presiona <span class="command">Enter</span>.</div>
+                                <div class="step">Especifica el ángulo de rotación: <span class="command">90</span> y presiona <span class="command">Enter</span>.</div>
+                                <div class="step">Escribe <span class="command">D</span> y presiona <span class="command">Enter</span>.</div>
+                                <div class="step">Especifica la longitud (X): <span class="command">5</span> y presiona <span class="command">Enter</span>.</div>
+                                <div class="step">Especifica la anchura (Y): <span class="command">15</span> y presiona <span class="command">Enter</span>.</div>
+                                <div class="step">Haz clic para indicar la dirección (el rectángulo se dibujará vertical).</div>
+                            </div>
+                        </div>
+
+                        <div class="note">
+                            <strong>Nota:</strong> La rotación se aplica a todo el rectángulo, no solo a una de sus dimensiones. El ángulo se mide en sentido antihorario desde el eje X positivo.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de Actividades -->
+        <section class="activities">
+            <h2>Actividades Prácticas</h2>
+            
+            <!-- Actividad 1 -->
+            <div class="card">
+                <div class="card-header">
+                    <span>Actividad 1: El Marco de Presentación (Rotación y Área)</span>
+                    <span class="toggle-btn">Mostrar</span>
+                </div>
+                <div class="card-content">
+                    <div class="exercise">
+                        <h3>Objetivo:</h3>
+                        <p>Dibujar un marco inclinado y luego un segundo marco más pequeño dentro de este, definiendo el área.</p>
+                        
+                        <h3>Instrucciones:</h3>
+                        <div class="steps">
+                            <div class="step"><strong>Marco Exterior:</strong> Dibuja un rectángulo comenzando en (0,0), rotado <strong>30 grados</strong> con una longitud de <strong>30</strong> y una anchura de <strong>20</strong>.</div>
+                            <div class="step"><strong>Marco Interior:</strong> Dibuja un segundo rectángulo que comience en la misma esquina (0,0), pero que tenga un <strong>área total de 300 unidades</strong>. Especifica la <strong>anchura (Y)</strong> como <strong>15</strong>.</div>
+                        </div>
+
+                        <div class="tip">
+                            <strong>Consejo:</strong> Para el marco interior, no es necesario volver a especificar la rotación si no has cambiado la configuración. AutoCAD mantendrá la última rotación usada.
+                        </div>
+
+                        <button class="toggle-btn">Ver Solución</button>
+                        <div class="toggle-content">
+                            <h4>Solución:</h4>
+                            <p>Para el marco exterior:</p>
+                            <div class="steps">
+                                <div class="step">1. Activa <span class="command">RECTANG</span> (<span class="command">REC</span> + <span class="command">Enter</span>).</div>
+                                <div class="step">2. Primera esquina: <span class="command">0,0</span> + <span class="command">Enter</span>.</div>
+                                <div class="step">3. Escribe <span class="command">R</span> + <span class="command">Enter</span> para rotación.</div>
+                                <div class="step">4. Ángulo: <span class="command">30</span> + <span class="command">Enter</span>.</div>
+                                <div class="step">5. Escribe <span class="command">D</span> + <span class="command">Enter</span> para dimensiones.</div>
+                                <div class="step">6. Longitud (X): <span class="command">30</span> + <span class="command">Enter</span>.</div>
+                                <div class="step">7. Anchura (Y): <span class="command">20</span> + <span class="command">Enter</span>.</div>
+                                <div class="step">8. Haz clic para indicar la dirección (hacia arriba y a la derecha).</div>
+                            </div>
+                            
+                            <p>Para el marco interior:</p>
+                            <div class="steps">
+                                <div class="step">1. Activa <span class="command">RECTANG</span> de nuevo.</div>
+                                <div class="step">2. Primera esquina: <span class="command">0,0</span> + <span class="command">Enter</span>.</div>
+                                <div class="step">3. Escribe <span class="command">A</span> + <span class="command">Enter</span> para área.</div>
+                                <div class="step">4. Área: <span class="command">300</span> + <span class="command">Enter</span>.</div>
+                                <div class="step">5. Escribe <span class="command">W</span> + <span class="command">Enter</span> para especificar anchura.</div>
+                                <div class="step">6. Anchura (Y): <span class="command">15</span> + <span class="command">Enter</span>.</div>
+                                <div class="step">7. AutoCAD calculará que la longitud (X) debe ser 20 unidades.</div>
+                                <div class="step">8. Haz clic para indicar la dirección (el marco interior se dibujará con la misma rotación de 30°).</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Actividad 2 -->
+            <div class="card">
+                <div class="card-header">
+                    <span>Actividad 2: Base para Columnas (Dimensiones y Modificación)</span>
+                    <span class="toggle-btn">Mostrar</span>
+                </div>
+                <div class="card-content">
+                    <div class="exercise">
+                        <h3>Objetivo:</h3>
+                        <p>Dibujar una base rectangular y luego copiarla y modificarla para crear varias bases de columna.</p>
+                        
+                        <h3>Instrucciones:</h3>
+                        <div class="steps">
+                            <div class="step"><strong>Base Original:</strong> Dibuja un rectángulo de 5x5 unidades (cuadrado) comenzando en (10,10).</div>
+                            <div class="step"><strong>Desplazamiento:</strong> Utiliza el comando <span class="command">DESFASE</span> (<span class="command">OFFSET</span>, <span class="command">O</span>) para crear un borde de 0.5 unidades <strong>hacia afuera</strong> del cuadrado original.</div>
+                            <div class="step"><strong>Copia:</strong> Utiliza el comando <span class="command">COPIAR</span> (<span class="command">CP</span>) para duplicar ambos rectángulos (el original y el desplazado) dos veces, con una separación horizontal de 15 unidades entre cada copia.</div>
+                        </div>
+
+                        <button class="toggle-btn">Ver Solución</button>
+                        <div class="toggle-content">
+                            <h4>Solución:</h4>
+                            <p>Para la base original:</p>
+                            <div class="steps">
+                                <div class="step">1. Activa <span class="command">RECTANG</span> (<span class="command">REC</span> + <span class="command">Enter</span>).</div>
+                                <div class="step">2. Primera esquina: <span class="command">10,10</span> + <span class="command">Enter</span>.</div>
+                                <div class="step">3. Escribe <span class="command">D</span> + <span class="command">Enter</span> para dimensiones.</div>
+                                <div class="step">4. Longitud (X): <span class="command">5</span> + <span class="command">Enter</span>.</div>
+                                <div class="step">5. Anchura (Y): <span class="command">5</span> + <span class="command">Enter</span>.</div>
+                                <div class="step">6. Haz clic para indicar la dirección (hacia arriba y a la derecha).</div>
+                            </div>
+                            
+                            <p>Para el desplazamiento hacia afuera:</p>
+                            <div class="steps">
+                                <div class="step">1. Activa <span class="command">DESFASE</span> (<span class="command">O</span> + <span class="command">Enter</span>).</div>
+                                <div class="step">2. Especifica la distancia de desplazamiento: <span class="command">0.5</span> + <span class="command">Enter</span>.</div>
+                                <div class="step">3. Selecciona el rectángulo original.</div>
+                                <div class="step">4. Haz clic <strong>fuera</strong> del rectángulo para crear el desplazamiento hacia afuera.</div>
+                                <div class="step">5. Presiona <span class="command">Esc</span> para finalizar el comando.</div>
+                            </div>
+                            
+                            <p>Para copiar las bases:</p>
+                            <div class="steps">
+                                <div class="step">1. Activa <span class="command">COPIAR</span> (<span class="command">CP</span> + <span class="command">Enter</span>).</div>
+                                <div class="step">2. Selecciona ambos rectángulos (el original y el desplazado) y presiona <span class="command">Enter</span>.</div>
+                                <div class="step">3. Punto base: selecciona la esquina inferior izquierda del cuadrado original (10,10).</div>
+                                <div class="step">4. Segundo punto: <span class="command">@15,0</span> + <span class="command">Enter</span> (primera copia).</div>
+                                <div class="step">5. Tercer punto: <span class="command">@30,0</span> + <span class="command">Enter</span> (segunda copia).</div>
+                                <div class="step">6. Presiona <span class="command">Enter</span> para finalizar.</div>
+                            </div>
+                            
+                            <p>Las coordenadas de las esquinas inferiores izquierdas de las copias serán:</p>
+                            <ul>
+                                <li>Original: (10, 10)</li>
+                                <li>Primera copia: (25, 10)</li>
+                                <li>Segunda copia: (40, 10)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de Retos -->
+        <section class="challenges">
+            <h2>Retos de Comprensión</h2>
+            
+            <!-- Reto 1 -->
+            <div class="card">
+                <div class="card-header">
+                    <span>Reto 1: La Relación de Aspecto</span>
+                    <span class="toggle-btn">Mostrar</span>
+                </div>
+                <div class="card-content">
+                    <div class="challenge">
+                        <h3>¿Puedes dibujar un rectángulo con un área específica y una relación de aspecto determinada?</h3>
+                        <p>Dibuja un rectángulo que tenga un área total de 180 unidades, sabiendo que la longitud (X) es exactamente <strong>el doble</strong> de la anchura (Y).</p>
+                        
+                        <div class="steps">
+                            <div class="step">1. Primero, calcula las dimensiones necesarias.</div>
+                            <div class="step">2. Luego, usa el comando RECTANG con la opción de Área.</div>
+                            <div class="step">3. Verifica que el área sea correcta usando el comando AREA.</div>
+                        </div>
+
+                        <button class="toggle-btn">Ver Pista</button>
+                        <div class="toggle-content">
+                            <p>Si la longitud (X) es el doble de la anchura (Y), entonces X = 2Y. El área es X × Y = 180. Sustituyendo: 2Y × Y = 180 → 2Y² = 180 → Y² = 90 → Y = √90 ≈ 9.4868.</p>
+                            <p>Por lo tanto, las dimensiones aproximadas deberían ser 18.9737 × 9.4868.</p>
+                        </div>
+
+                        <button class="toggle-btn" style="margin-top: 10px;">Ver Solución</button>
+                        <div class="toggle-content">
+                            <h4>Solución:</h4>
+                            <div class="steps">
+                                <div class="step">1. Activa <span class="command">RECTANG</span> (<span class="command">REC</span> + <span class="command">Enter</span>).</div>
+                                <div class="step">2. Haz clic en cualquier punto para la primera esquina.</div>
+                                <div class="step">3. Escribe <span class="command">A</span> + <span class="command">Enter</span> para Área.</div>
+                                <div class="step">4. Especifica el área: <span class="command">180</span> + <span class="command">Enter</span>.</div>
+                                <div class="step">5. Escribe <span class="command">W</span> + <span class="command">Enter</span> para especificar la anchura.</div>
+                                <div class="step">6. Anchura (Y): <span class="command">9.4868</span> + <span class="command">Enter</span>.</div>
+                                <div class="step">7. AutoCAD calculará automáticamente que la longitud (X) es aproximadamente 18.9737.</div>
+                                <div class="step">8. Haz clic para indicar la dirección.</div>
+                                <div class="step">9. Verifica con <span class="command">AREA</span> + <span class="command">Enter</span>, luego <span class="command">O</span> + <span class="command">Enter</span> y selecciona el rectángulo.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reto 2 -->
+            <div class="card">
+                <div class="card-header">
+                    <span>Reto 2: Rectángulo en Vista Isométrica</span>
+                    <span class="toggle-btn">Mostrar</span>
+                </div>
+                <div class="card-content">
+                    <div class="challenge">
+                        <h3>¿Cómo se vería un rectángulo en una vista isométrica?</h3>
+                        <p>Dibuja un rectángulo de 10x10 que parezca estar en un plano a 30 grados, usando la opción <strong>Rotación</strong> (R). Luego, dibuja un segundo rectángulo de 10x10 que esté rotado <strong>330 grados</strong>.</p>
+                        
+                        <div class="steps">
+                            <div class="step">1. Configura el estilo de visualización a isométrico con <span class="command">SNAPSTYL</span> = 1.</div>
+                            <div class="step">2. Usa el comando RECTANG con rotación.</div>
+                            <div class="step">3. Verifica el ángulo entre los dos rectángulos.</div>
+                        </div>
+
+                        <button class="toggle-btn">Ver Pista</button>
+                        <div class="toggle-content">
+                            <p>En una vista isométrica, los ángulos de 30° y 330° crean planos que forman 60° entre sí, lo que es típico en dibujos isométricos.</p>
+                        </div>
+
+                        <button class="toggle-btn" style="margin-top: 10px;">Ver Solución</button>
+                        <div class="toggle-content">
+                            <h4>Solución:</h4>
+                            <p>Para el primer rectángulo (30°):</p>
+                            <div class="steps">
+                                <div class="step">1. Activa <span class="command">RECTANG</span> (<span class="command">REC</span> + <span class="command">Enter</span>).</div>
+                                <div class="step">2. Haz clic en un punto de inicio.</div>
+                                <div class="step">3. Escribe <span class="command">R</span> + <span class="command">Enter</span> para rotación.</div>
+                                <div class="step">4. Ángulo: <span class="command">30</span> + <span class="command">Enter</span>.</div>
+                                <div class="step">5. Escribe <span class="command">D</span> + <span class="command">Enter</span> para dimensiones.</div>
+                                <div class="step">6. Longitud (X): <span class="command">10</span> + <span class="command">Enter</span>.</div>
+                                <div class="step">7. Anchura (Y): <span class="command">10</span> + <span class="command">Enter</span>.</div>
+                                <div class="step">8. Haz clic para indicar la dirección.</div>
+                            </div>
+                            
+                            <p>Para el segundo rectángulo (330°):</p>
+                            <div class="steps">
+                                <div class="step">1. Activa <span class="command">RECTANG</span> de nuevo.</div>
+                                <div class="step">2. Haz clic en el mismo punto de inicio.</div>
+                                <div class="step">3. Escribe <span class="command">R</span> + <span class="command">Enter</span>.</div>
+                                <div class="step">4. Ángulo: <span class="command">330</span> + <span class="command">Enter</span>.</div>
+                                <div class="step">5. Escribe <span class="command">D</span> + <span class="command">Enter</span>.</div>
+                                <div class="step">6. Longitud (X): <span class="command">10</span> + <span class="command">Enter</span>.</div>
+                                <div class="step">7. Anchura (Y): <span class="command">10</span> + <span class="command">Enter</span>.</div>
+                                <div class="step">8. Haz clic para indicar la dirección.</div>
+                            </div>
+                            
+                            <p>Los dos rectángulos formarán un ángulo de 60° entre sí, lo que es correcto para una vista isométrica.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reto 3 -->
+            <div class="card">
+                <div class="card-header">
+                    <span>Reto 3: El Rectángulo con Borde Interno</span>
+                    <span class="toggle-btn">Mostrar</span>
+                </div>
+                <div class="card-content">
+                    <div class="challenge">
+                        <h3>¿Puedes crear un rectángulo con un borde interno perfecto?</h3>
+                        <p>Dibuja un rectángulo de 20x15 unidades. Luego, en una <strong>nueva capa</strong> (llamada "Borde"), utiliza el comando <strong>DESFASE</strong> (OFFSET) para crear un borde de 1 unidad <strong>hacia adentro</strong>.</p>
+                        
+                        <div class="steps">
+                            <div class="step">1. Crea una nueva capa llamada "Borde" y asígnale un color diferente.</div>
+                            <div class="step">2. Dibuja el rectángulo original en la capa actual.</div>
+                            <div class="step">3. Usa el comando DESFASE para crear el borde interno.</div>
+                            <div class="step">4. Calcula el área del rectángulo interno.</div>
+                        </div>
+
+                        <button class="toggle-btn">Ver Pista</button>
+                        <div class="toggle-content">
+                            <p>Recuerda que al hacer un desplazamiento hacia adentro, el rectángulo resultante será más pequeño. Para un desplazamiento de 1 unidad, cada lado se reducirá en 2 unidades (1 unidad por cada lado).</p>
+                        </div>
+
+                        <button class="toggle-btn" style="margin-top: 10px;">Ver Solución</button>
+                        <div class="toggle-content">
+                            <h4>Solución:</h4>
+                            <p>Para el rectángulo original:</p>
+                            <div class="steps">
+                                <div class="step">1. Activa <span class="command">RECTANG</span> (<span class="command">REC</span> + <span class="command">Enter</span>).</div>
+                                <div class="step">2. Haz clic en un punto de inicio.</div>
+                                <div class="step">3. Escribe <span class="command">D</span> + <span class="command">Enter</span> para dimensiones.</div>
+                                <div class="step">4. Longitud (X): <span class="command">20</span> + <span class="command">Enter</span>.</div>
+                                <div class="step">5. Anchura (Y): <span class="command">15</span> + <span class="command">Enter</span>.</div>
+                                <div class="step">6. Haz clic para indicar la dirección.</div>
+                            </div>
+                            
+                            <p>Para crear la capa y el borde interno:</p>
+                            <div class="steps">
+                                <div class="step">1. Activa el <span class="command">Administrador de propiedades de capas</span> (<span class="command">LA</span> + <span class="command">Enter</span>).</div>
+                                <div class="step">2. Haz clic en "Nueva capa" y nómbrala "Borde".</div>
+                                <div class="step">3. Selecciona un color diferente y haz clic en "Aceptar".</div>
+                                <div class="step">4. Activa el comando <span class="command">DESFASE</span> (<span class="command">O</span> + <span class="command">Enter</span>).</div>
+                                <div class="step">5. Distancia de desplazamiento: <span class="command">1</span> + <span class="command">Enter</span>.</div>
+                                <div class="step">6. Selecciona el rectángulo original.</div>
+                                <div class="step">7. Haz clic <strong>dentro</strong> del rectángulo para crear el desplazamiento hacia adentro.</div>
+                                <div class="step">8. Presiona <span class="command">Enter</span> para finalizar.</div>
+                                <div class="step">9. Selecciona el rectángulo interno, cambia su capa a "Borde" en la barra de propiedades.</div>
+                            </div>
+                            
+                            <p>Cálculo del área del rectángulo interno:</p>
+                            <ul>
+                                <li>Longitud original: 20 unidades</li>
+                                <li>Anchura original: 15 unidades</li>
+                                <li>Desplazamiento: 1 unidad por cada lado (2 unidades en total por dimensión)</li>
+                                <li>Nueva longitud: 20 - 2 = 18 unidades</li>
+                                <li>Nueva anchura: 15 - 2 = 13 unidades</li>
+                                <li>Área del rectángulo interno: 18 × 13 = 234 unidades cuadradas</li>
+                            </ul>
+                            
+                            <p>Puedes verificar esto usando el comando <span class="command">AREA</span> + <span class="command">Enter</span>, luego <span class="command">O</span> + <span class="command">Enter</span> y seleccionando el rectángulo interno.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; JMGV-PTEL-2025 Todos los derechos reservados</p>
+        </div>
+    </footer>
+
+    <script>
+        // Script para los acordeones
+        document.addEventListener('DOMContentLoaded', function() {
+            const cardHeaders = document.querySelectorAll('.card-header');
+            
+            cardHeaders.forEach(header => {
+                const toggleBtn = header.querySelector('.toggle-btn');
+                const card = header.parentElement;
+                
+                header.addEventListener('click', () => {
+                    card.classList.toggle('active');
+                    const content = header.nextElementSibling;
+                    
+                    if (card.classList.contains('active')) {
+                        toggleBtn.textContent = 'Ocultar';
+                        toggleBtn.classList.add('active');
+                    } else {
+                        toggleBtn.textContent = 'Mostrar';
+                        toggleBtn.classList.remove('active');
+                    }
+                });
+            });
+
+            // Script para los botones de alternar contenido
+            const toggleButtons = document.querySelectorAll('.toggle-btn');
+            
+            toggleButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.stopPropagation(); // Evita que el evento se propague al card-header
+                    const content = this.nextElementSibling;
+                    const isActive = this.classList.toggle('active');
+                    
+                    if (isActive) {
+                        content.style.display = 'block';
+                        this.textContent = this.textContent.replace('Mostrar', 'Ocultar');
+                    } else {
+                        content.style.display = 'none';
+                        this.textContent = this.textContent.replace('Ocultar', 'Mostrar');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

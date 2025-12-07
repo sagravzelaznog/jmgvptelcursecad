@@ -1,0 +1,117 @@
+==================================================
+EJERCICIOS: TRAZADO DE CONTORNO (BOUNDARY) EN AUTOCAD
+==================================================
+
+El comando CONTORNO (BOUNDARY, BO) crea una polilínea o una región cerrada a partir de un área definida por objetos existentes. Su principal uso es generar un límite único (Polilínea) a partir de un conjunto de líneas, círculos o arcos que se cruzan, lo cual es esencial para comandos como Sombreado (HATCH) o Área (AREA).
+
+--------------------------------------------------
+I. MÉTODOS DE TRAZADO (2 EJEMPLOS POR MÉTODO)
+--------------------------------------------------
+
+El comando CONTORNO tiene dos opciones principales de salida: Polilínea y Región. El método de trazado se basa en la selección del área de la misma forma que el comando HATCH.
+
+Método 1: Designar Puntos Internos (Pick Internal Points)
+
+Se selecciona un punto dentro de un área cerrada y AutoCAD detecta automáticamente el límite más cercano para crear una nueva entidad (el contorno).
+
+Ejemplo 1.1: Creación de Contorno a partir de Líneas Intersectantes
+Instrucciones: Dibuja un cuadrado de 10x10 usando cuatro líneas separadas. Crea un único contorno de polilínea a partir de ellas.
+1. Dibuja cuatro LINEAS (L) separadas para formar un cuadrado (0,0 a 10,0 a 10,10 a 0,10 a 0,0).
+2. Activa el comando CONTORNO (BO).
+3. Asegúrate de que el **Tipo de Objeto** sea **Polilínea**.
+4. Haz clic **dentro** del cuadrado.
+5. Presiona Enter para finalizar.
+6. Intenta seleccionar el borde: ahora tienes la polilínea contorno (más las cuatro líneas originales).
+
+Ejemplo 1.2: Contorno en Área Intersectada (El Agujero)
+Instrucciones: Dibuja un rectángulo grande y un círculo más pequeño dentro. Crea un contorno que represente el área del rectángulo **menos** el círculo.
+1. Dibuja un RECTANGULO (REC) de 20x10.
+2. Dibuja un CÍRCULO (C) de radio 3 centrado en el rectángulo.
+3. Activa el comando CONTORNO (BO).
+4. Haz clic **entre** el rectángulo y el círculo (en la región que deseas conservar).
+5. Presiona Enter.
+6. El nuevo contorno es la Polilínea exterior del rectángulo con el círculo interior como una "isla" o "agujero".
+
+---
+
+Método 2: Usando el Tipo de Objeto "Región" (Region)
+
+Se crea una Región en lugar de una Polilínea. Las regiones son objetos 2D cerrados útiles para cálculos de propiedades de masa o para modelado 3D.
+
+Ejemplo 2.1: Creación de Región Simple
+Instrucciones: Dibuja un polígono de 6 lados. Crea una Región a partir de este polígono.
+1. Dibuja un POLIGONO (POL) de 6 lados (Ej: centro 0,0, inscrito, radio 5).
+2. Activa el comando CONTORNO (BO).
+3. Asegúrate de que el **Tipo de Objeto** sea **Región**.
+4. Haz clic **dentro** del polígono.
+5. Presiona Enter.
+6. Selecciona el polígono original y la nueva región: son dos entidades separadas, la región es un plano 2D.
+
+Ejemplo 2.2: Región para Unión/Sustracción (Preparación)
+Instrucciones: Dibuja un rectángulo (20x10) y un triángulo (10x10) superpuesto. Crea una Región para cada uno, preparándolos para operaciones booleanas.
+1. Dibuja un RECTANGULO (REC) de 20x10.
+2. Dibuja un TRIÁNGULO (LINEA o POLIGONO) que superponga el rectángulo.
+3. Activa el comando CONTORNO (BO) y selecciona **Región**.
+4. Haz clic dentro del Rectángulo. (Enter)
+5. Haz clic dentro del Triángulo. (Enter)
+6. Ahora tienes dos entidades de tipo Región que puedes **UNIR** o **SUSTRAER** (comando **UNION** o **SUBTRACT**).
+
+--------------------------------------------------
+II. ACTIVIDADES SUGERIDAS (SOLUCIÓN OCULTA)
+--------------------------------------------------
+
+ACTIVIDAD 1: El Contorno de la Línea y el Arco (Detección de Límite Complejo)
+
+Objetivo: Crear un contorno a partir de una entidad mixta (Línea, Arco, Línea) que se une con otra línea.
+Instrucciones:
+1. Dibuja una POLILINEA (PL) que vaya de (10,10) a (20,10), luego un **arco** hasta (25,15), y finalmente una línea hasta (10,20). (La figura queda abierta).
+2. Dibuja una **LÍNEA** que cierre la figura, yendo de (10,20) a (10,10). (Ahora tienes dos entidades que forman un área cerrada).
+3. Activa el comando CONTORNO (BO) y crea una **Polilínea** del área.
+4. Borra las tres entidades originales.
+
+<details>
+<summary>Ver Solución (Verificación de Entidad)</summary>
+
+Si el proceso fue correcto, después de borrar las 3 entidades originales (Polilínea mixta, Línea de cierre), solo debe quedar una única entidad en el dibujo: la Polilínea de Contorno generada por BO.
+</details>
+
+---
+
+ACTIVIDAD 2: Contorno del Centro (Área Anidada)
+
+Objetivo: Crear un contorno para la región central de tres círculos concéntricos.
+Instrucciones:
+1. Dibuja tres CÍRCULOS (C) centrados en (50,50) con radios de **10, 15 y 20**.
+2. Activa el comando CONTORNO (BO) y crea una **Polilínea**.
+3. Haz clic **dentro** del círculo más pequeño (Radio 10).
+4. Haz clic **entre** el círculo de radio 15 y el círculo de radio 20.
+5. Presiona Enter.
+
+<details>
+<summary>Ver Solución (Número de Contornos Creados)</summary>
+
+1.  Hacer clic dentro del Círculo 1 (R=10) crea el **primer contorno**.
+2.  Hacer clic entre el Círculo 2 (R=15) y Círculo 3 (R=20) crea el **segundo contorno** (un anillo sin el agujero central).
+El comando BO creará **dos** polilíneas separadas: una para el círculo interior y otra para el anillo exterior.
+</details>
+
+--------------------------------------------------
+III. RETOS DE COMPRENSIÓN (3 RETOS)
+--------------------------------------------------
+
+RETO 1: Descomponer el Contorno
+Dibuja un rectángulo usando el comando **RECTANG** (el cual ya es una polilínea). Ejecuta el comando **CONTORNO** (BO) y haz clic dentro de ese rectángulo.
+Verifica: ¿Se crea un nuevo contorno? ¿Por qué sí o por qué no?
+
+---
+
+RETO 2: El Sombreado y el Contorno
+Dibuja una forma compleja (varias líneas que se cruzan formando una forma cerrada). Utiliza el comando **SOMBRADO** (H) para rellenar la forma. A continuación, utiliza el comando **CONTORNO** (BO) para crear una polilínea de contorno.
+Pregunta: ¿Cuál de los dos comandos es más rápido para obtener una Polilínea cerrada que se necesita para calcular el área?
+
+---
+
+RETO 3: La Región para el Área
+Dibuja un polígono de 5 lados. Utiliza el comando **CONTORNO** (BO) para crear una **REGIÓN** a partir de él.
+A continuación, utiliza el comando **AREA** sobre la Región creada.
+Pregunta: ¿Por qué es más confiable calcular el área de un objeto de tipo **Región** (o Polilínea) que de un conjunto de líneas sueltas?

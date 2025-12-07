@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comando SIMETRÍA (MIRROR) en AutoCAD</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #9b59b6; /* Purple color for MIRROR command */
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --success: #2ecc71;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: '⇆';
+            position: absolute;
+            font-size: 15rem;
+            right: 2rem;
+            top: 50%;
+            transform: translateY(-50%) scaleX(-1);
+            opacity: 0.1;
+            z-index: 0;
+        }
+        
+        header h1 {
+            position: relative;
+            z-index: 1;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        header p {
+            position: relative;
+            z-index: 1;
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .command-info {
+            background-color: white;
+            border-left: 4px solid var(--secondary);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border-radius: 0 8px 8px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .command-info h2 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .command-info h2::before {
+            content: '⇆';
+            font-size: 1.5em;
+        }
+        
+        .command-syntax {
+            background-color: #f8f9fa;
+            border: 1px solid #e1e4e8;
+            padding: 1rem;
+            border-radius: 6px;
+            margin: 1rem 0;
+            font-family: 'Consolas', 'Courier New', monospace;
+            position: relative;
+        }
+        
+        .command-syntax::before {
+            content: 'Sintaxis:';
+            position: absolute;
+            top: -10px;
+            left: 10px;
+            background: white;
+            padding: 0 5px;
+            font-size: 0.8rem;
+            color: var(--secondary);
+            font-weight: bold;
+        }
+        
+        .method {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border: 1px solid #e1e4e8;
+        }
+        
+        .method h3 {
+            color: var(--secondary);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #f0f0f0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .example {
+            background-color: #f8f9fa;
+            border-left: 3px solid var(--secondary);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 6px 6px 0;
+        }
+        
+        .example h4 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .example h4::before {
+            content: '📐';
+        }
+        
+        .steps {
+            margin: 1rem 0;
+            padding-left: 1.5rem;
+        }
+        
+        .steps li {
+            margin-bottom: 0.5rem;
+            position: relative;
+        }
+        
+        .steps li::before {
+            content: '→';
+            position: absolute;
+            left: -1.5rem;
+            color: var(--secondary);
+        }
+        
+        .activity {
+            background-color: #f0f7ff;
+            border: 1px solid #d0e3ff;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .activity h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .activity h3::before {
+            content: '🎯';
+        }
+        
+        .challenge {
+            background-color: #fff8e6;
+            border: 1px solid #ffeeba;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .challenge h3 {
+            color: #d35400;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .challenge h3::before {
+            content: '💡';
+        }
+        
+        .solution {
+            margin-top: 1rem;
+            border-top: 1px dashed #ccc;
+            padding-top: 1rem;
+        }
+        
+        .solution-summary {
+            cursor: pointer;
+            color: var(--secondary);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 1rem 0;
+        }
+        
+        .solution-summary::before {
+            content: '👁️';
+            font-size: 1.1em;
+        }
+        
+        .solution-content {
+            display: none;
+            background-color: #f8f9fa;
+            padding: 1rem;
+            border-radius: 6px;
+            margin-top: 0.5rem;
+            border: 1px solid #e1e4e8;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .tip {
+            background-color: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 6px 6px 0;
+            position: relative;
+        }
+        
+        .tip::before {
+            content: '💡';
+            margin-right: 0.5rem;
+            font-size: 1.2em;
+        }
+        
+        .command-shortcut {
+            background-color: var(--secondary);
+            color: white;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+        
+        .coordinate {
+            font-family: 'Consolas', 'Courier New', monospace;
+            background-color: #f0f0f0;
+            padding: 0.1rem 0.3rem;
+            border-radius: 3px;
+            font-size: 0.9em;
+        }
+        
+        .mirror-line {
+            display: inline-block;
+            transform: scaleX(-1);
+            font-size: 1.2em;
+            margin: 0 5px;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 1.5rem;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            border-top: 1px solid #eee;
+        }
+        
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+            
+            .container {
+                padding: 10px;
+            }
+            
+            .command-syntax {
+                font-size: 0.9rem;
+                padding: 0.8rem;
+            }
+        }
+        
+        /* Animation for command examples */
+        @keyframes mirror {
+            0% { transform: scaleX(1); opacity: 1; }
+            50% { transform: scaleX(0); opacity: 0.5; }
+            100% { transform: scaleX(1); opacity: 1; }
+        }
+        
+        .mirror-animation {
+            display: inline-block;
+            animation: mirror 2s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Comando SIMETRÍA (MIRROR) en AutoCAD</h1>
+            <p>Guía completa con ejemplos prácticos y ejercicios</p>
+        </header>
+        
+        <div class="command-info">
+            <h2>Comando SIMETRÍA (MIRROR)</h2>
+            <p>El comando SIMETRÍA (MI o MIRROR) crea una copia reflejada de objetos seleccionados a través de una línea de espejo especificada. Esencial para crear diseños simétricos.</p>
+            
+            <div class="command-syntax">
+                <strong>Comando:</strong> SIMETRÍA (MI o MIRROR)<br>
+                <strong>Menú:</strong> Modificar → Simetría<br>
+                <strong>Barra de herramientas:</strong> Modificar → <span class="mirror-animation">⇆</span>
+            </div>
+            
+            <div class="tip">
+                <strong>Consejo:</strong> Usa la tecla <kbd>F8</kbd> para activar/desactivar el modo Orto y crear líneas de simetría perfectamente horizontales o verticales.
+            </div>
+        </div>
+        
+        <div class="method">
+            <h3>Métodos de Simetría</h3>
+            
+            <div class="example">
+                <h4>Método 1: Simetría con Conservación de Objetos Originales</h4>
+                <p>Crea una copia reflejada manteniendo los objetos originales en su lugar.</p>
+                
+                <ol class="steps">
+                    <li>Dibuja un <strong>TRIÁNGULO</strong> (POL) con vértices en <span class="coordinate">(10,10)</span>, <span class="coordinate">(15,10)</span> y <span class="coordinate">(12.5,15)</span>.</li>
+                    <li>Activa el comando <strong>SIMETRÍA</strong> (MI).</li>
+                    <li>Selecciona el triángulo y presiona <kbd>Enter</kbd>.</li>
+                    <li>Primer punto de la línea de simetría: <span class="coordinate">(20,0)</span>.</li>
+                    <li>Segundo punto de la línea de simetría: <span class="coordinate">(20,20)</span> (línea vertical).</li>
+                    <li>¿Borrar objetos originales? <strong>No</strong> (presiona <kbd>Enter</kbd> o escribe <strong>N</strong>).</li>
+                </ol>
+                
+                <div class="tip">
+                    <strong>Resultado:</strong> Obtendrás una copia reflejada del triángulo a la derecha de la línea de simetría, conservando el original.
+                </div>
+            </div>
+            
+            <div class="example">
+                <h4>Método 2: Simetría Reemplazando Objetos Originales</h4>
+                <p>Crea un reflejo eliminando los objetos originales.</p>
+                
+                <ol class="steps">
+                    <li>Dibuja un <strong>TEXTO</strong> (TEXT) en <span class="coordinate">(30,10)</span> con el contenido "TEXTO".</li>
+                    <li>Activa <strong>SIMETRÍA</strong> (MI) y selecciona el texto.</li>
+                    <li>Primer punto de la línea de simetría: <span class="coordinate">(40,0)</span>.</li>
+                    <li>Segundo punto: <span class="coordinate">(40,20)</span>.</li>
+                    <li>¿Borrar objetos originales? <strong>Sí</strong> (escribe <strong>S</strong> y presiona <kbd>Enter</kbd>).</li>
+                </ol>
+                
+                <div class="tip">
+                    <strong>Nota:</strong> El texto aparecerá invertido (espejo). Usa la variable de sistema <strong>MIRRTEXT</strong> = 0 para que el texto se mantenga legible.
+                </div>
+            </div>
+        </div>
+        
+        <div class="activity">
+            <h3>Actividad 1: Crear un Patrón de Mariposa</h3>
+            <p><strong>Objetivo:</strong> Crear un ala de mariposa y reflejarla para completar el diseño.</p>
+            
+            <ol class="steps">
+                <li>Dibuja el <strong>ALA IZQUIERDA</strong> usando <strong>SPLINE</strong> con los puntos:<br>
+                    <span class="coordinate">(10,10)</span>, <span class="coordinate">(8,15)</span>, <span class="coordinate">(5,20)</span>, <span class="coordinate">(10,25)</span>, <span class="coordinate">(15,20)</span>, <span class="coordinate">(12,15)</span>.</li>
+                <li>Añade algunos detalles decorativos dentro del ala.</li>
+                <li>Activa <strong>SIMETRÍA</strong> (MI) y selecciona todo el ala izquierda.</li>
+                <li>Línea de simetría: de <span class="coordinate">(20,0)</span> a <span class="coordinate">(20,30)</span>.</li>
+                <li>¿Borrar objetos originales? <strong>No</strong>.</li>
+            </ol>
+            
+            <div class="solution">
+                <div class="solution-summary">Ver Solución (Coordenadas de los Puntos Clave)</div>
+                <div class="solution-content">
+                    <p>1. El ala derecha será un reflejo perfecto con puntos en:</p>
+                    <ul>
+                        <li>Original: <span class="coordinate">(10,10)</span> → Reflejado: <span class="coordinate">(30,10)</span></li>
+                        <li>Original: <span class="coordinate">(5,20)</span> → Reflejado: <span class="coordinate">(35,20)</span></li>
+                        <li>Original: <span class="coordinate">(10,25)</span> → Reflejado: <span class="coordinate">(30,25)</span></li>
+                    </ul>
+                    <p>2. Los detalles decorativos también se reflejarán manteniendo la simetría.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="activity">
+            <h3>Actividad 2: Diseño de Fachada Simétrica</h3>
+            <p><strong>Objetivo:</strong> Crear la mitad de una fachada y completarla usando simetría.</p>
+            
+            <ol class="steps">
+                <li>Dibuja la <strong>MITAD IZQUIERDA</strong> de una fachada con:<br>
+                    - Línea base: de <span class="coordinate">(0,0)</span> a <span class="coordinate">(20,0)</span><br>
+                    - Pared izquierda: de <span class="coordinate">(0,0)</span> a <span class="coordinate">(0,30)</span><br>
+                    - Techo inclinado: de <span class="coordinate">(0,30)</span> a <span class="coordinate">(20,20)</span><br>
+                    - Ventana: rectángulo de <span class="coordinate">(5,5)</span> a <span class="coordinate">(10,10)</span></li>
+                <li>Activa <strong>SIMETRÍA</strong> (MI) y selecciona toda la mitad izquierda.</li>
+                <li>Línea de simetría: de <span class="coordinate">(20,0)</span> a <span class="coordinate">(20,30)</span>.</li>
+                <li>¿Borrar objetos originales? <strong>No</strong>.</li>
+            </ol>
+            
+            <div class="solution">
+                <div class="solution-summary">Ver Solución (Resultado Final)</div>
+                <div class="solution-content">
+                    <p>1. La fachada completa tendrá un ancho de 40 unidades.</p>
+                    <p>2. La ventana derecha estará en <span class="coordinate">(30,5)</span> a <span class="coordinate">(35,10)</span>.</p>
+                    <p>3. El techo tendrá forma de "V" invertida con el punto más alto en <span class="coordinate">(20,25)</span>.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="challenge">
+            <h3>Retos de Comprensión</h3>
+            
+            <div class="example">
+                <h4>Reto 1: Texto en Espejo</h4>
+                <p>1. Crea un texto con el comando <strong>TEXTO</strong> que diga "AUTO".</p>
+                <p>2. Usa <strong>SIMETRÍA</strong> (MI) para crear un reflejo del texto.</p>
+                <p>3. Cambia el valor de la variable <strong>MIRRTEXT</strong> a 1 y repite el proceso.</p>
+                <p><strong>Pregunta:</strong> ¿Qué diferencia observas en el resultado? ¿Cómo afecta MIRRTEXT al texto reflejado?</p>
+            </div>
+            
+            <div class="example">
+                <h4>Reto 2: Simetría Múltiple</h4>
+                <p>1. Dibuja un cuarto de círculo (ARC) en el primer cuadrante.</p>
+                <p>2. Usa <strong>SIMETRÍA</strong> (MI) para reflejarlo y crear medio círculo.</p>
+                <p>3. Vuelve a usar <strong>SIMETRÍA</strong> (MI) para completar el círculo.</p>
+                <p><strong>Pregunta:</strong> ¿Cuántas veces usaste el comando SIMETRÍA para crear un círculo completo a partir de un cuarto de círculo?</p>
+            </div>
+            
+            <div class="example">
+                <h4>Reto 3: Simetría con Bloques</h4>
+                <p>1. Crea un <strong>BLOQUE</strong> con una flecha apuntando hacia la derecha.</p>
+                <p>2. Inserta el bloque en el dibujo.</p>
+                <p>3. Usa <strong>SIMETRÍA</strong> (MI) para crear una flecha que apunte hacia la izquierda.</p>
+                <p><strong>Pregunta:</strong> ¿El bloque reflejado sigue siendo un bloque? ¿Puedes editar un bloque y ver los cambios en su reflejo?</p>
+            </div>
+        </div>
+        
+        <div class="tip">
+            <h4>Consejos Avanzados</h4>
+            <ul>
+                <li>Usa <strong>SIMETRÍA</strong> con <strong>Polar Tracking</strong> (F10) para ángulos precisos.</li>
+                <li>La variable <strong>MIRRTEXT=0</span> mantiene el texto legible después de la simetría.</li>
+                <li>Puedes usar <strong>SIMETRÍA</strong> con la opción <strong>Copiar</strong> para crear patrones complejos.</li>
+                <li>Para objetos 3D, la línea de simetría se convierte en un plano de simetría.</li>
+            </ul>
+        </div>
+        
+        <footer>
+            <p>© 2025 Tutorial de AutoCAD - Comando SIMETRÍA (MIRROR)</p>
+        </footer>
+    </div>
+    
+    <script>
+        // Toggle solution visibility
+        document.querySelectorAll('.solution-summary').forEach(summary => {
+            summary.addEventListener('click', function() {
+                const content = this.nextElementSibling;
+                if (content.style.display === 'block') {
+                    content.style.display = 'none';
+                    this.innerHTML = '👁️ ' + this.textContent.replace('👁️ ', '');
+                } else {
+                    content.style.display = 'block';
+                    this.innerHTML = '🔍 ' + this.textContent.replace('👁️ ', '');
+                }
+            });
+        });
+        
+        // Add animation to command examples on hover
+        document.querySelectorAll('.example').forEach(example => {
+            example.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-2px)';
+                this.style.boxShadow = '0 5px 15px rgba(0,0,0,0.1)';
+            });
+            
+            example.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+                this.style.boxShadow = '0 2px 10px rgba(0,0,0,0.05)';
+            });
+        });
+        
+        // Highlight command shortcuts
+        document.addEventListener('DOMContentLoaded', function() {
+            const shortcuts = document.querySelectorAll('strong');
+            shortcuts.forEach(el => {
+                if (el.textContent.trim() === 'SIMETRÍA' || 
+                    el.textContent.trim() === 'MIRROR' || 
+                    el.textContent.trim() === 'MI' ||
+                    el.textContent.trim() === 'TEXTO' ||
+                    el.textContent.trim() === 'BLOQUE') {
+                    el.classList.add('command-shortcut');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
