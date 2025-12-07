@@ -1,0 +1,119 @@
+==================================================
+EJERCICIOS: COMANDOS DE PRESENTACIÓN (LAYOUTS Y VIEWPORTS)
+==================================================
+
+La pestaña PRESENTACIÓN (Layout) es donde se configura la hoja de papel, el membrete y la escala de impresión. El dibujo se realiza en el Espacio Modelo (Model Space), y se visualiza y escala en el Espacio Papel (Paper Space) mediante Viewports.
+
+--------------------------------------------------
+I. MÉTODOS DE MANEJO DE PRESENTACIÓN (2 EJEMPLOS POR CADA MANERA)
+--------------------------------------------------
+
+Método 1: Configuración de Layout (Diseño de Hoja)
+
+Se define el tamaño y orientación de la hoja de papel antes de insertar las vistas del dibujo.
+
+Ejemplo 1.1: Configuración de Hoja A3
+Instrucciones: Crea una nueva presentación y configúrala para un tamaño de papel A3 horizontal.
+1. Haz clic derecho en una pestaña de **PRESENTACIÓN** (Layout) existente (Ej: Layout1).
+2. Selecciona **Administrador de Configuración de Página** (Page Setup Manager).
+3. Selecciona la configuración actual y haz clic en **Modificar**.
+4. En **Impresora/Trazador** (Printer/Plotter), selecciona **DWG To PDF.pc3** (para generar un PDF).
+5. En **Tamaño de Papel** (Paper Size), selecciona **ISO A3 (420.00 x 297.00 mm)**.
+6. En **Orientación del Dibujo** (Drawing Orientation), selecciona **Horizontal** (Landscape).
+7. Haz clic en Aceptar.
+
+Ejemplo 1.2: Borrado y Creación de Viewport Inicial
+Instrucciones: Borra el viewport que aparece por defecto y crea un nuevo viewport rectangular.
+1. Ve a la pestaña de **PRESENTACIÓN** (Layout) configurada.
+2. Haz clic en el borde del Viewport (el rectángulo que muestra el dibujo). Presiona **SUPR** (Delete).
+3. Activa el comando **VISTAS** (MVIEW o MV).
+4. Dibuja un rectángulo que ocupe el área donde quieres el plano (Ej: desde 10,10 hasta 400,280).
+5. El Espacio Modelo debe aparecer visible dentro del nuevo Viewport.
+
+---
+
+Método 2: Manejo y Escala de Viewports (Ventanas Gráficas)
+
+Se controla la escala y la visualización de los objetos del Espacio Modelo dentro de la Viewport.
+
+Ejemplo 2.1: Asignar Escala 1:50
+Instrucciones: Dibuja una línea de 100 unidades en el **Espacio Modelo**. Configura el Viewport para que el plano esté a escala 1:50.
+1. En el **Espacio Modelo**, dibuja una LINEA de 100 unidades (100 metros o unidades reales).
+2. Ve a la **PRESENTACIÓN** con el Viewport creado.
+3. Haz clic en el borde del Viewport (para seleccionarlo, no doble clic dentro).
+4. Abre la ventana **PROPIEDADES** (PR).
+5. En la sección **Varios**, busca **Escala Estándar** (Standard Scale).
+6. Selecciona la escala **1:50** (o 1/50Xp si la escala es personalizada).
+
+Ejemplo 2.2: Bloquear la Escala (Bloqueo de Visualización)
+Instrucciones: Bloquea la escala del Viewport para evitar cambios accidentales al hacer zoom.
+1. Utiliza el Viewport escalado a 1:50 del ejemplo anterior.
+2. Selecciona el Viewport. Abre PROPIEDADES (PR).
+3. En la sección **Varios**, busca la propiedad **Visualización Bloqueada** (Display Locked).
+4. Cámbiala a **Sí** (Yes).
+5. Verifica: Haz doble clic dentro del Viewport e intenta usar la rueda del ratón para hacer zoom. Solo se moverá la hoja (Espacio Papel), no la escala de la vista.
+
+--------------------------------------------------
+II. ACTIVIDADES SUGERIDAS (SOLUCIÓN OCULTA)
+--------------------------------------------------
+
+ACTIVIDAD 1: Plano General y Detalle (Múltiples Viewports)
+
+Objetivo: Crear dos viewports con diferentes escalas en la misma hoja.
+Instrucciones:
+1. Dibuja un RECTANGULO grande (Plano General) de 100x50 y un CÍRCULO pequeño (Detalle) de radio 5 dentro de él, en el **Espacio Modelo**.
+2. **Viewport 1 (Principal):** Crea un Viewport grande (MV) y configúralo a escala **1:100** (para ver todo el rectángulo).
+3. **Viewport 2 (Detalle):** Crea un Viewport pequeño (MV) al lado.
+4. Haz doble clic dentro del Viewport 2 y **acerca** el zoom al Círculo.
+5. Selecciona el Viewport 2 y configúralo a escala **1:10**.
+6. **Bloquear:** Bloquea la visualización de ambos Viewports.
+
+<details>
+<summary>Ver Solución (Relación Visual de Escalas)</summary>
+
+Si el diámetro del círculo es 10 unidades:
+- En el Viewport 1 (1:100), se ve pequeño (1 unidad de papel representa 100 unidades de dibujo).
+- En el Viewport 2 (1:10), se ve 10 veces más grande que en el Viewport 1 (1 unidad de papel representa 10 unidades de dibujo).
+</details>
+
+---
+
+ACTIVIDAD 2: El Reajuste de Impresión (Plotear y CTB)
+
+Objetivo: Configurar el cuadro de ploteo para imprimir el Layout con grosores definidos.
+Instrucciones:
+1. Asegúrate de tener la Actividad 1 terminada.
+2. Activa el comando **TRAZAR** (PLOT o PRINT).
+3. **Impresora:** Selecciona **DWG To PDF.pc3**.
+4. **Tabla de Estilos de Trazado (CTB):** Selecciona **monochrome.ctb** (para que todo imprima en blanco y negro).
+5. **Configuración Final:** Verifica que **Qué Trazar** (What to plot) esté configurado como **Presentación** (Layout) y que la **Escala de Trazado** (Plot Scale) esté en **1:1** (escala de papel).
+
+<details>
+<summary>Ver Solución (El Rol de la Escala 1:1)</summary>
+
+La Escala de Trazado de 1:1 en el cuadro de Plotear es esencial. Significa que 1 mm en la hoja de papel es 1 mm en el dibujo de Presentación. La escala de dibujo (1:100, 1:10) ya está definida dentro de los Viewports; el ploteo solo imprime la hoja a su tamaño real.
+</details>
+
+--------------------------------------------------
+III. RETOS DE COMPRENSIÓN (3 RETOS)
+--------------------------------------------------
+
+RETO 1: Viewport y Capas
+Crea una capa llamada **VP_DETALLE** (Color Magenta). Dibuja un círculo en el **Espacio Modelo** y otro círculo en la capa VP_DETALLE.
+En la **PRESENTACIÓN** (Layout), selecciona el Viewport y abre la paleta **PROPIEDADES**. Busca la opción para **Congelar Capas en Viewport Actual** (VP Freeze).
+Congela la capa **VP_DETALLE** solo en ese Viewport.
+Verifica: ¿El círculo en la capa VP_DETALLE sigue visible en el Espacio Modelo? ¿Por qué la opción VP Freeze es más útil que la opción general Freeze?
+
+---
+
+RETO 2: El Paneo en Viewport Bloqueado
+Dibuja dos objetos separados. Bloquea la visualización de un Viewport (Display Locked = Yes). Haz doble clic **dentro** del Viewport.
+Intenta usar el comando **PANEO** (PAN, P).
+Verifica: ¿Puedes hacer paneo? ¿Cómo se mueve la vista si el Viewport está bloqueado? (Pista: Mueve la hoja, no la vista interna del modelo).
+
+---
+
+RETO 3: Viewport con Dimensión Falsa
+Crea un Viewport (MV). Haz doble clic dentro. Utiliza la rueda del ratón para hacer zoom sin usar la opción Escala Estándar.
+Añade una **COTA** (DLI) a un objeto dentro del Viewport.
+Verifica: ¿El valor de la cota es incorrecto o sigue siendo el valor real? ¿Por qué acotar en un Viewport sin escala definida es una mala práctica profesional?

@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presentaciones en AutoCAD: Layouts y Viewports</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --success-color: #27ae60;
+            --warning-color: #f39c12;
+            --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-main);
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+            padding: 0;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        h2 {
+            color: var(--primary-color);
+            margin: 2rem 0 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--secondary-color);
+        }
+
+        h3 {
+            color: var(--secondary-color);
+            margin: 1.5rem 0 0.5rem;
+            background-color: #e8f4fd;
+            padding: 0.75rem;
+            border-radius: 4px;
+        }
+
+        .command {
+            background-color: #f0f8ff;
+            border-left: 4px solid var(--secondary-color);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .command-name {
+            font-weight: bold;
+            color: var(--secondary-color);
+        }
+
+        .example {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .example-title {
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .steps {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .steps li {
+            margin-bottom: 0.75rem;
+        }
+
+        .steps .substeps {
+            margin-left: 1.5rem;
+            margin-top: 0.5rem;
+            list-style-type: lower-alpha;
+        }
+
+        .tip {
+            background-color: #e8f4fd;
+            border-left: 4px solid var(--secondary-color);
+            padding: 0.75rem 1rem;
+            margin: 1rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .tip-title {
+            font-weight: bold;
+            color: var(--secondary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .warning {
+            background-color: #fef9e7;
+            border-left: 4px solid var(--warning-color);
+            padding: 0.75rem 1rem;
+            margin: 1rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .activity {
+            background-color: #f0f7f4;
+            border: 1px solid #27ae60;
+            border-radius: 4px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .activity-title {
+            color: var(--success-color);
+            font-weight: bold;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .challenge {
+            background-color: #f5e9f7;
+            border: 1px solid #9b59b6;
+            border-radius: 4px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .challenge-title {
+            color: #8e44ad;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        details {
+            margin: 1rem 0;
+            background-color: #f8f9fa;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+
+        summary {
+            font-weight: bold;
+            cursor: pointer;
+            padding: 0.75rem 0;
+            outline: none;
+            color: var(--secondary-color);
+        }
+
+        summary:hover {
+            color: var(--primary-color);
+        }
+
+        .solution {
+            margin-top: 1rem;
+            padding: 1rem;
+            background-color: #f0f7f4;
+            border-radius: 4px;
+            border-left: 4px solid var(--success-color);
+        }
+
+        .solution ol, .solution ul {
+            margin-left: 1.5rem;
+        }
+
+        .solution li {
+            margin-bottom: 0.5rem;
+        }
+
+        .note {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 0.75rem 1rem;
+            margin: 1rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 1.5rem 0;
+            margin-top: 3rem;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .container {
+                padding: 15px;
+            }
+            
+            .example, .activity, .challenge, details {
+                padding: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.75rem;
+            }
+            
+            h2 {
+                font-size: 1.4rem;
+            }
+            
+            body {
+                font-size: 0.95rem;
+            }
+
+            .steps, .substeps {
+                margin-left: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Presentaciones en AutoCAD: Layouts y Viewports</h1>
+            <p>Domina la creación de planos profesionales con las herramientas de presentación</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <section>
+            <p>La pestaña <strong>PRESENTACIÓN (Layout)</strong> es donde se configura la hoja de papel, el membrete y la escala de impresión. El dibujo se realiza en el <strong>Espacio Modelo (Model Space)</strong>, y se visualiza y escala en el <strong>Espacio Papel (Paper Space)</strong> mediante Viewports.</p>
+        </section>
+
+        <section>
+            <h2>Métodos de Manejo de Presentación</h2>
+            
+            <div class="example">
+                <h3>Método 1: Configuración de Layout (Diseño de Hoja)</h3>
+                <p>Se define el tamaño y orientación de la hoja de papel antes de insertar las vistas del dibujo.</p>
+                
+                <div class="example">
+                    <div class="example-title">Ejemplo 1.1: Configuración de Hoja A3</div>
+                    <p><strong>Objetivo:</strong> Crear una nueva presentación configurada para un tamaño de papel A3 horizontal.</p>
+                    <ol class="steps">
+                        <li>Haz clic derecho en una pestaña de <strong>PRESENTACIÓN</strong> existente (Ej: Layout1).</li>
+                        <li>Selecciona <strong>Administrador de Configuración de Página</strong> (Page Setup Manager).</li>
+                        <li>Selecciona la configuración actual y haz clic en <strong>Modificar</strong>.</li>
+                        <li>En <strong>Impresora/Trazador</strong> (Printer/Plotter), selecciona <strong>DWG To PDF.pc3</strong> (para generar un PDF).</li>
+                        <li>En <strong>Tamaño de Papel</strong> (Paper Size), selecciona <strong>ISO A3 (420.00 x 297.00 mm)</strong>.</li>
+                        <li>En <strong>Orientación del Dibujo</strong> (Drawing Orientation), selecciona <strong>Horizontal</strong> (Landscape).</li>
+                        <li>Haz clic en Aceptar.</li>
+                    </ol>
+                </div>
+
+                <div class="example">
+                    <div class="example-title">Ejemplo 1.2: Borrado y Creación de Viewport Inicial</div>
+                    <p><strong>Objetivo:</strong> Configurar un Viewport personalizado en lugar del predeterminado.</p>
+                    <ol class="steps">
+                        <li>Ve a la pestaña de <strong>PRESENTACIÓN</strong> (Layout) configurada.</li>
+                        <li>Haz clic en el borde del Viewport (el rectángulo que muestra el dibujo).</li>
+                        <li>Presiona <strong>SUPR</strong> (Delete) para eliminarlo.</li>
+                        <li>Activa el comando <strong>VISTAS</strong> (MVIEW o MV).</li>
+                        <li>Dibuja un rectángulo que ocupe el área donde quieres el plano (Ej: desde 10,10 hasta 400,280).</li>
+                        <li>El Espacio Modelo debe aparecer visible dentro del nuevo Viewport.</li>
+                    </ol>
+                    <div class="tip">
+                        <div class="tip-title">Consejo Práctico</div>
+                        <p>Puedes crear Viewports con formas personalizadas usando el comando <strong>MV</strong> seguido de la opción <strong>Polígono (P)</strong> y dibujando el perímetro deseado.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="example">
+                <h3>Método 2: Manejo y Escala de Viewports (Ventanas Gráficas)</h3>
+                <p>Se controla la escala y la visualización de los objetos del Espacio Modelo dentro de la Viewport.</p>
+                
+                <div class="example">
+                    <div class="example-title">Ejemplo 2.1: Asignar Escala 1:50</div>
+                    <p><strong>Objetivo:</strong> Configurar correctamente la escala de un Viewport.</p>
+                    <ol class="steps">
+                        <li>En el <strong>Espacio Modelo</strong>, dibuja una LÍNEA de 100 unidades (100 metros o unidades reales).</li>
+                        <li>Ve a la <strong>PRESENTACIÓN</strong> con el Viewport creado.</li>
+                        <li>Haz clic en el borde del Viewport (para seleccionarlo, no doble clic dentro).</li>
+                        <li>Abre la ventana <strong>PROPIEDADES</strong> (PR).</li>
+                        <li>En la sección <strong>Varios</strong>, busca <strong>Escala Estándar</strong> (Standard Scale).</li>
+                        <li>Selecciona la escala <strong>1:50</strong> (o 1/50Xp si la escala es personalizada).</li>
+                    </ol>
+                    <div class="note">
+                        <strong>Nota:</strong> La escala 1:50 significa que 1 unidad en el papel representa 50 unidades en el modelo real. Por ejemplo, si mides 1 cm en el papel impreso, esto representará 50 cm en la realidad.
+                    </div>
+                </div>
+
+                <div class="example">
+                    <div class="example-title">Ejemplo 2.2: Bloquear la Escala (Bloqueo de Visualización)</div>
+                    <p><strong>Objetivo:</strong> Evitar cambios accidentales en la escala del Viewport.</p>
+                    <ol class="steps">
+                        <li>Utiliza el Viewport escalado a 1:50 del ejemplo anterior.</li>
+                        <li>Selecciona el Viewport. Abre <strong>PROPIEDADES</strong> (PR).</li>
+                        <li>En la sección <strong>Varios</strong>, busca la propiedad <strong>Visualización Bloqueada</strong> (Display Locked).</li>
+                        <li>Cámbiala a <strong>Sí</strong> (Yes).</li>
+                    </ol>
+                    <div class="tip">
+                        <div class="tip-title">Verificación</div>
+                        <p>Haz doble clic dentro del Viewport e intenta usar la rueda del ratón para hacer zoom. Solo se moverá la hoja (Espacio Papel), no la escala de la vista. Esto es esencial para mantener la consistencia de las escalas en tus planos.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Actividades Prácticas</h2>
+            
+            <div class="activity">
+                <div class="activity-title">ACTIVIDAD 1: Plano General y Detalle (Múltiples Viewports)</div>
+                <p><strong>Objetivo:</strong> Crear dos viewports con diferentes escalas en la misma hoja.</p>
+                <p><strong>Instrucciones:</strong></p>
+                <ol class="steps">
+                    <li>Dibuja un RECTÁNGULO grande (Plano General) de 100x50 y un CÍRCULO pequeño (Detalle) de radio 5 dentro de él, en el <strong>Espacio Modelo</strong>.</li>
+                    <li><strong>Viewport 1 (Principal):</strong> Crea un Viewport grande (MV) y configúralo a escala <strong>1:100</strong> (para ver todo el rectángulo).</li>
+                    <li><strong>Viewport 2 (Detalle):</strong> Crea un Viewport pequeño (MV) al lado.</li>
+                    <li>Haz doble clic dentro del Viewport 2 y <strong>acerca</strong> el zoom al Círculo.</li>
+                    <li>Selecciona el Viewport 2 y configúralo a escala <strong>1:10</strong>.</li>
+                    <li><strong>Bloquear:</strong> Bloquea la visualización de ambos Viewports.</li>
+                </ol>
+                
+                <details>
+                    <summary>Ver Solución (Relación Visual de Escalas)</summary>
+                    <div class="solution">
+                        <p>Si el diámetro del círculo es 10 unidades:</p>
+                        <ul>
+                            <li>En el Viewport 1 (1:100), se ve pequeño (1 unidad de papel representa 100 unidades de dibujo).</li>
+                            <li>En el Viewport 2 (1:10), se ve 10 veces más grande que en el Viewport 1 (1 unidad de papel representa 10 unidades de dibujo).</li>
+                        </ul>
+                        <p>Esta técnica es muy útil para mostrar detalles específicos de un plano general a una escala mayor, manteniendo la relación entre las diferentes vistas.</p>
+                    </div>
+                </details>
+            </div>
+
+            <div class="activity">
+                <div class="activity-title">ACTIVIDAD 2: El Reajuste de Impresión (Plotear y CTB)</div>
+                <p><strong>Objetivo:</strong> Configurar el cuadro de ploteo para imprimir el Layout con grosores definidos.</p>
+                <p><strong>Instrucciones:</strong></p>
+                <ol class="steps">
+                    <li>Asegúrate de tener la Actividad 1 terminada.</li>
+                    <li>Activa el comando <strong>TRAZAR</strong> (PLOT o PRINT).</li>
+                    <li><strong>Impresora:</strong> Selecciona <strong>DWG To PDF.pc3</strong>.</li>
+                    <li><strong>Tabla de Estilos de Trazado (CTB):</strong> Selecciona <strong>monochrome.ctb</strong> (para que todo imprima en blanco y negro).</li>
+                    <li><strong>Configuración Final:</strong> Verifica que <strong>Qué Trazar</strong> (What to plot) esté configurado como <strong>Presentación</strong> (Layout) y que la <strong>Escala de Trazado</strong> (Plot Scale) esté en <strong>1:1</strong> (escala de papel).</li>
+                </ol>
+                
+                <details>
+                    <summary>Ver Solución (El Rol de la Escala 1:1)</summary>
+                    <div class="solution">
+                        <p>La Escala de Trazado de 1:1 en el cuadro de Plotear es esencial porque:</p>
+                        <ol>
+                            <li>Significa que 1 mm en la hoja de papel es 1 mm en el dibujo de Presentación.</li>
+                            <li>La escala de dibujo (1:100, 1:10) ya está definida dentro de los Viewports.</li>
+                            <li>El ploteo solo imprime la hoja a su tamaño real, respetando las escalas definidas en cada Viewport.</li>
+                        </ol>
+                        <p>Si configuraras una escala diferente en el cuadro de impresión, distorsionarías todo el dibujo, lo que es un error común entre los usuarios principiantes de AutoCAD.</p>
+                    </div>
+                </details>
+            </div>
+        </section>
+
+        <section>
+            <h2>Retos de Comprensión</h2>
+            
+            <div class="challenge">
+                <div class="challenge-title">RETO 1: Viewport y Capas</div>
+                <p>¿Cómo afectan las configuraciones de capa a los Viewports individuales?</p>
+                <p><strong>Instrucciones:</strong></p>
+                <ol class="steps">
+                    <li>Crea una capa llamada <strong>VP_DETALLE</strong> (Color Magenta).</li>
+                    <li>Dibuja un círculo en el <strong>Espacio Modelo</strong> en la capa 0.</li>
+                    <li>Dibuja otro círculo en la capa <strong>VP_DETALLE</strong>.</li>
+                    <li>En la <strong>PRESENTACIÓN</strong> (Layout), selecciona un Viewport.</li>
+                    <li>Abre la paleta <strong>PROPIEDADES</strong> y busca la opción <strong>Congelar Capas en Viewport Actual</strong> (VP Freeze).</li>
+                    <li>Congela la capa <strong>VP_DETALLE</strong> solo en ese Viewport.</li>
+                </ol>
+                <p><strong>Preguntas:</strong></p>
+                <ol class="steps">
+                    <li>¿El círculo en la capa VP_DETALLE sigue visible en el Espacio Modelo?</li>
+                    <li>¿Por qué la opción VP Freeze es más útil que la opción general Freeze?</li>
+                </ol>
+                
+                <details>
+                    <summary>Ver Solución</summary>
+                    <div class="solution">
+                        <ol>
+                            <li>Sí, el círculo en la capa VP_DETALLE sigue siendo visible en el Espacio Modelo. La opción VP Freeze solo afecta a la visualización en el Viewport seleccionado, no en todo el dibujo.</li>
+                            <li>La opción VP Freeze es más útil porque permite controlar la visibilidad de capas específicamente en cada Viewport, lo que es esencial para crear planos con diferentes vistas y niveles de detalle. La opción Freeze general afectaría a todos los Viewports y al Espacio Modelo.</li>
+                        </ol>
+                    </div>
+                </details>
+            </div>
+
+            <div class="challenge">
+                <div class="challenge-title">RETO 2: El Paneo en Viewport Bloqueado</div>
+                <p>¿Cómo afecta el bloqueo de un Viewport a la navegación?</p>
+                <p><strong>Instrucciones:</strong></p>
+                <ol class="steps">
+                    <li>Dibuja dos objetos separados en el Espacio Modelo.</li>
+                    <li>Bloquea la visualización de un Viewport (Display Locked = Yes).</li>
+                    <li>Haz doble clic <strong>dentro</strong> del Viewport.</li>
+                    <li>Intenta usar el comando <strong>PANEO</strong> (PAN, P).</li>
+                </ol>
+                <p><strong>Preguntas:</strong></p>
+                <ol class="steps">
+                    <li>¿Puedes hacer paneo dentro del Viewport bloqueado?</li>
+                    <li>¿Cómo se mueve la vista si el Viewport está bloqueado?</li>
+                </ol>
+                
+                <details>
+                    <summary>Ver Solución</summary>
+                    <div class="solution">
+                        <ol>
+                            <li>No, no puedes hacer paneo dentro del Viewport cuando está bloqueado. El comando PAN no tendrá efecto.</li>
+                            <li>Cuando un Viewport está bloqueado, el movimiento del ratón con la rueda presionada mueve toda la hoja de presentación (Espacio Papel) en lugar de hacer paneo dentro del Viewport. Esto es útil para mantener la vista del modelo constante mientras te mueves por la hoja de presentación.</li>
+                        </ol>
+                    </div>
+                </details>
+            </div>
+
+            <div class="challenge">
+                <div class="challenge-title">RETO 3: Viewport con Dimensión Falsa</div>
+                <p>¿Qué sucede cuando acotas en un Viewport sin una escala definida?</p>
+                <p><strong>Instrucciones:</strong></p>
+                <ol class="steps">
+                    <li>Crea un Viewport (MV) en una presentación.</li>
+                    <li>Haz doble clic dentro del Viewport.</li>
+                    <li>Utiliza la rueda del ratón para hacer zoom sin usar la opción Escala Estándar.</li>
+                    <li>Añade una <strong>COTA</strong> (DLI) a un objeto dentro del Viewport.</li>
+                </ol>
+                <p><strong>Preguntas:</strong></p>
+                <ol class="steps">
+                    <li>¿El valor de la cota es correcto o incorrecto?</li>
+                    <li>¿Por qué acotar en un Viewport sin escala definida es una mala práctica profesional?</li>
+                </ol>
+                
+                <details>
+                    <summary>Ver Solución</summary>
+                    <div class="solution">
+                        <ol>
+                            <li>El valor de la cota sigue siendo correcto porque las cotas en AutoCAD siempre muestran las dimensiones reales del modelo, independientemente de la escala del Viewport. Sin embargo, el tamaño del texto y las flechas de cota podrían no estar a la escala correcta para la presentación.</li>
+                            <li>Es una mala práctica porque:
+                                <ul>
+                                    <li>Las cotas pueden no escalarse correctamente con la presentación.</li>
+                                    <li>El texto y las líneas de cota pueden aparecer demasiado grandes o pequeños.</li>
+                                    <li>Si alguien más modifica el zoom del Viewport, las cotas podrían quedar mal escaladas.</li>
+                                    <li>Las mejores prácticas recomiendan usar estilos de cota específicos para el espacio papel o colocar las cotas directamente en el espacio modelo con la escala correcta.</li>
+                                </ul>
+                            </li>
+                        </ol>
+                    </div>
+                </details>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; JMGV-PTEL-2025 - Tutorial de Presentaciones en AutoCAD - Todos los derechos reservados</p>
+        </div>
+    </footer>
+</body>
+</html>
