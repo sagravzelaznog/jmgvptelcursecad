@@ -1,0 +1,379 @@
+==================================================
+🌟 ATAJOS DE COMANDOS ESENCIALES EN AUTOCAD 🌟
+(Alias para Acelerar tu Flujo de Trabajo)
+==================================================
+
+Dominar los atajos (alias) en la línea de comandos de AutoCAD es crucial para la eficiencia. Un atajo es una abreviatura de una o dos letras que ejecuta un comando completo.
+
+--------------------------------------------------
+1. ATAJOS DE DIBUJO Y TRAZADO
+--------------------------------------------------
+
+| Comando Completo | Atajo (Alias) | Descripción |
+| :--- | :--- | :--- |
+| **LINEA** | **L** | Dibuja una línea recta. |
+| **CÍRCULO** | **C** | Dibuja un círculo. |
+| **POLILINEA** | **PL** | Dibuja una secuencia conectada de segmentos (polilínea). |
+| **RECTANG** | **REC** | Dibuja un rectángulo como polilínea. |
+| **ARCO** | **A** | Dibuja un arco circular. |
+| **POLIGONO** | **POL** | Dibuja un polígono regular. |
+
+---
+
+### 1.1 Línea (L)
+
+**Ejemplo Práctico:** Trazar una línea horizontal de 15 unidades comenzando en el origen.
+1. Escribe **L** y presiona Enter.
+2. Especifica el primer punto: 0,0
+3. Especifica el siguiente punto: @15<0
+
+**Actividad Sugerida:** Crear un marco cuadrado de 10x10 usando solo el atajo **L** y coordenadas relativas.
+
+<details>
+<summary>Ver Solución</summary>
+
+1.  Escribe **L**, Enter.
+2.  Punto inicial (Ej: 20,20).
+3.  @10,0
+4.  @0,10
+5.  @-10,0
+6.  C (Cerrar) o @0,-10.
+</details>
+
+---
+
+### 1.2 Círculo (C)
+
+**Ejemplo Práctico:** Dibujar un círculo con un radio de 5, centrado en (20,10).
+1. Escribe **C** y presiona Enter.
+2. Especifica el centro: 20,10
+3. Especifica el radio: 5
+
+**Actividad Sugerida:** Dibujar un círculo cuyo diámetro sea la diagonal de un rectángulo de 8x4.
+1. Dibuja el rectángulo (Ej: REC de 8x4).
+2. Escribe **C**, Enter.
+3. Escribe **2P** (para 2 Puntos).
+4. Selecciona las esquinas opuestas del rectángulo (puntos finales).
+
+<details>
+<summary>Ver Solución</summary>
+
+El centro del círculo será el centro geométrico del rectángulo. Si el rectángulo estaba en 0,0, el centro es (4,2).
+</details>
+
+---
+
+### 1.3 Polilínea (PL)
+
+**Ejemplo Práctico:** Trazar una línea de 10 unidades seguida de un arco de 180 grados, manteniendo la tangencia.
+1. Escribe **PL** y presiona Enter.
+2. Punto inicial: 0,0
+3. Siguiente punto: @10<0
+4. Escribe **AR** (para Arco).
+5. Escribe **A** (para Ángulo) y 180 (para el semicírculo).
+6. Presiona Enter y Enter.
+
+**Actividad Sugerida:** Dibujar una línea de 5 unidades con un grosor constante de 1 unidad.
+1. Escribe **PL**, Enter.
+2. Punto inicial (Ej: 10,10).
+3. Escribe **A** (Ancho/Width), Enter.
+4. Ancho Inicial: 1, Enter.
+5. Ancho Final: 1, Enter.
+6. Siguiente punto: @5<0
+
+<details>
+<summary>Ver Solución</summary>
+
+La entidad final debe ser una polilínea gruesa, no una línea simple.
+</details>
+
+---
+
+### 1.4 Rectángulo (REC)
+
+**Ejemplo Práctico:** Dibujar un rectángulo de 20x10.
+1. Escribe **REC** y presiona Enter.
+2. Primer punto: 0,0
+3. Escribe **D** (Dimensiones).
+4. Longitud: 20
+5. Anchura: 10
+6. Haz clic para indicar la dirección.
+
+**Actividad Sugerida:** Crear un rectángulo con una Rotación (R) de 30 grados.
+1. Escribe **REC**, Enter.
+2. Primer punto (Ej: 10,10).
+3. Escribe **R** (Rotación), Enter.
+4. Ángulo: 30, Enter.
+5. Escribe **D** (Dimensiones), Enter.
+6. Longitud/Anchura (Ej: 15 y 5).
+
+<details>
+<summary>Ver Solución</summary>
+
+El rectángulo final debe estar inclinado 30 grados respecto al eje X.
+</details>
+
+--------------------------------------------------
+2. ATAJOS DE MODIFICACIÓN
+--------------------------------------------------
+
+| Comando Completo | Atajo (Alias) | Descripción |
+| :--- | :--- | :--- |
+| **COPIAR** | **CP** | Duplica objetos. |
+| **DESPLAZAR** | **M** | Mueve objetos. |
+| **GIRAR** | **RO** | Rota objetos alrededor de un punto base. |
+| **SIMETRÍA** | **MI** | Refleja objetos. |
+| **ESCALA** | **SC** | Redimensiona objetos por factor. |
+| **RECORTA** | **TR** | Recorta objetos en un límite. |
+| **ALARGAR** | **EX** | Alarga objetos hasta un límite. |
+| **EMPALME** | **F** | Redondea esquinas con radio. |
+| **CHAFLÁN** | **CHA** | Bisela esquinas por distancia o ángulo. |
+
+---
+
+### 2.1 Copiar (CP)
+
+**Ejemplo Práctico:** Copiar un círculo 15 unidades a la derecha.
+1. Dibuja un Círculo (C).
+2. Escribe **CP** y presiona Enter.
+3. Selecciona el círculo. Enter.
+4. Punto Base (Ej: centro del círculo).
+5. Desplazamiento: @15<0
+
+**Actividad Sugerida:** Crear 5 copias de un cuadrado separadas 10 unidades horizontalmente, usando la opción **Múltiple**.
+1. Dibuja un cuadrado.
+2. Escribe **CP**, Enter.
+3. Selecciona el cuadrado. Enter.
+4. Punto Base (Ej: esquina).
+5. Escribe **M** (Múltiple), Enter.
+6. Ingresa el vector @10<0 cinco veces.
+
+<details>
+<summary>Ver Solución</summary>
+
+El quinto cuadrado debe estar ubicado 50 unidades del original.
+</details>
+
+---
+
+### 2.2 Desplazar (M)
+
+**Ejemplo Práctico:** Mover un rectángulo 5 unidades hacia arriba.
+1. Dibuja un Rectángulo (REC).
+2. Escribe **M** y presiona Enter.
+3. Selecciona el rectángulo. Enter.
+4. Punto Base (Ej: esquina).
+5. Desplazamiento: @0,5
+
+**Actividad Sugerida:** Mover un círculo para que su centro coincida con el punto final de una línea.
+1. Dibuja un Círculo (C) y una Línea (L).
+2. Escribe **M**, Enter.
+3. Selecciona el círculo. Enter.
+4. Punto Base: Usa Osnap **Centro** para seleccionar el centro del círculo.
+5. Desplazamiento: Usa Osnap **Punto Final** para seleccionar el extremo de la línea.
+
+<details>
+<summary>Ver Solución</summary>
+
+El círculo se superpone al punto final de la línea.
+</details>
+
+---
+
+### 2.3 Girar (RO)
+
+**Ejemplo Práctico:** Rotar un objeto 45 grados en sentido antihorario.
+1. Dibuja una Línea (L).
+2. Escribe **RO** y presiona Enter.
+3. Selecciona la línea. Enter.
+4. Punto Base (Ej: punto inicial de la línea).
+5. Ángulo: 45
+
+**Actividad Sugerida:** Girar un cuadrado **90 grados** usando la opción **Copia** (C).
+1. Dibuja un cuadrado.
+2. Escribe **RO**, Enter.
+3. Selecciona el cuadrado. Enter.
+4. Punto Base (Ej: esquina inferior izquierda).
+5. Escribe **C** (Copia), Enter.
+6. Ángulo: 90
+
+<details>
+<summary>Ver Solución</summary>
+
+Deben existir dos cuadrados: el original (horizontal) y la copia girada 90 grados (vertical), tocándose en el Punto Base.
+</details>
+
+---
+
+### 2.4 Simetría (MI)
+
+**Ejemplo Práctico:** Reflejar un perfil sobre un eje vertical.
+1. Dibuja un perfil asimétrico (Ej: una "L").
+2. Escribe **MI** y presiona Enter.
+3. Selecciona el perfil. Enter.
+4. Primer punto del eje: 10,0
+5. Segundo punto del eje: 10,10
+6. Borrar originales: **N**
+
+**Actividad Sugerida:** Reflejar un triángulo sobre su base (línea horizontal) y **borrar** el original.
+1. Dibuja un triángulo con base horizontal (Ej: 0,0 a 10,0).
+2. Escribe **MI**, Enter.
+3. Selecciona el triángulo. Enter.
+4. Eje de simetría: Selecciona los dos puntos finales de la base (0,0 y 10,0).
+5. Borrar originales: **Y**
+
+<details>
+<summary>Ver Solución</summary>
+
+El triángulo original desaparece y es reemplazado por la copia reflejada (apuntando hacia abajo).
+</details>
+
+---
+
+### 2.5 Escala (SC)
+
+**Ejemplo Práctico:** Reducir un círculo a la mitad de su tamaño.
+1. Dibuja un Círculo (C).
+2. Escribe **SC** y presiona Enter.
+3. Selecciona el círculo. Enter.
+4. Punto Base (Ej: centro del círculo).
+5. Factor de Escala: 0.5
+
+**Actividad Sugerida:** Escalar una línea de 5 unidades para que mida 12 unidades, usando **Referencia** (R).
+1. Dibuja una línea de 5 unidades.
+2. Escribe **SC**, Enter.
+3. Selecciona la línea. Enter.
+4. Punto Base (Ej: punto inicial).
+5. Escribe **R** (Referencia), Enter.
+6. Longitud de Referencia: 5, Enter (o selecciona los extremos).
+7. Nueva Longitud: 12
+
+<details>
+<summary>Ver Solución</summary>
+
+La línea final debe medir exactamente 12 unidades.
+</details>
+
+---
+
+### 2.6 Recorta (TR)
+
+**Ejemplo Práctico:** Eliminar las partes de una línea que están fuera de un círculo.
+1. Dibuja un Círculo (C) y una Línea (L) que lo cruce.
+2. Escribe **TR** y presiona Enter.
+3. Haz clic en los segmentos de la línea fuera del círculo.
+
+**Actividad Sugerida:** Recortar el segmento de una línea que se encuentra entre dos límites (líneas paralelas).
+1. Dibuja tres líneas horizontales: L1, L2 y L3 paralelas.
+2. Dibuja una línea vertical que cruce las tres (L4).
+3. Escribe **TR**, Enter.
+4. Recorta el segmento de la línea vertical (L4) que se encuentra entre L1 y L2.
+
+<details>
+<summary>Ver Solución</summary>
+
+La línea vertical (L4) debe quedar rota, con un espacio en blanco entre L1 y L2.
+</details>
+
+---
+
+### 2.7 Alargar (EX)
+
+**Ejemplo Práctico:** Extender una línea hasta que toque un muro (rectángulo).
+1. Dibuja un Rectángulo (REC, el muro) y una Línea (L) corta que apunte hacia él.
+2. Escribe **EX** y presiona Enter.
+3. Haz clic en el extremo de la línea corta.
+
+**Actividad Sugerida:** Extender dos líneas de eje paralelas hasta que alcancen un límite inclinado (línea diagonal).
+1. Dibuja una línea diagonal (L1, el límite).
+2. Dibuja dos líneas horizontales cortas (L2, L3) paralelas.
+3. Escribe **EX**, Enter.
+4. Haz clic en el extremo de L2 y luego en el extremo de L3.
+
+<details>
+<summary>Ver Solución</summary>
+
+Las líneas L2 y L3 deben extenderse hasta el punto de intersección con la línea diagonal L1.
+</details>
+
+---
+
+### 2.8 Empalme (F)
+
+**Ejemplo Práctico:** Redondear una esquina de dos líneas con un radio de 3.
+1. Dibuja dos líneas que formen una esquina de 90 grados.
+2. Escribe **F** y presiona Enter.
+3. Escribe **R** (Radio), Enter.
+4. Ingresa el radio: 3, Enter.
+5. Selecciona la primera línea y luego la segunda.
+
+**Actividad Sugerida:** Aplicar Empalme R5 a las cuatro esquinas de un rectángulo usando la opción **Polilínea** (P).
+1. Dibuja un Rectángulo (REC).
+2. Escribe **F**, Enter.
+3. Escribe **R** (Radio), Enter.
+4. Ingresa el radio: 5, Enter.
+5. Escribe **P** (Polilínea), Enter.
+6. Haz clic en el rectángulo.
+
+<details>
+<summary>Ver Solución</summary>
+
+Las cuatro esquinas del rectángulo deben tener arcos de radio 5.
+</details>
+
+---
+
+### 2.9 Chaflán (CHA)
+
+**Ejemplo Práctico:** Biselar una esquina con distancias de 2x2.
+1. Dibuja dos líneas que formen una esquina de 90 grados.
+2. Escribe **CHA** y presiona Enter.
+3. Escribe **D** (Distancia), Enter.
+4. Primera distancia: 2, Enter.
+5. Segunda distancia: 2, Enter.
+6. Selecciona la primera línea y luego la segunda.
+
+**Actividad Sugerida:** Aplicar un bisel asimétrico de 3x5 (Distancia 1 = 3, Distancia 2 = 5).
+1. Dibuja dos líneas que formen una esquina de 90 grados.
+2. Escribe **CHA**, Enter.
+3. Escribe **D** (Distancia), Enter.
+4. Primera distancia: 3, Enter.
+5. Segunda distancia: 5, Enter.
+6. Selecciona la línea que cortará 3 unidades, luego la otra.
+
+<details>
+<summary>Ver Solución</summary>
+
+El segmento biselado no es simétrico (es más largo en un lado que en el otro).
+</details>
+
+--------------------------------------------------
+3. RETOS DE COMPRENSIÓN (MISCELÁNEOS)
+--------------------------------------------------
+
+| Comando Completo | Atajo (Alias) | Descripción |
+| :--- | :--- | :--- |
+| **PROPIEDADES** | **PR** | Abre la paleta de propiedades. |
+| **LISTA** | **LI** | Muestra datos de la entidad. |
+| **UNIR** | **J** | Une líneas o arcos en una polilínea. |
+| **BORRAR** | **E** | Elimina objetos. |
+| **ZOOM** | **Z** | Controla la visualización. |
+| **BLOQUE** | **B** | Crea una definición de bloque. |
+| **CAPAS** | **LA** | Administrador de Propiedades de Capas. |
+
+**Reto Único (Uso de Múltiples Atajos):**
+Mover y Copiar una etiqueta (texto) a 45 grados y verificar su ubicación.
+
+**Instrucciones:**
+1. Crea un texto "DETALLE A" usando el atajo para MTEXT (**MT**).
+2. **Mover:** Mueve el texto a la coordenada (10,10) usando el atajo **M**.
+3. **Rotar y Copiar:** Gira el texto 45 grados alrededor de su punto de inserción (10,10) usando el atajo **RO** y la opción **Copia** (C).
+4. **Verificar:** Usa el atajo **LI** (LISTA) para verificar las propiedades de la copia rotada.
+
+<details>
+<summary>Ver Solución</summary>
+
+1.  **M** (Mover) debe usar el punto de inserción del MTEXT como punto base.
+2.  **RO** (Girar) debe usar el mismo punto base (10,10). La copia rotada tendrá un ángulo de rotación de 45 grados, pero su punto de inserción seguirá siendo (10,10).
+3.  **LI** debe confirmar que la rotación es 45.
+</details>

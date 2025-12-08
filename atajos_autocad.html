@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atajos de Teclado en AutoCAD - Aprende Fácil</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-bg: #f8f9fa;
+            --dark-text: #2c3e50;
+            --light-text: #ecf0f1;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: var(--dark-text);
+            background-color: var(--light-bg);
+            padding: 0;
+            margin: 0;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--light-text);
+            opacity: 0.9;
+        }
+
+        main {
+            padding: 2rem 0;
+        }
+
+        section {
+            margin-bottom: 3rem;
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--secondary-color);
+        }
+
+        h3 {
+            color: var(--secondary-color);
+            margin: 1.5rem 0 1rem;
+        }
+
+        .command {
+            font-family: 'Courier New', monospace;
+            background-color: #f0f0f0;
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+            color: #c7254e;
+        }
+
+        .note {
+            background-color: #e7f4ff;
+            border-left: 4px solid var(--secondary-color);
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .card {
+            background: white;
+            border-radius: 6px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+        }
+
+        .card-header {
+            background-color: #f8f9fa;
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 500;
+            border-bottom: 1px solid #eee;
+        }
+
+        .card-header:hover {
+            background-color: #f1f3f5;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+            display: none;
+        }
+
+        .card-content.show {
+            display: block;
+        }
+
+        .steps {
+            padding-left: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        .steps li {
+            margin-bottom: 0.5rem;
+        }
+
+        .back-button {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background-color: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            margin-top: 1rem;
+            transition: background-color 0.3s;
+        }
+
+        .back-button:hover {
+            background-color: #1a252f;
+        }
+
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 1.5rem 0;
+            margin-top: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .card-header {
+                padding: 0.8rem 1rem;
+                font-size: 0.95rem;
+            }
+            
+            table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+            
+            section {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Atajos de Teclado en AutoCAD</h1>
+            <p class="subtitle">Acelera tu flujo de trabajo con estos comandos esenciales</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="intro">
+            <p>Dominar los atajos (alias) en la línea de comandos de AutoCAD es fundamental para mejorar tu productividad. Un atajo es una abreviatura de una o dos letras que ejecuta un comando completo, permitiéndote trabajar de manera más rápida y eficiente.</p>
+            <div class="note">
+                <strong>Consejo profesional:</strong> Puedes personalizar los atajos de teclado en AutoCAD usando el comando <span class="command">ALIASEDIT</span> o editando el archivo <span class="command">acad.pgp</span>.
+            </div>
+        </section>
+
+        <section>
+            <h2>1. Atajos de Dibujo</h2>
+            
+            <table>
+                <tr>
+                    <th>Comando</th>
+                    <th>Atajo</th>
+                    <th>Descripción</th>
+                </tr>
+                <tr>
+                    <td><strong>LINEA</strong></td>
+                    <td><span class="command">L</span></td>
+                    <td>Dibuja una línea recta</td>
+                </tr>
+                <tr>
+                    <td><strong>CÍRCULO</strong></td>
+                    <td><span class="command">C</span></td>
+                    <td>Dibuja un círculo</td>
+                </tr>
+                <tr>
+                    <td><strong>POLILINEA</strong></td>
+                    <td><span class="command">PL</span></td>
+                    <td>Dibuja una secuencia conectada de segmentos</td>
+                </tr>
+                <tr>
+                    <td><strong>RECTANG</strong></td>
+                    <td><span class="command">REC</span></td>
+                    <td>Dibuja un rectángulo</td>
+                </tr>
+                <tr>
+                    <td><strong>ARCO</strong></td>
+                    <td><span class="command">A</span></td>
+                    <td>Dibuja un arco circular</td>
+                </tr>
+                <tr>
+                    <td><strong>POLÍGONO</strong></td>
+                    <td><span class="command">POL</span></td>
+                    <td>Dibuja un polígono regular</td>
+                </tr>
+            </table>
+
+            <div class="card">
+                <div class="card-header">
+                    <span>Ejemplo Práctico: Dibujar un cuadrado usando atajos</span>
+                    <span class="toggle-btn">Mostrar</span>
+                </div>
+                <div class="card-content">
+                    <ol class="steps">
+                        <li>Escribe <span class="command">L</span> y presiona <strong>Enter</strong> (activa el comando LÍNEA).</li>
+                        <li>Haz clic en un punto de inicio en el área de dibujo.</li>
+                        <li>Mueve el cursor a la derecha y escribe <span class="command">10</span> + <strong>Enter</strong> (línea horizontal de 10 unidades).</li>
+                        <li>Mueve el cursor hacia arriba y escribe <span class="command">10</span> + <strong>Enter</strong> (línea vertical).</li>
+                        <li>Mueve el cursor a la izquierda y escribe <span class="command">10</span> + <strong>Enter</strong> (línea horizontal).</li>
+                        <li>Escribe <span class="command">C</span> + <strong>Enter</strong> para cerrar el cuadrado.</li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>2. Atajos de Modificación</h2>
+            
+            <table>
+                <tr>
+                    <th>Comando</th>
+                    <th>Atajo</th>
+                    <th>Descripción</th>
+                </tr>
+                <tr>
+                    <td><strong>COPIAR</strong></td>
+                    <td><span class="command">CP</span></td>
+                    <td>Duplica objetos</td>
+                </tr>
+                <tr>
+                    <td><strong>DESPLAZAR</strong></td>
+                    <td><span class="command">M</span></td>
+                    <td>Mueve objetos</td>
+                </tr>
+                <tr>
+                    <td><strong>GIRAR</strong></td>
+                    <td><span class="command">RO</span></td>
+                    <td>Rota objetos</td>
+                </tr>
+                <tr>
+                    <td><strong>SIMETRÍA</strong></td>
+                    <td><span class="command">MI</span></td>
+                    <td>Crea una copia reflejada</td>
+                </tr>
+                <tr>
+                    <td><strong>ESCALA</strong></td>
+                    <td><span class="command">SC</span></td>
+                    <td>Cambia el tamaño de los objetos</td>
+                </tr>
+                <tr>
+                    <td><strong>RECORTA</strong></td>
+                    <td><span class="command">TR</span></td>
+                    <td>Recorta objetos en un límite</td>
+                </tr>
+            </table>
+
+            <div class="card">
+                <div class="card-header">
+                    <span>Ejemplo Práctico: Crear una matriz de objetos</span>
+                    <span class="toggle-btn">Mostrar</span>
+                </div>
+                <div class="card-content">
+                    <ol class="steps">
+                        <li>Dibuja un círculo con <span class="command">C</span> + <strong>Enter</strong>.</li>
+                        <li>Selecciona el círculo y escribe <span class="command">CP</span> + <strong>Enter</strong> (comando COPIAR).</li>
+                        <li>Especifica el punto base (centro del círculo).</li>
+                        <li>Escribe <span class="command">M</span> + <strong>Enter</strong> para modo múltiple.</li>
+                        <li>Mueve el cursor a la derecha y escribe <span class="command">20</span> + <strong>Enter</strong> (distancia entre copias).</li>
+                        <li>Repite el paso anterior para crear más copias.</li>
+                        <li>Presiona <strong>Enter</strong> para terminar.</li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+
+        <section class="activities">
+            <h2>Actividades Prácticas</h2>
+            
+            <div class="card">
+                <div class="card-header">
+                    <span>Actividad 1: Crear un patrón de hexágonos</span>
+                    <span class="toggle-btn">Mostrar</span>
+                </div>
+                <div class="card-content">
+                    <p><strong>Objetivo:</strong> Usar los atajos para crear un patrón de hexágonos.</p>
+                    <ol class="steps">
+                        <li>Usa <span class="command">POL</span> + <strong>Enter</strong> para dibujar un hexágono.</li>
+                        <li>Especifica 6 lados y el centro del hexágono.</li>
+                        <li>Usa <span class="command">CP</span> + <strong>Enter</strong> para copiarlo.</li>
+                        <li>Crea un patrón copiando el hexágono en las 6 direcciones.</li>
+                    </ol>
+                    <div class="note">
+                        <strong>Consejo:</strong> Usa el modo Ortopolar (F8) para mantener las líneas rectas.
+                    </div>
+                    <details>
+                        <summary>Ver Solución</summary>
+                        <ol class="steps">
+                            <li>Dibuja el primer hexágono con <span class="command">POL</span> + <strong>Enter</strong>, 6 lados.</li>
+                            <li>Usa <span class="command">CP</span> + <strong>Enter</strong> y selecciona el hexágono.</li>
+                            <li>Selecciona un vértice como punto base.</li>
+                            <li>Usa <span class="command">M</span> + <strong>Enter</strong> para múltiples copias.</li>
+                            <li>Copia el hexágono a cada vértice adyacente.</li>
+                        </ol>
+                    </details>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <span>Actividad 2: Crear una llave inglesa</span>
+                    <span class="toggle-btn">Mostrar</span>
+                </div>
+                <div class="card-content">
+                    <p><strong>Objetivo:</strong> Usar comandos de dibujo y modificación para crear una llave inglesa.</p>
+                    <ol class="steps">
+                        <li>Usa <span class="command">REC</span> para el mango.</li>
+                        <li>Usa <span class="command">C</span> para la cabeza circular.</li>
+                        <li>Usa <span class="command">TR</span> para recortar el exceso de líneas.</li>
+                        <li>Usa <span class="command">F</span> (empalme) para redondear las esquinas.</li>
+                    </ol>
+                    <details>
+                        <summary>Ver Solución</summary>
+                        <ol class="steps">
+                            <li>Dibuja un rectángulo de 60x20 para el mango.</li>
+                            <li>Dibuja un círculo de radio 20 en un extremo.</li>
+                            <li>Dibuja un hexágono inscrito en el círculo.</li>
+                            <li>Usa <span class="command">TR</span> + <strong>Enter</strong> dos veces para recortar.</li>
+                            <li>Usa <span class="command">F</span> + <strong>Enter</strong>, luego <span class="command">R</span> + <strong>Enter</strong> y especifica un radio de 5.</li>
+                        </ol>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+        <section class="challenges">
+            <h2>Retos de Comprensión</h2>
+            
+            <div class="card">
+                <div class="card-header">
+                    <span>Reto 1: El Reloj Analógico</span>
+                    <span class="toggle-btn">Mostrar</span>
+                </div>
+                <div class="card-content">
+                    <p>¿Puedes crear un reloj analógico usando solo atajos de teclado?</p>
+                    <p><strong>Instrucciones:</strong></p>
+                    <ol class="steps">
+                        <li>Usa <span class="command">C</span> para el borde del reloj.</li>
+                        <li>Usa <span class="command">L</span> para las marcas de las horas.</li>
+                        <li>Usa <span class="command">RO</span> para rotar las manecillas.</li>
+                        <li>Usa <span class="command">MI</span> para crear marcas simétricas.</li>
+                    </ol>
+                    <div class="note">
+                        <strong>Pista:</strong> Usa la matriz polar para las marcas de los minutos.
+                    </div>
+                    <details>
+                        <summary>Ver Solución</summary>
+                        <ol class="steps">
+                            <li>Dibuja un círculo grande con <span class="command">C</span>.</li>
+                            <li>Dibuja una línea vertical desde el centro hacia arriba.</li>
+                            <li>Usa <span class="command">AR</span> (matriz) + <strong>Enter</strong>.</li>
+                            <li>Selecciona la línea y presiona <strong>Enter</strong>.</li>
+                            <li>Escribe <span class="command">PO</span> (polar) + <strong>Enter</strong>.</li>
+                            <li>Selecciona el centro del círculo.</li>
+                            <li>Especifica 12 elementos y 360 grados.</li>
+                        </ol>
+                    </details>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <span>Reto 2: El Laberinto</span>
+                    <span class="toggle-btn">Mostrar</span>
+                </div>
+                <div class="card-content">
+                    <p>Crea un laberinto usando solo comandos de línea y modificación.</p>
+                    <p><strong>Instrucciones:</strong></p>
+                    <ol class="steps">
+                        <li>Usa <span class="command">L</span> para dibujar las paredes.</li>
+                        <li>Usa <span class="command">O</span> (offset) para crear caminos paralelos.</li>
+                        <li>Usa <span class="command">TR</span> para crear pasadizos.</li>
+                        <li>Usa <span class="command">F</span> para redondear esquinas.</li>
+                    </ol>
+                    <details>
+                        <summary>Ver Solución</summary>
+                        <ol class="steps">
+                            <li>Dibuja un rectángulo grande para el borde exterior.</li>
+                            <li>Usa <span class="command">O</span> + <strong>Enter</strong> y especifica un desplazamiento de 10 unidades.</li>
+                            <li>Repite el proceso para crear varios niveles.</li>
+                            <li>Usa <span class="command">TR</span> + <strong>Enter</strong> dos veces para recortar aberturas.</li>
+                            <li>Asegúrate de que haya un camino desde la entrada hasta la salida.</li>
+                        </ol>
+                    </details>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <span>Reto 3: El Engranaje Perfecto</span>
+                    <span class="toggle-btn">Mostrar</span>
+                </div>
+                <div class="card-content">
+                    <p>Crea un engranaje con dientes perfectamente espaciados.</p>
+                    <p><strong>Instrucciones:</strong></p>
+                    <ol class="steps">
+                        <li>Usa <span class="command">C</span> para el círculo base.</li>
+                        <li>Usa <span class="command">DIV</span> para dividir la circunferencia.</li>
+                        <li>Usa <span class="command">AR</span> para el patrón de dientes.</li>
+                        <li>Usa <span class="command">TR</span> para limpiar las líneas sobrantes.</li>
+                    </ol>
+                    <div class="note">
+                        <strong>Consejo:</strong> Usa el comando DIVIDE para marcar puntos de división iguales en la circunferencia.
+                    </div>
+                    <details>
+                        <summary>Ver Solución</summary>
+                        <ol class="steps">
+                            <li>Dibuja un círculo con <span class="command">C</span>.</li>
+                            <li>Usa <span class="command">DIV</span> + <strong>Enter</strong> y selecciona el círculo.</li>
+                            <li>Especifica 24 divisiones (para 12 dientes).</li>
+                            <li>Dibuja un diente en una de las divisiones.</li>
+                            <li>Usa <span class="command">AR</span> + <strong>Enter</strong>, selecciona el diente.</li>
+                            <li>Elige <span class="command">PO</span> (polar) y selecciona el centro.</li>
+                            <li>Especifica 12 elementos y 360 grados.</li>
+                        </ol>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+        <div style="text-align: center; margin: 2rem 0;">
+            <a href="index.html" class="back-button">← Volver al Índice</a>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; JMGV-PTEL-2025 - Atajos de AutoCAD - Todos los derechos reservados</p>
+        </div>
+    </footer>
+
+    <script>
+        // Script para mostrar/ocultar contenido de las tarjetas
+        document.addEventListener('DOMContentLoaded', function() {
+            const toggleButtons = document.querySelectorAll('.toggle-btn');
+            
+            toggleButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const cardContent = this.parentElement.nextElementSibling;
+                    cardContent.classList.toggle('show');
+                    this.textContent = cardContent.classList.contains('show') ? 'Ocultar' : 'Mostrar';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
