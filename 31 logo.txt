@@ -1,0 +1,81 @@
+==================================================
+EJERCICIO: DISEÑO DEL LOGO BINOMIAL YIN-YANG EN AUTOCAD
+==================================================
+
+OBJETIVO: Recrear la estructura concéntrica y simétrica del logo (excluyendo la forma interna dentro del triángulo), utilizando comandos de precisión y modificación.
+
+DIMENSIONES DE REFERENCIA: Asumiremos que el radio del círculo exterior (placa negra) es de 100 unidades.
+
+--------------------------------------------------
+I. PREPARACIÓN Y EJES DE SIMETRÍA
+--------------------------------------------------
+
+1.  **CAPAS (LA):**
+    * Crea la capa **0_EJES** (Color Rojo, para guías, no ploteable).
+    * Crea la capa **1_CONTORNO** (Color Blanco, para el dibujo final).
+2.  **Líneas de Eje (L):**
+    * Dibuja una **LÍNEA VERTICAL** de (-10,0) a (10,0).
+    * Dibuja una **LÍNEA HORIZONTAL** de (0, -10) a (0, 10).
+    * Mueve estas líneas a la capa **0_EJES**.
+
+--------------------------------------------------
+II. CREACIÓN DEL CONTORNO YIN-YANG (BASE R=100)
+--------------------------------------------------
+
+3.  **Círculo Exterior (C):**
+    * Establece **1_CONTORNO** como capa actual.
+    * Activa **C** (Círculo). Centro: **0,0**. Radio: **100**.
+4.  **Curvas Internas (C):** El patrón Yin-Yang usa dos semicírculos de R=50.
+    * Dibuja un círculo de **Radio 50**. Centro: **0, 50**.
+    * Dibuja un segundo círculo de **Radio 50**. Centro: **0, -50**.
+5.  **División (LINEA):** Dibuja una línea de **(-100, 0) a (100, 0)** (en la capa 1_CONTORNO).
+6.  **Limpieza Yin-Yang (RECORTA, TR):**
+    * Activa **TR** (Recorta).
+    * **Paso A:** Recorta la mitad inferior del círculo de R=50 centrado en (0, 50).
+    * **Paso B:** Recorta la mitad superior del círculo de R=50 centrado en (0, -50).
+    * **Paso C:** Recorta la línea central (Paso 5) que está entre los dos arcos creados.
+    * **Paso D:** Recorta las mitades interiores de los círculos de R=100 que están sobre la línea central.
+    *(El resultado debe ser la forma Yin-Yang en blanco y negro, sin los puntos internos).*
+
+--------------------------------------------------
+III. CREACIÓN DE CÍRCULOS Y ARCOS ADICIONALES
+--------------------------------------------------
+
+7.  **Círculos Blancos (C, R=10):** Dibuja los puntos del Yin-Yang.
+    * Círculo 1 (Arriba): Centro en **0, 50**. Radio: **10**.
+    * Círculo 2 (Abajo): Centro en **0, -50**. Radio: **10**.
+8.  **Arcos Entrelazados (C, R=80):** Estos arcos pasan sobre el patrón Yin-Yang.
+    * Dibuja un círculo de **Radio 80**. Centro: **0, 50**.
+    * Dibuja un segundo círculo de **Radio 80**. Centro: **0, -50**.
+9.  **Arcos Externos (C, R=95):** Estos arcos definen los límites externos.
+    * Dibuja un círculo de **Radio 95**. Centro: **0, 50**.
+    * Dibuja un segundo círculo de **Radio 95**. Centro: **0, -50**.
+10. **Limpieza de Arcos Entrelazados (TR):**
+    * Activa **TR**.
+    * Recorta las partes internas de los círculos de R=80 y R=95 que están **totalmente dentro** de la forma central Yin-Yang.
+
+--------------------------------------------------
+IV. CREACIÓN DEL TRIÁNGULO CENTRAL Y CÍRCULOS MENORES
+--------------------------------------------------
+
+11. **Triángulo (POL, 3 lados):**
+    * Activa **POL** (Polígono). Número de Lados: **3**.
+    * Selecciona la opción **Borde (E)**.
+    * Dibuja la base del triángulo (Ej: de **-35, -20** a **35, -20**).
+12. **Círculos Centrales (C):**
+    * Dibuja un círculo de **Radio 30**. Centro: **0, 0**.
+    * Dibuja un círculo de **Radio 25**. Centro: **0, 0**.
+    * Dibuja un círculo de **Radio 15**. Centro: **0, 0**.
+13. **Limpieza de Triángulo (TR):**
+    * Activa **TR**.
+    * Recorta los segmentos de los círculos de R=30 y R=25 que están **dentro** del triángulo.
+
+--------------------------------------------------
+V. SOMBREADO FINAL Y RESULTADO
+--------------------------------------------------
+
+14. **Sombreado de la Placa (H):**
+    * Activa **H** (Sombreado).
+    * Tipo: **SÓLIDO** (SOLID). Color: Negro.
+    * **Haz clic** en el área del círculo de R=100, asegurándote de **no** hacer clic en el área de los círculos de R=10 y en el área del triángulo/círculos centrales.
+15. **Resultado Final:** El dibujo final debe tener el contorno general del logo, con las líneas blancas y negras tal como se muestra en la imagen, excluyendo la forma blanca interna del triángulo.

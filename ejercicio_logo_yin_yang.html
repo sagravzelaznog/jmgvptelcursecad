@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diseño del Logo Binomial Yin-Yang en AutoCAD</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #8e44ad;
+            --accent-color: #e74c3c;
+            --light-bg: #f5f6fa;
+            --dark-text: #2c3e50;
+            --light-text: #ecf0f1;
+            --success-color: #27ae60;
+            --warning-color: #f39c12;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: var(--dark-text);
+            background-color: var(--light-bg);
+            padding: 0;
+            margin: 0;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-color), #1a252f);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            color: var(--light-text);
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .exercise {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            margin-bottom: 2.5rem;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .exercise:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+        }
+
+        .exercise h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.5rem;
+            color: white;
+            margin: 0;
+            padding: 1.5rem 2rem;
+            background: linear-gradient(135deg, var(--secondary-color), #9b59b6);
+            display: flex;
+            align-items: center;
+        }
+        
+        .exercise h2 i {
+            margin-right: 12px;
+            font-size: 1.3em;
+        }
+
+        .exercise-content {
+            padding: 1.5rem;
+        }
+
+        .step {
+            margin: 1.5rem 0;
+            padding: 1.5rem;
+            background: #f8f9fa;
+            border-left: 4px solid var(--secondary-color);
+            border-radius: 0 8px 8px 0;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .step:hover {
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transform: translateX(5px);
+        }
+
+        .command {
+            font-family: 'Courier New', monospace;
+            background: #2c3e50;
+            color: #f8f9fa;
+            padding: 0.3rem 0.6rem;
+            border-radius: 4px;
+            font-weight: 500;
+            font-size: 0.95rem;
+            display: inline-block;
+            margin: 0.2rem 0;
+            border-left: 3px solid var(--accent-color);
+        }
+
+        .preview {
+            text-align: center;
+            margin: 2rem 0;
+            padding: 2rem;
+            background: #f8f9fa;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            transition: all 0.3s ease;
+        }
+        
+        .preview:hover {
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+        }
+
+        .preview img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #eee;
+            border-radius: 4px;
+        }
+
+        .note, .tip, .challenge {
+            padding: 1.2rem 1.5rem;
+            margin: 1.8rem 0;
+            border-radius: 0 8px 8px 0;
+            position: relative;
+            line-height: 1.7;
+        }
+        
+        .note {
+            background-color: #e8f4f8;
+            border-left: 4px solid #3498db;
+        }
+        
+        .note::before {
+            content: 'ℹ️';
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .tip {
+            background-color: #fff8e6;
+            border-left: 4px solid #f1c40f;
+        }
+        
+        .tip::before {
+            content: '💡';
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .challenge {
+            background-color: #f9f0ff;
+            border-left: 4px solid #9b59b6;
+        }
+        
+        .challenge::before {
+            content: '🏆';
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            background: linear-gradient(135deg, var(--secondary-color), #9b59b6);
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 0.95rem;
+            margin: 0.5rem 0.5rem 0.5rem 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .btn i {
+            margin-right: 8px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            color: white;
+            text-decoration: none;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--secondary-color);
+            color: var(--secondary-color);
+        }
+
+        .solution {
+            display: none;
+            margin-top: 1rem;
+            padding: 1.2rem;
+            background: #f8f9fa;
+            border-radius: 4px;
+            border-left: 3px solid var(--success-color);
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        th {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 500;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 3rem 0 1.5rem;
+            margin-top: 4rem;
+            font-size: 0.9rem;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+            margin: 0 1rem 2rem;
+            text-align: left;
+        }
+        
+        .footer-section h3 {
+            color: white;
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 2px;
+            background: var(--secondary-color);
+        }
+        
+        .footer-section ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-section a {
+            color: #ecf0f1;
+            text-decoration: none;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+        }
+        
+        .footer-section a i {
+            margin-right: 8px;
+            color: var(--secondary-color);
+        }
+        
+        .footer-section a:hover {
+            color: var(--secondary-color);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 1rem;
+        }
+        
+        .social-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            transition: all 0.3s;
+            color: white;
+            text-decoration: none;
+        }
+        
+        .social-icon:hover {
+            background: var(--secondary-color);
+            transform: translateY(-3px);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            margin-top: 2rem;
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.7);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .exercise-header {
+                padding: 0.8rem 1rem;
+                font-size: 0.95rem;
+            }
+            
+            .exercise-content {
+                padding: 1rem;
+            }
+            
+            table {
+                display: block;
+                overflow-x: auto;
+            }
+            
+            .footer-section {
+                flex: 100%;
+                margin-bottom: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+            
+            .exercise-content {
+                padding: 0.8rem;
+            }
+            
+            .step, .note, .tip, .challenge {
+                padding: 1rem;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+                margin: 0.3rem 0;
+            }
+        }
+
+        /* Custom styles for the exercise */
+        .hatch-preview {
+            width: 100%;
+            max-width: 400px;
+            height: 300px;
+            margin: 20px auto;
+            border: 1px solid #ddd;
+            position: relative;
+            overflow: hidden;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .logo-container {
+            width: 200px;
+            height: 200px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .logo-circle {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 2px solid #333;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .logo-half {
+            position: absolute;
+            width: 100%;
+            height: 50%;
+            background: #333;
+        }
+        
+        .logo-half.top {
+            top: 0;
+            border-radius: 100px 100px 0 0;
+        }
+        
+        .logo-half.bottom {
+            bottom: 0;
+            background: white;
+            border-radius: 0 0 100px 100px;
+        }
+        
+        .logo-dot {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid #333;
+        }
+        
+        .logo-dot.top {
+            top: 30px;
+            right: 30px;
+            background: white;
+        }
+        
+        .logo-dot.bottom {
+            bottom: 30px;
+            left: 30px;
+            background: #333;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><i class="fas fa-yin-yang"></i> Diseño del Logo Binomial Yin-Yang en AutoCAD</h1>
+            <p class="subtitle">Aprende a crear un logo simbólico utilizando comandos básicos y avanzados de AutoCAD</p>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="intro">
+            <p>En este ejercicio, aprenderás a recrear el clásico símbolo del Yin-Yang utilizando herramientas de dibujo precisas en AutoCAD. Este ejercicio te ayudará a dominar el uso de círculos, arcos y edición de objetos.</p>
+        </div>
+        
+        <div class="exercise">
+            <h2><i class="fas fa-info-circle"></i> Objetivo del Ejercicio</h2>
+            <div class="exercise-content">
+                <p>Recrear la estructura concéntrica y simétrica del logo Yin-Yang (excluyendo la forma interna dentro del triángulo), utilizando comandos de precisión y modificación.</p>
+                
+                <div class="preview">
+                    <div class="logo-container">
+                        <div class="logo-circle">
+                            <div class="logo-half top"></div>
+                            <div class="logo-half bottom"></div>
+                            <div class="logo-dot top"></div>
+                            <div class="logo-dot bottom"></div>
+                        </div>
+                    </div>
+                    <p class="preview-caption">Vista previa del logo Yin-Yang a diseñar</p>
+                </div>
+                
+                <div class="note">
+                    <strong>Dimensión de referencia:</strong> Asumiremos que el radio del círculo exterior es de 100 unidades.
+                </div>
+            </div>
+        </div>
+        
+        <div class="exercise">
+            <h2><i class="fas fa-tools"></i> Preparación y Ejes de Simetría</h2>
+            <div class="exercise-content">
+                <div class="step">
+                    <h3>1. Configuración de Capas</h3>
+                    <p>1. Crea las siguientes capas para organizar tu trabajo:</p>
+                    <ul>
+                        <li><span class="command">0_EJES</span> (Color Rojo, para guías, no ploteable)</li>
+                        <li><span class="command">1_CONTORNO</span> (Color Blanco, para el dibujo final)</li>
+                    </ul>
+                    <p>Comando: <span class="command">LA</span> → Presiona el botón "Nueva Capa" → Ingresa el nombre → Establece el color → Repite para la segunda capa</p>
+                </div>
+                
+                <div class="step">
+                    <h3>2. Creación de Ejes de Referencia</h3>
+                    <p>1. Activa la capa <span class="command">0_EJES</span> haciendo clic en ella en el Administrador de Propiedades de Capa.</p>
+                    <p>2. Dibuja una línea vertical y una horizontal que se crucen en el origen (0,0):</p>
+                    <p>Comando: <span class="command">LINE</span> → <span class="command">-10,0</span> → <span class="command">10,0</span> → Enter</p>
+                    <p>Comando: <span class="command">LINE</span> → <span class="command">0,-10</span> → <span class="command">0,10</span> → Enter</p>
+                    
+                    <div class="tip">
+                        <strong>Consejo:</strong> Usa el comando <span class="command">ZOOM</span> → <span class="command">E</span> (Extensión) para ajustar la vista y ver los ejes completos.
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="exercise">
+            <h2><i class="fas fa-draw-polygon"></i> Construcción del Círculo Principal</h2>
+            <div class="exercise-content">
+                <div class="step">
+                    <h3>1. Dibujar el Círculo Exterior</h3>
+                    <p>1. Activa la capa <span class="command">1_CONTORNO</span>.</p>
+                    <p>2. Dibuja un círculo con centro en el origen (0,0) y radio de 100 unidades:</p>
+                    <p>Comando: <span class="command">CIRCLE</span> → <span class="command">0,0</span> → <span class="command">100</span></p>
+                    
+                    <div class="note">
+                        <strong>Nota:</strong> Asegúrate de que la opción de Referencia a Objetos (OSNAP) esté activada para facilitar la selección de puntos precisos.
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <h3>2. Crear la Línea de División</h3>
+                    <p>1. Dibuja una línea horizontal que divida el círculo en dos mitades iguales:</p>
+                    <p>Comando: <span class="command">LINE</span> → <span class="command">-100,0</span> → <span class="command">100,0</span> → Enter</p>
+                    
+                    <div class="tip">
+                        <strong>Consejo:</strong> Usa el comando <span class="command">TRIM</span> para recortar la mitad inferior del círculo si es necesario.
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="exercise">
+            <h2><i class="fas fa-magic"></i> Creación de las Formas Curvas</h2>
+            <div class="exercise-content">
+                <div class="step">
+                    <h3>1. Dibujar los Arcos Internos</h3>
+                    <p>1. Usa el comando <span class="command">ARC</span> para crear las curvas características del Yin-Yang:</p>
+                    <p>Comando: <span class="command">ARC</span> → <span class="command">0,0</span> → <span class="command">E</span> (para punto final) → <span class="command">50,0</span> → <span class="command">A</span> (para ángulo) → <span class="command">180</span></p>
+                    
+                    <div class="note">
+                        <strong>Nota:</strong> Este comando crea un arco de 180 grados desde (0,0) hasta (50,0) con radio 25.
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <h3>2. Completar las Formas</h3>
+                    <p>1. Usa el comando <span class="command">MIRROR</span> para reflejar el arco:</p>
+                    <p>Comando: <span class="command">MIRROR</span> → Selecciona el arco → Enter → <span class="command">0,0</span> → <span class="command">0,10</span> → <span class="command">N</span> (No borrar objetos originales)</p>
+                    
+                    <div class="tip">
+                        <strong>Consejo:</strong> Usa el comando <span class="command">PEDIT</span> para unir los arcos y crear una polilínea cerrada.
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="exercise">
+            <h2><i class="fas fa-chart-pie"></i> Añadir los Círculos Interiores</h2>
+            <div class="exercise-content">
+                <div class="step">
+                    <h3>1. Dibujar los Círculos Pequeños</h3>
+                    <p>1. Crea dos círculos más pequeños en las posiciones superiores e inferiores:</p>
+                    <p>Comando: <span class="command">CIRCLE</span> → <span class="command">0,50</span> → <span class="command">15</span></p>
+                    <p>Comando: <span class="command">CIRCLE</span> → <span class="command">0,-50</span> → <span class="command">15</span></p>
+                    
+                    <div class="note">
+                        <strong>Nota:</strong> Estos círculos representan los puntos en el símbolo Yin-Yang.
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <h3>2. Aplicar Sombreado</h3>
+                    <p>1. Usa el comando <span class="command">HATCH</span> para rellenar las áreas:</p>
+                    <ul>
+                        <li>Selecciona el patrón <span class="command">SOLID</span></li>
+                        <li>Elige el color negro para la mitad superior</li>
+                        <li>Selecciona las áreas a rellenar</li>
+                    </ul>
+                    
+                    <div class="tip">
+                        <strong>Consejo:</strong> Usa el comando <span class="command">HATCHEDIT</span> para modificar el sombreado si es necesario.
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="exercise">
+            <h2><i class="fas fa-tasks"></i> Ejercicios Prácticos</h2>
+            <div class="exercise-content">
+                <div class="challenge">
+                    <h3>Ejercicio 1: Modificar las Dimensiones</h3>
+                    <p>Intenta recrear el logo con un radio de 150 unidades en lugar de 100. Asegúrate de que todas las proporciones se mantengan iguales.</p>
+                    <button class="btn" onclick="toggleSolution('solution1')"><i class="fas fa-lightbulb"></i> Mostrar Solución</button>
+                    <div id="solution1" class="solution">
+                        <p>1. Usa el comando <span class="command">SCALE</span> para escalar todo el dibujo por un factor de 1.5 (150/100).</p>
+                        <p>2. Ajusta manualmente cualquier elemento que no se haya escalado correctamente.</p>
+                    </div>
+                </div>
+                
+                <div class="challenge">
+                    <h3>Ejercicio 2: Cambiar los Colores</h3>
+                    <p>Crea una versión invertida del logo (blanco sobre negro) y guárdala como un nuevo archivo.</p>
+                    <button class="btn" onclick="toggleSolution('solution2')"><i class="fas fa-lightbulb"></i> Mostrar Solución</button>
+                    <div id="solution2" class="solution">
+                        <p>1. Usa el comando <span class="command">HATCHEDIT</span> para cambiar los colores del sombreado.</p>
+                        <p>2. Alternativamente, usa <span class="command">PROPERTIES</span> para modificar las propiedades de los objetos.</p>
+                    </div>
+                </div>
+                
+                <div class="challenge">
+                    <h3>Reto Final: Añadir Texto</h3>
+                    <p>Agrega el texto "Yin-Yang" debajo del logo, utilizando una fuente adecuada y centrada.</p>
+                    <button class="btn" onclick="toggleSolution('solution3')"><i class="fas fa-lightbulb"></i> Mostrar Solución</button>
+                    <div id="solution3" class="solution">
+                        <p>1. Usa el comando <span class="command">TEXT</span> o <span class="command">MTEXT</span>.</p>
+                        <p>2. Especifica el punto de inserción debajo del logo.</p>
+                        <p>3. Selecciona la fuente y el tamaño apropiados.</p>
+                        <p>4. Usa <span class="command">JUSTIFYTEXT</span> para centrar el texto si es necesario.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="exercise">
+            <h2><i class="fas fa-question-circle"></i> Preguntas Frecuentes</h2>
+            <div class="exercise-content">
+                <details>
+                    <summary>¿Cómo puedo asegurarme de que mi dibujo sea simétrico?</summary>
+                    <p>Usa los ejes de referencia y la herramienta <span class="command">MIRROR</span> para garantizar la simetría. También puedes activar la opción de Referencia a Objetos (OSNAP) para mayor precisión.</p>
+                </details>
+                
+                <details>
+                    <summary>¿Qué hago si el sombreado no se aplica correctamente?</summary>
+                    <p>Asegúrate de que las áreas estén completamente cerradas. Puedes usar el comando <span class="command">BOUNDARY</span> para crear un límite cerrado si es necesario.</p>
+                </details>
+                
+                <details>
+                    <summary>¿Cómo guardo mi diseño para compartirlo?</summary>
+                    <p>Usa el comando <span class="command">SAVEAS</span> y selecciona el formato adecuado (DWG para edición futura, PDF o JPG para compartir).</p>
+                </details>
+            </div>
+        </div>
+        
+        <div style="text-align: center;">
+            <a href="../index.html" class="btn"><i class="fas fa-arrow-left"></i> Volver al Menú Principal</a>
+        </div>
+        
+        <footer>
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-section">
+                        <h3>Recursos Adicionales</h3>
+                        <ul>
+                            <li><a href="https://www.autodesk.com/support/" target="_blank" rel="noopener"><i class="fas fa-book"></i> Documentación Oficial</a></li>
+                            <li><a href="https://www.autodesk.com/tutorials" target="_blank" rel="noopener"><i class="fas fa-graduation-cap"></i> Tutoriales de AutoCAD</a></li>
+                            <li><a href="https://forums.autodesk.com/" target="_blank" rel="noopener"><i class="fas fa-comments"></i> Foros de la Comunidad</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-section">
+                        <h3>Compartir</h3>
+                        <div class="social-links">
+                            <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
+                            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="social-icon"><i class="fab fa-linkedin"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; JMGV-PTEL-2025 Todos los derechos reservados</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+    
+    <script>
+        // Función para mostrar/ocultar soluciones
+        function toggleSolution(id) {
+            const solution = document.getElementById(id);
+            if (solution.style.display === 'block') {
+                solution.style.display = 'none';
+            } else {
+                solution.style.display = 'block';
+            }
+        }
+        
+        // Cerrar soluciones al hacer clic fuera de ellas
+        document.addEventListener('click', function(event) {
+            if (!event.target.matches('.btn')) {
+                const solutions = document.getElementsByClassName('solution');
+                for (let i = 0; i < solutions.length; i++) {
+                    solutions[i].style.display = 'none';
+                }
+            }
+        });
+        
+        // Evitar que el clic en la solución cierre el menú desplegable
+        document.querySelectorAll('.solution').forEach(solution => {
+            solution.addEventListener('click', function(event) {
+                event.stopPropagation();
+            });
+        });
+    </script>
+</body>
+</html>
