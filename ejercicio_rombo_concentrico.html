@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diseño del Logo Binomial Yin-Yang en AutoCAD</title>
+    <title>Ejercicio de Rombo Concéntrico en AutoCAD</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -264,6 +264,27 @@
             background-color: #f9f9f9;
         }
 
+        .dimension-table {
+            width: 100%;
+            margin: 1.5rem 0;
+        }
+
+        .dimension-table th {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 10px;
+            text-align: left;
+        }
+
+        .dimension-table td {
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+
+        .dimension-table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
         footer {
             background-color: var(--primary-color);
             color: white;
@@ -417,10 +438,10 @@
         }
 
         /* Custom styles for the exercise */
-        .hatch-preview {
+        .shape-preview {
             width: 100%;
-            max-width: 400px;
-            height: 300px;
+            max-width: 500px;
+            height: 400px;
             margin: 20px auto;
             border: 1px solid #ddd;
             position: relative;
@@ -431,199 +452,246 @@
             justify-content: center;
         }
         
-        .logo-container {
-            width: 200px;
-            height: 200px;
+        .shape-container {
             position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .logo-circle {
             width: 100%;
             height: 100%;
-            border-radius: 50%;
-            border: 2px solid #333;
-            position: relative;
-            overflow: hidden;
         }
         
-        .logo-half {
+        .shape {
             position: absolute;
-            width: 100%;
-            height: 50%;
-            background: #333;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
         }
         
-        .logo-half.top {
-            top: 0;
-            border-radius: 100px 100px 0 0;
-        }
-        
-        .logo-half.bottom {
-            bottom: 0;
-            background: white;
-            border-radius: 0 0 100px 100px;
-        }
-        
-        .logo-dot {
-            position: absolute;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
+        .square {
+            width: 300px;
+            height: 300px;
             border: 2px solid #333;
         }
         
-        .logo-dot.top {
-            top: 30px;
-            right: 30px;
-            background: white;
+        .rhombus {
+            width: 250px;
+            height: 250px;
+            border: 2px solid #e74c3c;
+            transform: translate(-50%, -50%) rotate(45deg);
         }
         
-        .logo-dot.bottom {
-            bottom: 30px;
-            left: 30px;
+        .rhombus-outer {
+            width: 200px;
+            height: 200px;
+            border: 2px solid #3498db;
+            transform: translate(-50%, -50%) rotate(45deg);
+        }
+        
+        .rhombus-inner {
+            width: 100px;
+            height: 100px;
+            border: 2px solid #27ae60;
+            transform: translate(-50%, -50%) rotate(45deg);
+        }
+        
+        .circle {
+            border-radius: 50%;
+            border: 2px dashed #9b59b6;
+        }
+        
+        .dimension-line {
+            position: absolute;
             background: #333;
+        }
+        
+        .dimension-text {
+            position: absolute;
+            background: white;
+            padding: 2px 5px;
+            font-size: 12px;
+            border-radius: 3px;
+            border: 1px solid #ddd;
         }
     </style>
 </head>
 <body>
     <header>
         <div class="container">
-            <h1><i class="fas fa-yin-yang"></i> Diseño del Logo Binomial Yin-Yang en AutoCAD</h1>
-            <p class="subtitle">Aprende a crear un logo simbólico utilizando comandos básicos y avanzados de AutoCAD</p>
+            <h1><i class="fas fa-drafting-compass"></i> Ejercicio de Rombo Concéntrico en AutoCAD</h1>
+            <p class="subtitle">Aprende a crear estructuras concéntricas con precisión usando polilíneas y desfases</p>
         </div>
     </header>
     
     <div class="container">
         <div class="intro">
-            <p>En este ejercicio, aprenderás a recrear el clásico símbolo del Yin-Yang utilizando herramientas de dibujo precisas en AutoCAD. Este ejercicio te ayudará a dominar el uso de círculos, arcos y edición de objetos.</p>
+            <p>En este ejercicio, aprenderás a crear una estructura concéntrica de rombos y círculos en AutoCAD, aplicando grosores de línea específicos y utilizando comandos esenciales como POLILINEA y DESFASE.</p>
         </div>
         
         <div class="exercise">
             <h2><i class="fas fa-info-circle"></i> Objetivo del Ejercicio</h2>
             <div class="exercise-content">
-                <p>Recrear la estructura concéntrica y simétrica del logo Yin-Yang (excluyendo la forma interna dentro del triángulo), utilizando comandos de precisión y modificación.</p>
+                <p>Dibujar los tres rombos/cuadrados principales y los círculos de referencia, aplicando grosores (espesores) de polilínea según las dimensiones dadas.</p>
                 
                 <div class="preview">
-                    <div <i class="fas fa-yin-yang"></i>
-                    
+                    <div class="shape-preview">
+                        <div class="shape-container">
+                            <div class="shape square"></div>
+                            <div class="shape rhombus-outer"></div>
+                            <div class="shape rhombus-inner"></div>
+                            <div class="shape circle" style="width: 200px; height: 200px; border-color: #3498db;"></div>
+                            <div class="shape circle" style="width: 150px; height: 150px; border-color: #9b59b6;"></div>
+                            
+                            <!-- Dimension lines -->
+                            <div class="dimension-line" style="width: 300px; height: 1px; top: 310px; left: 50%; transform: translateX(-50%);"></div>
+                            <div class="dimension-text" style="top: 315px; left: 50%; transform: translateX(-50%);">82.70</div>
+                            
+                            <div class="dimension-line" style="width: 1px; height: 30px; top: 150px; left: 20px;"></div>
+                            <div class="dimension-line" style="width: 30px; height: 1px; top: 165px; left: 20px;"></div>
+                            <div class="dimension-text" style="top: 150px; left: 30px;">37.50</div>
+                        </div>
                     </div>
-                    <p class="preview-caption">Vista previa del logo Yin-Yang a diseñar</p>
+                    <p class="preview-caption">Vista previa de la estructura concéntrica a diseñar</p>
                 </div>
                 
                 <div class="note">
-                    <strong>Dimensión de referencia:</strong> Asumiremos que el radio del círculo exterior es de 100 unidades.
+                    <strong>Dimensión de referencia:</strong> El cuadrado exterior mide 82.70 x 82.70 unidades.
                 </div>
+                
+                <table class="dimension-table">
+                    <tr>
+                        <th>Elemento</th>
+                        <th>Dimensión</th>
+                        <th>Grosor de línea</th>
+                    </tr>
+                    <tr>
+                        <td>Cuadrado Exterior</td>
+                        <td>82.70 x 82.70</td>
+                        <td>0.75</td>
+                    </tr>
+                    <tr>
+                        <td>Rombo Exterior</td>
+                        <td>Vértices en puntos medios</td>
+                        <td>0.75</td>
+                    </tr>
+                    <tr>
+                        <td>Rombo Intermedio</td>
+                        <td>Ancho: 30.00</td>
+                        <td>0.20</td>
+                    </tr>
+                    <tr>
+                        <td>Rombo Interior</td>
+                        <td>Ancho: 15.00</td>
+                        <td>0.15</td>
+                    </tr>
+                    <tr>
+                        <td>Desfase de Círculo</td>
+                        <td>0.40</td>
+                        <td>-</td>
+                    </tr>
+                </table>
             </div>
         </div>
         
         <div class="exercise">
-            <h2><i class="fas fa-tools"></i> Preparación y Ejes de Simetría</h2>
+            <h2><i class="fas fa-tools"></i> Preparación y Dibujo del Contorno</h2>
             <div class="exercise-content">
                 <div class="step">
-                    <h3>1. Configuración de Capas</h3>
-                    <p>1. Crea las siguientes capas para organizar tu trabajo:</p>
+                    <h3>1. Configuración Inicial</h3>
+                    <p>Antes de comenzar, asegúrate de tener activado el modo <strong>Orto</strong> (presiona F8) y que estás trabajando en la capa '0' o 'Contorno'.</p>
+                    
+                    <div class="tip">
+                        <strong>Consejo:</strong> Usa el comando <span class="command">LA</span> para abrir el Administrador de propiedades de capa y verifica que estés en la capa correcta.
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <h3>2. Dibujar el Cuadrado Exterior</h3>
+                    <p>1. Activa el comando <span class="command">RECTANG</span> (o escribe <span class="command">REC</span>).</p>
+                    <p>2. Especifica el primer punto en las coordenadas: <span class="command">0,0</span></p>
+                    <p>3. Para las dimensiones, escribe: <span class="command">@82.70,82.70</span></p>
+                    
+                    <div class="note">
+                        <strong>Nota:</strong> Este cuadrado servirá como límite del dibujo.
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <h3>3. Dibujar el Rombo Exterior</h3>
+                    <p>1. Activa el comando <span class="command">POLILINEA</span> (o escribe <span class="command">PL</span>).</p>
+                    <!-- <p>2. Establece el grosor de línea escribiendo <span class="command">W</span> (Ancho) y luego <span class="command">0.75</span> para ambos, ancho inicial y final.</p> -->
+                    <!-- <p>3. Dibuja el rombo uniendo los puntos medios de cada lado del cuadrado:</p> -->
                     <ul>
-                        <li><span class="command">0_EJES</span> (Color Rojo, para guías, no ploteable)</li>
-                        <li><span class="command">1_CONTORNO</span> (Color Blanco, para el dibujo final)</li>
+                        <li>Primer punto: <span class="command">41.35,82.70</span> (punto medio superior)</li>
+                        <li>Segundo punto: <span class="command">82.70,41.35</span> (punto medio derecho)</li>
+                        <li>Tercer punto: <span class="command">41.35,0</span> (punto medio inferior)</li>
+                        <li>Cuarto punto: <span class="command">0,41.35</span> (punto medio izquierdo)</li>
+                        <li>Para cerrar la polilínea, escribe <span class="command">C</span> y presiona Enter.</li>
                     </ul>
-                    <p>Comando: <span class="command">(LAYER)</span> → Presiona el botón "Nueva Capa" → Ingresa el nombre → Establece el color → Repite para la segunda capa</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="exercise">
+            <h2><i class="fas fa-draw-polygon"></i> Trazado de Círculos de Referencia</h2>
+            <div class="exercise-content">
+                <div class="step">
+                    <h3>1. Dibujar el Círculo Interior</h3>
+                    <p>1. Activa el comando <span class="command">CIRCULO</span> (o escribe <span class="command">C</span>).</p>
+                    <p>2. Especifica el centro en: <span class="command">41.35,41.35</span> (centro del cuadrado).</p>
+                    <p>3. Para el radio, ingresa: <span class="command">22.50</span></p>
                 </div>
                 
                 <div class="step">
-                    <h3>2. Creación de Ejes de Referencia</h3>
-                    <p>1. Activa la capa <span class="command">0_EJES</span> haciendo clic en ella en el Administrador de Propiedades de Capa.</p>
-                    <p>2. Dibuja una línea vertical y una horizontal que se crucen en el origen (0,0):</p>
-                    <p>Comando: <span class="command">LINE</span> → <span class="command">-10,0</span> → <span class="command">10,0</span> → Enter</p>
-                    <p>Comando: <span class="command">LINE</span> → <span class="command">0,-10</span> → <span class="command">0,10</span> → Enter</p>
+                    <h3>2. Crear el Círculo Verde</h3>
+                    <p>1. Activa el comando <span class="command">CIRCULO</span> nuevamente.</p>
+                    <p>2. Usa el mismo centro: <span class="command">41.35,41.35</span></p>
+                    <p>3. Para el radio, ingresa: <span class="command">37.50</span></p>
+                </div>
+                
+                <div class="step">
+                    <h3>3. Crear el Círculo Azul (usando DESFASE)</h3>
+                    <p>1. Activa el comando <span class="command">DESFASE</span> .</p>
+                    <p>2. Especifica la distancia de desfase: <span class="command">0.40</span></p>
+                    <p>3. Selecciona el círculo verde (R=37.50).</p>
+                    <p>4. Haz clic en el exterior del círculo para crear el círculo azul (R=37.90).</p>
                     
                     <div class="tip">
-                        <strong>Consejo:</strong> Usa el comando <span class="command">ZOOM</span> → <span class="command">E</span> (Extensión) para ajustar la vista y ver los ejes completos.
+                        <strong>Consejo:</strong> El comando DESFASE (OFFSET) es ideal para crear copias paralelas de objetos a una distancia específica.
                     </div>
                 </div>
             </div>
         </div>
         
         <div class="exercise">
-            <h2><i class="fas fa-draw-polygon"></i> Construcción del Círculo Principal</h2>
+            <h2><i class="fas fa-vector-square"></i> Dibujo de Rombos Interiores</h2>
             <div class="exercise-content">
                 <div class="step">
-                    <h3>1. Dibujar el Círculo Exterior</h3>
-                    <p>1. Activa la capa <span class="command">1_CONTORNO</span>.</p>
-                    <p>2. Dibuja un círculo con centro en el origen (0,0) y radio de 100 unidades:</p>
-                    <p>Comando: <span class="command">circulo(_CIRCLE)</span> → <span class="command">0,0</span> → <span class="command">100</span></p>
-                    
-                    <div class="note">
-                        <strong>Nota:</strong> Asegúrate de que la opción de Referencia a Objetos (OSNAP) esté activada para facilitar la selección de puntos precisos.
-                    </div>
-                </div>
-                
-                <div class="step">
-                    <h3>2. Crear la Línea de División</h3>
-                    <p>1. Dibuja una línea horizontal que divida el círculo en dos mitades iguales:</p>
-                    <p>Comando: <span class="command">linea(_LINE)</span> → <span class="command">-100,0</span> → <span class="command">100,0</span> → Enter</p>
-                    
-                    <div class="tip">
-                        <strong>Consejo:</strong> Usa el comando <span class="command">recorta(_TRIM)</span> para recortar la mitad inferior del círculo si es necesario.
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="exercise">
-            <h2><i class="fas fa-magic"></i> Creación de las Formas Curvas</h2>
-            <div class="exercise-content">
-                <div class="step">
-                    <h3>1. Dibujar los Arcos Internos</h3>
-                    <p>1. Usa el comando <span class="command">ARC</span> para crear las curvas características del Yin-Yang:</p>
-                    <p>Comando: <span class="command">ARC</span> → <span class="command">0,0</span> → <span class="command">F</span> (para punto final) → <span class="command">100,0</span> → <span class="command">U</span> (para ángulo) → <span class="command">180</span></p>
-                    
-                    <div class="note">
-                        <strong>Nota:</strong> Este comando crea un arco de 180 grados desde (0,0) hasta (100,0) con radio 50.
-                    </div>
-                </div>
-                
-                <div class="step">
-                    <h3>2. Completar las Formas</h3>
-                    <p>1. Usa el comando <span class="command">SIMETRIA(_MIRROR)</span> para reflejar el arco:</p>
-                    <p>Comando: <span class="command">SIMETRIA(_MIRROR)</span> → Selecciona el arco → Enter → <span class="command">0,0</span> → <span class="command">0,10</span> → <span class="command">N</span> (No borrar objetos originales)</p>
-                    <p>Comando: <span class="command">SIMETRIA(_MIRROR)</span> → Selecciona el primer arco → Enter → <span class="command">0,0</span> → <span class="command">10,0</span> → <span class="command">s</span> (borrar objetos originales)</p>
-                    <p>Comando: <span class="command">SIMETRIA(_MIRROR)</span> → Selecciona los 2 arcos → Enter → <span class="command">0,0</span> → <span class="command">10,-10</span> → <span class="command">s</span> (borrar objetos originales)</p>
-                    
-                    <div class="tip">
-                        <strong>Consejo:</strong> Usa el comando <span class="command">PEDIT</span> para unir los arcos y crear una polilínea cerrada.
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="exercise">
-            <h2><i class="fas fa-chart-pie"></i> Añadir los Círculos Interiores</h2>
-            <div class="exercise-content">
-                <div class="step">
-                    <h3>1. Dibujar los Círculos Pequeños</h3>
-                    <p>1. Crea dos círculos más pequeños en las posiciones superiores e inferiores:</p>
-                    <p>Comando: <span class="command">CIRCLE</span> → <span class="command">0,50</span> → <span class="command">15</span></p>
-                    <p>Comando: <span class="command">CIRCLE</span> → <span class="command">0,-50</span> → <span class="command">15</span></p>
-                    
-                    <div class="note">
-                        <strong>Nota:</strong> Estos círculos representan los puntos en el símbolo Yin-Yang.
-                    </div>
-                </div>
-                
-                <div class="step">
-                    <h3>2. Aplicar Sombreado</h3>
-                    <p>1. Usa el comando <span class="command">sombrea(_HATCH)</span> para rellenar las áreas:</p>
+                    <h3>1. Dibujar el Rombo Intermedio</h3>
+                    <p>1. Activa el comando <span class="command">POLILINEA</span> (o escribe <span class="command">PL</span>).</p>
+                    <!-- <p>2. Establece el grosor de línea escribiendo <span class="command">W</span> y luego <span class="command">0.20</span> para ambos, ancho inicial y final.</p>
+                    <p>3. Dibuja el rombo con los siguientes vértices:</p> -->
                     <ul>
-                        <li>Selecciona el patrón <span class="command">SOLIDO</span></li>
-                        <li>Elige el color negro para la mitad superior</li>
-                        <li>Selecciona las áreas a rellenar</li>
+                        <li>Primer punto: <span class="command">78.85,41.35</span> (derecho)</li>
+                        <li>Segundo punto: <span class="command">41.35,78.85</span> (superior)</li>
+                        <li>Tercer punto: <span class="command">3.85,41.35</span> (izquierdo)</li>
+                        <li>Cuarto punto: <span class="command">41.35,3.85</span> (inferior)</li>
+                        <li>Cierra la polilínea con <span class="command">C</span>.</li>
+                    </ul>
+                </div>
+                
+                <div class="step">
+                    <h3>2. Dibujar el Rombo Interior</h3>
+                    <p>1. Activa el comando <span class="command">POLILINEA</span> (o escribe <span class="command">PL</span>).</p>
+                    <!-- <p>2. Establece el grosor de línea escribiendo <span class="command">W</span> y luego <span class="command">0.15</span> para ambos, ancho inicial y final.</p>
+                    <p>3. Dibuja el rombo con los siguientes vértices:</p> -->
+                    <ul>
+                        <li>Primer punto: <span class="command">56.35,41.35</span> (derecho)</li>
+                        <li>Segundo punto: <span class="command">41.35,63.85</span> (superior)</li>
+                        <li>Tercer punto: <span class="command">26.35,41.35</span> (izquierdo)</li>
+                        <li>Cuarto punto: <span class="command">41.35,18.85</span> (inferior)</li>
+                        <li>Cierra la polilínea con <span class="command">C</span>.</li>
                     </ul>
                     
-                    <div class="tip">
-                        <strong>Consejo:</strong> Usa el comando <span class="command">HATCHEDIT</span> para modificar el sombreado si es necesario.
+                    <div class="note">
+                        <strong>Nota:</strong> Este es el rombo rojo con un ancho de 30.00 unidades (15.00 a cada lado del centro).
                     </div>
                 </div>
             </div>
@@ -633,34 +701,45 @@
             <h2><i class="fas fa-tasks"></i> Ejercicios Prácticos</h2>
             <div class="exercise-content">
                 <div class="challenge">
-                    <h3>Ejercicio 1: Modificar las Dimensiones</h3>
-                    <p>Intenta recrear el logo con un radio de 150 unidades en lugar de 100. Asegúrate de que todas las proporciones se mantengan iguales.</p>
+                    <h3>Ejercicio 1: Modificar Dimensiones</h3>
+                    <p>Recrea el mismo diseño pero con un cuadrado exterior de 100x100 unidades. Ajusta proporcionalmente todas las demás dimensiones.</p>
                     <button class="btn" onclick="toggleSolution('solution1')"><i class="fas fa-lightbulb"></i> Mostrar Solución</button>
                     <div id="solution1" class="solution">
-                        <p>1. Usa el comando <span class="command">SCALE</span> para escalar todo el dibujo por un factor de 1.5 (150/100).</p>
-                        <p>2. Ajusta manualmente cualquier elemento que no se haya escalado correctamente.</p>
+                        <p>1. Calcula el factor de escala: 100/82.70 ≈ 1.2092</p>
+                        <p>2. Multiplica todas las dimensiones por este factor:</p>
+                        <ul>
+                            <li>Nuevo radio del círculo interior: 22.50 × 1.2092 ≈ 27.21</li>
+                            <li>Nuevo radio del círculo verde: 37.50 × 1.2092 ≈ 45.35</li>
+                            <li>Nuevo desfase: 0.40 × 1.2092 ≈ 0.48</li>
+                            <li>Ajusta las coordenadas de los vértices de los rombos proporcionalmente</li>
+                        </ul>
                     </div>
                 </div>
                 
                 <div class="challenge">
-                    <h3>Ejercicio 2: Cambiar los Colores</h3>
-                    <p>Crea una versión invertida del logo (blanco sobre negro) y guárdala como un nuevo archivo.</p>
+                    <h3>Ejercicio 2: Cambiar Grosores de Línea</h3>
+                    <p>Crea una versión del dibujo donde los grosores de línea sean el doble de los originales. ¿Qué comando usarías para hacer este cambio rápidamente?</p>
                     <button class="btn" onclick="toggleSolution('solution2')"><i class="fas fa-lightbulb"></i> Mostrar Solución</button>
                     <div id="solution2" class="solution">
-                        <p>1. Usa el comando <span class="command">HATCHEDIT</span> para cambiar los colores del sombreado.</p>
-                        <p>2. Alternativamente, usa <span class="command">PROPERTIES</span> para modificar las propiedades de los objetos.</p>
+                        <p>1. Usa el comando <span class="command">EDIPOL</span> (Editar polilínea).</p>
+                        <p>2. Selecciona una polilínea.</p>
+                        <p>3. Escribe <span class="command">G</span> para cambiar el ancho.</p>
+                        <p>4. Ingresa el nuevo valor (por ejemplo, 1.50 para la línea).</p>
+                        <p>5. Repite para las demás polilíneas o usa <span class="command">COPIARPROP</span> para copiar propiedades.</p>
                     </div>
                 </div>
                 
                 <div class="challenge">
-                    <h3>Reto Final: Añadir Texto</h3>
-                    <p>Agrega el texto "Yin-Yang" debajo del logo, utilizando una fuente adecuada y centrada.</p>
+                    <h3>Reto Final: Crear un Patrón</h3>
+                    <p>Crea un patrón repetitivo usando el diseño del rombo concéntrico. Usa el comando ARRAY para distribuirlo en una cuadrícula de 3x3.</p>
                     <button class="btn" onclick="toggleSolution('solution3')"><i class="fas fa-lightbulb"></i> Mostrar Solución</button>
                     <div id="solution3" class="solution">
-                        <p>1. Usa el comando <span class="command">TEXT</span> o <span class="command">MTEXT</span>.</p>
-                        <p>2. Especifica el punto de inserción debajo del logo.</p>
-                        <p>3. Selecciona la fuente y el tamaño apropiados.</p>
-                        <p>4. Usa <span class="command">JUSTIFYTEXT</span> para centrar el texto si es necesario.</p>
+                        <p>1. Selecciona todos los elementos del dibujo.</p>
+                        <p>2. Activa el comando <span class="command">MATRIZ</span> (o escribe <span class="command">MA</span>).</p>
+                        <p>3. Selecciona la opción de <strong>Matriz rectangular</strong>(o escribe <span class="command">R</span>).</p>
+                        <p>4. Especifica 3 filas.(escribe <span class="command">F</span> y <span class="command">3</span> Y<span class="command">100</span> Y <span class="command">Enter</span>)</p>
+                        <p>5. Especifica 3 columnas.(escribe <span class="command">C</span> y <span class="command">3</span> Y<span class="command">100</span> Y <span class="command">Enter</span>)</p>
+                        <p>6. Presiona <span class="command">Enter</span> para terminar.</p>
                     </div>
                 </div>
             </div>
@@ -670,24 +749,25 @@
             <h2><i class="fas fa-question-circle"></i> Preguntas Frecuentes</h2>
             <div class="exercise-content">
                 <details>
-                    <summary>¿Cómo puedo asegurarme de que mi dibujo sea simétrico?</summary>
-                    <p>Usa los ejes de referencia y la herramienta <span class="command">MIRROR</span> para garantizar la simetría. También puedes activar la opción de Referencia a Objetos (OSNAP) para mayor precisión.</p>
+                    <summary>¿Cómo puedo verificar que mis dimensiones son correctas?</summary>
+                    <p>Usa el comando <span class="command">DIST</span> para medir distancias entre puntos. También puedes usar <span class="command">LIST</span> en un objeto para ver sus propiedades, incluyendo dimensiones y grosores.</p>
                 </details>
                 
                 <details>
-                    <summary>¿Qué hago si el sombreado no se aplica correctamente?</summary>
-                    <p>Asegúrate de que las áreas estén completamente cerradas. Puedes usar el comando <span class="command">BOUNDARY</span> para crear un límite cerrado si es necesario.</p>
+                    <summary>¿Qué hago si no veo los grosores de línea en mi dibujo?</summary>
+                    <p>Activa el botón <strong>LWT</strong> (LineWeight Toggle) en la barra de estado inferior de AutoCAD. También puedes ajustar la visualización de grosores con el comando <span class="command">LWDISPLAY</span>.</p>
                 </details>
                 
                 <details>
-                    <summary>¿Cómo guardo mi diseño para compartirlo?</summary>
-                    <p>Usa el comando <span class="command">SAVEAS</span> y selecciona el formato adecuado (DWG para edición futura, PDF o JPG para compartir).</p>
+                    <summary>¿Cómo puedo guardar mi diseño con diferentes grosores de línea?</summary>
+                    <p>Usa el comando <span class="command">PLOT</span> para configurar la impresión. En el cuadro de diálogo, asegúrate de que la opción "Plot with lineweights" esté activada. También puedes asignar colores específicos a grosores de línea en la pestaña "Plot Style Table" (monitor).</p>
                 </details>
             </div>
         </div>
         
-        <div style="text-align: center;">
-            <a href="../index.html" class="btn"><i class="fas fa-arrow-left"></i> Volver al Menú Principal</a>
+        <div style="text-align: center; margin: 2rem 0;">
+            <a href="index.html" class="btn"><i class="fas fa-home"></i> Volver al Menú Principal</a>
+            <a href="ejercicio_logo_yin_yang.html" class="btn btn-outline"><i class="fas fa-arrow-right"></i> Siguiente Ejercicio</a>
         </div>
         
         <footer>
@@ -724,17 +804,21 @@
             if (solution.style.display === 'block') {
                 solution.style.display = 'none';
             } else {
+                // Cerrar todas las soluciones primero
+                document.querySelectorAll('.solution').forEach(sol => {
+                    sol.style.display = 'none';
+                });
+                // Mostrar la solución seleccionada
                 solution.style.display = 'block';
             }
         }
         
         // Cerrar soluciones al hacer clic fuera de ellas
         document.addEventListener('click', function(event) {
-            if (!event.target.matches('.btn')) {
-                const solutions = document.getElementsByClassName('solution');
-                for (let i = 0; i < solutions.length; i++) {
-                    solutions[i].style.display = 'none';
-                }
+            if (!event.target.matches('.btn') && !event.target.closest('.solution')) {
+                document.querySelectorAll('.solution').forEach(solution => {
+                    solution.style.display = 'none';
+                });
             }
         });
         

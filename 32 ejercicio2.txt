@@ -1,0 +1,76 @@
+==================================================
+EJERCICIO NO. 4 ROMBO: ESTRUCTURA CONCÉNTRICA
+==================================================
+
+OBJETIVO: Dibujar los tres rombos/cuadrados principales y los círculos de referencia, aplicando grosores (espesores) de polilínea según las dimensiones dadas.
+
+DIMENSIONES CLAVE:
+* Cuadrado Exterior (Límites): 82.70 x 82.70 [cite: 2]
+* Rombo Interior (Red): 30.00 de ancho [cite: 7] (distancia horizontal entre vértices).
+* Desfase de Círculo (Verde a Azul): 0.40 [cite: 18]
+
+COMANDOS A UTILIZAR: LINEA (L), RECTANG (REC), POLILINEA (PL), DESFASE (OFFSET, O)[cite: 10, 15, 16, 11].
+
+--------------------------------------------------
+I. PREPARACIÓN Y DIBUJO DEL CONTORNO GENERAL
+--------------------------------------------------
+
+1.  **Configuración (Opcional):** Asegúrate de que tu modo **Orto** (F8) esté activado y que la capa actual sea '0' o 'Contorno'.
+2.  **Cuadrado Exterior (REC):**
+    * Activa **REC** (Rectang).
+    * Primer punto: **0,0** (o un punto base conveniente).
+    * Escribe **@82.70, 82.70** (o usa **D** para Dimensiones: 82.70 y 82.70)[cite: 2].
+    * **Nota:** Este es el límite del dibujo.
+
+3.  **Rombo Exterior (PL):**
+    * Activa **PL** (Polilínea).
+    * Aplica el grosor de línea inicial: Escribe **W** (Ancho/Width), y establece **0.75** como ancho inicial y final[cite: 24].
+    * Dibuja el rombo uniendo los puntos medios de cada lado del cuadrado de 82.70.
+    * (Puntos medios del cuadrado: **(41.35, 82.70)**, **(82.70, 41.35)**, **(41.35, 0)**, **(0, 41.35)**).
+    * Cierra la polilínea (**C**).
+
+--------------------------------------------------
+II. TRAZADO DE CÍRCULOS DE REFERENCIA
+--------------------------------------------------
+
+4.  **Círculo Interior (C):**
+    * Activa **C** (Círculo).
+    * Centro: **(41.35, 41.35)** (Centro del cuadrado).
+    * El círculo pasa por los vértices del rombo más interior. El dibujo indica una distancia de 22.50 [cite: 4] desde el centro. Por simetría, la distancia del centro al vértice del primer rombo interior es clave.
+    * El rombo exterior pasa por los puntos medios, que están a 41.35 unidades.
+
+5.  **Cálculo de Círculo Verde:** El círculo verde se alinea con el rombo intermedio, a 37.50 unidades del centro en X[cite: 20]. El centro está en 41.35. $41.35 - 37.50 = 3.85$.
+    * Sin embargo, si tomamos el centro en **0,0** para simplificar: El radio es **37.50**[cite: 20].
+    * Activa **C**. Centro: **(41.35, 41.35)**. Radio: **37.50**[cite: 20]. (Este es el círculo verde).
+
+6.  **Círculo Azul (OFFSET, O):**
+    * Activa **O** (Offset).
+    * Distancia: **0.40**[cite: 18].
+    * Selecciona el círculo verde (R=37.50).
+    * Haz clic en el exterior para crear el círculo azul (R=37.90)[cite: 18].
+
+--------------------------------------------------
+III. DIBUJO DE ROMBOS INTERIORES Y GROSORES
+--------------------------------------------------
+
+7.  **Rombo Intermedio (PL, Espesor 0.20):** (Este es el rombo que toca los círculos)
+    * Activa **PL** (Polilínea).
+    * Aplica el grosor: Escribe **W**, y establece **0.20** como ancho inicial y final[cite: 21].
+    * Este rombo tiene vértices en X = 37.50 [cite: 20] (respecto al centro de 41.35) y Y = 61.59 [cite: 23] (en la parte superior).
+    * Puntos (respecto al origen 0,0): **(41.35+37.50, 41.35)**; **(41.35, 41.35+37.50)**; **(41.35-37.50, 41.35)**; **(41.35, 41.35-37.50)**.
+    * Dibuja el rombo uniendo estos vértices. Cierra la polilínea (**C**).
+
+8.  **Rombo Interior (PL, Espesor 0.15):** (El rombo rojo con 30.00 de ancho [cite: 7]).
+    * Activa **PL** (Polilínea).
+    * Aplica el grosor: Escribe **W**, y establece **0.15** como ancho inicial y final[cite: 6].
+    * Este rombo tiene vértices a 15.00 [cite: 9] unidades a cada lado del centro (41.35, 41.35) en X, y 22.50 [cite: 4] en Y (respecto al centro).
+    * Puntos (respecto al origen 0,0): **(41.35+15, 41.35)**; **(41.35, 41.35+22.50)**; **(41.35-15, 41.35)**; **(41.35, 41.35-22.50)**.
+    * Dibuja el rombo uniendo estos vértices. Cierra la polilínea (**C**).
+
+--------------------------------------------------
+IV. EXCLUSIÓN Y LIMPIEZA FINAL
+--------------------------------------------------
+
+9.  **Exclusión del Centro:** El ejercicio finaliza aquí, ya que el centro del triángulo/rombo más pequeño que contiene los círculos concéntricos [cite: 1] está excluido de la práctica.
+
+10. **Comprobar Grosores:** Utiliza la paleta **PROPIEDADES (PR)** para verificar que las polilíneas tengan los grosores de línea correctos (0.75, 0.20, 0.15)[cite: 24, 21, 6].
