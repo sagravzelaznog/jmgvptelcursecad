@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Portal de Acceso - Genio Fullstack</title>
+    <style>
+        body { font-family: 'Courier New', monospace; background: #1a1a1a; color: #00ff00; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; }
+        .card { border: 2px solid #00ff00; padding: 2rem; border-radius: 10px; text-align: center; }
+        button { background: #00ff00; color: #000; border: none; padding: 10px 20px; font-weight: bold; cursor: pointer; margin-top: 10px; font-size: 16px; }
+        button:hover { background: #fff; }
+        input { padding: 10px; width: 80%; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h2>🔐 GENIO DISPATCHER</h2>
+    <p>Estado: <span id="status">Desconectado</span></p>
+    
+    <button id="btnLogin" onclick="login()">1. Iniciar Sesión con Google</button>
+    
+    <hr style="border-color: #004400; width: 100%; margin: 20px 0;">
+
+    <p>Destino: https://jgvmptelcursecad.netlify.app</p>
+    <button id="btnGo" onclick="irAlCurso()" disabled>2. GENERAR PASE Y ENTRAR</button>
+</div>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+    // --- ⚠️ PEGA AQUÍ TU CONFIGURACIÓN DE FIREBASE ---
+    const firebaseConfig = {
+  apiKey: "AIzaSyC08vUkWdQ9Ad3PaXS0uZ0yu_EWWBaq-aQ",
+  authDomain: "acceso-a-cursos-4a314.firebaseapp.com",
+  projectId: "acceso-a-cursos-4a314",
+  storageBucket: "acceso-a-cursos-4a314.firebasestorage.app",
+  messagingSenderId: "851856735092",
+  appId: "1:851856735092:web:15f5abb5466f15f84c4a21",
+  measurementId: "G-P6N9W3TP7M"
+    };
+    // ------------------------------------------------
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth();
+    const provider = new GoogleAuthProvider();
+
+    // Variable global para usar en las funciones
+    window.auth = auth;
+    window.provider = provider;
+    window.signInWithPopup = signInWithPopup;
+
+    // Escuchar cambios de sesión
+    onAuthStateChanged(auth, (user) => {
+        const status = document.getElementById("status");
+        const btnGo = document.getElementById("btnGo");
+        
+        if (user) {
+            status.innerText = `Conectado como: ${user.email}`;
+            btnGo.disabled = false;
+            btnGo.style.opacity = "1";
+        } else {
+            status.innerText = "Desconectado";
+            btnGo.disabled = true;
+            btnGo.style.opacity = "0.5";
+        }
+    });
+</script>
+
+<script>
+    // Lógica de Negocio
+    async function login() {
+        try {
+            await window.signInWithPopup(window.auth, window.provider);
+        } catch (error) {
+            alert("Error login: " + error.message);
+        }
+    }
+
+    async function irAlCurso() {
+        const user = window.auth.currentUser;
+        if (!user) return alert("No hay usuario");
+
+        // 1. OBTENER TOKEN ACTUALIZADO
+        // true fuerza a refrescar para traer los últimos 'claims' (roles)
+        const token = await user.getIdToken(true); 
+
+        // 2. CONSTRUIR URL DEL CURSO EN NETLIFY
+        const baseUrl = "https://jgvmptelcursecad.netlify.app";
+        
+        // 3. ADJUNTAR EL TOKEN COMO PASE DE ABORDAR
+        const finalUrl = `${baseUrl}?t=${token}`;
+
+        console.log("Viajando a:", finalUrl);
+        
+        // 4. DESPEGUE
+        window.location.href = finalUrl;
+    }
+</script>
+
+</body>
+</html>

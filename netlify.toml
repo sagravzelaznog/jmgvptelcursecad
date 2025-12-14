@@ -1,0 +1,17 @@
+# netlify.toml
+
+# Definimos que vamos a usar Edge Functions
+[build]
+  edge_functions = "netlify/edge-functions"
+
+# --- REGLA DEL PORTERO ---
+# Esto le dice a Netlify: "Para cualquier ruta del sitio (/*),
+# ejecuta primero la función llamada 'guardian' antes de mostrar el HTML".
+[[edge_functions]]
+  function = "guardian"
+  path = "/*"
+  
+  # EXCEPCIÓN (Opcional pero recomendada):
+  # Si tienes una página de login pública DENTRO de este mismo sitio,
+  # o archivos estáticos como imágenes/css que no quieres bloquear,
+  # puedes excluirlos. Por ahora, bloquearemos TODO.

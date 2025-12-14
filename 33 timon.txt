@@ -1,0 +1,64 @@
+==================================================
+EJERCICIO: EXAMEN NO. 3 - TIMÓN (RUEDA DE RADIOS)
+==================================================
+
+OBJETIVO: Recrear la rueda de timón utilizando un módulo de radio y replicándolo 16 veces mediante una matriz polar.
+
+DIMENSIONES CLAVE: Todas las dimensiones son radiales y angulares respecto al origen (0,0).
+
+--------------------------------------------------
+I. CREACIÓN DEL NÚCLEO CENTRAL (CENTRO DEL TIMÓN)
+--------------------------------------------------
+
+1.  **CAPAS:** Crea una capa de trabajo (Ej: 'Contorno') con Color Blanco.
+2.  **Círculo Interior (C):** Dibuja el círculo base para los radios.
+    * Activa **C** (Círculo). Centro: **0,0**. [cite_start]Radio: **R2.00**[cite: 43].
+3.  **Círculo de Referencia (C):**
+    * Activa **C**. Centro: **0,0**. [cite_start]Radio: **R5.00**[cite: 39].
+4.  **Aro Interior (C y OFFSET):** Dibuja el aro donde se apoyan los radios.
+    * [cite_start]Dibuja un círculo de **Radio 12.40**[cite: 44]. Centro: **0,0**.
+    * [cite_start]Aplica **OFFSET (O)** al círculo de R12.40 con distancia **1.00** [cite: 40] hacia el exterior. (Círculo final de R13.40).
+
+--------------------------------------------------
+II. CREACIÓN DEL MÓDULO DE RADIO (HASTA EL ARO EXTERIOR)
+--------------------------------------------------
+
+5.  **Polilínea del Radio (PL):** Dibuja el cuerpo del radio en la posición 0 grados.
+    * Activa **PL** (Polilínea).
+    * **Punto Base del Radio:** Comienza en el aro interior (Ej: **13.40, 0**).
+    * [cite_start]**Grosor (W):** La polilínea tiene un grosor de 0.50 [cite: 32] a lo largo del radio. Escribe **W**, Ancho Inicial: **0.50**, Ancho Final: **0.50**.
+    * [cite_start]**Extensión del Radio:** Dibuja la polilínea horizontalmente hasta la distancia 50.25[cite: 46]. El punto final es **50.25, 0**.
+
+6.  **Círculo Externo del Radio (C):** Dibuja el círculo base para la manija.
+    * Activa **C**. Centro: **50.25, 0**. [cite_start]Radio: **R14.40**[cite: 34].
+
+7.  **Forma de la Manija (PLINE W=0.60):** Crea la polilínea gruesa de la manija.
+    * Activa **PL**.
+    * [cite_start]**Grosor (W):** Escribe **W**, Ancho Inicial: **0.60**[cite: 31], Ancho Final: **0.60**.
+    * [cite_start]**Punto de Inicio de Manija:** El dibujo muestra que la manija comienza 0.30 [cite: 35] más allá del borde de R14.40. El punto de inicio es **50.25 + 14.40 + 0.30 = 64.95, 0**.
+    * [cite_start]**Extensión:** Dibuja la polilínea hasta el punto **12.00** [cite: 36] (longitud total del radio) [cite_start]+ **13.57** [cite: 37] de la manija (distancia que se extiende fuera del radio 50.25).
+    * El punto final es **50.25 + 13.57 = 63.82, 0**.
+
+8.  **Detalles de la Manija (C y RECORTA):** Dibuja los círculos y arcos de la manija.
+    * **Círculo R0.50 (Superior):** Activa **C**. [cite_start]Centro: **63.82, 0.50**[cite: 32, 45]. [cite_start]Radio: **R0.50**[cite: 30].
+    * **Círculo R0.80 (Inferior):** Activa **C**. Centro: **63.82, -0.50**. [cite_start]Radio: **R0.80**[cite: 29].
+    * **Línea de Conexión:** Conecta los cuadrantes de R0.50 y R0.80 con líneas.
+    * **Limpiar Excedentes (TR):** Usa **TR** (Recorta) para eliminar las partes internas de los círculos que están dentro de la línea de conexión, dejando la forma de "hueso" de la manija.
+
+--------------------------------------------------
+III. REPLICACIÓN CON MATRIZ POLAR (ARRAYPOLAR)
+--------------------------------------------------
+
+9.  **Seleccionar Módulo:** Selecciona TODAS las entidades dibujadas del módulo de radio y manija (pasos 5 a 8).
+10. **Activar Matriz Polar (ARRAYPOLAR, AR):** Escribe **AR** (Array).
+11. **Tipo de Matriz:** Selecciona **Polar**.
+12. **Centro de la Matriz:** Especifica el centro **0,0**.
+13. **Cantidad de Elementos:** El dibujo muestra 16 radios. Ingresa **16** como número de ítems.
+14. **Ejecutar:** Finaliza la matriz.
+
+--------------------------------------------------
+IV. LIMPIEZA FINAL DEL TIMÓN
+--------------------------------------------------
+
+15. **Aro Interior (Recorte):** Usa **RECORTA (TR)** para limpiar el aro interno (R12.40 y R13.40) en las áreas donde se superpone con los radios.
+16. **Eliminar Ejes:** Si utilizaste líneas de eje, elimínalas ahora.

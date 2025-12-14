@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio de Timón en AutoCAD</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #27ae60;
+            --accent-color: #e74c3c;
+            --light-bg: #f5f6fa;
+            --dark-text: #2c3e50;
+            --light-text: #ecf0f1;
+            --success-color: #27ae60;
+            --warning-color: #f39c12;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: var(--dark-text);
+            background-color: var(--light-bg);
+            padding: 0;
+            margin: 0;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-color), #1a252f);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            color: var(--light-text);
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .exercise {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            margin-bottom: 2.5rem;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .exercise:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+        }
+
+        .exercise h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.5rem;
+            color: white;
+            margin: 0;
+            padding: 1.5rem 2rem;
+            background: linear-gradient(135deg, var(--secondary-color), #2ecc71);
+            display: flex;
+            align-items: center;
+        }
+        
+        .exercise h2 i {
+            margin-right: 12px;
+            font-size: 1.3em;
+        }
+
+        .exercise-content {
+            padding: 1.5rem;
+        }
+
+        .step {
+            margin: 1.5rem 0;
+            padding: 1.5rem;
+            background: #f8f9fa;
+            border-left: 4px solid var(--secondary-color);
+            border-radius: 0 8px 8px 0;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .step:hover {
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transform: translateX(5px);
+        }
+
+        .command {
+            font-family: 'Courier New', monospace;
+            background: #2c3e50;
+            color: #f8f9fa;
+            padding: 0.3rem 0.6rem;
+            border-radius: 4px;
+            font-weight: 500;
+            font-size: 0.95rem;
+            display: inline-block;
+            margin: 0.2rem 0;
+            border-left: 3px solid var(--accent-color);
+        }
+
+        .preview {
+            text-align: center;
+            margin: 2rem 0;
+            padding: 2rem;
+            background: #f8f9fa;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            transition: all 0.3s ease;
+        }
+        
+        .preview:hover {
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+        }
+
+        .preview img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #eee;
+            border-radius: 4px;
+        }
+
+        .note, .tip, .challenge {
+            padding: 1.2rem 1.5rem;
+            margin: 1.8rem 0;
+            border-radius: 0 8px 8px 0;
+            position: relative;
+            line-height: 1.7;
+        }
+        
+        .note {
+            background-color: #e8f4f8;
+            border-left: 4px solid #3498db;
+        }
+        
+        .note::before {
+            content: 'ℹ️';
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .tip {
+            background-color: #fff8e6;
+            border-left: 4px solid #f1c40f;
+        }
+        
+        .tip::before {
+            content: '💡';
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .challenge {
+            background-color: #f9f0ff;
+            border-left: 4px solid #9b59b6;
+        }
+        
+        .challenge::before {
+            content: '🏆';
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            background: linear-gradient(135deg, var(--secondary-color), #2ecc71);
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 0.95rem;
+            margin: 0.5rem 0.5rem 0.5rem 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .btn i {
+            margin-right: 8px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            color: white;
+            text-decoration: none;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--secondary-color);
+            color: var(--secondary-color);
+        }
+
+        .solution {
+            display: none;
+            margin-top: 1rem;
+            padding: 1.2rem;
+            background: #f8f9fa;
+            border-radius: 4px;
+            border-left: 3px solid var(--success-color);
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        th {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 500;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .dimension-table {
+            width: 100%;
+            margin: 1.5rem 0;
+        }
+
+        .dimension-table th {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 10px;
+            text-align: left;
+        }
+
+        .dimension-table td {
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+
+        .dimension-table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 3rem 0 1.5rem;
+            margin-top: 4rem;
+            font-size: 0.9rem;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+            margin: 0 1rem 2rem;
+            text-align: left;
+        }
+        
+        .footer-section h3 {
+            color: white;
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 2px;
+            background: var(--secondary-color);
+        }
+        
+        .footer-section ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-section a {
+            color: #ecf0f1;
+            text-decoration: none;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+        }
+        
+        .footer-section a i {
+            margin-right: 8px;
+            color: var(--secondary-color);
+        }
+        
+        .footer-section a:hover {
+            color: var(--secondary-color);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 1rem;
+        }
+        
+        .social-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            transition: all 0.3s;
+            color: white;
+            text-decoration: none;
+        }
+        
+        .social-icon:hover {
+            background: var(--secondary-color);
+            transform: translateY(-3px);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            margin-top: 2rem;
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.7);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .exercise-header {
+                padding: 0.8rem 1rem;
+                font-size: 0.95rem;
+            }
+            
+            .exercise-content {
+                padding: 1rem;
+            }
+            
+            table {
+                display: block;
+                overflow-x: auto;
+            }
+            
+            .footer-section {
+                flex: 100%;
+                margin-bottom: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+            
+            .exercise-content {
+                padding: 0.8rem;
+            }
+            
+            .step, .note, .tip, .challenge {
+                padding: 1rem;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+                margin: 0.3rem 0;
+            }
+        }
+
+        /* Custom styles for the exercise */
+        .wheel-preview {
+            width: 100%;
+            max-width: 500px;
+            height: 500px;
+            margin: 20px auto;
+            border: 1px solid #ddd;
+            position: relative;
+            overflow: hidden;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .wheel-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .wheel {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            border: 2px solid #333;
+        }
+        
+        .wheel-rim {
+            width: 100px;
+            height: 100px;
+            border: 2px solid #27ae60;
+        }
+        
+        .wheel-spoke {
+            position: absolute;
+            width: 2px;
+            height: 200px;
+            background: #e74c3c;
+            top: 50%;
+            left: 50%;
+            transform-origin: center top;
+        }
+        
+        .wheel-handle {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: #3498db;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        .dimension-line {
+            position: absolute;
+            background: #333;
+        }
+        
+        .dimension-text {
+            position: absolute;
+            background: white;
+            padding: 2px 5px;
+            font-size: 12px;
+            border-radius: 3px;
+            border: 1px solid #ddd;
+        }
+        
+        .step-number {
+            display: inline-block;
+            background-color: var(--secondary-color);
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 24px;
+            font-weight: bold;
+            margin-right: 8px;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><i class="fas fa-ship"></i> Ejercicio de Timón en AutoCAD</h1>
+            <p class="subtitle">Aprende a crear una rueda de timón con matriz polar</p>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="intro">
+            <p>En este ejercicio, aprenderás a crear una rueda de timón utilizando un módulo de radio y replicándolo 16 veces mediante una matriz polar en AutoCAD.</p>
+        </div>
+        
+        <div class="exercise">
+            <h2><i class="fas fa-info-circle"></i> Objetivo del Ejercicio</h2>
+            <div class="exercise-content">
+                <p>Recrear la rueda de timón utilizando un módulo de radio y replicándolo 16 veces mediante una matriz polar.</p>
+                
+                <div class="preview">
+                    <div class="wheel-preview">
+                        <div class="wheel-container">
+                            <!-- Círculos concéntricos -->
+                            <div class="wheel" style="width: 100px; height: 100px;"></div>
+                            <div class="wheel" style="width: 200px; height: 200px;"></div>
+                            <div class="wheel" style="width: 300px; height: 300px;"></div>
+                            
+                            <!-- Radios -->
+                            <div class="wheel-spoke" style="transform: rotate(0deg);"></div>
+                            <div class="wheel-spoke" style="transform: rotate(22.5deg);"></div>
+                            <div class="wheel-spoke" style="transform: rotate(45deg);"></div>
+                            <div class="wheel-spoke" style="transform: rotate(67.5deg);"></div>
+                            <div class="wheel-spoke" style="transform: rotate(90deg);"></div>
+                            <div class="wheel-spoke" style="transform: rotate(112.5deg);"></div>
+                            <div class="wheel-spoke" style="transform: rotate(135deg);"></div>
+                            <div class="wheel-spoke" style="transform: rotate(157.5deg);"></div>
+                            
+                            <!-- Manijas -->
+                            <div class="wheel-handle" style="left: 250px;"></div>
+                        </div>
+                    </div>
+                    <p class="preview-caption">Vista previa de la rueda de timón a diseñar</p>
+                </div>
+                
+                <div class="note">
+                    <strong>Nota:</strong> El ejercicio se divide en cuatro secciones principales: creación del núcleo central, diseño del módulo de radio, replicación con matriz polar y limpieza final.
+                </div>
+                
+                <table class="dimension-table">
+                    <tr>
+                        <th>Elemento</th>
+                        <th>Dimensión</th>
+                        <th>Detalles</th>
+                    </tr>
+                    <tr>
+                        <td>Círculo Interior</td>
+                        <td>Radio: 2.00</td>
+                        <td>Base para los radios</td>
+                    </tr>
+                    <tr>
+                        <td>Círculo de Referencia</td>
+                        <td>Radio: 5.00</td>
+                        <td>Guía para el diseño</td>
+                    </tr>
+                    <tr>
+                        <td>Aro Interior</td>
+                        <td>Radio: 12.40</td>
+                        <td>Con DESFASE de 1.0     </tr>
+                    <tr>
+                        <td>Radio Principal</td>
+                        <td>Longitud: 50.25</td>
+                        <td>Grosor: 0.50</td>
+                    </tr>
+                    <tr>
+                        <td>Manija</td>
+                        <td>Extensión: 13.57</td>
+                        <td>Grosor: 0.60</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        
+        <div class="exercise">
+            <h2><i class="fas fa-tools"></i> Creación del Núcleo Central</h2>
+            <div class="exercise-content">
+                <div class="step">
+                    <h3>1. Configuración Inicial</h3>
+                    <p><span class="step-number">1</span> Crea una nueva capa llamada 'Contorno' con color blanco.</p>
+                    <p><span class="step-number">2</span> Asegúrate de que la capa 'Contorno' esté seleccionada como capa actual.</p>
+                    
+                    <div class="tip">
+                        <strong>Consejo:</strong> Usa el comando <span class="command">LA</span> para abrir el Administrador de propiedades de capa y verifica que estés en la capa correcta.
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <h3>2. Dibujar Círculos Base</h3>
+                    <p><span class="step-number">1</span> Activa el comando <span class="command">CIRCULO</span> (o escribe <span class="command">C</span>).</p>
+                    <p><span class="step-number">2</span> Especifica el centro en: <span class="command">0,0</span></p>
+                    <p><span class="step-number">3</span> Para el radio, ingresa: <span class="command">2.00</span></p>
+                    
+                    <p><span class="step-number">4</span> Repite el proceso para el círculo de referencia con radio <span class="command">5.00</span>.</p>
+                </div>
+                
+                <div class="step">
+                    <h3>3. Crear el Aro Interior</h3>
+                    <p><span class="step-number">1</span> Activa el comando <span class="command">CIRCULO</span>.</p>
+                    <p><span class="step-number">2</span> Centro: <span class="command">0,0</span></p>
+                    <p><span class="step-number">3</span> Radio: <span class="command">12.40</span></p>
+                    <p><span class="step-number">4</span> Aplica <span class="command">DESFASE</span>con distancia <span class="command">1.00</span> hacia el exterior.</p>
+                    
+                    <div class="note">
+                        <strong>Nota:</strong> El aro interior final tendrá un radio de 13.40 (12.40 + 1.00).
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="exercise">
+            <h2><i class="fas fa-pencil-ruler"></i> Creación del Módulo de Radio</h2>
+            <div class="exercise-content">
+                <div class="step">
+                    <h3>1. Dibujar el Cuerpo del Radio</h3>
+                    <p><span class="step-number">1</span> Activa el comando <span class="command">POLILINEA</span> (o escribe <span class="command">PL</span>).</p>
+                    <p><span class="step-number">2</span> Establece el grosor de línea escribiendo <span class="command">W</span> y luego <span class="command">0.50</span> para ambos, ancho inicial y final.</p>
+                    <p><span class="step-number">3</span> Punto inicial: <span class="command">13.40,0</span> (en el aro interior).</p>
+                    <p><span class="step-number">4</span> Punto final: <span class="command">50.25,0</span> (longitud total del radio).</p>
+                </div>
+                
+                <div class="step">
+                    <h3>2. Crear la Base de la Manija</h3>
+                    <p><span class="step-number">1</span> Activa el comando <span class="command">CIRCULO</span>.</p>
+                    <p><span class="step-number">2</span> Centro: <span class="command">50.25,0</span> (extremo del radio).</p>
+                    <p><span class="step-number">3</span> Radio: <span class="command">14.40</span>.</p>
+                </div>
+                
+                <div class="step">
+                    <h3>3. Dibujar la Manija</h3>
+                    <p><span class="step-number">1</span> Activa el comando <span class="command">POLILINEA</span>.</p>
+                    <p><span class="step-number">2</span> Establece el grosor de línea escribiendo <span class="command">W</span> y luego <span class="command">0.60</span> para ambos, ancho inicial y final.</p>
+                    <p><span class="step-number">3</span> Punto inicial: <span class="command">64.95,0</span> (50.25 + 14.40 + 0.30).</p>
+                    <p><span class="step-number">4</span> Punto final: <span class="command">63.82,0</span> (50.25 + 13.57).</p>
+                    
+                    <div class="tip">
+                        <strong>Consejo:</strong> La maniza se extiende 13.57 unidades desde el extremo del radio principal.
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <h3>4. Detalles de la Manija</h3>
+                    <p><span class="step-number">1</span> Activa el comando <span class="command">CIRCULO</span>.</p>
+                    <p><span class="step-number">2</span> Dibuja un círculo con centro en <span class="command">63.82,0.50</span> y radio <span class="command">0.50</span>.</p>
+                    <p><span class="step-number">3</span> Dibuja otro círculo con centro en <span class="command">63.82,-0.50</span> y radio <span class="command">0.80</span>.</p>
+                    <p><span class="step-number">4</span> Usa el comando <span class="command">LINEA</span> para conectar los cuadrantes de los círculos.</p>
+                    <p><span class="step-number">5</span> Usa <span class="command">TRIM</span> para limpiar las partes internas y dar forma de "hueso" a la manija.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="exercise">
+            <h2><i class="fas fa-clone"></i> Replicación con Matriz Polar</h2>
+            <div class="exercise-content">
+                <div class="step">
+                    <h3>1. Seleccionar el Módulo</h3>
+                    <p><span class="step-number">1</span> Selecciona TODAS las entidades del módulo de radio y manija que acabas de crear.</p>
+                    <p><span class="step-number">2</span> Asegúrate de no seleccionar los círculos del núcleo central.</p>
+                </div>
+                
+                <div class="step">
+                    <h3>2. Aplicar Matriz Polar</h3>
+                    <p><span class="step-number">1</span> Escribe <span class="command">ARRAYPOLAR</span> o haz clic en el botón de Matriz Polar en la cinta de opciones.</p>
+                    <p><span class="step-number">2</span> Especifica el punto central: <span class="command">0,0</span></p>
+                    <p><span class="step-number">3</span> Ingresa el número de elementos: <span class="command">16</span></p>
+                    <p><span class="step-number">4</span> Ángulo de relleno: <span class="command">360</span> grados.</p>
+                    <p><span class="step-number">5</span> Presiona Enter para completar la operación.</p>
+                    
+                    <div class="note">
+                        <strong>Nota:</strong> La matriz polar creará 16 copias del módulo de radio, distribuidas uniformemente en un círculo completo (360°).
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="exercise">
+            <h2><i class="fas fa-broom"></i> Limpieza Final</h2>
+            <div class="exercise-content">
+                <div class="step">
+                    <h3>1. Recortar el Aro Interior</h3>
+                    <p><span class="step-number">1</span> Activa el comando <span class="command">TRIM</span> (o escribe <span class="command">TR</span>).</p>
+                    <p><span class="step-number">2</span> Selecciona los radios como bordes de corte y presiona Enter.</p>
+                    <p><span class="step-number">3</span> Haz clic en las partes del aro interior que se superponen con los radios para eliminarlas.</p>
+                </div>
+                
+                <div class="step">
+                    <h3>2. Eliminar Elementos de Referencia</h3>
+                    <p><span class="step-number">1</span> Elimina el círculo de referencia (R5.00) si ya no lo necesitas.</p>
+                    <p><span class="step-number">2</span> Verifica que no queden líneas o elementos innecesarios.</p>
+                </div>
+                
+                <div class="tip">
+                    <strong>Consejo:</strong> Usa el comando <span class="command">PURGE</span> para eliminar elementos no utilizados y reducir el tamaño del archivo.
+                </div>
+            </div>
+        </div>
+        
+        <div class="exercise">
+            <h2><i class="fas fa-tasks"></i> Ejercicios Prácticos</h2>
+            <div class="exercise-content">
+                <div class="challenge">
+                    <h3>Ejercicio 1: Modificar Parámetros</h3>
+                    <p>Crea una versión del timón con 12 radios en lugar de 16. ¿Qué ángulo de separación deberías usar en la matriz polar?</p>
+                    <button class="btn" onclick="toggleSolution('solution1')"><i class="fas fa-lightbulb"></i> Mostrar Solución</button>
+                    <div id="solution1" class="solution">
+                        <p>Para 12 radios en un círculo completo (360°), cada radio debe estar separado por 30° (360° / 12 = 30°).</p>
+                        <ol>
+                            <li>Dibuja el módulo de radio como se explicó anteriormente.</li>
+                            <li>Usa <span class="command">ARRAYPOLAR</span> con 12 elementos.</li>
+                            <li>El ángulo de relleno debe ser 360°.</li>
+                        </ol>
+                    </div>
+                </div>
+                
+                <div class="challenge">
+                    <h3>Ejercicio 2: Cambiar Dimensiones</h3>
+                    <p>Diseña un timón con un radio exterior de 100 unidades. Calcula las nuevas dimensiones proporcionales para los demás elementos.</p>
+                    <button class="btn" onclick="toggleSolution('solution2')"><i class="fas fa-lightbulb"></i> Mostrar Solución</button>
+                    <div id="solution2" class="solution">
+                        <p>La relación de escala es 100/63.82 ≈ 1.5669</p>
+                        <ul>
+                            <li>Radio interior: 2.00 × 1.5669 ≈ 3.13</li>
+                            <li>Radio de referencia: 5.00 × 1.5669 ≈ 7.83</li>
+                            <li>Aro interior: 12.40 × 1.5669 ≈ 19.43</li>
+                            <li>Longitud del radio: 50.25 × 1.5669 ≈ 78.74</li>
+                            <li>Extensión de la manija: 13.57 × 1.5669 ≈ 21.26</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="challenge">
+                    <h3>Reto Final: Timón con Dos Anillos</h3>
+                    <p>Diseña un timón con dos anillos concéntricos de radios, donde el anillo exterior tenga 24 radios y el interior 12 radios que se alternen con los exteriores.</p>
+                    <button class="btn" onclick="toggleSolution('solution3')"><i class="fas fa-lightbulb"></i> Mostrar Solución</button>
+                    <div id="solution3" class="solution">
+                        <ol>
+                            <li>Crea el módulo de radio exterior (24 radios) como en el ejercicio principal.</li>
+                            <li>Para el anillo interior, crea un segundo módulo más corto que termine en el radio interior.</li>
+                            <li>Usa <span class="command">ARRAYPOLAR</span> con 12 elementos para el anillo interior, con un ángulo de 30° entre ellos.</li>
+                            <li>Coloca los radios interiores en las posiciones 15°, 45°, 75°, etc. para que se alternen con los exteriores.</li>
+                            <li>Asegúrate de que los grosores de línea sean consistentes.</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="exercise">
+            <h2><i class="fas fa-question-circle"></i> Preguntas Frecuentes</h2>
+            <div class="exercise-content">
+                <details>
+                    <summary>¿Cómo puedo verificar que la matriz polar se creó correctamente?</summary>
+                    <p>Usa el comando <span class="command">LIST</span> en uno de los radios para verificar sus propiedades. También puedes usar <span class="command">DIST</span> para medir la distancia entre radios consecutivos y asegurarte de que la separación es uniforme.</p>
+                </details>
+                
+                <details>
+                    <summary>¿Qué hago si la matriz polar no se crea correctamente?</summary>
+                    <p>Verifica que el punto base de la matriz esté correctamente definido en el centro (0,0). Asegúrate también de que el módulo de radio esté correctamente posicionado antes de crear la matriz. Si el problema persiste, intenta recrear el módulo de radio desde cero.</p>
+                </details>
+                
+                <details>
+                    <summary>¿Cómo puedo modificar la matriz después de crearla?</summary>
+                    <p>Selecciona la matriz y abre el panel de propiedades (<span class="command">PROPIEDADES</span> o <span class="command">CH</span>). Desde allí puedes modificar el número de elementos, el ángulo de relleno y otros parámetros. También puedes usar el comando <span class="command">ARRAYEDIT</span> para editar matrices existentes.</p>
+                </details>
+            </div>
+        </div>
+        
+        <div style="text-align: center; margin: 2rem 0;">
+            <a href="index.html" class="btn"><i class="fas fa-home"></i> Volver al Menú Principal</a>
+            <a href="ejercicio_rombo_concentrico.html" class="btn btn-outline"><i class="fas fa-arrow-right"></i> Ejercicio Anterior</a>
+        </div>
+        
+        <footer>
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-section">
+                        <h3>Recursos Adicionales</h3>
+                        <ul>
+                            <li><a href="https://www.autodesk.com/support/" target="_blank" rel="noopener"><i class="fas fa-book"></i> Documentación Oficial</a></li>
+                            <li><a href="https://www.autodesk.com/tutorials" target="_blank" rel="noopener"><i class="fas fa-graduation-cap"></i> Tutoriales de AutoCAD</a></li>
+                            <li><a href="https://forums.autodesk.com/" target="_blank" rel="noopener"><i class="fas fa-comments"></i> Foros de la Comunidad</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-section">
+                        <h3>Compartir</h3>
+                        <div class="social-links">
+                            <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
+                            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="social-icon"><i class="fab fa-linkedin"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; JMGV-PTEL-2025 - Todos los derechos reservados</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+    
+    <script>
+        // Función para mostrar/ocultar soluciones
+        function toggleSolution(id) {
+            const solution = document.getElementById(id);
+            if (solution.style.display === 'block') {
+                solution.style.display = 'none';
+            } else {
+                // Cerrar todas las soluciones primero
+                document.querySelectorAll('.solution').forEach(sol => {
+                    sol.style.display = 'none';
+                });
+                // Mostrar la solución seleccionada
+                solution.style.display = 'block';
+            }
+        }
+        
+        // Cerrar soluciones al hacer clic fuera de ellas
+        document.addEventListener('click', function(event) {
+            if (!event.target.matches('.btn') && !event.target.closest('.solution')) {
+                document.querySelectorAll('.solution').forEach(solution => {
+                    solution.style.display = 'none';
+                });
+            }
+        });
+        
+        // Evitar que el clic en la solución cierre el menú desplegable
+        document.querySelectorAll('.solution').forEach(solution => {
+            solution.addEventListener('click', function(event) {
+                event.stopPropagation();
+            });
+        });
+    </script>
+</body>
+</html>
