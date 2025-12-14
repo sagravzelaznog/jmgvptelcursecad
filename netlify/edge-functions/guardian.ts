@@ -16,13 +16,18 @@ export default async (request: Request, context: Context) => {
   // Luego revisamos si ya la tiene guardada en las cookies
   let token = url.searchParams.get("t") || context.cookies.get("mi_token_acceso");
 
-  // 2. SI NO HAY TOKEN -> FUERA
+  // --- MODO DEPURACIÓN ON ---
   if (!token) {
-    // Aquí podrías redirigir a tu página de login externa
-    // return Response.redirect("https://tudominio.com/login", 302);
-    
+    // En lugar de error, imprimimos qué ve el servidor
     return new Response(
-      "<h1>401 - Acceso Denegado</h1><p>Necesitas iniciar sesión para ver este contenido.</p>",
+      `
+      <h1>🕵️ DEBUG MODE</h1>
+      <p><strong>Estado:</strong> El Guardián no encontró el token.</p>
+      <p><strong>URL Recibida:</strong> ${request.url}</p>
+      <p><strong>Cookies encontradas:</strong> ${JSON.stringify(context.cookies.getAll())}</p>
+      <hr>
+      <p><em>Sugerencia: Revisa si la URL en tu navegador tiene ?t=algo_muy_largo al final.</em></p>
+      `,
       { 
         status: 401, 
         headers: { "content-type": "text/html" } 
