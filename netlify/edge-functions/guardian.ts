@@ -1,105 +1,98 @@
-import { Context } from "https://edge.netlify.com";
+// guardian.ts - Versión Blindada sin Dependencias Externas
 
-export default async (request: Request, context: Context) => {
-  const url = new URL(request.url);
+export default async (request: Request, context: any) => {
+	// 🛡️ BLOQUE DE SEGURIDAD GLOBAL
+	// Si algo falla aquí adentro, no crasheamos, mostramos el error en pantalla.
+	try {
+			const url = new URL(request.url);
 
-  // --- LÓGICA DE EXCEPCIONES ---
-  // Si tienes una carpeta de recursos públicos (ej. css, imagenes), agrégala aquí para que no se bloquee.
-  // Si tu login está en este mismo dominio, agrega "/login" aquí.
-  const publicPaths = ["/favicon.ico", "/login"];
-  if (publicPaths.some(path => url.pathname.startsWith(path))) {
-    return context.next(); // Dejar pasar sin revisar
-  }
+			// --- 0. EXCEPCIONES (Archivos estáticos y login) ---
+			// Si es un favicon o assets, dejamos pasar sin revisar nada
+			if (url.pathname.includes("favicon") || url.pathname.includes(".css") || url.pathname.includes(".js")) {
+					return context.next();
+			}
 
-  // 1. BUSCAR LA "LLAVE" (El Token)
-  // Primero revisamos si viene en la URL (al hacer clic desde el portal)
-  // Luego revisamos si ya la tiene guardada en las cookies
-  let token = url.searchParams.get("t") || context.cookies.get("mi_token_acceso");
+			// --- 1. BUSCAR LA "LLAVE" (Token) ---
+			// Intentamos leer de la URL o de las Cookies de forma segura
+			let token = url.searchParams.get("t");
+			
+			// Lectura segura de cookies (a veces context.cookies falla si no existe)
+			if (!token && context.cookies) {
+					token = context.cookies.get("mi_token_acceso");
+			}
 
-  // --- MODO DEPURACIÓN ON ---
-  if (!token) {
-    // En lugar de error, imprimimos qué ve el servidor
-    return new Response(
-      `
-      <h1>🕵️ DEBUG MODE</h1>
-      <p><strong>Estado:</strong> El Guardián no encontró el token.</p>
-      <p><strong>URL Recibida:</strong> ${request.url}</p>
-      <p><strong>Cookies encontradas:</strong> ${JSON.stringify(context.cookies.getAll())}</p>
-      <hr>
-      <p><em>Sugerencia: Revisa si la URL en tu navegador tiene ?t=algo_muy_largo al final.</em></p>
-      `,
-      { 
-        status: 401, 
-        headers: { "content-type": "text/html" } 
-      }
-    );
-  }
+			// --- MODO DEPURACIÓN VISUAL ---
+			// Si no hay token, mostramos la pantalla de Debug en lugar de un error 401 simple
+			if (!token) {
+					return new Response(`
+							<html>
+									<body style="font-family: sans-serif; background: #222; color: #fff; padding: 20px;">
+											<h1>🕵️ MODO DEBUG: NO TOKEN</h1>
+											<p>El Guardián está vivo, pero no ve tu pase.</p>
+											<p><strong>URL actual:</strong> ${url.pathname}</p>
+											<p><strong>Cookies detectadas:</strong> ${context.cookies ? 'Sistema de cookies activo' : 'Sistema de cookies inactivo'}</p>
+											<hr>
+											<p>Por favor, usa el portal_acceso.html para generar un enlace.</p>
+									</body>
+							</html>`, 
+							{ headers: { "content-type": "text/html" } }
+					);
+			}
 
-  // 3. SI EL TOKEN VIENE EN LA URL -> GUARDARLO EN COOKIE
-  // Esto es para limpiar la URL y que el usuario no tenga que enviar el token cada vez
-  if (url.searchParams.get("t")) {
-    // Eliminamos el parámetro 't' de la URL para que se vea limpia
-    url.searchParams.delete("t");
-    
-    const response = Response.redirect(url.toString(), 302);
-    
-    // Guardamos la cookie segura
-    response.headers.set("Set-Cookie", `mi_token_acceso=${token}; Path=/; HttpOnly; Secure; Max-Age=3600`);
-    
-    return response;
-  }
+			// --- 2. GESTIÓN DE COOKIE (Si viene en URL) ---
+			if (url.searchParams.get("t")) {
+					url.searchParams.delete("t");
+					const response = Response.redirect(url.toString(), 302);
+					// Cookie simplificada al máximo para evitar errores de sintaxis
+					response.headers.set("Set-Cookie", `mi_token_acceso=${token}; Path=/; Max-Age=3600`);
+					return response;
+			}
 
-  // 4. LEER EL CONTENIDO DEL TOKEN (Decodificar JWT)
-  // Un token JWT tiene 3 partes separadas por puntos. La segunda parte es la data (payload).
-  try {
-    const parts = token.split(".");
-    if (parts.length !== 3) throw new Error("Token malformado");
-    
-    // Decodificamos la parte central (Base64Url -> JSON)
-    const payload = JSON.parse(atob(parts[1].replace(/-/g, '+').replace(/_/g, '/')));
-    
-    // 5. VALIDAR ROLES (Aquí aplicamos tu lógica de niveles)
-    // Definimos el nivel de poder de cada rol
-    const roleLevels: Record<string, number> = {
-      "invitado": 0,
-      "gratuito": 1,
-      "plata": 2,
-      "oro": 3,
-      "admin": 99
-    };
+			// --- 3. DECODIFICAR TOKEN (La parte peligrosa) ---
+			let payload;
+			try {
+					const parts = token.split(".");
+					if (parts.length !== 3) throw new Error("Token incompleto (no tiene 3 partes)");
+					
+					// Decodificación manual segura para Base64Url
+					const base64Url = parts[1];
+					const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+					// Fix para padding de base64 si es necesario
+					const pad = base64.length % 4;
+					const paddedBase64 = pad ? base64 + '='.repeat(4 - pad) : base64;
+					
+					payload = JSON.parse(atob(paddedBase64));
+			} catch (e) {
+					// Si el token es basura, lo reportamos sin crashear
+					return new Response(`Error decodificando token: ${e.message}`, { status: 400 });
+			}
 
-    // Obtenemos el rol del usuario (si no tiene, es invitado)
-    // Nota: Firebase guarda los roles custom en 'claims', aquí asumimos que viene en el token como 'role'
-    // o dentro de un objeto 'firebase.sign_in_provider' dependiendo de cómo lo guardes.
-    // Para este tutorial, asumiremos que tu token tiene un campo "role".
-    const userRole = payload.role || "invitado"; 
-    let userLevel = roleLevels[userRole] || 0;
-				// --- EL TRUCO DEL GENIO (Backdoor) ---
-    // Reemplaza 'tu_correo@gmail.com' con el correo real con el que vas a entrar.
-    // Esto sobreescribe tu nivel y te vuelve Admin Supremo instantáneamente.
-    if (payload.email === "primomanuelsagraves@gmail.com") {
-					console.log("¡Detectado acceso de Administrador por Email!");
-					userLevel = 99; 
+			// --- 4. VALIDACIÓN DE ACCESO ---
+			const userRole = payload.role || "invitado";
+			
+			// >>> TU BACKDOOR (Acceso Maestro) <<<
+			// Reemplaza con tu correo real
+			if (payload.email === "primomanuelsagrav@GMAIL.COM") {
+						return context.next(); // Pasa directo, eres el jefe
+			}
+
+			// Niveles normales
+			const roleLevels: any = { "invitado": 0, "gratuito": 1, "plata": 2, "oro": 3, "admin": 99 };
+			const userLevel = roleLevels[userRole] || 0;
+
+			if (userLevel < 2) { // Requiere Plata
+					return new Response("<h1>Acceso Denegado: Nivel insuficiente</h1>", { headers: {"content-type": "text/html"}, status: 403 });
+			}
+
+			// Si llegamos aquí, todo bien
+			return context.next();
+
+	} catch (criticalError: any) {
+			// 🚑 CAPTURA DE EMERGENCIA
+			// Si algo explota (Crash), esto lo atrapa y te muestra el error real
+			return new Response(
+					`CRASH REPORT:\n\nMessage: ${criticalError.message}\nStack: ${criticalError.stack}`,
+					{ status: 500 }
+			);
 	}
-	// -------------------------------------
-
-    // REGLA MAESTRA:
-    // Para este ejemplo, protegemos TODO el sitio. Solo nivel 'plata' o superior entra.
-    // (Puedes ajustar esto a 'gratuito' si quieres)
-    const MIN_LEVEL_REQUIRED = 2; // Nivel Plata
-
-    if (userLevel < MIN_LEVEL_REQUIRED) {
-       return new Response(
-        `<h1>403 - Nivel Insuficiente</h1><p>Tu nivel es: <strong>${userRole}</strong>. Necesitas ser nivel Plata.</p>`,
-        { status: 403, headers: { "content-type": "text/html" } }
-      );
-    }
-
-  } catch (err) {
-    // Si el token es basura o expiró
-    return new Response("Token inválido o corrupto.", { status: 403 });
-  }
-
-  // 6. SI TODO ESTÁ BIEN -> ADELANTE
-  return context.next();
 };
