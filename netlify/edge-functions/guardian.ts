@@ -66,7 +66,7 @@ export default async (request: Request, context: any) => {
 			const userRole = payload.role || "invitado";
 			
 			// >>> ⚠️ TU BACKDOOR (IMPORTANTE: PON TU CORREO REAL ABAJO) <<<
-			if (payload.email === "primomanuelsagrav@GMAIL.COM") {
+			if (payload.email === "primomanuelsagrav@gmail.com") {
 						return context.next(); // Pasa directo
 			}
 			// >>> ------------------------------------------------ <<<
