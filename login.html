@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Portal de Acceso - Genio Fullstack</title>
+    <style>
+        /* ESTILOS DE GENIO (Para que se vea Hacker) */
+        body { 
+            font-family: 'Courier New', monospace; 
+            background: #0d0d0d; 
+            color: #00ff00; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+            height: 100vh; 
+            margin: 0;
+        }
+        .card { 
+            border: 2px solid #00ff00; 
+            padding: 3rem; 
+            border-radius: 10px; 
+            text-align: center; 
+            background: #1a1a1a;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.2);
+            max-width: 400px;
+        }
+        h2 { margin-top: 0; text-transform: uppercase; letter-spacing: 2px; }
+        
+        /* El Botón de Login (Gris al principio) */
+        .btn-login {
+            background: #444; 
+            color: #fff; 
+            border: 1px solid #fff; 
+            padding: 15px 30px; 
+            font-size: 16px; 
+            cursor: pointer; 
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        
+        /* El Botón de Entrar (Oculto o Deshabilitado al principio) */
+        .btn-go {
+            background: #00ff00; 
+            color: #000; 
+            border: none; 
+            padding: 15px 30px; 
+            font-weight: bold; 
+            font-size: 18px; 
+            cursor: pointer; 
+            width: 100%;
+            display: none; /* Oculto hasta que te loguees */
+            text-transform: uppercase;
+            box-shadow: 0 0 15px #00ff00;
+        }
+        .btn-go:hover { background: #fff; }
+
+        .status-box {
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h2>🔐 CONTROL DE ACCESO</h2>
+        
+        <div class="status-box">
+            Estado: <span id="status" style="color: yellow;">Esperando conexión...</span>
+        </div>
+
+        <button id="btnLogin" class="btn-login" onclick="login()">
+            1. INICIAR SESIÓN CON GOOGLE
+        </button>
+        
+        <button id="btnGo" class="btn-go" onclick="irAlCurso()">
+            🚀 2. ENTRAR AL SITIO
+        </button>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAuth, GoogleAuthProvider, signInWithRedirect, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+        // --- ⚠️ PEGA AQUÍ TU CONFIGURACIÓN DE FIREBASE (Bórralo y pon la tuya) ---
+        const firebaseConfig = {
+  apiKey: "AIzaSyC08vUkWdQ9Ad3PaXS0uZ0yu_EWWBaq-aQ",
+  authDomain: "acceso-a-cursos-4a314.firebaseapp.com",
+  projectId: "acceso-a-cursos-4a314",
+  storageBucket: "acceso-a-cursos-4a314.firebasestorage.app",
+  messagingSenderId: "851856735092",
+  appId: "1:851856735092:web:15f5abb5466f15f84c4a21",
+  measurementId: "G-P6N9W3TP7M"
+        };
+        // -------------------------------------------------------------------------
+
+        // Inicializamos Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth();
+        const provider = new GoogleAuthProvider();
+
+        // Variables de la interfaz
+        const statusText = document.getElementById("status");
+        const btnLogin = document.getElementById("btnLogin");
+        const btnGo = document.getElementById("btnGo");
+
+        // --- DETECTOR DE ESTADO (El Ojo que todo lo ve) ---
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                // SI EL USUARIO ESTÁ LOGUEADO:
+                statusText.innerHTML = `✅ USUARIO: <strong>${user.email}</strong>`;
+                statusText.style.color = "#00ff00";
+                
+                // Ocultamos botón de login
+                btnLogin.style.display = "none";
+                
+                // Mostramos botón de entrar (¡AQUÍ APARECE!)
+                btnGo.style.display = "block";
+                
+            } else {
+                // SI NO ESTÁ LOGUEADO:
+                statusText.innerText = "Desconectado. Por favor inicia sesión.";
+                btnLogin.style.display = "block";
+                btnGo.style.display = "none";
+            }
+        });
+
+        // Función de Login (Redirección)
+        window.login = async function() {
+            try {
+                statusText.innerText = "Redirigiendo a Google...";
+                await signInWithRedirect(auth, provider);
+            } catch (error) {
+                alert("Error: " + error.message);
+            }
+        }
+
+        // Función de Entrar (Generar Pase)
+        window.irAlCurso = async function() {
+            const user = auth.currentUser;
+            if (!user) return alert("Error: No hay usuario detectado.");
+
+            // Texto de carga
+            btnGo.innerText = "GENERANDO PASE...";
+            
+            // Obtener Token Fresco
+            const token = await user.getIdToken(true);
+            
+            // Construir URL
+            const targetUrl = "https://jgvmptelcursecad.netlify.app";
+            
+            // Viajar
+            window.location.href = `${targetUrl}?t=${token}`;
+        }
+    </script>
+
+</body>
+</html>

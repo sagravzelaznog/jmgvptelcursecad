@@ -5,7 +5,8 @@ export default async (request: Request, context: any) => {
 			const url = new URL(request.url);
 
 			// --- 0. EXCEPCIONES (Archivos estáticos y login) ---
-			if (url.pathname.includes("favicon") || url.pathname.includes(".css") || url.pathname.includes(".js")) {
+			if (url.pathname.includes("favicon") || url.pathname.includes(".css") || url.pathname.includes(".js")|| 
+			url.pathname.includes("/login")) {
 					return context.next();
 			}
 
